@@ -362,7 +362,6 @@
 				2C6D26AC1896BACA00C459CB /* MBProgressHUD */,
 				2C6D26B11896BACA00C459CB /* MNMPullToRefresh */,
 				2C6D26BC1896BACA00C459CB /* MRProgress */,
-				2C6D26C01896BACA00C459CB /* PNTToolbar */,
 				2C6D26C31896BACA00C459CB /* SBJson */,
 				2C6D26D91896BACA00C459CB /* UIDevice+Resolutions */,
 			);
@@ -520,12 +519,14 @@
 				2C6D26C11896BACA00C459CB /* PNTToolbar.h */,
 				2C6D26C21896BACA00C459CB /* PNTToolbar.m */,
 			);
-			path = PNTToolbar;
+			name = PNTToolbar;
+			path = ../PNTToolbar;
 			sourceTree = "<group>";
 		};
 		2C6D26C31896BACA00C459CB /* SBJson */ = {
 			isa = PBXGroup;
 			children = (
+				2C6D26C01896BACA00C459CB /* PNTToolbar */,
 				2C6D26C41896BACA00C459CB /* SBJson.h */,
 				2C6D26C51896BACA00C459CB /* SBJsonParser.h */,
 				2C6D26C61896BACA00C459CB /* SBJsonParser.m */,
@@ -968,6 +969,11 @@
 				CLASSPREFIX = WLI;
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Goran Vuksic";
+				TargetAttributes = {
+					2CCE1A9417ECD32B00680126 = {
+						DevelopmentTeam = BHFYPPS9AQ;
+					};
+				};
 			};
 			buildConfigurationList = 2CCE1A9017ECD32B00680126 /* Build configuration list for PBXProject "MyDrive" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1144,6 +1150,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1187,6 +1194,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1212,6 +1220,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WeLike/3rdParty/AviarySDK",
@@ -1219,6 +1228,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeLike/MyDrive-Prefix.pch";
 				INFOPLIST_FILE = "WeLike/MyDrive-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WeLike/3rdParty/AviarySDK",
@@ -1228,6 +1238,7 @@
 					"-all_load",
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.appmedia.MyDrive;
 				PRODUCT_NAME = MyDrive;
 				VALID_ARCHS = "arm64 armv7s armv7";
 				WRAPPER_EXTENSION = app;
@@ -1240,6 +1251,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WeLike/3rdParty/AviarySDK",
@@ -1247,6 +1259,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeLike/MyDrive-Prefix.pch";
 				INFOPLIST_FILE = "WeLike/MyDrive-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WeLike/3rdParty/AviarySDK",
@@ -1256,6 +1269,7 @@
 					"-all_load",
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.appmedia.MyDrive;
 				PRODUCT_NAME = MyDrive;
 				VALID_ARCHS = "arm64 armv7s armv7";
 				WRAPPER_EXTENSION = app;
