@@ -286,15 +286,15 @@
 		2C6D27541896BACA00C459CB /* WLIWelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIWelcomeViewController.xib; sourceTree = "<group>"; };
 		2C6D27561896BACA00C459CB /* WLIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIViewController.h; sourceTree = "<group>"; };
 		2C6D27571896BACA00C459CB /* WLIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIViewController.m; sourceTree = "<group>"; };
-		2C6D27581896BACA00C459CB /* WeLike-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WeLike-Info.plist"; sourceTree = "<group>"; };
-		2C6D27591896BACA00C459CB /* WeLike-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WeLike-Prefix.pch"; sourceTree = "<group>"; };
+		2C6D27581896BACA00C459CB /* MyDrive-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MyDrive-Info.plist"; sourceTree = "<group>"; };
+		2C6D27591896BACA00C459CB /* MyDrive-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MyDrive-Prefix.pch"; sourceTree = "<group>"; };
 		2C8AF27A1A1B76BB0003B22E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2C8AF27D1A1B77220003B22E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2C8AF27F1A1B772F0003B22E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2CA087011AC941C7002696D9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		2CA087031AC948BB002696D9 /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		2CA087051AC94967002696D9 /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
-		2CCE1A9517ECD32B00680126 /* WeLike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeLike.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CCE1A9517ECD32B00680126 /* MyDrive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDrive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CCE1A9817ECD32B00680126 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CCE1A9A17ECD32B00680126 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2CCE1A9C17ECD32B00680126 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -345,8 +345,8 @@
 				2C6D26F21896BACA00C459CB /* Other */,
 				2C6D26F41896BACA00C459CB /* View */,
 				2C6D27151896BACA00C459CB /* ViewController */,
-				2C6D27581896BACA00C459CB /* WeLike-Info.plist */,
-				2C6D27591896BACA00C459CB /* WeLike-Prefix.pch */,
+				2C6D27581896BACA00C459CB /* MyDrive-Info.plist */,
+				2C6D27591896BACA00C459CB /* MyDrive-Prefix.pch */,
 			);
 			path = WeLike;
 			sourceTree = "<group>";
@@ -905,7 +905,7 @@
 		2CCE1A9617ECD32B00680126 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2CCE1A9517ECD32B00680126 /* WeLike.app */,
+				2CCE1A9517ECD32B00680126 /* MyDrive.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -942,9 +942,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2CCE1A9417ECD32B00680126 /* WeLike */ = {
+		2CCE1A9417ECD32B00680126 /* MyDrive */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2CCE1AC117ECD32B00680126 /* Build configuration list for PBXNativeTarget "WeLike" */;
+			buildConfigurationList = 2CCE1AC117ECD32B00680126 /* Build configuration list for PBXNativeTarget "MyDrive" */;
 			buildPhases = (
 				2CCE1A9117ECD32B00680126 /* Sources */,
 				2CCE1A9217ECD32B00680126 /* Frameworks */,
@@ -954,9 +954,9 @@
 			);
 			dependencies = (
 			);
-			name = WeLike;
+			name = MyDrive;
 			productName = WeLikeInk;
-			productReference = 2CCE1A9517ECD32B00680126 /* WeLike.app */;
+			productReference = 2CCE1A9517ECD32B00680126 /* MyDrive.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -969,7 +969,7 @@
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Goran Vuksic";
 			};
-			buildConfigurationList = 2CCE1A9017ECD32B00680126 /* Build configuration list for PBXProject "WeLike" */;
+			buildConfigurationList = 2CCE1A9017ECD32B00680126 /* Build configuration list for PBXProject "MyDrive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -983,7 +983,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2CCE1A9417ECD32B00680126 /* WeLike */,
+				2CCE1A9417ECD32B00680126 /* MyDrive */,
 			);
 		};
 /* End PBXProject section */
@@ -1217,8 +1217,8 @@
 					"$(PROJECT_DIR)/WeLike/3rdParty/AviarySDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WeLike/WeLike-Prefix.pch";
-				INFOPLIST_FILE = "WeLike/WeLike-Info.plist";
+				GCC_PREFIX_HEADER = "WeLike/MyDrive-Prefix.pch";
+				INFOPLIST_FILE = "WeLike/MyDrive-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WeLike/3rdParty/AviarySDK",
@@ -1228,7 +1228,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = WeLike;
+				PRODUCT_NAME = MyDrive;
 				VALID_ARCHS = "arm64 armv7s armv7";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1245,8 +1245,8 @@
 					"$(PROJECT_DIR)/WeLike/3rdParty/AviarySDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WeLike/WeLike-Prefix.pch";
-				INFOPLIST_FILE = "WeLike/WeLike-Info.plist";
+				GCC_PREFIX_HEADER = "WeLike/MyDrive-Prefix.pch";
+				INFOPLIST_FILE = "WeLike/MyDrive-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WeLike/3rdParty/AviarySDK",
@@ -1256,7 +1256,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_NAME = WeLike;
+				PRODUCT_NAME = MyDrive;
 				VALID_ARCHS = "arm64 armv7s armv7";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1265,7 +1265,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2CCE1A9017ECD32B00680126 /* Build configuration list for PBXProject "WeLike" */ = {
+		2CCE1A9017ECD32B00680126 /* Build configuration list for PBXProject "MyDrive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CCE1ABF17ECD32B00680126 /* Debug */,
@@ -1274,7 +1274,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2CCE1AC117ECD32B00680126 /* Build configuration list for PBXNativeTarget "WeLike" */ = {
+		2CCE1AC117ECD32B00680126 /* Build configuration list for PBXNativeTarget "MyDrive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CCE1AC217ECD32B00680126 /* Debug */,

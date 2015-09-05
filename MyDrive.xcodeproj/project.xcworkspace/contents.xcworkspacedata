@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:WeLike.xcodeproj">
+      location = "self:/Users/geir/AppMedia/Customers/Santander/MyDrive/MyDrive.xcodeproj">
    </FileRef>
 </Workspace>

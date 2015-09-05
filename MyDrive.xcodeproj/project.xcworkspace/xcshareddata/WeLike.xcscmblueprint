@@ -6,11 +6,13 @@
     }
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "04ad2d75-7bef-401f-b717-795e32fee0c2++358" : 0
+    "04ad2d75-7bef-401f-b717-795e32fee0c2++358" : 0,
+    "78D5E2802B32D368EBAFBB7593B6CA1568578525" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "9474967A-B995-4452-9BA7-1EB4CDDB9548",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "04ad2d75-7bef-401f-b717-795e32fee0c2++358" : "WeLike.xcodeproj\/"
+    "04ad2d75-7bef-401f-b717-795e32fee0c2++358" : "WeLike.xcodeproj\/",
+    "78D5E2802B32D368EBAFBB7593B6CA1568578525" : ""
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : ".",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -20,6 +22,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/planet1107.svn.beanstalkapp.com\/wli",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "04ad2d75-7bef-401f-b717-795e32fee0c2++358"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "david.appmedia.no:repo\/iOS\/MyDrive.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "78D5E2802B32D368EBAFBB7593B6CA1568578525"
     }
   ]
 }
