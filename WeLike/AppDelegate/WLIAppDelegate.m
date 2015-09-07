@@ -13,11 +13,17 @@
 #import "WLIProfileViewController.h"
 #import "WLITimelineViewController.h"
 #import "WLIConnect.h"
+//#import <Fabric/Fabric.h>
+//#import <Crashlytics/Crashlytics.h>
+
 
 
 @implementation WLIAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+ //   [Fabric with:@[[Crashlytics class]]];
+
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
