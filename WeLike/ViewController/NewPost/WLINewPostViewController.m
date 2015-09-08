@@ -20,6 +20,7 @@
     if (self) {
         // Custom initialization
         self.title = @"New post";
+        self.video = nil;
         [AFPhotoEditorController setAPIKey:kAviaryKey secret:kAviarySecret];
     }
     return self;
@@ -60,7 +61,7 @@
     if ([self.textViewPost isFirstResponder]) {
         [self.textViewPost resignFirstResponder];
     }
-    [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Gallery", @"Camera", nil] showInView:self.view];
+    [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo Gallery", @"Photo Camera", @"Video Gallery", @"Video Camera", nil] showInView:self.view];
 }
 
 - (IBAction)buttonSendTouchUpInside:(id)sender {
@@ -74,12 +75,24 @@
         if ([self.textViewPost isFirstResponder]) {
             [self.textViewPost resignFirstResponder];
         }
-        [sharedConnect sendPostWithTitle:self.textViewPost.text postKeywords:nil postImage:self.imageViewPost.image onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
-            [hud hide:YES];
-            self.imageViewPost.image = nil;
-            self.textViewPost.text = @"";
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
+        if (self.video == nil)
+        {
+            [sharedConnect sendPostWithTitle:self.textViewPost.text postKeywords:nil postImage:self.imageViewPost.image onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
+                [hud hide:YES];
+                self.imageViewPost.image = nil;
+                self.textViewPost.text = @"";
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }];
+        }
+        else
+        {
+            [sharedConnect sendPostWithTitle:self.textViewPost.text postKeywords:nil postImage:self.imageViewPost.image postVideo:self.video onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
+                [hud hide:YES];
+                self.imageViewPost.image = nil;
+                self.textViewPost.text = @"";
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }];
+        }
     }
 }
 
@@ -87,14 +100,37 @@
 #pragma mark - UIImagePickerDelegate methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    
-    AFPhotoEditorController *photoEditorController = [[AFPhotoEditorController alloc] initWithImage:image];
-    photoEditorController.delegate = self;
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self presentViewController:photoEditorController animated:YES completion:nil];
-    }];
+    UIImage *image;
+    if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:@"kUTTypeImage"])
+    {
+        image = [info objectForKey:UIImagePickerControllerEditedImage];
+        
+        AFPhotoEditorController *photoEditorController = [[AFPhotoEditorController alloc] initWithImage:image];
+        photoEditorController.delegate = self;
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self presentViewController:photoEditorController animated:YES completion:nil];
+        }];
+    }
+    else
+    {
+        _video = [NSData dataWithContentsOfURL:[info objectForKey:UIImagePickerControllerMediaURL]];
+        AVURLAsset *videoAsset = [[AVURLAsset alloc] initWithURL:[info objectForKey:UIImagePickerControllerMediaURL] options:nil];
+        AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:videoAsset];
+        generator.appliesPreferredTrackTransform = YES;
+        NSError *err = NULL;
+        CMTime thumbTime = CMTimeMakeWithSeconds(0,30);
+        CGSize maxSize = CGSizeMake(640,480);
+        generator.maximumSize = maxSize;
+        
+        CGImageRef imgRef = [generator copyCGImageAtTime:thumbTime actualTime:NULL error:&err];
+        image = [[UIImage alloc] initWithCGImage:imgRef];
+        
+        self.imageViewPost.image = image;
+        [self.buttonPostImage setTitle:@"" forState:UIControlStateNormal];
+        if (![self.textViewPost isFirstResponder]) {
+            [self.textViewPost becomeFirstResponder];
+        }
+    }
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -111,13 +147,40 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Gallery"]) {
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Video Gallery"]) {
+        UIImagePickerController *videoPickerController = [[UIImagePickerController alloc] init];
+        videoPickerController.delegate = self;
+        videoPickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+//        videoPickerController.allowsEditing = NO;
+        videoPickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        videoPickerController.mediaTypes = @[(NSString *) kUTTypeMovie,
+                                             (NSString *) kUTTypeVideo,
+                                             (NSString *) kUTTypeQuickTimeMovie,
+                                             (NSString *) kUTTypeMPEG,
+                                             (NSString *) kUTTypeMPEG4];
+        
+        [self presentViewController:videoPickerController animated:YES completion:nil];
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Video Camera"]) {
+        UIImagePickerController *videoPickerController = [[UIImagePickerController alloc] init];
+        videoPickerController.delegate = self;
+//        videoPickerController.allowsEditing = NO;
+        videoPickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        videoPickerController.mediaTypes = @[(NSString *) kUTTypeMovie,
+                                             (NSString *) kUTTypeVideo,
+                                             (NSString *) kUTTypeQuickTimeMovie,
+                                             (NSString *) kUTTypeMPEG,
+                                             (NSString *) kUTTypeMPEG4];
+        videoPickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+        videoPickerController.videoQuality = UIImagePickerControllerQualityType640x480;
+        videoPickerController.videoMaximumDuration = 60;
+        [self presentViewController:videoPickerController animated:YES completion:nil];
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Photo Gallery"]) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.delegate = self;
         imagePickerController.allowsEditing = YES;
         imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         [self presentViewController:imagePickerController animated:YES completion:nil];
-    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Camera"]) {
+    } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Photo Camera"]) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.delegate = self;
         imagePickerController.allowsEditing = YES;

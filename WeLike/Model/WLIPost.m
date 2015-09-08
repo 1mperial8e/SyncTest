@@ -18,6 +18,7 @@
         _postID = [self integerFromDictionary:postWithInfo forKey:@"postID"];
         _postTitle = [self stringFromDictionary:postWithInfo forKey:@"postTitle"];
         _postImagePath = [self stringFromDictionary:postWithInfo forKey:@"postImage"];
+        _postVideoPath = [self stringFromDictionary:postWithInfo forKey:@"postVideo"];
         _postDate = [self dateFromDictionary:postWithInfo forKey:@"postDate"];
         if (_postDate) {
             _postTimeAgo = [_postDate dateTimeAgo];

@@ -94,6 +94,10 @@ static WLIPostCell *sharedCell = nil;
             
             if (downloads) {
                 [self.imageViewPostImage setImageWithURL:[NSURL URLWithString:self.post.postImagePath]];
+                if (self.post.postVideoPath.length)
+                {
+                    
+                }
             }
         } else {
             self.buttonLike.frame = CGRectMake(self.buttonLike.frame.origin.x, CGRectGetMinY(self.imageViewPostImage.frame), self.buttonLike.frame.size.width, self.buttonLike.frame.size.height);

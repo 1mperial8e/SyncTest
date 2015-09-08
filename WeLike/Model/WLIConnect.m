@@ -368,6 +368,51 @@ static WLIConnect *sharedConnect;
     }
 }
 
+- (void)sendPostWithTitle:(NSString*)postTitle postKeywords:(NSArray*)postKeywords postImage:(UIImage*)postImage postVideo:(NSData*)postVideoData onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion {
+    
+    if (!postTitle.length && !postVideoData && !postImage) {
+        completion(nil, BAD_REQUEST);
+    } else {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
+        [parameters setObject:postTitle forKey:@"postTitle"];
+        
+        [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            if (postImage) {
+                NSData *imageData = UIImageJPEGRepresentation(postImage, kCompressionQuality);
+                if (imageData) {
+                    [formData appendPartWithFileData:imageData name:@"postImage" fileName:@"image.jpg" mimeType:@"image/jpeg"];
+                }
+            }
+            if (postVideoData) {
+                [formData appendPartWithFileData:postVideoData name:@"postVideo" fileName:@"video.mov" mimeType:@"video/mov"];
+            }
+        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *rawPost = [responseObject objectForKey:@"item"];
+            WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
+            
+            [self debugger:parameters.description methodLog:@"api/sendPost" dataLogFormatted:responseObject];
+            completion(post, OK);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self debugger:parameters.description methodLog:@"api/sendPost" dataLog:error.description];
+            completion(nil, UNKNOWN_ERROR);
+        }];
+        
+        /*
+         [httpClient POST:@"api/sendPost" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+         NSDictionary *rawPost = [responseObject objectForKey:@"item"];
+         WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
+         
+         [self debugger:parameters.description methodLog:@"api/sendPost" dataLogFormatted:responseObject];
+         completion(post, OK);
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         [self debugger:parameters.description methodLog:@"api/sendPost" dataLog:error.description];
+         completion(nil, UNKNOWN_ERROR);
+         }];
+         */
+    }
+}
+
 - (void)recentPostsWithPageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion {
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
