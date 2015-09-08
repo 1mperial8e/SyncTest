@@ -111,6 +111,7 @@
 		2CCE1A9B17ECD32B00680126 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCE1A9A17ECD32B00680126 /* CoreGraphics.framework */; };
 		2CCE1A9D17ECD32B00680126 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCE1A9C17ECD32B00680126 /* UIKit.framework */; };
 		2CF096DD1ACAE1F7004FB868 /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF096DC1ACAE1F7004FB868 /* NSDate+TimeAgo.m */; };
+		2E4851771B9F8C27002216B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4851761B9F8C27002216B7 /* AVFoundation.framework */; };
 		C7B4244B183D0809003B51D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B4244A183D0809003B51D0 /* MapKit.framework */; };
 		C7B424B5183D2507003B51D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B4183D2507003B51D0 /* CoreData.framework */; };
 		C7B424B7183D2519003B51D0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B6183D2519003B51D0 /* MessageUI.framework */; };
@@ -300,6 +301,7 @@
 		2CCE1A9C17ECD32B00680126 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2CF096DB1ACAE1F7004FB868 /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
 		2CF096DC1ACAE1F7004FB868 /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
+		2E4851761B9F8C27002216B7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C7B4244A183D0809003B51D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C7B424B4183D2507003B51D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C7B424B6183D2519003B51D0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -313,6 +315,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E4851771B9F8C27002216B7 /* AVFoundation.framework in Frameworks */,
 				2CA087021AC941C7002696D9 /* MediaPlayer.framework in Frameworks */,
 				2CCE1A9B17ECD32B00680126 /* CoreGraphics.framework in Frameworks */,
 				2C8AF2801A1B772F0003B22E /* QuartzCore.framework in Frameworks */,
@@ -914,6 +917,7 @@
 		2CCE1A9717ECD32B00680126 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E4851761B9F8C27002216B7 /* AVFoundation.framework */,
 				2CA087011AC941C7002696D9 /* MediaPlayer.framework */,
 				2C8AF27F1A1B772F0003B22E /* QuartzCore.framework */,
 				2C8AF27D1A1B77220003B22E /* OpenGLES.framework */,
