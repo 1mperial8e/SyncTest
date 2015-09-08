@@ -13,8 +13,8 @@
 #import "WLIProfileViewController.h"
 #import "WLITimelineViewController.h"
 #import "WLIConnect.h"
-//#import <Fabric/Fabric.h>
-//#import <Crashlytics/Crashlytics.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 
 
@@ -22,7 +22,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
- //   [Fabric with:@[[Crashlytics class]]];
+    [Fabric with:@[[Crashlytics class]]];
 
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

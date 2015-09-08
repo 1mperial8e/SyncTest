@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>FE9A22DC-7AE4-4ADF-B3B2-F7C05E703411</string>
+	<key>IDESourceControlProjectName</key>
+	<string>.</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>04ad2d75-7bef-401f-b717-795e32fee0c2++358</key>
+		<string>https://planet1107.svn.beanstalkapp.com/wli/trunk/WeLikeInk/WeLike.xcodeproj</string>
+		<key>78D5E2802B32D368EBAFBB7593B6CA1568578525</key>
+		<string>david.appmedia.no:repo/iOS/MyDrive.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>.</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>04ad2d75-7bef-401f-b717-795e32fee0c2++358</key>
+		<string>..</string>
+		<key>78D5E2802B32D368EBAFBB7593B6CA1568578525</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>04ad2d75-7bef-401f-b717-795e32fee0c2++358</key>
+		<string>https://planet1107.svn.beanstalkapp.com/wli</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://planet1107.svn.beanstalkapp.com/wli/trunk/WeLikeInk/WeLike.xcodeproj/.</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>04ad2d75-7bef-401f-b717-795e32fee0c2++358</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>78D5E2802B32D368EBAFBB7593B6CA1568578525</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>04ad2d75-7bef-401f-b717-795e32fee0c2++358</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MyDrive.xcodeproj</string>
+		</dict>
+	</array>
+</dict>
+</plist>
