@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07A349121B9D902700C7EBBD /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A349101B9D902700C7EBBD /* Fabric.framework */; };
+		07A349131B9D902700C7EBBD /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A349111B9D902700C7EBBD /* Crashlytics.framework */; };
 		2C5B5C7D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5C6D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m */; };
 		2C5B5C7E1A1A8F9500175A58 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5C6F1A1A8F9500175A58 /* UIActivityIndicatorView+AFNetworking.m */; };
 		2C5B5C7F1A1A8F9500175A58 /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5C711A1A8F9500175A58 /* UIAlertView+AFNetworking.m */; };
@@ -121,6 +123,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07A349101B9D902700C7EBBD /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		07A349111B9D902700C7EBBD /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2C5B5C6C1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		2C5B5C6D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		2C5B5C6E1A1A8F9500175A58 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -326,7 +330,9 @@
 				C7B424B9183D2540003B51D0 /* libsqlite3.0.dylib in Frameworks */,
 				C7B424B7183D2519003B51D0 /* MessageUI.framework in Frameworks */,
 				2CA087041AC948BB002696D9 /* AviarySDK.framework in Frameworks */,
+				07A349131B9D902700C7EBBD /* Crashlytics.framework in Frameworks */,
 				C7B424B5183D2507003B51D0 /* CoreData.framework in Frameworks */,
+				07A349121B9D902700C7EBBD /* Fabric.framework in Frameworks */,
 				C7B4244B183D0809003B51D0 /* MapKit.framework in Frameworks */,
 				2CCE1A9D17ECD32B00680126 /* UIKit.framework in Frameworks */,
 				2CCE1A9917ECD32B00680126 /* Foundation.framework in Frameworks */,
@@ -357,6 +363,8 @@
 		2C6D26751896BACA00C459CB /* 3rdParty */ = {
 			isa = PBXGroup;
 			children = (
+				07A349101B9D902700C7EBBD /* Fabric.framework */,
+				07A349111B9D902700C7EBBD /* Crashlytics.framework */,
 				2CF096DA1ACAE1F7004FB868 /* NSDate-TimeAgo */,
 				2C8AF2811A1B77BA0003B22E /* AviarySDK */,
 				2C6D26761896BACA00C459CB /* AFNetworking */,
@@ -954,6 +962,7 @@
 				2CCE1A9117ECD32B00680126 /* Sources */,
 				2CCE1A9217ECD32B00680126 /* Frameworks */,
 				2CCE1A9317ECD32B00680126 /* Resources */,
+				07A3490F1B9D8FFA00C7EBBD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1035,6 +1044,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		07A3490F1B9D8FFA00C7EBBD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 5ce1ef35ca4b1954a7f308b01bd80931a0071f01 de8b5c6a6955955992a62d75ffb88e2ad61f5aef090d2bca6777f4c4f9a2faee";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2CCE1A9117ECD32B00680126 /* Sources */ = {
@@ -1228,11 +1253,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WeLike/3rdParty/AviarySDK",
+					"$(PROJECT_DIR)/WeLike/3rdParty",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeLike/MyDrive-Prefix.pch";
 				INFOPLIST_FILE = "WeLike/MyDrive-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WeLike/3rdParty/AviarySDK",
@@ -1259,11 +1285,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WeLike/3rdParty/AviarySDK",
+					"$(PROJECT_DIR)/WeLike/3rdParty",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeLike/MyDrive-Prefix.pch";
 				INFOPLIST_FILE = "WeLike/MyDrive-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/WeLike/3rdParty/AviarySDK",
