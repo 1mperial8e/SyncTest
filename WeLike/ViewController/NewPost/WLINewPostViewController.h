@@ -10,9 +10,13 @@
 #import "WLIViewController.h"
 #import <AviarySDK/AviarySDK.h>
 
+@import MediaPlayer;
+@import AVFoundation;
+
 @interface WLINewPostViewController : WLIViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVYPhotoEditorControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewPost;
+@property (strong, nonatomic) NSData *video;
 @property (strong, nonatomic) IBOutlet UIButton *buttonPostImage;
 @property (strong, nonatomic) IBOutlet UITextView *textViewPost;
 @property (strong, nonatomic) IBOutlet UIButton *buttonSend;

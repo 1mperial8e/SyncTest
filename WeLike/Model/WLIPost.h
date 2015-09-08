@@ -14,6 +14,7 @@
 @property (nonatomic) int postID;
 @property (nonatomic, strong) NSString *postTitle;
 @property (nonatomic, strong) NSString *postImagePath;
+@property (nonatomic, strong) NSString *postVideoPath;
 @property (nonatomic, strong) NSDate *postDate;
 @property (nonatomic, strong) NSString *postTimeAgo;
 @property (nonatomic, strong) NSMutableArray *postKeywords;

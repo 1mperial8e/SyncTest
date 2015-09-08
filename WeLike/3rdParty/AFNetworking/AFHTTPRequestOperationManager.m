@@ -146,8 +146,8 @@
                          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
-    NSLog(@"Trying to call: %@", [[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]);
-    NSLog(@"... with paramters: %@", parameters);
+//    NSLog(@"Trying to call: %@", [[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]);
+//    NSLog(@"... with paramters: %@", parameters);
     
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"POST" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:nil];
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];

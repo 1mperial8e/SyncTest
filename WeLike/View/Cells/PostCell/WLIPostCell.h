@@ -9,6 +9,7 @@
 #import "WLITableViewCell.h"
 #import "WLIPost.h"
 #import "UIImageView+AFNetworking.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @class WLIPostCell;
 
@@ -16,6 +17,7 @@
     
     CGRect frameDefaultLabelPostTitle;
     CGRect frameDefaultImageViewPost;
+    MPMoviePlayerViewController *movieController;
 }
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewUser;
@@ -26,12 +28,14 @@
 @property (strong, nonatomic) IBOutlet UIButton *buttonLike;
 @property (strong, nonatomic) IBOutlet UIButton *buttonComment;
 @property (strong, nonatomic) IBOutlet UIButton *buttonLikes;
+@property (strong, nonatomic) IBOutlet UIButton *buttonVideo;
 
 @property (strong, nonatomic) WLIPost *post;
 @property (weak, nonatomic) id<WLICellDelegate> delegate;
 
 - (IBAction)buttonUserTouchUpInside:(id)sender;
 - (IBAction)buttonPostTouchUpInside:(id)sender;
+- (IBAction)buttonVideoTouchUpInside:(id)sender;
 - (IBAction)buttonLikeTouchUpInside:(id)sender;
 - (IBAction)buttonCommentTouchUpInside:(id)sender;
 - (IBAction)buttonLikesTouchUpInside:(id)sender;

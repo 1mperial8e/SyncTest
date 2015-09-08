@@ -51,6 +51,7 @@ static WLIPostCell *sharedCell = nil;
     [self.imageViewPostImage cancelImageRequestOperation];
     self.imageViewPostImage.image = nil;
     self.labelPostTitle.frame = frameDefaultLabelPostTitle;
+    [self.buttonVideo setHidden:YES];
 }
 
 + (CGSize)sizeWithPost:(WLIPost*)post {
@@ -72,6 +73,10 @@ static WLIPostCell *sharedCell = nil;
     if (self.post) {
         if (downloads) {
             [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.post.user.userAvatarPath]];
+            if (self.post.postVideoPath.length)
+            {
+                [self.buttonVideo setHidden:NO];
+            }
         }
         self.labelUserName.text = self.post.user.userFullName;
         self.labelTimeAgo.text = self.post.postTimeAgo;
@@ -94,6 +99,10 @@ static WLIPostCell *sharedCell = nil;
             
             if (downloads) {
                 [self.imageViewPostImage setImageWithURL:[NSURL URLWithString:self.post.postImagePath]];
+                if (self.post.postVideoPath.length)
+                {
+                    [self.buttonVideo setHidden:NO];
+                }
             }
         } else {
             self.buttonLike.frame = CGRectMake(self.buttonLike.frame.origin.x, CGRectGetMinY(self.imageViewPostImage.frame), self.buttonLike.frame.size.width, self.buttonLike.frame.size.height);
@@ -131,7 +140,20 @@ static WLIPostCell *sharedCell = nil;
         [self.delegate showImageForPost:self.post sender:self];
     }
 }
-
+- (IBAction)buttonVideoTouchUpInside:(id)sender {
+    NSLog(@"Trying to play: %@", self.post.postVideoPath);
+    if (self.post.postVideoPath.length)
+    {
+    NSURL *movieURL = [NSURL URLWithString:self.post.postVideoPath];
+    movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:movieURL];
+    [self.delegate presentMoviePlayerViewControllerAnimated:movieController];
+    [movieController.moviePlayer play];
+    }
+    else
+    {
+        [self buttonPostTouchUpInside:self];
+    }
+}
 - (IBAction)buttonLikeTouchUpInside:(id)sender {
     
     if ([self.delegate respondsToSelector:@selector(toggleLikeForPost:sender:)]) {
