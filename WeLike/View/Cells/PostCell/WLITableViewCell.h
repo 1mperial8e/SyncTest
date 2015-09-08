@@ -10,6 +10,8 @@
 #import "WLIUser.h"
 #import "WLIPost.h"
 
+@import MediaPlayer;
+
 @class WLITableViewCell;
 
 @protocol WLICellDelegate <NSObject>
@@ -21,6 +23,7 @@
 - (void)showLikesForPost:(WLIPost *)post sender:(id)senderCell;
 - (void)followUser:(WLIUser *)user sender:(id)senderCell;
 - (void)unfollowUser:(WLIUser *)user sender:(id)senderCell;
+- (void)presentMoviePlayerViewControllerAnimated:(MPMoviePlayerViewController *)moviePlayerViewController;
 
 @end
 

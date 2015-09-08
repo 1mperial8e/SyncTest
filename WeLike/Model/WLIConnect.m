@@ -369,6 +369,8 @@ static WLIConnect *sharedConnect;
 }
 
 - (void)sendPostWithTitle:(NSString*)postTitle postKeywords:(NSArray*)postKeywords postImage:(UIImage*)postImage postVideo:(NSData*)postVideoData onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion {
+    NSLog(@"Posting image with file size: %ld", postVideoData.length);
+    NSLog(@"Posting video with file size: %ld", postVideoData.length);
     
     if (!postTitle.length && !postVideoData && !postImage) {
         completion(nil, BAD_REQUEST);
@@ -410,6 +412,7 @@ static WLIConnect *sharedConnect;
          completion(nil, UNKNOWN_ERROR);
          }];
          */
+        NSLog(@"Posting video DONE");
     }
 }
 

@@ -125,11 +125,13 @@
         CGImageRef imgRef = [generator copyCGImageAtTime:thumbTime actualTime:NULL error:&err];
         image = [[UIImage alloc] initWithCGImage:imgRef];
         
-        self.imageViewPost.image = image;
-        [self.buttonPostImage setTitle:@"" forState:UIControlStateNormal];
-        if (![self.textViewPost isFirstResponder]) {
-            [self.textViewPost becomeFirstResponder];
-        }
+        [self dismissViewControllerAnimated:YES completion:^{
+            self.imageViewPost.image = image;
+            [self.buttonPostImage setTitle:@"" forState:UIControlStateNormal];
+            if (![self.textViewPost isFirstResponder]) {
+                [self.textViewPost becomeFirstResponder];
+            }
+        }];
     }
 }
 

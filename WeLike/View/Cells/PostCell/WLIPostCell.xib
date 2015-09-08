@@ -129,10 +129,13 @@
                             <action selector="buttonPostTouchUpInside:" destination="cJg-yp-lKL" eventType="touchUpInside" id="Xgl-lL-j1P"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3um-mc-rKf">
-                        <rect key="frame" x="137" y="155" width="46" height="30"/>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3um-mc-rKf">
+                        <rect key="frame" x="131" y="141" width="58" height="58"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" title="Button"/>
+                        <state key="normal" image="btn-video"/>
+                        <connections>
+                            <action selector="buttonVideoTouchUpInside:" destination="cJg-yp-lKL" eventType="touchUpInside" id="nnk-Mf-qPG"/>
+                        </connections>
                     </button>
                 </subviews>
             </tableViewCellContentView>
@@ -152,5 +155,6 @@
     <resources>
         <image name="btn-comment" width="22" height="22"/>
         <image name="btn-like" width="22" height="22"/>
+        <image name="btn-video" width="58" height="58"/>
     </resources>
 </document>

@@ -9,6 +9,7 @@
 #import "WLITableViewCell.h"
 #import "WLIPost.h"
 #import "UIImageView+AFNetworking.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @class WLIPostCell;
 
@@ -16,6 +17,7 @@
     
     CGRect frameDefaultLabelPostTitle;
     CGRect frameDefaultImageViewPost;
+    MPMoviePlayerViewController *movieController;
 }
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewUser;
@@ -33,6 +35,7 @@
 
 - (IBAction)buttonUserTouchUpInside:(id)sender;
 - (IBAction)buttonPostTouchUpInside:(id)sender;
+- (IBAction)buttonVideoTouchUpInside:(id)sender;
 - (IBAction)buttonLikeTouchUpInside:(id)sender;
 - (IBAction)buttonCommentTouchUpInside:(id)sender;
 - (IBAction)buttonLikesTouchUpInside:(id)sender;
