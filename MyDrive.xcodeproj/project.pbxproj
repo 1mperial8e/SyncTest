@@ -114,6 +114,8 @@
 		2CCE1A9D17ECD32B00680126 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCE1A9C17ECD32B00680126 /* UIKit.framework */; };
 		2CF096DD1ACAE1F7004FB868 /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF096DC1ACAE1F7004FB868 /* NSDate+TimeAgo.m */; };
 		2E4851771B9F8C27002216B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4851761B9F8C27002216B7 /* AVFoundation.framework */; };
+		2ED2F2851BA95E8C00641F54 /* WLIInfoPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2ED2F2861BA95E8C00641F54 /* WLIInfoPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		C7B4244B183D0809003B51D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B4244A183D0809003B51D0 /* MapKit.framework */; };
 		C7B424B5183D2507003B51D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B4183D2507003B51D0 /* CoreData.framework */; };
 		C7B424B7183D2519003B51D0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B6183D2519003B51D0 /* MessageUI.framework */; };
@@ -306,6 +308,9 @@
 		2CF096DB1ACAE1F7004FB868 /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
 		2CF096DC1ACAE1F7004FB868 /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
 		2E4851761B9F8C27002216B7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2ED2F2821BA95E8C00641F54 /* WLIInfoPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIInfoPageViewController.h; path = InfoPage/WLIInfoPageViewController.h; sourceTree = "<group>"; };
+		2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIInfoPageViewController.m; path = InfoPage/WLIInfoPageViewController.m; sourceTree = "<group>"; };
+		2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLIInfoPageViewController.xib; path = InfoPage/WLIInfoPageViewController.xib; sourceTree = "<group>"; };
 		C7B4244A183D0809003B51D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C7B424B4183D2507003B51D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C7B424B6183D2519003B51D0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -707,6 +712,7 @@
 		2C6D27151896BACA00C459CB /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2ED2F2811BA95E5500641F54 /* InfoPage */,
 				2C6D27161896BACA00C459CB /* Comments */,
 				2C6D271A1896BACA00C459CB /* Followers */,
 				2C6D271E1896BACA00C459CB /* Following */,
@@ -952,6 +958,16 @@
 			path = "NSDate-TimeAgo";
 			sourceTree = "<group>";
 		};
+		2ED2F2811BA95E5500641F54 /* InfoPage */ = {
+			isa = PBXGroup;
+			children = (
+				2ED2F2821BA95E8C00641F54 /* WLIInfoPageViewController.h */,
+				2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */,
+				2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */,
+			);
+			name = InfoPage;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1023,6 +1039,7 @@
 				2C6D27B61896BACA00C459CB /* MNMPullToRefreshIcon@2x.png in Resources */,
 				2C6D27E61896BACA00C459CB /* WLILikesViewController.xib in Resources */,
 				2C6D27F01896BACA00C459CB /* WLIPostViewController.xib in Resources */,
+				2ED2F2861BA95E8C00641F54 /* WLIInfoPageViewController.xib in Resources */,
 				2C6D27F41896BACA00C459CB /* WLIProfileViewController.xib in Resources */,
 				2C6D27B51896BACA00C459CB /* MNMPullToRefreshIcon.png in Resources */,
 				2C6D27F61896BACA00C459CB /* WLIRegisterViewController.xib in Resources */,
@@ -1134,6 +1151,7 @@
 				2C6D27DB1896BACA00C459CB /* WLIPostCollectionViewCell.m in Sources */,
 				2C6D27DD1896BACA00C459CB /* WLIUserCell.m in Sources */,
 				2C5B5C821A1A8F9500175A58 /* UIProgressView+AFNetworking.m in Sources */,
+				2ED2F2851BA95E8C00641F54 /* WLIInfoPageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
