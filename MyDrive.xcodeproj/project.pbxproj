@@ -116,6 +116,7 @@
 		2E4851771B9F8C27002216B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4851761B9F8C27002216B7 /* AVFoundation.framework */; };
 		2ED2F2851BA95E8C00641F54 /* WLIInfoPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2ED2F2861BA95E8C00641F54 /* WLIInfoPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		2ED2F2881BAFF7D100641F54 /* WLINewPostViewControllerNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2871BAFF7D100641F54 /* WLINewPostViewControllerNew.xib */; settings = {ASSET_TAGS = (); }; };
 		C7B4244B183D0809003B51D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B4244A183D0809003B51D0 /* MapKit.framework */; };
 		C7B424B5183D2507003B51D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B4183D2507003B51D0 /* CoreData.framework */; };
 		C7B424B7183D2519003B51D0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B6183D2519003B51D0 /* MessageUI.framework */; };
@@ -311,6 +312,7 @@
 		2ED2F2821BA95E8C00641F54 /* WLIInfoPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIInfoPageViewController.h; path = InfoPage/WLIInfoPageViewController.h; sourceTree = "<group>"; };
 		2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIInfoPageViewController.m; path = InfoPage/WLIInfoPageViewController.m; sourceTree = "<group>"; };
 		2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLIInfoPageViewController.xib; path = InfoPage/WLIInfoPageViewController.xib; sourceTree = "<group>"; };
+		2ED2F2871BAFF7D100641F54 /* WLINewPostViewControllerNew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLINewPostViewControllerNew.xib; sourceTree = "<group>"; };
 		C7B4244A183D0809003B51D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C7B424B4183D2507003B51D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C7B424B6183D2519003B51D0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -799,6 +801,7 @@
 				2C6D272F1896BACA00C459CB /* WLINewPostViewController.h */,
 				2C6D27301896BACA00C459CB /* WLINewPostViewController.m */,
 				2C6D27311896BACA00C459CB /* WLINewPostViewController.xib */,
+				2ED2F2871BAFF7D100641F54 /* WLINewPostViewControllerNew.xib */,
 			);
 			path = NewPost;
 			sourceTree = "<group>";
@@ -1031,6 +1034,7 @@
 				2C6D27D11896BACA00C459CB /* WLICommentCell.xib in Resources */,
 				2CA087061AC94967002696D9 /* AviarySDKResources.bundle in Resources */,
 				2C6D27FB1896BACA00C459CB /* WLITimelineViewController.xib in Resources */,
+				2ED2F2881BAFF7D100641F54 /* WLINewPostViewControllerNew.xib in Resources */,
 				2C6D27EA1896BACA00C459CB /* WLINearbyViewController.xib in Resources */,
 				2C6D27E01896BACA00C459CB /* WLICommentsViewController.xib in Resources */,
 				2C6D27F21896BACA00C459CB /* WLIEditProfileViewController.xib in Resources */,
