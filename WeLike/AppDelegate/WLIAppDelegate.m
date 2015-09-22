@@ -8,10 +8,16 @@
 
 #import "WLIAppDelegate.h"
 #import "WLINewPostViewController.h"
-#import "WLINearbyViewController.h"
-#import "WLIPopularViewController.h"
-#import "WLIProfileViewController.h"
-#import "WLITimelineViewController.h"
+//#import "WLINearbyViewController.h"
+//#import "WLIPopularViewController.h"
+//#import "WLIProfileViewController.h"
+//#import "WLITimelineViewController.h"
+#import "WLIMyPostsViewController.h"
+#import "WLIFavoritesViewController.h"
+#import "WLIFollowingsViewController.h"
+#import "WLIMyDriveViewController.h"
+
+
 #import "WLIConnect.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -39,7 +45,7 @@
     [self createViewHierarchy];
     
     // navigation bar appearance
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:80.0f/255.0f blue:70.0f/255.0f alpha:1.0f]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:249.0f/255.0f green:249.0f/255.0f blue:249.0f/255.0f alpha:1.0f]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0f];
@@ -111,40 +117,40 @@
 
 - (void)createViewHierarchy {
     
-    WLITimelineViewController *timelineViewController = [[WLITimelineViewController alloc] initWithNibName:@"WLITimelineViewController" bundle:nil];
-    UINavigationController *timelineNavigationController = [[UINavigationController alloc] initWithRootViewController:timelineViewController];
-    timelineNavigationController.navigationBar.translucent = NO;
+    WLIMyDriveViewController *myDriveViewController = [[WLIMyDriveViewController alloc] initWithNibName:@"WLIMyDriveViewController" bundle:nil];
+    UINavigationController *myDriveNavigationController = [[UINavigationController alloc] initWithRootViewController:myDriveViewController];
+    myDriveNavigationController.navigationBar.translucent = NO;
     
-    WLIPopularViewController *popularViewController = [[WLIPopularViewController alloc] initWithNibName:@"WLIPopularViewController" bundle:nil];
-    UINavigationController *popularNavigationController = [[UINavigationController alloc] initWithRootViewController:popularViewController];
-    popularNavigationController.navigationBar.translucent = NO;
+    WLIFollowingsViewController *followingsViewController = [[WLIFollowingsViewController alloc] initWithNibName:@"WLIFollowingsViewController" bundle:nil];
+    UINavigationController *followingNavigationController = [[UINavigationController alloc] initWithRootViewController:followingsViewController];
+    followingNavigationController.navigationBar.translucent = NO;
     
     WLINewPostViewController *newPostViewController = [[WLINewPostViewController alloc] initWithNibName:@"WLINewPostViewController" bundle:nil];
     UINavigationController *newPostNavigationController = [[UINavigationController alloc] initWithRootViewController:newPostViewController];
     newPostNavigationController.navigationBar.translucent = NO;
     
-    WLINearbyViewController *nearbyViewController = [[WLINearbyViewController alloc] initWithNibName:@"WLINearbyViewController" bundle:nil];
-    UINavigationController *nearbyNavigationController = [[UINavigationController alloc] initWithRootViewController:nearbyViewController];
-    nearbyNavigationController.navigationBar.translucent = NO;
+    WLIFavoritesViewController *favoritesViewController = [[WLIFavoritesViewController alloc] initWithNibName:@"WLIFavoritesViewController" bundle:nil];
+    UINavigationController *favoritesNavigationController = [[UINavigationController alloc] initWithRootViewController:favoritesViewController];
+    favoritesNavigationController.navigationBar.translucent = NO;
     
-    WLIProfileViewController *profileViewController = [[WLIProfileViewController alloc] initWithNibName:@"WLIProfileViewController" bundle:nil];
-    UINavigationController *profileNavigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
-    profileNavigationController.navigationBar.translucent = NO;
+    WLIMyPostsViewController *myPostsViewController = [[WLIMyPostsViewController alloc] initWithNibName:@"WLIMyPostsViewController" bundle:nil];
+    UINavigationController *myPostsNavigationController = [[UINavigationController alloc] initWithRootViewController:myPostsViewController];
+    myPostsNavigationController.navigationBar.translucent = NO;
     
     self.tabBarController = [[WLITabBarController alloc] init];
     self.tabBarController.delegate = self;
-    self.tabBarController.viewControllers = @[timelineNavigationController, popularNavigationController,newPostNavigationController, nearbyNavigationController, profileNavigationController];
+    self.tabBarController.viewControllers = @[myDriveNavigationController, followingNavigationController,newPostNavigationController, favoritesNavigationController, myPostsNavigationController];
 
-    UITabBarItem *timelineTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Timeline" image:[[UIImage imageNamed:@"tabbar-timeline-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-timeline"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    timelineViewController.tabBarItem = timelineTabBarItem;
-    UITabBarItem *popularTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Popular" image:[[UIImage imageNamed:@"tabbar-popular-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-popular"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    popularViewController.tabBarItem = popularTabBarItem;
+    UITabBarItem *myDriveTabBarItem = [[UITabBarItem alloc] initWithTitle:@"MyDrive" image:[[UIImage imageNamed:@"tabbar-mydrive-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-mydrive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    myDriveViewController.tabBarItem = myDriveTabBarItem;
+    UITabBarItem *followingTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Following" image:[[UIImage imageNamed:@"tabbar-following-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-following"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    followingNavigationController.tabBarItem = followingTabBarItem;
     UITabBarItem *newPostTabBarItem = [[UITabBarItem alloc] initWithTitle:@"New post" image:[[UIImage imageNamed:@"tabbar-newpost-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-newpost"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     newPostViewController.tabBarItem = newPostTabBarItem;
-    UITabBarItem *nearbyTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Nearby" image:[[UIImage imageNamed:@"tabbar-nearby-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-nearby"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    nearbyViewController.tabBarItem = nearbyTabBarItem;
-    UITabBarItem *profileTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[[UIImage imageNamed:@"tabbar-profile-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-profile"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    profileViewController.tabBarItem = profileTabBarItem;
+    UITabBarItem *favoritesTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Favorites" image:[[UIImage imageNamed:@"tabbar-favorites-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-favorites"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    favoritesViewController.tabBarItem = favoritesTabBarItem;
+    UITabBarItem *myPostsTabBarItem = [[UITabBarItem alloc] initWithTitle:@"MyPosts" image:[[UIImage imageNamed:@"tabbar-myposts-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-myposts"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    myPostsViewController.tabBarItem = myPostsTabBarItem;
     
     self.window.rootViewController = self.tabBarController;
 }

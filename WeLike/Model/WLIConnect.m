@@ -8,7 +8,7 @@
 
 #import "WLIConnect.h"
 
-#define kBaseLink @"http://mydrive.appmedia.no/"
+#define kBaseLink @"http://10.0.0.84:8888/"
 #define kAPIKey @"!#wli!sdWQDScxzczFžŽYewQsq_?wdX09612627364[3072∑34260-#"
 #define kConnectionTimeout 30
 #define kCompressionQuality 1.0f

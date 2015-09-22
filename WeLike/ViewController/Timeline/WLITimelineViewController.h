@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLIViewController.h"
+#import "WLIPostsListViewController.h"
 
-@interface WLITimelineViewController : WLIViewController <WLIViewControllerRefreshProtocol>
+@interface WLITimelineViewController : WLIPostsListViewController
 
-@property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;
-@property (strong, nonatomic) NSArray *posts;
 
 
 @end

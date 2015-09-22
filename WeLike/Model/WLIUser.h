@@ -41,6 +41,11 @@ typedef enum {
 @property (nonatomic) int followersCount;
 @property (nonatomic) int followingCount;
 
+@property (nonatomic) int likesCount;
+@property (nonatomic) int myPostsCount;
+
+
+
 - (id)initWithDictionary:(NSDictionary*)userWithInfo;
 
 

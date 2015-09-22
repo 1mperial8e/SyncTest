@@ -26,6 +26,9 @@
         _followersCount = [self integerFromDictionary:userWithInfo forKey:@"followersCount"];
         _followingCount = [self integerFromDictionary:userWithInfo forKey:@"followingCount"];
         
+        _likesCount = [self integerFromDictionary:userWithInfo forKey:@"likesCount"];
+        _myPostsCount = [self integerFromDictionary:userWithInfo forKey:@"myPostsCount"];
+        
         _companyAddress = [self stringFromDictionary:userWithInfo forKey:@"userAddress"];
         _companyPhone = [self stringFromDictionary:userWithInfo forKey:@"userPhone"];
         _companyWeb = [self stringFromDictionary:userWithInfo forKey:@"userWeb"];
@@ -70,6 +73,10 @@
     [encoder encodeObject:self.companyPhone forKey:@"companyPhone"];
     [encoder encodeObject:self.companyWeb forKey:@"companyWeb"];
     [encoder encodeObject:self.companyEmail forKey:@"companyEmail"];
+    
+    [encoder encodeInt:self.likesCount forKey:@"likesCount"];
+    [encoder encodeInt:self.myPostsCount forKey:@"myPostsCount"];
+    
     [encoder encodeInt:self.followersCount forKey:@"followersCount"];
     [encoder encodeInt:self.followingCount forKey:@"followingCount"];
 }
@@ -94,6 +101,8 @@
         self.companyEmail = [decoder decodeObjectForKey:@"companyEmail"];
         self.followersCount = (int)[decoder decodeIntegerForKey:@"followersCount"];
         self.followingCount = (int)[decoder decodeIntegerForKey:@"followingCount"];
+        self.likesCount = (int)[decoder decodeIntegerForKey:@"likesCount"];
+        self.myPostsCount = (int)[decoder decodeIntegerForKey:@"myPostsCount"];
     }
     return self;
 }

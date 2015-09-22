@@ -26,6 +26,7 @@
     if (self) {
         // Custom initialization
         self.title = @"Profile";
+        NSLog(@"Profil 1");
     }
     return self;
 }
@@ -34,17 +35,18 @@
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
+    NSLog(@"Profil 2");
     
     [super viewDidLoad];
     
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.width/2;
-    self.imageViewUser.layer.borderWidth = 2.0f;
-    self.imageViewUser.layer.borderColor = [[UIColor whiteColor] CGColor];
+    self.imageViewUser.layer.borderWidth = 4.0f;
+    self.imageViewUser.layer.borderColor = [[UIColor redColor] CGColor];
     self.imageViewUser.layer.masksToBounds = YES;
     
     self.buttonFollow.layer.cornerRadius = self.buttonFollow.frame.size.width/2;
-    self.buttonFollow.layer.borderWidth = 2.0f;
-    self.buttonFollow.layer.borderColor = [[UIColor colorWithRed:255/255.0f green:80/255.0f blue:70/255.0f alpha:1.0f] CGColor];
+    self.buttonFollow.layer.borderWidth = 4.0f;
+    self.buttonFollow.layer.borderColor = [[UIColor whiteColor] CGColor]; // [[UIColor colorWithRed:255/255.0f green:80/255.0f blue:70/255.0f alpha:1.0f] CGColor];
     self.buttonFollow.layer.masksToBounds = YES;
     
     self.buttonLogout.layer.cornerRadius = CGRectGetHeight(self.buttonLogout.frame)/2;
@@ -68,16 +70,10 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:editButton];
         self.scrollViewUserProfile.contentSize = CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(self.buttonLogout.frame) +20.0f);
     } else {
-        self.buttonSearchUsers.alpha = 0.0f;
         self.buttonLogout.alpha = 0.0f;
         self.scrollViewUserProfile.contentSize = CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(self.viewFollowers.frame) +20.0f);
     }
-    
-    if (self.user.userType != WLIUserTypeCompany) {
-        self.labelAddress.alpha = 0.0f;
-        self.labelPhone.alpha = 0.0f;
-        self.labelWeb.alpha = 0.0f;
-    }
+    NSLog(@"Profil 3");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -109,17 +105,19 @@
 - (void)updateFramesAndDataWithDownloads:(BOOL)downloads {
     
     self.labelName.text = self.user.userFullName;
+    self.labelEmail.text = self.user.userEmail;
+    
+    
+    
     if (self.user.followingUser) {
         [self.buttonFollow setTitle:@"-" forState:UIControlStateNormal];
     } else {
         [self.buttonFollow setTitle:@"+" forState:UIControlStateNormal];
     }
-    self.labelFollowingCount.text = [NSString stringWithFormat:@"%d", self.user.followingCount];
     self.labelFollowersCount.text = [NSString stringWithFormat:@"%d", self.user.followersCount];
-    
-    self.labelAddress.text = self.user.companyAddress;
-    self.labelPhone.text = self.user.companyPhone;
-    self.labelWeb.text = self.user.companyWeb;
+    self.labelLikesCount.text = [NSString stringWithFormat:@"%d", self.user.likesCount];
+    self.labelMyPostsCount.text = [NSString stringWithFormat:@"%d", self.user.myPostsCount];
+
     
     if (downloads) {
         [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath]];
@@ -128,17 +126,15 @@
             _user = user;
             [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath]];
             self.labelName.text = self.user.userFullName;
+            self.labelEmail.text = self.user.userEmail;
             if (self.user.followingUser) {
                 [self.buttonFollow setTitle:@"-" forState:UIControlStateNormal];
             } else {
                 [self.buttonFollow setTitle:@"+" forState:UIControlStateNormal];
             }
-            self.labelFollowingCount.text = [NSString stringWithFormat:@"%d", self.user.followingCount];
             self.labelFollowersCount.text = [NSString stringWithFormat:@"%d", self.user.followersCount];
-            
-            self.labelAddress.text = self.user.companyAddress;
-            self.labelPhone.text = self.user.companyPhone;
-            self.labelWeb.text = self.user.companyWeb;
+            self.labelLikesCount.text = [NSString stringWithFormat:@"%d", self.user.likesCount];
+            self.labelMyPostsCount.text = [NSString stringWithFormat:@"%d", self.user.myPostsCount];
         }];
     }
 }
@@ -146,13 +142,15 @@
 
 #pragma mark - Buttons methods
 
-- (void)barButtonItemEditTouchUpInside:(UIBarButtonItem*)barButtonItemEditProfile {
+- (void)barButtonItemEditTouchUpInside:(UIBarButtonItem*)barButtonItemEditProfile
+{
     
     WLIEditProfileViewController *editProfileViewController = [[WLIEditProfileViewController alloc] initWithNibName:@"WLIEditProfileViewController" bundle:nil];
     [self.navigationController pushViewController:editProfileViewController animated:YES];
 }
 
-- (IBAction)buttonFollowToggleTouchUpInside:(id)sender {
+- (IBAction)buttonFollowToggleTouchUpInside:(id)sender
+{
     
     if (self.user.followingUser) {
         self.user.followingUser = NO;
@@ -181,25 +179,51 @@
     }
 }
 
-- (IBAction)buttonFollowingTouchUpInside:(id)sender {
-    
-    WLIFollowingViewController *followingViewController = [[WLIFollowingViewController alloc] initWithNibName:@"WLIFollowingViewController" bundle:nil];
-    followingViewController.user = self.user;
-    [self.navigationController pushViewController:followingViewController animated:YES];
+- (IBAction)buttonLikesTouchUpInside:(id)sender
+{
+    if (self.user.likesCount > 0)
+    {
+        
+    }
 }
 
-- (IBAction)buttonFollowersTouchUpInside:(id)sender {
-    
-    WLIFollowersViewController *followersViewController = [[WLIFollowersViewController alloc] initWithNibName:@"WLIFollowersViewController" bundle:nil];
-    followersViewController.user = self.user;
-    [self.navigationController pushViewController:followersViewController animated:YES];
+- (IBAction)buttonMyPostsTouchUpInside:(id)sender
+{
+    if (self.user.myPostsCount > 0)
+    {
+        
+    }
 }
 
-- (IBAction)buttonSearchUsersTouchUpInside:(id)sender {
-    
-    WLISearchViewController *searchViewController = [[WLISearchViewController alloc] initWithNibName:@"WLISearchViewController" bundle:nil];
-    [self.navigationController pushViewController:searchViewController animated:YES];
+- (IBAction)buttonFollowersTouchUpInside:(id)sender
+{
+    if (self.user.likesCount > 0)
+    {
+        WLIFollowersViewController *followersViewController = [[WLIFollowersViewController alloc] initWithNibName:@"WLIFollowersViewController" bundle:nil];
+        followersViewController.user = self.user;
+        [self.navigationController pushViewController:followersViewController animated:YES];
+    }
 }
+
+- (IBAction)buttonSettingsTouchUpInside:(id)sender
+{
+    
+}
+
+
+//- (IBAction)buttonFollowingTouchUpInside:(id)sender {
+//    
+//    WLIFollowingViewController *followingViewController = [[WLIFollowingViewController alloc] initWithNibName:@"WLIFollowingViewController" bundle:nil];
+//    followingViewController.user = self.user;
+//    [self.navigationController pushViewController:followingViewController animated:YES];
+//}
+
+
+//- (IBAction)buttonSearchUsersTouchUpInside:(id)sender {
+//    
+//    WLISearchViewController *searchViewController = [[WLISearchViewController alloc] initWithNibName:@"WLISearchViewController" bundle:nil];
+//    [self.navigationController pushViewController:searchViewController animated:YES];
+//}
 
 - (IBAction)buttonLogoutTouchUpInside:(UIButton *)sender {
     
