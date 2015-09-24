@@ -21,7 +21,7 @@
         // Custom initialization
         self.title = @"New post";
         self.video = nil;
-        [AFPhotoEditorController setAPIKey:kAviaryKey secret:kAviarySecret];
+//        [AFPhotoEditorController setAPIKey:kAviaryKey secret:kAviarySecret];
     }
     return self;
 }
@@ -32,13 +32,23 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
-    self.imageViewPost.layer.cornerRadius = 3.0f;
-    self.imageViewPost.layer.masksToBounds = YES;
-    self.textViewPost.layer.cornerRadius = 3.0f;
-    self.buttonSend.layer.cornerRadius = CGRectGetHeight(self.buttonSend.frame)/2;
     
-    [self.textViewPost becomeFirstResponder];
+    self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 8, self.contentView.frame.size.width, self.contentView.frame.size.height);
+
+    postType = postTypeText;
+    self.buttonPostImage.imageView.layer.cornerRadius = 3.0f;
+    self.buttonPostImage.imageView.layer.masksToBounds = YES;
+    self.textViewPost.layer.cornerRadius = 3.0f;
+//    self.buttonSend.layer.cornerRadius = CGRectGetHeight(self.buttonSend.frame)/2;
+    
+    UIButton *publishButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    publishButton.adjustsImageWhenHighlighted = NO;
+    publishButton.frame = CGRectMake(0.0f, 0.0f, 60.0f, 30.0f);
+    [publishButton setTitle:@"Publish" forState:UIControlStateNormal];
+    [publishButton addTarget:self action:@selector(buttonSendTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:publishButton];
+    
+//    [self.textViewPost becomeFirstResponder];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -61,14 +71,29 @@
     if ([self.textViewPost isFirstResponder]) {
         [self.textViewPost resignFirstResponder];
     }
+    if ([self.titleFieldPost isFirstResponder]) {
+        [self.titleFieldPost resignFirstResponder];
+    }
     [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo Gallery", @"Photo Camera", @"Video Gallery", @"Video Camera", nil] showInView:self.view];
 }
 
 - (IBAction)buttonSendTouchUpInside:(id)sender {
     
+    NSInteger categoryCode = 0;
+    
+    if (self.buttonCategoryStateMarket.selected)
+        categoryCode += 1;
+    if (self.buttonCategoryStateCapability.selected)
+        categoryCode += 2;
+    if (self.buttonCategoryStateCustomer.selected)
+        categoryCode += 4;
+    if (self.buttonCategoryStatePeople.selected)
+        categoryCode += 8;
+    
+    
     if (!self.textViewPost.text.length) {
         [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter text." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    } else if (!self.imageViewPost.image) {
+    } else if (!self.buttonPostImage.imageView.image) {
         [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Please choose image." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     } else {
         [hud show:YES];
@@ -77,19 +102,21 @@
         }
         if (self.video == nil)
         {
-            [sharedConnect sendPostWithTitle:self.textViewPost.text postKeywords:nil postImage:self.imageViewPost.image onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
+            [sharedConnect sendPostWithTitle:self.titleFieldPost.text postText:self.textViewPost.text postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.buttonPostImage.imageView.image onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
                 [hud hide:YES];
-                self.imageViewPost.image = nil;
+                [self.buttonPostImage setImage:nil forState:UIControlStateNormal];
                 self.textViewPost.text = @"";
+                self.titleFieldPost.text = @"";
                 [self dismissViewControllerAnimated:YES completion:nil];
             }];
         }
         else
         {
-            [sharedConnect sendPostWithTitle:self.textViewPost.text postKeywords:nil postImage:self.imageViewPost.image postVideo:self.video onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
+            [sharedConnect sendPostWithTitle:self.titleFieldPost.text postText:self.textViewPost.text postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.buttonPostImage.imageView.image postVideo:self.video onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
                 [hud hide:YES];
-                self.imageViewPost.image = nil;
+                [self.buttonPostImage setImage:nil forState:UIControlStateNormal];
                 self.textViewPost.text = @"";
+                self.titleFieldPost.text = @"";
                 [self dismissViewControllerAnimated:YES completion:nil];
             }];
         }
@@ -126,7 +153,7 @@
         image = [[UIImage alloc] initWithCGImage:imgRef];
         
         [self dismissViewControllerAnimated:YES completion:^{
-            self.imageViewPost.image = image;
+            [self.buttonPostImage setImage:image forState:UIControlStateNormal];
             [self.buttonPostImage setTitle:@"" forState:UIControlStateNormal];
             if (![self.textViewPost isFirstResponder]) {
                 [self.textViewPost becomeFirstResponder];
@@ -191,12 +218,59 @@
     }
 }
 
+#pragma mark - Buttons for post type
+-(IBAction)buttonTextPostTouchUpInside:(id)sender
+{
+    self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 8, self.contentView.frame.size.width, self.contentView.frame.size.height);
+    postType = postTypeText;
+}
+
+-(IBAction)buttonPhotoPostTouchUpInside:(id)sender
+{
+    self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 88, self.contentView.frame.size.width, self.contentView.frame.size.height);
+    postType = postTypePhoto;
+}
+
+-(IBAction)buttonVideoPostTouchUpInside:(id)sender
+{
+    self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 88, self.contentView.frame.size.width, self.contentView.frame.size.height);
+    postType = postTypeVideo;
+}
+
+
+#pragma mark - Buttons for category
+
+-(IBAction)buttonCatMarketTouchUpInside:(id)sender
+{
+    [self.buttonCategoryStateMarket setSelected:!self.buttonCategoryStateMarket.selected];
+    
+}
+
+-(IBAction)buttonCatCustomerTouchUpInside:(id)sender
+{
+    [self.buttonCategoryStateCustomer setSelected:!self.buttonCategoryStateCustomer.selected];
+
+}
+
+-(IBAction)buttonCatCapabilityTouchUpInside:(id)sender
+{
+    [self.buttonCategoryStateCapability setSelected:!self.buttonCategoryStateCapability.selected];
+
+}
+
+-(IBAction)buttonCatPeopleTouchUpInside:(id)sender
+{
+    [self.buttonCategoryStatePeople setSelected:!self.buttonCategoryStatePeople.selected];
+
+}
+
+
 
 #pragma - AFPhotoEditorController methods
 
 - (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
     
-    self.imageViewPost.image = image;
+    [self.buttonPostImage setImage:image forState:UIControlStateNormal];
     [self.buttonPostImage setTitle:@"" forState:UIControlStateNormal];
     [self dismissViewControllerAnimated:YES completion:^{
         if (![self.textViewPost isFirstResponder]) {

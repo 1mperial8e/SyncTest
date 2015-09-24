@@ -326,7 +326,7 @@ static WLIConnect *sharedConnect;
 
 #pragma mark - posts
 
-- (void)sendPostWithTitle:(NSString*)postTitle postKeywords:(NSArray*)postKeywords postImage:(UIImage*)postImage onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion {
+- (void)sendPostWithTitle:(NSString*)postTitle postText:(NSString*)postText postKeywords:(NSArray*)postKeywords postCategory:(NSNumber*)postCategory postImage:(UIImage*)postImage onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion {
     
     if (!postTitle.length && !postImage) {
         completion(nil, BAD_REQUEST);
@@ -334,7 +334,10 @@ static WLIConnect *sharedConnect;
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
         [parameters setObject:postTitle forKey:@"postTitle"];
-        
+        [parameters setObject:postText forKey:@"postText"];
+        [parameters setObject:postKeywords forKey:@"postKeywords"];
+       [parameters setObject:postCategory forKey:@"postCategory"];
+
         [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             if (postImage) {
                 NSData *imageData = UIImageJPEGRepresentation(postImage, kCompressionQuality);
@@ -368,9 +371,9 @@ static WLIConnect *sharedConnect;
     }
 }
 
-- (void)sendPostWithTitle:(NSString*)postTitle postKeywords:(NSArray*)postKeywords postImage:(UIImage*)postImage postVideo:(NSData*)postVideoData onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion {
-    NSLog(@"Posting image with file size: %ld", postVideoData.length);
-    NSLog(@"Posting video with file size: %ld", postVideoData.length);
+- (void)sendPostWithTitle:(NSString*)postTitle postText:(NSString*)postText postKeywords:(NSArray*)postKeywords postCategory:(NSNumber*)postCategory postImage:(UIImage*)postImage postVideo:(NSData*)postVideoData onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion {
+//    NSLog(@"Posting image with file size: %ld", postVideoData.length);
+//    NSLog(@"Posting video with file size: %ld", postVideoData.length);
     
     if (!postTitle.length && !postVideoData && !postImage) {
         completion(nil, BAD_REQUEST);
@@ -378,6 +381,9 @@ static WLIConnect *sharedConnect;
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
         [parameters setObject:postTitle forKey:@"postTitle"];
+        [parameters setObject:postText forKey:@"postText"];
+        [parameters setObject:postKeywords forKey:@"postKeywords"];
+        [parameters setObject:postCategory forKey:@"postCategory"];
         
         [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             if (postImage) {

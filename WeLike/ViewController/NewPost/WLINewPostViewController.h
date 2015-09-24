@@ -13,16 +13,31 @@
 @import MediaPlayer;
 @import AVFoundation;
 
+
+
 @interface WLINewPostViewController : WLIViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVYPhotoEditorControllerDelegate> {
+    
+    enum PostTypeEnum {
+        postTypeText = 1,
+        postTypePhoto = 2,
+        postTypeVideo = 3
+    } postType;
 }
 
-@property (strong, nonatomic) IBOutlet UIImageView *imageViewPost;
-@property (strong, nonatomic) NSData *video;
-@property (strong, nonatomic) IBOutlet UIButton *buttonPostImage;
+@property (strong, nonatomic) IBOutlet UIView *contentView;
+
 @property (strong, nonatomic) IBOutlet UITextField *titleFieldPost;
 @property (strong, nonatomic) IBOutlet UITextView *textViewPost;
+
+@property (strong, nonatomic) IBOutlet UIImageView *imageVideoPost;
+@property (strong, nonatomic) IBOutlet UIButton *buttonPostImage;
+@property (strong, nonatomic) NSData *video;
+
 @property (strong, nonatomic) IBOutlet UIButton *buttonSend;
 
+@property (strong, nonatomic) IBOutlet UIButton *buttonPostTypeText;
+@property (strong, nonatomic) IBOutlet UIButton *buttonPostTypePhoto;
+@property (strong, nonatomic) IBOutlet UIButton *buttonPostTypeVideo;
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonCategoryCapability;
 @property (strong, nonatomic) IBOutlet UIButton *buttonCategoryCustomer;
@@ -42,5 +57,14 @@
 
 - (IBAction)buttonPostImageTouchUpInside:(id)sender;
 - (IBAction)buttonSendTouchUpInside:(id)sender;
+
+-(IBAction)buttonTextPostTouchUpInside:(id)sender;
+-(IBAction)buttonPhotoPostTouchUpInside:(id)sender;
+-(IBAction)buttonVideoPostTouchUpInside:(id)sender;
+
+-(IBAction)buttonCatMarketTouchUpInside:(id)sender;
+-(IBAction)buttonCatCustomerTouchUpInside:(id)sender;
+-(IBAction)buttonCatCapabilityTouchUpInside:(id)sender;
+-(IBAction)buttonCatPeopleTouchUpInside:(id)sender;
 
 @end
