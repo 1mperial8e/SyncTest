@@ -8,7 +8,8 @@
 
 #import "WLIConnect.h"
 
-#define kBaseLink @"http://10.0.0.84:8888/"
+//#define kBaseLink @"http://10.0.0.84:8888/"
+#define kBaseLink @"http://mydrive.appmedia.no/"
 #define kAPIKey @"!#wli!sdWQDScxzczFžŽYewQsq_?wdX09612627364[3072∑34260-#"
 #define kConnectionTimeout 30
 #define kCompressionQuality 1.0f
@@ -338,8 +339,11 @@ static WLIConnect *sharedConnect;
         if (postKeywords != nil)
             [parameters setObject:postKeywords forKey:@"postKeywords"];
        [parameters setObject:postCategory forKey:@"postCategory"];
+        
+        NSLog(@"Post: %@", parameters);
 
         [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            NSLog(@"sendPost....");
             if (postImage) {
                 NSData *imageData = UIImageJPEGRepresentation(postImage, kCompressionQuality);
                 if (imageData) {
@@ -386,6 +390,7 @@ static WLIConnect *sharedConnect;
         if (postKeywords != nil)
             [parameters setObject:postKeywords forKey:@"postKeywords"];
         [parameters setObject:postCategory forKey:@"postCategory"];
+        NSLog(@"Post: %@", parameters);
         
         [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             if (postImage) {

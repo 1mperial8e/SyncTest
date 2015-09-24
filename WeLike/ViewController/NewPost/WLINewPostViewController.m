@@ -33,7 +33,6 @@
     
     [super viewDidLoad];
     
-    self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 8, self.contentView.frame.size.width, self.contentView.frame.size.height);
 
     postType = postTypeText;
     self.buttonPostImage.imageView.layer.cornerRadius = 3.0f;
@@ -48,6 +47,46 @@
     [publishButton addTarget:self action:@selector(buttonSendTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:publishButton];
     
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    tapGesture.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapGesture];
+    
+    self.titleFieldPost.delegate = self;
+    self.textViewPost.delegate = self;
+    
+    if (postType == 0)
+    {
+        postType = postTypeText;
+        [self.buttonPostTypeText setSelected:YES];
+        self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 8, self.contentView.frame.size.width, self.contentView.frame.size.height);
+    }
+    else
+    {
+        switch (postType) {
+            case postTypeText:
+                self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 8, self.contentView.frame.size.width, self.contentView.frame.size.height);
+                [self.buttonPostTypeText setSelected:YES];
+                [self.buttonPostTypePhoto setSelected:NO];
+                [self.buttonPostTypeVideo setSelected:NO];
+                break;
+            case postTypePhoto:
+                self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 88, self.contentView.frame.size.width, self.contentView.frame.size.height);
+                [self.buttonPostTypeText setSelected:NO];
+                [self.buttonPostTypePhoto setSelected:YES];
+                [self.buttonPostTypeVideo setSelected:NO];
+                break;
+            case postTypeVideo:
+                self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 88, self.contentView.frame.size.width, self.contentView.frame.size.height);
+                [self.buttonPostTypeText setSelected:NO];
+                [self.buttonPostTypePhoto setSelected:NO];
+                [self.buttonPostTypeVideo setSelected:YES];
+                break;
+            default:
+                break;
+        }
+    }
+    NSLog(@"Did load!!!");
+    
 //    [self.textViewPost becomeFirstResponder];
 }
 
@@ -55,6 +94,7 @@
     
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,7 +114,11 @@
     if ([self.titleFieldPost isFirstResponder]) {
         [self.titleFieldPost resignFirstResponder];
     }
-    [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo Gallery", @"Photo Camera", @"Video Gallery", @"Video Camera", nil] showInView:self.view];
+    if (postType == postTypePhoto)
+    [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo Gallery", @"Photo Camera", nil] showInView:self.view];
+    else if (postType == postTypeVideo)
+    [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Video Gallery", @"Video Camera", nil] showInView:self.view];
+
 }
 
 - (IBAction)buttonSendTouchUpInside:(id)sender {
@@ -224,23 +268,68 @@
     }
 }
 
+#pragma mark - UITextViewDelegates
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([self.textViewPost.text isEqualToString:@"Write something…"])
+    {
+        [self.textViewPost setText:@""];
+        [self.textViewPost setTextColor:[UIColor blackColor]];
+    }
+    
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField*)textField
+{
+    if ([self.titleFieldPost.text isEqualToString:@"Title"])
+    {
+        [self.titleFieldPost setText:@""];
+        [self.titleFieldPost setTextColor:[UIColor blackColor]];
+    }
+}
+
+-(void)dismissKeyboard
+{
+    if ([self.textViewPost isFirstResponder]) {
+        [self.textViewPost resignFirstResponder];
+    }
+    if ([self.titleFieldPost isFirstResponder]) {
+        [self.titleFieldPost resignFirstResponder];
+    }
+}
 #pragma mark - Buttons for post type
 -(IBAction)buttonTextPostTouchUpInside:(id)sender
 {
     self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 8, self.contentView.frame.size.width, self.contentView.frame.size.height);
     postType = postTypeText;
+    [self.buttonPostTypeText setSelected:YES];
+    [self.buttonPostTypePhoto setSelected:NO];
+    [self.buttonPostTypeVideo setSelected:NO];
 }
 
 -(IBAction)buttonPhotoPostTouchUpInside:(id)sender
 {
     self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 88, self.contentView.frame.size.width, self.contentView.frame.size.height);
     postType = postTypePhoto;
+    [self.buttonPostTypeText setSelected:NO];
+    [self.buttonPostTypePhoto setSelected:YES];
+    [self.buttonPostTypeVideo setSelected:NO];
+
+    [[[UIActionSheet alloc] initWithTitle:@"Where do you want to get your image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo Gallery", @"Photo Camera", nil] showInView:self.view];
 }
 
 -(IBAction)buttonVideoPostTouchUpInside:(id)sender
 {
     self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 88, self.contentView.frame.size.width, self.contentView.frame.size.height);
     postType = postTypeVideo;
+    [self.buttonPostTypeText setSelected:NO];
+    [self.buttonPostTypePhoto setSelected:NO];
+    [self.buttonPostTypeVideo setSelected:YES];
+
+    [[[UIActionSheet alloc] initWithTitle:@"Where do you want to get your video" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Video Gallery", @"Video Camera", nil] showInView:self.view];
 }
 
 

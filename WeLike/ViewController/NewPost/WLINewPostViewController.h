@@ -15,7 +15,7 @@
 
 
 
-@interface WLINewPostViewController : WLIViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVYPhotoEditorControllerDelegate> {
+@interface WLINewPostViewController : WLIViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVYPhotoEditorControllerDelegate, UITextViewDelegate, UITextFieldDelegate> {
     
     enum PostTypeEnum {
         postTypeText = 1,
