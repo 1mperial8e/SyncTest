@@ -68,18 +68,21 @@
                 [self.buttonPostTypeText setSelected:YES];
                 [self.buttonPostTypePhoto setSelected:NO];
                 [self.buttonPostTypeVideo setSelected:NO];
+                [self.imageVideoPost setHidden:YES];
                 break;
             case postTypePhoto:
                 self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 88, self.contentView.frame.size.width, self.contentView.frame.size.height);
                 [self.buttonPostTypeText setSelected:NO];
                 [self.buttonPostTypePhoto setSelected:YES];
                 [self.buttonPostTypeVideo setSelected:NO];
+                [self.imageVideoPost setHidden:YES];
                 break;
             case postTypeVideo:
                 self.contentView.frame = CGRectMake(self.contentView.frame.origin.x, 88, self.contentView.frame.size.width, self.contentView.frame.size.height);
                 [self.buttonPostTypeText setSelected:NO];
                 [self.buttonPostTypePhoto setSelected:NO];
                 [self.buttonPostTypeVideo setSelected:YES];
+                [self.imageVideoPost setHidden:NO];
                 break;
             default:
                 break;
@@ -308,6 +311,7 @@
     [self.buttonPostTypeText setSelected:YES];
     [self.buttonPostTypePhoto setSelected:NO];
     [self.buttonPostTypeVideo setSelected:NO];
+    [self.imageVideoPost setHidden:YES];
 }
 
 -(IBAction)buttonPhotoPostTouchUpInside:(id)sender
@@ -317,6 +321,7 @@
     [self.buttonPostTypeText setSelected:NO];
     [self.buttonPostTypePhoto setSelected:YES];
     [self.buttonPostTypeVideo setSelected:NO];
+    [self.imageVideoPost setHidden:YES];
 
     [[[UIActionSheet alloc] initWithTitle:@"Where do you want to get your image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo Gallery", @"Photo Camera", nil] showInView:self.view];
 }
@@ -328,7 +333,8 @@
     [self.buttonPostTypeText setSelected:NO];
     [self.buttonPostTypePhoto setSelected:NO];
     [self.buttonPostTypeVideo setSelected:YES];
-
+    [self.imageVideoPost setHidden:NO];
+    
     [[[UIActionSheet alloc] initWithTitle:@"Where do you want to get your video" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Video Gallery", @"Video Camera", nil] showInView:self.view];
 }
 
