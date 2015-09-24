@@ -31,6 +31,7 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageVideoPost;
 @property (strong, nonatomic) IBOutlet UIButton *buttonPostImage;
+@property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) NSData *video;
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonSend;

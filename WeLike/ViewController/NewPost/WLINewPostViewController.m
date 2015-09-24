@@ -21,7 +21,7 @@
         // Custom initialization
         self.title = @"New post";
         self.video = nil;
-//        [AFPhotoEditorController setAPIKey:kAviaryKey secret:kAviarySecret];
+        [AFPhotoEditorController setAPIKey:kAviaryKey secret:kAviarySecret];
     }
     return self;
 }
@@ -127,15 +127,19 @@
 #pragma mark - UIImagePickerDelegate methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image;
-    if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:@"kUTTypeImage"])
+//    UIImage *image;
+    NSLog(@"Image type: %@ - %@", [info objectForKey:UIImagePickerControllerMediaType], kUTTypeImage);
+    if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:kUTTypeImage])
     {
-        image = [info objectForKey:UIImagePickerControllerEditedImage];
-        
-        AFPhotoEditorController *photoEditorController = [[AFPhotoEditorController alloc] initWithImage:image];
-        photoEditorController.delegate = self;
+        _image = [info objectForKey:UIImagePickerControllerEditedImage];
+        NSLog(@"Ferdig med bildet");
+
+//        AFPhotoEditorController *photoEditorController = [[AFPhotoEditorController alloc] initWithImage:image];
+//        photoEditorController.delegate = self;
         [self dismissViewControllerAnimated:YES completion:^{
-            [self presentViewController:photoEditorController animated:YES completion:nil];
+            [self.buttonPostImage setImage:_image forState:UIControlStateNormal];
+            [self.buttonPostImage setTitle:@"" forState:UIControlStateNormal];
+//            [self presentViewController:photoEditorController animated:YES completion:nil];
         }];
     }
     else
@@ -150,14 +154,16 @@
         generator.maximumSize = maxSize;
         
         CGImageRef imgRef = [generator copyCGImageAtTime:thumbTime actualTime:NULL error:&err];
-        image = [[UIImage alloc] initWithCGImage:imgRef];
+        _image = [[UIImage alloc] initWithCGImage:imgRef];
+        NSLog(@"Ferdig med bildet");
         
         [self dismissViewControllerAnimated:YES completion:^{
-            [self.buttonPostImage setImage:image forState:UIControlStateNormal];
+            NSLog(@"Setter bildet");
+            [self.buttonPostImage setImage:_image forState:UIControlStateNormal];
             [self.buttonPostImage setTitle:@"" forState:UIControlStateNormal];
-            if (![self.textViewPost isFirstResponder]) {
-                [self.textViewPost becomeFirstResponder];
-            }
+//            if (![self.textViewPost isFirstResponder]) {
+//                [self.textViewPost becomeFirstResponder];
+//            }
         }];
     }
 }

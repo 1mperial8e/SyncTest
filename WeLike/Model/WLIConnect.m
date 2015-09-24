@@ -335,7 +335,8 @@ static WLIConnect *sharedConnect;
         [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
         [parameters setObject:postTitle forKey:@"postTitle"];
         [parameters setObject:postText forKey:@"postText"];
-        [parameters setObject:postKeywords forKey:@"postKeywords"];
+        if (postKeywords != nil)
+            [parameters setObject:postKeywords forKey:@"postKeywords"];
        [parameters setObject:postCategory forKey:@"postCategory"];
 
         [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -382,7 +383,8 @@ static WLIConnect *sharedConnect;
         [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
         [parameters setObject:postTitle forKey:@"postTitle"];
         [parameters setObject:postText forKey:@"postText"];
-        [parameters setObject:postKeywords forKey:@"postKeywords"];
+        if (postKeywords != nil)
+            [parameters setObject:postKeywords forKey:@"postKeywords"];
         [parameters setObject:postCategory forKey:@"postCategory"];
         
         [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
