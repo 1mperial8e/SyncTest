@@ -150,7 +150,7 @@
     if (indexPath.section == 1) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row]].height;
     } else if (indexPath.section == 0){
-        return 44 * loading * self.posts.count == 0;
+        return 0; //44 * loading * self.posts.count == 0;
     } else {
         return 44 * loadMore;
     }
