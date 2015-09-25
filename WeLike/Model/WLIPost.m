@@ -17,6 +17,7 @@
     if (self) {
         _postID = [self integerFromDictionary:postWithInfo forKey:@"postID"];
         _postTitle = [self stringFromDictionary:postWithInfo forKey:@"postTitle"];
+        _postText = [self stringFromDictionary:postWithInfo forKey:@"postText"];
         _postImagePath = [self stringFromDictionary:postWithInfo forKey:@"postImage"];
         _postVideoPath = [self stringFromDictionary:postWithInfo forKey:@"postVideo"];
         _postDate = [self dateFromDictionary:postWithInfo forKey:@"postDate"];

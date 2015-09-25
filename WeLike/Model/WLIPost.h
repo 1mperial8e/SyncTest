@@ -13,6 +13,7 @@
 
 @property (nonatomic) int postID;
 @property (nonatomic, strong) NSString *postTitle;
+@property (nonatomic, strong) NSString *postText;
 @property (nonatomic, strong) NSString *postImagePath;
 @property (nonatomic, strong) NSString *postVideoPath;
 @property (nonatomic, strong) NSDate *postDate;

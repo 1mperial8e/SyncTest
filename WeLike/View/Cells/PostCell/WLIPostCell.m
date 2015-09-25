@@ -63,7 +63,7 @@ static WLIPostCell *sharedCell = nil;
     sharedCell.post = post;
     [sharedCell updateFramesAndDataWithDownloads:NO];
     
-    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetMaxY(sharedCell.labelPostTitle.frame) + 8.0f +10.0f);
+    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetMaxY(sharedCell.labelPostTitle.frame) + 8.0f +10.0f + 162.0f);
     
     return size;
 }
@@ -83,6 +83,7 @@ static WLIPostCell *sharedCell = nil;
         
         //Set and resize
         self.labelPostTitle.text = self.post.postTitle;
+        self.labelPostText.text = self.post.postText;
         [self.labelPostTitle sizeToFit];
         if (self.labelPostTitle.frame.size.width < frameDefaultLabelPostTitle.size.width) {
             self.labelPostTitle.frame = CGRectMake(self.labelPostTitle.frame.origin.x, self.labelPostTitle.frame.origin.y, frameDefaultLabelPostTitle.size.width, self.labelPostTitle.frame.size.height);
