@@ -12,7 +12,7 @@
 //#import "WLIPopularViewController.h"
 //#import "WLIProfileViewController.h"
 //#import "WLITimelineViewController.h"
-#import "WLIMyPostsViewController.h"
+#import "WLIInfoPageViewController.h"
 #import "WLIFavoritesViewController.h"
 #import "WLIFollowingsViewController.h"
 #import "WLIMyDriveViewController.h"
@@ -133,13 +133,13 @@
     UINavigationController *favoritesNavigationController = [[UINavigationController alloc] initWithRootViewController:favoritesViewController];
     favoritesNavigationController.navigationBar.translucent = NO;
     
-    WLIMyPostsViewController *myPostsViewController = [[WLIMyPostsViewController alloc] initWithNibName:@"WLIMyPostsViewController" bundle:nil];
-    UINavigationController *myPostsNavigationController = [[UINavigationController alloc] initWithRootViewController:myPostsViewController];
-    myPostsNavigationController.navigationBar.translucent = NO;
+    WLIInfoPageViewController *infoPageViewController = [[WLIInfoPageViewController alloc] initWithNibName:@"WLIInfoPageViewController" bundle:nil];
+    UINavigationController *infoPageNavigationController = [[UINavigationController alloc] initWithRootViewController:infoPageViewController];
+    infoPageNavigationController.navigationBar.translucent = NO;
     
     self.tabBarController = [[WLITabBarController alloc] init];
     self.tabBarController.delegate = self;
-    self.tabBarController.viewControllers = @[myDriveNavigationController, followingNavigationController,newPostNavigationController, favoritesNavigationController, myPostsNavigationController];
+    self.tabBarController.viewControllers = @[myDriveNavigationController, followingNavigationController,newPostNavigationController, favoritesNavigationController, infoPageNavigationController];
 
     UITabBarItem *myDriveTabBarItem = [[UITabBarItem alloc] initWithTitle:@"MyDrive" image:[[UIImage imageNamed:@"tabbar-mydrive-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-mydrive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     myDriveViewController.tabBarItem = myDriveTabBarItem;
@@ -149,8 +149,8 @@
     newPostViewController.tabBarItem = newPostTabBarItem;
     UITabBarItem *favoritesTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Favorites" image:[[UIImage imageNamed:@"tabbar-favorites-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-favorites"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     favoritesViewController.tabBarItem = favoritesTabBarItem;
-    UITabBarItem *myPostsTabBarItem = [[UITabBarItem alloc] initWithTitle:@"MyPosts" image:[[UIImage imageNamed:@"tabbar-myposts-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-myposts"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    myPostsViewController.tabBarItem = myPostsTabBarItem;
+    UITabBarItem *infoPageTabBarItem = [[UITabBarItem alloc] initWithTitle:@"20by2020" image:[[UIImage imageNamed:@"tabbar-20-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-20"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    infoPageViewController.tabBarItem = infoPageTabBarItem;
     
     self.window.rootViewController = self.tabBarController;
 }
