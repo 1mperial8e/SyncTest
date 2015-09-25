@@ -18,17 +18,33 @@
     CGRect frameDefaultLabelPostTitle;
     CGRect frameDefaultImageViewPost;
     MPMoviePlayerViewController *movieController;
+    
+    IBOutlet UIView *topView;
+    IBOutlet UIView *middleView;
+    IBOutlet UIView *bottomView;
+    
 }
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewUser;
 @property (strong, nonatomic) IBOutlet UILabel *labelUserName;
 @property (strong, nonatomic) IBOutlet UILabel *labelTimeAgo;
 @property (strong, nonatomic) IBOutlet UILabel *labelPostTitle;
+@property (strong, nonatomic) IBOutlet UILabel *labelPostText;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewPostImage;
 @property (strong, nonatomic) IBOutlet UIButton *buttonLike;
 @property (strong, nonatomic) IBOutlet UIButton *buttonComment;
+@property (strong, nonatomic) IBOutlet UILabel *labelComments;
 @property (strong, nonatomic) IBOutlet UIButton *buttonLikes;
+@property (strong, nonatomic) IBOutlet UILabel *labelLikes;
 @property (strong, nonatomic) IBOutlet UIButton *buttonVideo;
+
+@property (strong, nonatomic) IBOutlet UIButton *buttonShare;
+
+@property (strong, nonatomic) IBOutlet UIButton *buttonCatMarket;
+@property (strong, nonatomic) IBOutlet UIButton *buttonCatCustomer;
+@property (strong, nonatomic) IBOutlet UIButton *buttonCatCapabilities;
+@property (strong, nonatomic) IBOutlet UIButton *buttonCatPeople;
+
 
 @property (strong, nonatomic) WLIPost *post;
 @property (weak, nonatomic) id<WLICellDelegate> delegate;
