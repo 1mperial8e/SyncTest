@@ -28,6 +28,7 @@ static WLIPostCell *sharedCell = nil;
     
     [super awakeFromNib];
     frameDefaultLabelPostTitle = self.labelPostTitle.frame;
+    frameDefaultLabelPostText = self.labelPostText.frame;
     //frameDefaultImageViewPost = self.imageViewPostImage.frame;
     
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height/2;
@@ -51,6 +52,7 @@ static WLIPostCell *sharedCell = nil;
     [self.imageViewPostImage cancelImageRequestOperation];
     self.imageViewPostImage.image = nil;
     self.labelPostTitle.frame = frameDefaultLabelPostTitle;
+    self.labelPostText.frame = frameDefaultLabelPostText;
     [self.buttonVideo setHidden:YES];
 }
 
@@ -63,7 +65,7 @@ static WLIPostCell *sharedCell = nil;
     sharedCell.post = post;
     [sharedCell updateFramesAndDataWithDownloads:NO];
     
-    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetMaxY(sharedCell.labelPostTitle.frame) + 8.0f +10.0f + 162.0f);
+    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetMaxY(sharedCell.labelPostText.frame) + 8.0f +10.0f);
     
     return size;
 }
@@ -83,13 +85,21 @@ static WLIPostCell *sharedCell = nil;
         
         //Set and resize
         self.labelPostTitle.text = self.post.postTitle;
-        self.labelPostText.text = self.post.postText;
         [self.labelPostTitle sizeToFit];
         if (self.labelPostTitle.frame.size.width < frameDefaultLabelPostTitle.size.width) {
             self.labelPostTitle.frame = CGRectMake(self.labelPostTitle.frame.origin.x, self.labelPostTitle.frame.origin.y, frameDefaultLabelPostTitle.size.width, self.labelPostTitle.frame.size.height);
         }
         if (self.labelPostTitle.frame.size.height < frameDefaultLabelPostTitle.size.height) {
             self.labelPostTitle.frame = CGRectMake(self.labelPostTitle.frame.origin.x, self.labelPostTitle.frame.origin.y, self.labelPostTitle.frame.size.width, frameDefaultLabelPostTitle.size.height);
+        }
+        
+        self.labelPostText.text = self.post.postText;
+        [self.labelPostText sizeToFit];
+        if (self.labelPostText.frame.size.width < frameDefaultLabelPostText.size.width) {
+            self.labelPostText.frame = CGRectMake(self.labelPostText.frame.origin.x, self.labelPostText.frame.origin.y, frameDefaultLabelPostText.size.width, self.labelPostTitle.frame.size.height);
+        }
+        if (self.labelPostText.frame.size.height < frameDefaultLabelPostText.size.height) {
+            self.labelPostText.frame = CGRectMake(self.labelPostText.frame.origin.x, self.labelPostText.frame.origin.y, self.labelPostText.frame.size.width, frameDefaultLabelPostText.size.height);
         }
         //Set and resize done
         

@@ -16,6 +16,7 @@
 @interface WLIPostCell : WLITableViewCell {
     
     CGRect frameDefaultLabelPostTitle;
+    CGRect frameDefaultLabelPostText;
     CGRect frameDefaultImageViewPost;
     MPMoviePlayerViewController *movieController;
     
