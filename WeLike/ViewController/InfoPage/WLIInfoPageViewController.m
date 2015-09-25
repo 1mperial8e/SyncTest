@@ -7,6 +7,11 @@
 //
 
 #import "WLIInfoPageViewController.h"
+#import "WLIInfoMarketViewController.h"
+#import "WLIInfoCustomerViewController.h"
+#import "WLIInfoCapabilityViewController.h"
+#import "WLIInfoPeopleViewController.h"
+#import "WLIInfoWhyViewController.h"
 
 @interface WLIInfoPageViewController ()
 
@@ -14,9 +19,24 @@
 
 @implementation WLIInfoPageViewController
 
+
+#pragma mark - Object lifecycle
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+//        self.title = @"Why 20 % by 2020?";
+        self.title = @"What is MyDrive?";
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    scrollView.contentSize = CGSizeMake(320, 630);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +44,31 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)cancelButtonTouchUpInside:(id)sender
+
+- (IBAction)marketButtonTouchUpInside:(id)sender
 {
-    exit(0);
-//    [[NSThread mainThread] exit];
+    WLIInfoMarketViewController *myViewController = [[WLIInfoMarketViewController alloc] initWithNibName:@"WLIInfoMarketViewController" bundle:nil];
+    [self.navigationController pushViewController:myViewController animated:YES];
 }
--(IBAction)loginButtonTouchUpInside:(id)sender
+- (IBAction)customerButtonTouchUpInside:(id)sender
 {
-    
+    WLIInfoCustomerViewController *myViewController = [[WLIInfoCustomerViewController alloc] initWithNibName:@"WLIInfoCustomerViewController" bundle:nil];
+    [self.navigationController pushViewController:myViewController animated:YES];
+}
+- (IBAction)capabilityButtonTouchUpInside:(id)sender
+{
+    WLIInfoCapabilityViewController *myViewController = [[WLIInfoCapabilityViewController alloc] initWithNibName:@"WLIInfoCapabilityViewController" bundle:nil];
+    [self.navigationController pushViewController:myViewController animated:YES];
+}
+- (IBAction)peopleButtonTouchUpInside:(id)sender
+{
+    WLIInfoPeopleViewController *myViewController = [[WLIInfoPeopleViewController alloc] initWithNibName:@"WLIInfoPeopleViewController" bundle:nil];
+    [self.navigationController pushViewController:myViewController animated:YES];
+}
+- (IBAction)whyButtonTouchUpInside:(id)sender
+{
+    WLIInfoWhyViewController *myViewController = [[WLIInfoWhyViewController alloc] initWithNibName:@"WLIInfoWhyViewController" bundle:nil];
+    [self.navigationController pushViewController:myViewController animated:YES];
 }
 /*
 #pragma mark - Navigation

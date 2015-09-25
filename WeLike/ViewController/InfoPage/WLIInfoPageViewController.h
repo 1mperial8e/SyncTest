@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLIViewController.h"
 
-@interface WLIInfoPageViewController : UIViewController {
-    
+
+@interface WLIInfoPageViewController : WLIViewController {
+    IBOutlet UIScrollView *scrollView;
 }
 
 
--(IBAction)cancelButtonTouchUpInside:(id)sender;
--(IBAction)loginButtonTouchUpInside:(id)sender;
+- (IBAction)marketButtonTouchUpInside:(id)sender;
+- (IBAction)customerButtonTouchUpInside:(id)sender;
+- (IBAction)capabilityButtonTouchUpInside:(id)sender;
+- (IBAction)peopleButtonTouchUpInside:(id)sender;
 
 
 @end
