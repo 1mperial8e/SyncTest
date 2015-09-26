@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WLIViewController.h"
-
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface WLIInfoPageViewController : WLIViewController {
     IBOutlet UIScrollView *scrollView;
@@ -19,6 +19,6 @@
 - (IBAction)customerButtonTouchUpInside:(id)sender;
 - (IBAction)capabilityButtonTouchUpInside:(id)sender;
 - (IBAction)peopleButtonTouchUpInside:(id)sender;
-
+- (IBAction)buttonPlayVideoTouchUpInside:(id)sender;
 
 @end

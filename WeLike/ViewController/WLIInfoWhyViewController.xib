@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+            <string>HelveticaNeue</string>
+            <string>HelveticaNeue</string>
+            <string>HelveticaNeue</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLIInfoWhyViewController">
             <connections>
@@ -18,12 +26,79 @@
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfI-CG-QtB">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="1116"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyDriveLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="sla-UA-kjE">
+                            <rect key="frame" x="15" y="23" width="291" height="59"/>
+                            <animations/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Graph1.png" translatesAutoresizingMaskIntoConstraints="NO" id="I5A-hM-JCm">
+                            <rect key="frame" x="3" y="144" width="315" height="139"/>
+                            <animations/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ei9-vC-wCx">
+                            <rect key="frame" x="15" y="762" width="291" height="78"/>
+                            <animations/>
+                            <string key="text">mindset; think and act less like a bank, more like a start-up and stimulate and drive innovative thinking through each of our four strategic focus areas.
+</string>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWe-7K-8bi">
+                            <rect key="frame" x="15" y="848" width="291" height="129"/>
+                            <animations/>
+                            <string key="text">“This strategy is a confirmation of our deep and relentless pursuit to deliver outstanding results in the years to come. If anything, the process shows that every level of the organization has a genuine desire and an urge to do what is necessary - to be no.1 in everything we do.”</string>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="First, there is a need to think differently." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Awh-Yu-zQT">
+                            <rect key="frame" x="9" y="100" width="303" height="21"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNk-yW-yXl">
+                            <rect key="frame" x="15" y="291" width="291" height="316"/>
+                            <animations/>
+                            <mutableString key="text">The financial services industry is experiencing unprecedented disruption, with all the signs being that this will continue and gather pace.
+The FinTech sector is seeing wave upon wave of new startup companies all wanting a piece of the action. Whilst far from certain, the stringent capital and regulatory requirements associated with banking operations will likely mean that disruption from startups and more established ‘digital players’ will be characterized by a ‘nibbling at the edges’ of banks’ business models, rather than at the core.
+The problem is that this disruption might occur at all the edges!
+
+To support our strategy, we need to adopt a beyond banking innovation
+</mutableString>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="illustration2.png" translatesAutoresizingMaskIntoConstraints="NO" id="jyQ-UB-GRP">
+                            <rect key="frame" x="8" y="609" width="310" height="135"/>
+                            <animations/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zU6-Nw-bqS">
+                            <rect key="frame" x="15" y="980" width="291" height="43"/>
+                            <animations/>
+                            <string key="text">Michael Hvidsten
+CEO, SCB Nordic</string>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" red="0.024194611595959592" green="0.024194611595959592" blue="0.024194611595959592" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
+            <animations/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="381" y="890"/>
         </scrollView>
     </objects>
+    <resources>
+        <image name="Graph1.png" width="332" height="147"/>
+        <image name="MyDriveLogo.png" width="291" height="60"/>
+        <image name="illustration2.png" width="336" height="146"/>
+    </resources>
 </document>

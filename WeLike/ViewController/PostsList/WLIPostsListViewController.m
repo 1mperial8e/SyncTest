@@ -50,7 +50,7 @@
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.adjustsImageWhenHighlighted = NO;
     backButton.frame = CGRectMake(0.0f, 0.0f, 40.0f, 30.0f);
-    [backButton setImage:[UIImage imageNamed:@"nav-btn-search"] forState:UIControlStateNormal];
+    //[backButton setImage:[UIImage imageNamed:@"nav-btn-search"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(searchButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 

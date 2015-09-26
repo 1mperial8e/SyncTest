@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		074D687C1BB535DC000167DD /* MyDriveLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D687B1BB535DC000167DD /* MyDriveLogo.png */; settings = {ASSET_TAGS = (); }; };
+		074D687E1BB537E5000167DD /* Market.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D687D1BB537E5000167DD /* Market.png */; settings = {ASSET_TAGS = (); }; };
+		074D68801BB537EE000167DD /* Customer.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D687F1BB537EE000167DD /* Customer.png */; settings = {ASSET_TAGS = (); }; };
+		074D68821BB537F9000167DD /* Capability.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D68811BB537F9000167DD /* Capability.png */; settings = {ASSET_TAGS = (); }; };
+		074D68841BB53804000167DD /* People.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D68831BB53804000167DD /* People.png */; settings = {ASSET_TAGS = (); }; };
+		074D68881BB53B40000167DD /* Graph1.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D68871BB53B40000167DD /* Graph1.png */; settings = {ASSET_TAGS = (); }; };
+		074D688A1BB53C4D000167DD /* illustration2.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D68891BB53C4D000167DD /* illustration2.png */; settings = {ASSET_TAGS = (); }; };
+		074D688C1BB54B29000167DD /* director.mov in Resources */ = {isa = PBXBuildFile; fileRef = 074D688B1BB54B29000167DD /* director.mov */; settings = {ASSET_TAGS = (); }; };
 		07A349121B9D902700C7EBBD /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A349101B9D902700C7EBBD /* Fabric.framework */; };
 		07A349131B9D902700C7EBBD /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A349111B9D902700C7EBBD /* Crashlytics.framework */; };
 		2C5B5C7D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5C6D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m */; };
@@ -147,6 +155,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		074D687B1BB535DC000167DD /* MyDriveLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MyDriveLogo.png; sourceTree = "<group>"; };
+		074D687D1BB537E5000167DD /* Market.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Market.png; sourceTree = "<group>"; };
+		074D687F1BB537EE000167DD /* Customer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Customer.png; sourceTree = "<group>"; };
+		074D68811BB537F9000167DD /* Capability.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Capability.png; sourceTree = "<group>"; };
+		074D68831BB53804000167DD /* People.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = People.png; sourceTree = "<group>"; };
+		074D68871BB53B40000167DD /* Graph1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Graph1.png; sourceTree = "<group>"; };
+		074D68891BB53C4D000167DD /* illustration2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = illustration2.png; sourceTree = "<group>"; };
+		074D688B1BB54B29000167DD /* director.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = director.mov; sourceTree = "<group>"; };
 		07A349101B9D902700C7EBBD /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		07A349111B9D902700C7EBBD /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2C5B5C6C1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -402,6 +418,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		074D687A1BB535B2000167DD /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				074D687F1BB537EE000167DD /* Customer.png */,
+				074D68831BB53804000167DD /* People.png */,
+				074D687D1BB537E5000167DD /* Market.png */,
+				074D688B1BB54B29000167DD /* director.mov */,
+				074D68811BB537F9000167DD /* Capability.png */,
+				074D68891BB53C4D000167DD /* illustration2.png */,
+				074D68871BB53B40000167DD /* Graph1.png */,
+				074D687B1BB535DC000167DD /* MyDriveLogo.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		2C6D26741896BACA00C459CB /* WeLike */ = {
 			isa = PBXGroup;
 			children = (
@@ -1104,6 +1135,7 @@
 		2ED2F2811BA95E5500641F54 /* InfoPage */ = {
 			isa = PBXGroup;
 			children = (
+				074D687A1BB535B2000167DD /* Images */,
 				2E0BDD261BB52EFA004EACF5 /* SubPages */,
 				2ED2F2821BA95E8C00641F54 /* WLIInfoPageViewController.h */,
 				2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */,
@@ -1144,7 +1176,7 @@
 				ORGANIZATIONNAME = "Goran Vuksic";
 				TargetAttributes = {
 					2CCE1A9417ECD32B00680126 = {
-						DevelopmentTeam = BHFYPPS9AQ;
+						DevelopmentTeam = Y63VS2VG4D;
 					};
 				};
 			};
@@ -1183,6 +1215,8 @@
 				2C6D27F21896BACA00C459CB /* WLIEditProfileViewController.xib in Resources */,
 				2E0BDD351BB52FC9004EACF5 /* WLIInfoCapabilityViewController.xib in Resources */,
 				2E0BDD3A1BB52FDD004EACF5 /* WLIInfoPeopleViewController.xib in Resources */,
+				074D68821BB537F9000167DD /* Capability.png in Resources */,
+				074D68801BB537EE000167DD /* Customer.png in Resources */,
 				2E0BDD251BB4B8DD004EACF5 /* post-image-placeholder.png in Resources */,
 				2C6D27D31896BACA00C459CB /* WLILikeCell.xib in Resources */,
 				2C6D27EE1896BACA00C459CB /* WLIPopularViewController.xib in Resources */,
@@ -1191,6 +1225,7 @@
 				2C6D27F01896BACA00C459CB /* WLIPostViewController.xib in Resources */,
 				2ED2F2861BA95E8C00641F54 /* WLIInfoPageViewController.xib in Resources */,
 				2E28F3831BADE64F006CF0BE /* WLIFavoritesViewController.xib in Resources */,
+				074D688A1BB53C4D000167DD /* illustration2.png in Resources */,
 				2C6D27F41896BACA00C459CB /* WLIProfileViewController.xib in Resources */,
 				2C6D27B51896BACA00C459CB /* MNMPullToRefreshIcon.png in Resources */,
 				2C6D27F61896BACA00C459CB /* WLIRegisterViewController.xib in Resources */,
@@ -1198,17 +1233,22 @@
 				2E28F3881BADE676006CF0BE /* WLIMyPostsViewController.xib in Resources */,
 				2E28F3741BADE286006CF0BE /* WLIMyDriveViewController.xib in Resources */,
 				2C6D27D71896BACA00C459CB /* WLILoadingCollectionViewCell.xib in Resources */,
+				074D688C1BB54B29000167DD /* director.mov in Resources */,
+				074D68841BB53804000167DD /* People.png in Resources */,
 				2C6D27DC1896BACA00C459CB /* WLIPostCollectionViewCell.xib in Resources */,
+				074D687E1BB537E5000167DD /* Market.png in Resources */,
 				2E28F3981BADEEFF006CF0BE /* WLISearchContentViewController.xib in Resources */,
 				2E0BDD3F1BB53065004EACF5 /* WLIInfoWhyViewController.xib in Resources */,
 				2C6D27C71896BACA00C459CB /* Images.xcassets in Resources */,
 				2C6D27DE1896BACA00C459CB /* WLIUserCell.xib in Resources */,
 				2C6D27E41896BACA00C459CB /* WLIFollowingViewController.xib in Resources */,
+				074D68881BB53B40000167DD /* Graph1.png in Resources */,
 				2C6D27D91896BACA00C459CB /* WLIPostCell.xib in Resources */,
 				2C6D27E21896BACA00C459CB /* WLIFollowersViewController.xib in Resources */,
 				2C6D27B41896BACA00C459CB /* MNMPullToRefresh.strings in Resources */,
 				2E0BDD2B1BB52F31004EACF5 /* WLIInfoMarketViewController.xib in Resources */,
 				2C6D27FD1896BACA00C459CB /* WLIWelcomeViewController.xib in Resources */,
+				074D687C1BB535DC000167DD /* MyDriveLogo.png in Resources */,
 				2C6D27F81896BACA00C459CB /* WLISearchViewController.xib in Resources */,
 				2C6D27C61896BACA00C459CB /* InfoPlist.strings in Resources */,
 				2C6D27E81896BACA00C459CB /* WLILoginViewController.xib in Resources */,
@@ -1229,7 +1269,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# ./Fabric.framework/run 5ce1ef35ca4b1954a7f308b01bd80931a0071f01 de8b5c6a6955955992a62d75ffb88e2ad61f5aef090d2bca6777f4c4f9a2faee";
+			shellScript = "./Fabric.framework/run 5ce1ef35ca4b1954a7f308b01bd80931a0071f01 de8b5c6a6955955992a62d75ffb88e2ad61f5aef090d2bca6777f4c4f9a2faee";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1452,7 +1492,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.appmedia.MyDrive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.appmedia.mydrivebeta;
 				PRODUCT_NAME = MyDrive;
 				VALID_ARCHS = "arm64 armv7s armv7";
 				WRAPPER_EXTENSION = app;
@@ -1484,7 +1524,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.appmedia.MyDrive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.appmedia.mydrivebeta;
 				PRODUCT_NAME = MyDrive;
 				VALID_ARCHS = "arm64 armv7s armv7";
 				WRAPPER_EXTENSION = app;
