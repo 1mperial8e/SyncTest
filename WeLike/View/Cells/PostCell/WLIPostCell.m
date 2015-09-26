@@ -165,6 +165,7 @@ static WLIPostCell *sharedCell = nil;
         [self buttonPostTouchUpInside:self];
     }
 }
+
 - (IBAction)buttonLikeTouchUpInside:(id)sender {
     
     if ([self.delegate respondsToSelector:@selector(toggleLikeForPost:sender:)]) {
