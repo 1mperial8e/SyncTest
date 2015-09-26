@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    scrollView.contentSize = CGSizeMake(320, 630);
+    scrollView.contentSize = CGSizeMake(320, 1142);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,6 +70,14 @@
     WLIInfoWhyViewController *myViewController = [[WLIInfoWhyViewController alloc] initWithNibName:@"WLIInfoWhyViewController" bundle:nil];
     [self.navigationController pushViewController:myViewController animated:YES];
 }
+
+- (IBAction)buttonPlayVideoTouchUpInside:(id)sender {
+    MPMoviePlayerViewController *movieController;
+    NSURL *movieURL = [[NSBundle mainBundle] URLForResource: @"director" withExtension:@"mov"];
+    movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:movieURL];
+    [self presentViewController:movieController animated:YES completion:nil];
+    [movieController.moviePlayer play];
+}
 /*
 #pragma mark - Navigation
 
@@ -81,3 +89,4 @@
 */
 
 @end
+

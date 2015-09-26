@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    scrollView.contentSize = CGSizeMake(320, 536);
 }
 
 - (void)didReceiveMemoryWarning {

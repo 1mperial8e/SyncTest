@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+            <string>HelveticaNeue</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLIInfoPageViewController">
             <connections>
@@ -13,26 +19,109 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="JUW-cG-W92">
-            <rect key="frame" x="0.0" y="64" width="320" height="930"/>
+            <rect key="frame" x="0.0" y="64" width="320" height="1142"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2vD-fG-NWs">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="930"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1142"/>
                     <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7m-Wl-uEx">
+                            <rect key="frame" x="15" y="92" width="291" height="93"/>
+                            <animations/>
+                            <string key="text">MyDrive is the platform that delivers the bridge between that big fuzzy thing called "corporate strategy" and personal actions supporte by a social media, leading to the company delivering on  20%by2020.</string>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" red="0.53725490196078429" green="0.53725490196078429" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="46" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tx6-vd-qqg">
+                            <rect key="frame" x="15" y="561" width="291" height="521"/>
+                            <animations/>
+                            <mutableString key="text">MyDrive is a simple tool to simply connect all of us together to allow us to converge on our new strategy in a device we carry with us. Our phones. MyDrive is about two things initially:
+ 1. Making our new strategy available and understandable to everyone in Santander.
+ 2. Putting it into a social media forum where you can, over the next months, through discussing with others, identify your drive, your passion, what you like most about the strategy that will trigger the best in you to make it come true by 2020.
+
+We want the management, and all of us, to post stuff in low-fi style, using their iPhone or other device. We want real, open communications. Only then will we get the confidence, insight to be able to support each other to become better, happier and greatly succeed at our jobs.
+
+Let`s look at MyDrive as the channel where we get to do anything and everything to energize each other and ourselves. Through humor, fun, good everyday tales, stuff we are learning, failing at, succeeding at, suggestions we have, whatever. Put it out there. Just make sure you use whatever drives you. Your drive.
+</mutableString>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What is MyDrive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4QB-uX-q8g">
+                            <rect key="frame" x="15" y="543" width="125" height="21"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sCI-b4-mqx">
-                            <rect key="frame" x="92" y="119" width="31" height="30"/>
-                            <state key="normal" title="Why"/>
+                            <rect key="frame" x="31" y="456" width="258" height="63"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="19"/>
+                            <state key="normal" title="WHY 20% BY 2020?">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
                             <connections>
                                 <action selector="whyButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="MrX-iC-o53"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoB-DU-4NN">
+                            <rect key="frame" x="46" y="199" width="100" height="100"/>
+                            <animations/>
+                            <state key="normal" title="Button" image="Market.png"/>
+                            <connections>
+                                <action selector="marketButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="uZe-J6-0cz"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cle-2z-s1D">
+                            <rect key="frame" x="175" y="199" width="100" height="100"/>
+                            <animations/>
+                            <state key="normal" title="Button" image="Customer.png"/>
+                            <connections>
+                                <action selector="customerButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="Qrw-JK-P5B"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZV-0f-x90">
+                            <rect key="frame" x="46" y="323" width="100" height="100"/>
+                            <animations/>
+                            <state key="normal" title="Button" image="Capability.png"/>
+                            <connections>
+                                <action selector="capabilityButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="hVr-cq-VRM"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQb-6Y-8px">
+                            <rect key="frame" x="175" y="323" width="100" height="100"/>
+                            <animations/>
+                            <state key="normal" title="Button" image="People.png"/>
+                            <connections>
+                                <action selector="peopleButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="bce-IO-tXY"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SuA-Eb-Xg1">
+                            <rect key="frame" x="15" y="16" width="297" height="60"/>
+                            <animations/>
+                            <state key="normal" title="Button" image="MyDriveLogo.png"/>
+                            <connections>
+                                <action selector="buttonPlayVideoTouchUpInside:" destination="-1" eventType="touchUpInside" id="o5f-um-hYe"/>
+                            </connections>
+                        </button>
                     </subviews>
+                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
+            <animations/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="381" y="829"/>
+            <point key="canvasLocation" x="381" y="935"/>
         </scrollView>
     </objects>
+    <resources>
+        <image name="Capability.png" width="273" height="273"/>
+        <image name="Customer.png" width="273" height="273"/>
+        <image name="Market.png" width="273" height="273"/>
+        <image name="MyDriveLogo.png" width="291" height="60"/>
+        <image name="People.png" width="273" height="273"/>
+    </resources>
 </document>
