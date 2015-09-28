@@ -34,14 +34,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    CLAuthorizationStatus locationAuthorizationStatus = [CLLocationManager authorizationStatus];
-    if (locationAuthorizationStatus != kCLAuthorizationStatusDenied) {
-        self.locationManager = [[CLLocationManager alloc] init];
-        if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0f) {
-            [self.locationManager performSelector:@selector(requestWhenInUseAuthorization) withObject:nil];
-        }
-    }
-    
     [self createViewHierarchy];
     
     // navigation bar appearance
@@ -117,6 +109,10 @@
 
 - (void)createViewHierarchy {
     
+    WLIInfoPageViewController *infoPageViewController = [[WLIInfoPageViewController alloc] initWithNibName:@"WLIInfoPageViewController" bundle:nil];
+    UINavigationController *infoPageNavigationController = [[UINavigationController alloc] initWithRootViewController:infoPageViewController];
+    infoPageNavigationController.navigationBar.translucent = NO;
+    
     WLIMyDriveViewController *myDriveViewController = [[WLIMyDriveViewController alloc] initWithNibName:@"WLIMyDriveViewController" bundle:nil];
     UINavigationController *myDriveNavigationController = [[UINavigationController alloc] initWithRootViewController:myDriveViewController];
     myDriveNavigationController.navigationBar.translucent = NO;
@@ -133,24 +129,24 @@
     UINavigationController *favoritesNavigationController = [[UINavigationController alloc] initWithRootViewController:favoritesViewController];
     favoritesNavigationController.navigationBar.translucent = NO;
     
-    WLIInfoPageViewController *infoPageViewController = [[WLIInfoPageViewController alloc] initWithNibName:@"WLIInfoPageViewController" bundle:nil];
-    UINavigationController *infoPageNavigationController = [[UINavigationController alloc] initWithRootViewController:infoPageViewController];
-    infoPageNavigationController.navigationBar.translucent = NO;
-    
     self.tabBarController = [[WLITabBarController alloc] init];
     self.tabBarController.delegate = self;
-    self.tabBarController.viewControllers = @[myDriveNavigationController, followingNavigationController,newPostNavigationController, favoritesNavigationController, infoPageNavigationController];
-
-    UITabBarItem *myDriveTabBarItem = [[UITabBarItem alloc] initWithTitle:@"MyDrive" image:[[UIImage imageNamed:@"tabbar-mydrive-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-mydrive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    myDriveViewController.tabBarItem = myDriveTabBarItem;
-    UITabBarItem *followingTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Following" image:[[UIImage imageNamed:@"tabbar-following-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-following"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    followingNavigationController.tabBarItem = followingTabBarItem;
-    UITabBarItem *newPostTabBarItem = [[UITabBarItem alloc] initWithTitle:@"New post" image:[[UIImage imageNamed:@"tabbar-newpost-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-newpost"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    newPostViewController.tabBarItem = newPostTabBarItem;
-    UITabBarItem *favoritesTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Favorites" image:[[UIImage imageNamed:@"tabbar-favorites-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-favorites"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    favoritesViewController.tabBarItem = favoritesTabBarItem;
+    self.tabBarController.viewControllers = @[infoPageNavigationController, myDriveNavigationController, newPostNavigationController, followingNavigationController, favoritesNavigationController];
+    
     UITabBarItem *infoPageTabBarItem = [[UITabBarItem alloc] initWithTitle:@"20by2020" image:[[UIImage imageNamed:@"tabbar-20-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-20"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     infoPageViewController.tabBarItem = infoPageTabBarItem;
+
+    UITabBarItem *myDriveTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Timeline" image:[[UIImage imageNamed:@"tabbar-mydrive-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-mydrive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    myDriveViewController.tabBarItem = myDriveTabBarItem;
+
+    UITabBarItem *followingTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Following" image:[[UIImage imageNamed:@"tabbar-following-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-following"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    followingNavigationController.tabBarItem = followingTabBarItem;
+
+    UITabBarItem *newPostTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Add Energy" image:[[UIImage imageNamed:@"tabbar-newpost-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-newpost"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    newPostViewController.tabBarItem = newPostTabBarItem;
+
+    UITabBarItem *favoritesTabBarItem = [[UITabBarItem alloc] initWithTitle:@"MyDrive" image:[[UIImage imageNamed:@"tabbar-favorites-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-favorites"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    favoritesViewController.tabBarItem = favoritesTabBarItem;
     
     self.window.rootViewController = self.tabBarController;
 }

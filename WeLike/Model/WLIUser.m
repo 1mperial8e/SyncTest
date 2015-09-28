@@ -28,27 +28,13 @@
         
         _likesCount = [self integerFromDictionary:userWithInfo forKey:@"likesCount"];
         _myPostsCount = [self integerFromDictionary:userWithInfo forKey:@"myPostsCount"];
-        
-        _companyAddress = [self stringFromDictionary:userWithInfo forKey:@"userAddress"];
-        _companyPhone = [self stringFromDictionary:userWithInfo forKey:@"userPhone"];
-        _companyWeb = [self stringFromDictionary:userWithInfo forKey:@"userWeb"];
-        _companyEmail = [self stringFromDictionary:userWithInfo forKey:@"userEmail"];
     
-        float latitude = [self floatFromDictionary:userWithInfo forKey:@"userLat"];
-        float longitude = [self floatFromDictionary:userWithInfo forKey:@"userLong"];
-        _coordinate = CLLocationCoordinate2DMake(latitude, longitude);
         if (_userFullName.length) {
             _title = _userFullName;
         } else if (_userUsername.length) {
             _title = _userUsername;
         } else {
             _title = @"Please add Full Name";
-        }
-        
-        if (_companyAddress.length) {
-            _subtitle = _companyAddress;
-        } else {
-            _subtitle = [NSString stringWithFormat:@"%.6f, %.6f", latitude, longitude];
         }
     }
     
@@ -67,12 +53,6 @@
     [encoder encodeObject:self.userFullName forKey:@"userFullName"];
     [encoder encodeObject:self.userInfo forKey:@"userInfo"];
     [encoder encodeObject:self.userAvatarPath forKey:@"userAvatarPath"];
-    [encoder encodeFloat:self.coordinate.latitude forKey:@"latitude"];
-    [encoder encodeFloat:self.coordinate.longitude forKey:@"longitude"];
-    [encoder encodeObject:self.companyAddress forKey:@"companyAddress"];
-    [encoder encodeObject:self.companyPhone forKey:@"companyPhone"];
-    [encoder encodeObject:self.companyWeb forKey:@"companyWeb"];
-    [encoder encodeObject:self.companyEmail forKey:@"companyEmail"];
     
     [encoder encodeInt:self.likesCount forKey:@"likesCount"];
     [encoder encodeInt:self.myPostsCount forKey:@"myPostsCount"];
@@ -92,13 +72,6 @@
         self.userFullName = [decoder decodeObjectForKey:@"userFullName"];
         self.userInfo = [decoder decodeObjectForKey:@"userInfo"];
         self.userAvatarPath = [decoder decodeObjectForKey:@"userAvatarPath"];
-        float latitude = [decoder decodeFloatForKey:@"latitude"];
-        float longitude = [decoder decodeFloatForKey:@"longitude"];
-        self.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-        self.companyAddress = [decoder decodeObjectForKey:@"companyAddress"];
-        self.companyPhone = [decoder decodeObjectForKey:@"companyPhone"];
-        self.companyWeb = [decoder decodeObjectForKey:@"companyWeb"];
-        self.companyEmail = [decoder decodeObjectForKey:@"companyEmail"];
         self.followersCount = (int)[decoder decodeIntegerForKey:@"followersCount"];
         self.followingCount = (int)[decoder decodeIntegerForKey:@"followingCount"];
         self.likesCount = (int)[decoder decodeIntegerForKey:@"likesCount"];

@@ -7,8 +7,8 @@
 //
 
 #import "WLIObject.h"
-#import <CoreLocation/CoreLocation.h>
-#import <MapKit/MapKit.h>
+//#import <CoreLocation/CoreLocation.h>
+//#import <MapKit/MapKit.h>
 
 typedef enum {
     WLIUserTypeUnknown = 0,
@@ -16,7 +16,7 @@ typedef enum {
     WLIUserTypeCompany = 2
 } WLIUserType;
 
-@interface WLIUser : WLIObject <MKAnnotation>
+@interface WLIUser : WLIObject
 
 @property (nonatomic) int userID;
 @property (nonatomic) WLIUserType userType;
@@ -28,12 +28,6 @@ typedef enum {
 @property (nonatomic, strong) NSString *userUsername;
 @property (nonatomic, assign) BOOL followingUser;
 
-//when userType == WLIUserTypeCompany
-@property (nonatomic) CLLocationCoordinate2D coordinate;
-@property (nonatomic, strong) NSString *companyAddress;
-@property (nonatomic, strong) NSString *companyPhone;
-@property (nonatomic, strong) NSString *companyWeb;
-@property (nonatomic, strong) NSString *companyEmail;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;

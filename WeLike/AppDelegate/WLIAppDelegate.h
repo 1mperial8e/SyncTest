@@ -8,13 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "WLITabBarController.h"
-#import <CoreLocation/CoreLocation.h>
 
 @interface WLIAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) WLITabBarController *tabBarController;
-@property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSTimer *timer;
 
 - (void)createViewHierarchy;

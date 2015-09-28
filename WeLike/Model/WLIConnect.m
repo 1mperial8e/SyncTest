@@ -111,12 +111,12 @@ static WLIConnect *sharedConnect;
     }
 }
 
-- (void)registerUserWithUsername:(NSString*)username password:(NSString*)password email:(NSString*)email userAvatar:(UIImage*)userAvatar userType:(int)userType userFullName:(NSString*)userFullName userInfo:(NSString*)userInfo latitude:(float)latitude longitude:(float)longitude companyAddress:(NSString*)companyAddress companyPhone:(NSString*)companyPhone companyWeb:(NSString*)companyWeb onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion {
+- (void)registerUserWithUsername:(NSString*)username password:(NSString*)password email:(NSString*)email userAvatar:(UIImage*)userAvatar userType:(int)userType userFullName:(NSString*)userFullName userInfo:(NSString*)userInfo onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion {
     
     if (!username.length || !password.length || !email.length) {
         completion(nil, BAD_REQUEST);
     } else {
-        NSDictionary *parameters = @{@"username" : username, @"password" : password, @"email" : email, @"userFullname" : userFullName, @"userTypeID" : @(userType), @"userInfo" : userInfo, @"userLat" : @(latitude), @"userLong" : @(longitude), @"userAddress" : companyAddress, @"userPhone" : companyPhone, @"userWeb" : companyWeb};
+        NSDictionary *parameters = @{@"username" : username, @"password" : password, @"email" : email, @"userFullname" : userFullName, @"userTypeID" : @(userType), @"userInfo" : userInfo};
         [httpClient POST:@"api/register" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             if (userAvatar) {
                 NSData *imageData = UIImageJPEGRepresentation(userAvatar, kCompressionQuality);
@@ -296,33 +296,89 @@ static WLIConnect *sharedConnect;
         }];
     }
 }
-
-- (void)usersAroundLatitude:(float)latitude longitude:(float)longitude distance:(float)distance page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion {
+- (void)connectTimelineForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion {
     
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-    [parameters setObject:[NSString stringWithFormat:@"%f", latitude] forKey:@"latitude"];
-    [parameters setObject:[NSString stringWithFormat:@"%f", longitude] forKey:@"longitude"];
-    [parameters setObject:[NSString stringWithFormat:@"%f", distance] forKey:@"distance"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-    
-    [httpClient POST:@"api/getLocationsForLatLong" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *rawUsers = [responseObject objectForKey:@"items"];
+    if (userID < 1) {
+        completion(nil, BAD_REQUEST);
+    } else {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
         
-        NSMutableArray *users = [NSMutableArray arrayWithCapacity:rawUsers.count];
-        for (NSDictionary *rawUser in rawUsers) {
-            WLIUser *user = [[WLIUser alloc] initWithDictionary:rawUser];
-            [users addObject:user];
-        }
-        
-        [self debugger:parameters.description methodLog:@"api/getLocationsForLatLong" dataLogFormatted:responseObject];
-        completion(users, OK);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/getLocationsForLatLong" dataLog:error.description];
-        completion(nil, UNKNOWN_ERROR);
-    }];
+        [httpClient POST:@"api/getConnectTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSArray *rawPosts = [responseObject objectForKey:@"items"];
+            
+            NSMutableArray *posts = [NSMutableArray arrayWithCapacity:rawPosts.count];
+            for (NSDictionary *rawPost in rawPosts) {
+                WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
+                [posts addObject:post];
+            }
+            
+            [self debugger:parameters.description methodLog:@"api/getConnectTimeline" dataLogFormatted:responseObject];
+            completion(posts, OK);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self debugger:parameters.description methodLog:@"api/getConnectTimeline" dataLog:error.description];
+            completion(nil, UNKNOWN_ERROR);
+        }];
+    }
 }
+- (void)mydriveTimelineForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode))completion {
+    
+    if (userID < 1) {
+        completion(nil, nil, BAD_REQUEST);
+    } else {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
+        
+        [httpClient POST:@"api/getMydriveTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSArray *rawPosts = [responseObject objectForKey:@"items"];
+            WLIUser *user = [[WLIUser alloc] initWithDictionary:[responseObject objectForKey:@"user"]];
+            
+            NSMutableArray *posts = [NSMutableArray arrayWithCapacity:rawPosts.count];
+            for (NSDictionary *rawPost in rawPosts) {
+                WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
+                [posts addObject:post];
+            }
+            
+            [self debugger:parameters.description methodLog:@"api/getMydriveTimeline" dataLogFormatted:responseObject];
+            completion(posts, user, OK);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self debugger:parameters.description methodLog:@"api/getMydriveTimeline" dataLog:error.description];
+            completion(nil, nil, UNKNOWN_ERROR);
+        }];
+    }
+}
+//- (void)usersAroundLatitude:(float)latitude longitude:(float)longitude distance:(float)distance page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion {
+//    
+//    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+//    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
+//    [parameters setObject:[NSString stringWithFormat:@"%f", latitude] forKey:@"latitude"];
+//    [parameters setObject:[NSString stringWithFormat:@"%f", longitude] forKey:@"longitude"];
+//    [parameters setObject:[NSString stringWithFormat:@"%f", distance] forKey:@"distance"];
+//    [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+//    [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
+//    
+//    [httpClient POST:@"api/getLocationsForLatLong" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSArray *rawUsers = [responseObject objectForKey:@"items"];
+//        
+//        NSMutableArray *users = [NSMutableArray arrayWithCapacity:rawUsers.count];
+//        for (NSDictionary *rawUser in rawUsers) {
+//            WLIUser *user = [[WLIUser alloc] initWithDictionary:rawUser];
+//            [users addObject:user];
+//        }
+//        
+//        [self debugger:parameters.description methodLog:@"api/getLocationsForLatLong" dataLogFormatted:responseObject];
+//        completion(users, OK);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [self debugger:parameters.description methodLog:@"api/getLocationsForLatLong" dataLog:error.description];
+//        completion(nil, UNKNOWN_ERROR);
+//    }];
+//}
 
 
 #pragma mark - posts
