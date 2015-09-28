@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Oval 66 Copy + 20 copy.png",
+      "filename" : "20by2020_2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Oval 66 Copy + 20 copy-1.png",
+      "filename" : "20by2020_2@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Oval 66 Copy + 20 copy-2.png",
+      "filename" : "20by2020_2@3x.png",
       "scale" : "3x"
     }
   ],

@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "NewPostTabButton@1x.png",
+      "filename" : "AppPost1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "NewPostTabButton@2x.png",
+      "filename" : "AppPost1@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "NewPostTabButton@3x.png",
+      "filename" : "AppPost1@3x.png",
       "scale" : "3x"
     }
   ],
