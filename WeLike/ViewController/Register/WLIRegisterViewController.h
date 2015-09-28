@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WLIViewController.h"
 
-@interface WLIRegisterViewController : WLIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, MKMapViewDelegate> {
+@interface WLIRegisterViewController : WLIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate> {
     
     BOOL locatedUser;
 }
