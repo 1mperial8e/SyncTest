@@ -98,6 +98,8 @@ typedef enum ServerResponse ServerResponse;
 
 - (void)likesForPostID:(int)postID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *likes, ServerResponse serverResponseCode))completion;
 
+#pragma mark - delete
+- (void)deletePostID:(int)postID onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
 
 #pragma mark - follow
 

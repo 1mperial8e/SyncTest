@@ -35,7 +35,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *buttonLike;
 @property (strong, nonatomic) IBOutlet UIButton *buttonComment;
 @property (strong, nonatomic) IBOutlet UILabel *labelComments;
-@property (strong, nonatomic) IBOutlet UIButton *buttonLikes;
+//@property (strong, nonatomic) IBOutlet UIButton *buttonLikes;
 @property (strong, nonatomic) IBOutlet UILabel *labelLikes;
 @property (strong, nonatomic) IBOutlet UIButton *buttonVideo;
 
@@ -55,7 +55,10 @@
 - (IBAction)buttonVideoTouchUpInside:(id)sender;
 - (IBAction)buttonLikeTouchUpInside:(id)sender;
 - (IBAction)buttonCommentTouchUpInside:(id)sender;
-- (IBAction)buttonLikesTouchUpInside:(id)sender;
+
+- (IBAction)buttonDeleteTouchUpInside:(id)sender;
+- (IBAction)buttonConnectTouchUpInside:(id)sender;
+//- (IBAction)buttonLikesTouchUpInside:(id)sender;
 
 + (CGSize)sizeWithPost:(WLIPost*)post;
 
