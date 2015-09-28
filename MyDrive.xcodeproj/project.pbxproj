@@ -143,6 +143,8 @@
 		2E28F3971BADEEFF006CF0BE /* WLISearchContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F3951BADEEFF006CF0BE /* WLISearchContentViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2E28F3981BADEEFF006CF0BE /* WLISearchContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E28F3961BADEEFF006CF0BE /* WLISearchContentViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2E4851771B9F8C27002216B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4851761B9F8C27002216B7 /* AVFoundation.framework */; };
+		2ECF34911BB98D950096CD11 /* WLIMyDriveHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF34901BB98D950096CD11 /* WLIMyDriveHeaderCell.m */; settings = {ASSET_TAGS = (); }; };
+		2ECF34931BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF34921BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib */; settings = {ASSET_TAGS = (); }; };
 		2ED2F2851BA95E8C00641F54 /* WLIInfoPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2ED2F2861BA95E8C00641F54 /* WLIInfoPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2ED2F2881BAFF7D100641F54 /* WLINewPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2871BAFF7D100641F54 /* WLINewPostViewController.xib */; settings = {ASSET_TAGS = (); }; };
@@ -377,6 +379,9 @@
 		2E28F3951BADEEFF006CF0BE /* WLISearchContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLISearchContentViewController.m; path = SearchContent/WLISearchContentViewController.m; sourceTree = "<group>"; };
 		2E28F3961BADEEFF006CF0BE /* WLISearchContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLISearchContentViewController.xib; path = SearchContent/WLISearchContentViewController.xib; sourceTree = "<group>"; };
 		2E4851761B9F8C27002216B7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2ECF348F1BB98D950096CD11 /* WLIMyDriveHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIMyDriveHeaderCell.h; path = MyDriveHeaderCell/WLIMyDriveHeaderCell.h; sourceTree = "<group>"; };
+		2ECF34901BB98D950096CD11 /* WLIMyDriveHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIMyDriveHeaderCell.m; path = MyDriveHeaderCell/WLIMyDriveHeaderCell.m; sourceTree = "<group>"; };
+		2ECF34921BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLIMyDriveHeaderCell.xib; path = MyDriveHeaderCell/WLIMyDriveHeaderCell.xib; sourceTree = "<group>"; };
 		2ED2F2821BA95E8C00641F54 /* WLIInfoPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIInfoPageViewController.h; path = InfoPage/WLIInfoPageViewController.h; sourceTree = "<group>"; };
 		2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIInfoPageViewController.m; path = InfoPage/WLIInfoPageViewController.m; sourceTree = "<group>"; };
 		2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLIInfoPageViewController.xib; path = InfoPage/WLIInfoPageViewController.xib; sourceTree = "<group>"; };
@@ -710,6 +715,7 @@
 		2C6D26F61896BACA00C459CB /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				2ECF348B1BB98D070096CD11 /* MyDriveHeaderCell */,
 				2C6D26F71896BACA00C459CB /* CommentCell */,
 				2C6D26FB1896BACA00C459CB /* LIkeCell */,
 				2C6D26FF1896BACA00C459CB /* LoadingCell */,
@@ -1130,6 +1136,16 @@
 			name = SearchContent;
 			sourceTree = "<group>";
 		};
+		2ECF348B1BB98D070096CD11 /* MyDriveHeaderCell */ = {
+			isa = PBXGroup;
+			children = (
+				2ECF348F1BB98D950096CD11 /* WLIMyDriveHeaderCell.h */,
+				2ECF34901BB98D950096CD11 /* WLIMyDriveHeaderCell.m */,
+				2ECF34921BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib */,
+			);
+			name = MyDriveHeaderCell;
+			sourceTree = "<group>";
+		};
 		2ED2F2811BA95E5500641F54 /* InfoPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -1227,6 +1243,7 @@
 				2C6D27F41896BACA00C459CB /* WLIProfileViewController.xib in Resources */,
 				2C6D27B51896BACA00C459CB /* MNMPullToRefreshIcon.png in Resources */,
 				2C6D27F61896BACA00C459CB /* WLIRegisterViewController.xib in Resources */,
+				2ECF34931BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib in Resources */,
 				2C6D27D51896BACA00C459CB /* WLILoadingCell.xib in Resources */,
 				2E28F3881BADE676006CF0BE /* WLIMyPostsViewController.xib in Resources */,
 				2E28F3741BADE286006CF0BE /* WLIMyDriveViewController.xib in Resources */,
@@ -1346,6 +1363,7 @@
 				2E28F3971BADEEFF006CF0BE /* WLISearchContentViewController.m in Sources */,
 				2E0BDD3E1BB53065004EACF5 /* WLIInfoWhyViewController.m in Sources */,
 				2C5B5C841A1A8F9500175A58 /* UIWebView+AFNetworking.m in Sources */,
+				2ECF34911BB98D950096CD11 /* WLIMyDriveHeaderCell.m in Sources */,
 				2C6D27C11896BACA00C459CB /* SBJsonStreamWriterAccumulator.m in Sources */,
 				2C6D27F11896BACA00C459CB /* WLIEditProfileViewController.m in Sources */,
 				2C6D27CB1896BACA00C459CB /* WLIFollow.m in Sources */,

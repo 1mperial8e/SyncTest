@@ -68,7 +68,7 @@
         self.userID = [decoder decodeIntForKey:@"userID"];
         self.userType = [decoder decodeIntForKey:@"userType"];
         self.userPassword = [decoder decodeObjectForKey:@"userPassword"];
-        self.userEmail = [decoder decodeObjectForKey:@"userEmail"];
+        self.userEmail = [decoder decodeObjectForKey:@"email"];
         self.userFullName = [decoder decodeObjectForKey:@"userFullName"];
         self.userInfo = [decoder decodeObjectForKey:@"userInfo"];
         self.userAvatarPath = [decoder decodeObjectForKey:@"userAvatarPath"];

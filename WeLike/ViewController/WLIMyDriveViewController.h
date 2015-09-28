@@ -10,4 +10,6 @@
 
 @interface WLIMyDriveViewController : WLIPostsListViewController
 
+@property (strong, nonatomic) WLIUser *user;
+
 @end
