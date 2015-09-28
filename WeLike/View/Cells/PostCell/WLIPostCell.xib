@@ -24,12 +24,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="373"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9Tk-O8-Uhi">
-                                <rect key="frame" x="293" y="11" width="19" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <state key="normal" title="Button" image="post-cell-add-user"/>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tUZ-8x-QGi">
                                 <rect key="frame" x="8" y="8" width="32" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -158,9 +152,16 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9Tk-O8-Uhi">
+                                <rect key="frame" x="216" y="9" width="95" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <state key="normal" title="Button" image="post-cell-add-user"/>
+                                <state key="selected" image="post-cell-add-user-h"/>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -170,7 +171,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -203,9 +204,10 @@
         <image name="button-cat-consumer" width="34" height="34"/>
         <image name="button-cat-market" width="34" height="34"/>
         <image name="button-cat-people" width="34" height="34"/>
-        <image name="post-cell-add-user" width="19" height="22"/>
+        <image name="post-cell-add-user" width="95" height="31"/>
+        <image name="post-cell-add-user-h" width="95" height="31"/>
         <image name="post-cell-comments" width="20" height="18"/>
-        <image name="post-cell-like" width="18" height="16"/>
+        <image name="post-cell-like" width="20" height="18"/>
         <image name="post-cell-share" width="13" height="18"/>
     </resources>
 </document>
