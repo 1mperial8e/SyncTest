@@ -26,6 +26,27 @@
 }
 
 
+#pragma mark - Data loading methods
+
+- (void)reloadData:(BOOL)reloadAll {
+    
+    loading = YES;
+    NSUInteger page;
+    if (reloadAll) {
+        loadMore = YES;
+        page = 1;
+    } else {
+        page  = (self.posts.count / kDefaultPageSize) + 1;
+    }
+    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+        loading = NO;
+        self.posts = posts;
+        loadMore = posts.count == kDefaultPageSize;
+        [self.tableViewRefresh reloadData];
+        [refreshManager tableViewReloadFinishedAnimated:YES];
+    }];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
