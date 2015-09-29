@@ -220,9 +220,9 @@
         post.postLikesCount--;
         post.likedThisPost = NO;
         if (post.postLikesCount == 1) {
-            [senderCell.buttonLikes setTitle:[NSString stringWithFormat:@"%d like", post.postLikesCount] forState:UIControlStateNormal];
+            [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d like", post.postLikesCount]];
         } else {
-            [senderCell.buttonLikes setTitle:[NSString stringWithFormat:@"%d likes", post.postLikesCount] forState:UIControlStateNormal];
+            [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d likes", post.postLikesCount]];
         }
         [[WLIConnect sharedConnect] removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
             if (serverResponseCode != OK) {
@@ -230,9 +230,9 @@
                 post.postLikesCount++;
                 post.likedThisPost = YES;
                 if (post.postLikesCount == 1) {
-                    [senderCell.buttonLikes setTitle:[NSString stringWithFormat:@"%d like", post.postLikesCount] forState:UIControlStateNormal];
+                    [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d like", post.postLikesCount]];
                 } else {
-                    [senderCell.buttonLikes setTitle:[NSString stringWithFormat:@"%d likes", post.postLikesCount] forState:UIControlStateNormal];
+                    [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d likes", post.postLikesCount]];
                 }
             }
         }];
@@ -241,9 +241,9 @@
         post.postLikesCount++;
         post.likedThisPost = YES;
         if (post.postLikesCount == 1) {
-            [senderCell.buttonLikes setTitle:[NSString stringWithFormat:@"%d like", post.postLikesCount] forState:UIControlStateNormal];
+            [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d like", post.postLikesCount]];
         } else {
-            [senderCell.buttonLikes setTitle:[NSString stringWithFormat:@"%d likes", post.postLikesCount] forState:UIControlStateNormal];
+            [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d likes", post.postLikesCount]];
         }
         [[WLIConnect sharedConnect] setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
             if (serverResponseCode != OK) {
@@ -251,9 +251,9 @@
                 post.postLikesCount--;
                 post.likedThisPost = NO;
                 if (post.postLikesCount == 1) {
-                    [senderCell.buttonLikes setTitle:[NSString stringWithFormat:@"%d like", post.postLikesCount] forState:UIControlStateNormal];
+                    [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d like", post.postLikesCount]];
                 } else {
-                    [senderCell.buttonLikes setTitle:[NSString stringWithFormat:@"%d likes", post.postLikesCount] forState:UIControlStateNormal];
+                    [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d likes", post.postLikesCount]];
                 }
             }
         }];

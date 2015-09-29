@@ -37,7 +37,7 @@
     [self createViewHierarchy];
     
     // navigation bar appearance
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:249.0f/255.0f green:249.0f/255.0f blue:249.0f/255.0f alpha:1.0f]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:226.0f/255.0f green:52.0f/255.0f blue:53.0f/255.0f alpha:1.0f]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0f];

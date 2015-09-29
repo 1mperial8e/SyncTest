@@ -36,14 +36,14 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="46" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tx6-vd-qqg">
                             <rect key="frame" x="15" y="561" width="291" height="521"/>
                             <animations/>
-                            <mutableString key="text">MyDrive is a simple tool to simply connect all of us together to allow us to converge on our new strategy in a device we carry with us. Our phones. MyDrive is about two things initially:
+                            <string key="text">MyDrive is a simple tool to simply connect all of us together to allow us to converge on our new strategy in a device we carry with us. Our phones. MyDrive is about two things initially:
  1. Making our new strategy available and understandable to everyone in Santander.
  2. Putting it into a social media forum where you can, over the next months, through discussing with others, identify your drive, your passion, what you like most about the strategy that will trigger the best in you to make it come true by 2020.
 
 We want the management, and all of us, to post stuff in low-fi style, using their iPhone or other device. We want real, open communications. Only then will we get the confidence, insight to be able to support each other to become better, happier and greatly succeed at our jobs.
 
 Let`s look at MyDrive as the channel where we get to do anything and everything to energize each other and ourselves. Through humor, fun, good everyday tales, stuff we are learning, failing at, succeeding at, suggestions we have, whatever. Put it out there. Just make sure you use whatever drives you. Your drive.
-</mutableString>
+</string>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -55,17 +55,6 @@ Let`s look at MyDrive as the channel where we get to do anything and everything 
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sCI-b4-mqx">
-                            <rect key="frame" x="31" y="456" width="258" height="63"/>
-                            <animations/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="19"/>
-                            <state key="normal" title="WHY 20% BY 2020?">
-                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="whyButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="MrX-iC-o53"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoB-DU-4NN">
                             <rect key="frame" x="46" y="199" width="100" height="100"/>
                             <animations/>
@@ -104,6 +93,18 @@ Let`s look at MyDrive as the channel where we get to do anything and everything 
                             <state key="normal" title="Button" image="MyDriveLogo.png"/>
                             <connections>
                                 <action selector="buttonPlayVideoTouchUpInside:" destination="-1" eventType="touchUpInside" id="o5f-um-hYe"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sCI-b4-mqx">
+                            <rect key="frame" x="46" y="448" width="229" height="45"/>
+                            <animations/>
+                            <color key="backgroundColor" red="0.85098039219999999" green="0.10980392160000001" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="19"/>
+                            <state key="normal" title="WHY 20% BY 2020?">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="whyButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="MrX-iC-o53"/>
                             </connections>
                         </button>
                     </subviews>
