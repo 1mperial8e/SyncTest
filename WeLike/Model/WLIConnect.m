@@ -296,6 +296,35 @@ static WLIConnect *sharedConnect;
         }];
     }
 }
+- (void)timelineForUserID:(int)userID withCategory:(int)categoryID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion {
+    
+    if (userID < 1) {
+        completion(nil, BAD_REQUEST);
+    } else {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", categoryID] forKey:@"categoryID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
+        
+        [httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSArray *rawPosts = [responseObject objectForKey:@"items"];
+            
+            NSMutableArray *posts = [NSMutableArray arrayWithCapacity:rawPosts.count];
+            for (NSDictionary *rawPost in rawPosts) {
+                WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
+                [posts addObject:post];
+            }
+            
+            [self debugger:parameters.description methodLog:@"api/getTimeline" dataLogFormatted:responseObject];
+            completion(posts, OK);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self debugger:parameters.description methodLog:@"api/getTimeline" dataLog:error.description];
+            completion(nil, UNKNOWN_ERROR);
+        }];
+    }
+}
 - (void)connectTimelineForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion {
     
     if (userID < 1) {

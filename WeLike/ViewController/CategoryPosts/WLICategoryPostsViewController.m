@@ -1,21 +1,22 @@
 //
-//  WLIMyDriveViewController.m
+//  WLICategoryPostsViewController.m
 //  MyDrive
 //
-//  Created by Geir Eliassen on 19/09/15.
+//  Created by Geir Eliassen on 29/09/15.
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-#import "WLIMyDriveViewController.h"
+#import "WLICategoryPostsViewController.h"
 #import "WLIMyDriveHeaderCell.h"
 #import "WLIPostCell.h"
 #import "WLILoadingCell.h"
 
-@interface WLIMyDriveViewController ()
+@interface WLICategoryPostsViewController ()
 
 @end
 
-@implementation WLIMyDriveViewController
+@implementation WLICategoryPostsViewController
+
 
 #pragma mark - Object lifecycle
 
@@ -25,9 +26,9 @@
     if (self)
     {
         self.title = @"MyDrive";
-//        UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 105, 22)];
-//        [titleView addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-title-mydrive"]]];
-//        self.navigationItem.titleView = titleView;
+        //        UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 105, 22)];
+        //        [titleView addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-title-mydrive"]]];
+        //        self.navigationItem.titleView = titleView;
     }
     return self;
 }
@@ -58,11 +59,32 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1){
-        static NSString *CellIdentifier = @"WLIMyDriveHeaderCell";
+        static NSString *CellIdentifier;
+        switch (_categoryID) {
+            case 1:
+                CellIdentifier = @"WLICategoryCell";
+                break;
+                
+            case 2:
+                CellIdentifier = @"WLICategoryCell";
+                break;
+                
+            case 4:
+                CellIdentifier = @"WLICategoryCell";
+                break;
+                
+            case 8:
+                CellIdentifier = @"WLICategoryCell";
+                break;
+                
+            default:
+                break;
+        }
+        
         WLIMyDriveHeaderCell *cell = (WLIMyDriveHeaderCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"WLIMyDriveHeaderCell" owner:self options:nil] lastObject];
-//            cell.delegate = self;
+            cell = [[[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil] lastObject];
+            //            cell.delegate = self;
         }
         cell.userr = self.user;
         return cell;
@@ -76,7 +98,7 @@
         cell.post = self.posts[indexPath.row];
         return cell;
     } else {
-
+        
         static NSString *CellIdentifier = @"WLILoadingCell";
         WLILoadingCell *cell = (WLILoadingCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -97,7 +119,7 @@
     if (section == 1) {
         return 1;
     } else if (section == 2) {
-            return self.posts.count;
+        return self.posts.count;
     } else {
         if (loadMore) {
             return 1;
@@ -115,7 +137,7 @@
     if (indexPath.section == 1) {
         return 202;
     } else if (indexPath.section == 2) {
-            return [WLIPostCell sizeWithPost:self.posts[indexPath.row]].height;
+        return [WLIPostCell sizeWithPost:self.posts[indexPath.row]].height;
     } else if (indexPath.section == 0){
         return 0; //44 * loading * self.posts.count == 0;
     } else {
@@ -124,7 +146,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     if (indexPath.section == 2 && loadMore && !loading) {
         [self reloadData:NO];
     }
@@ -135,7 +157,7 @@
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete post" message:@"Are you sure you want to delete this post" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     deleteButtonIndex = [alert addButtonWithTitle:@"Yes"];
     [alert show];
-
+    
     
 }
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -168,7 +190,7 @@
     if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Delete post"]) {
         // Delete
         [self deletePost:morePost sender:self];
-
+        
     } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Share"]) {
         [self showShareForPost:morePost sender:self];
     }
@@ -185,5 +207,6 @@
 {
     [super didReceiveMemoryWarning];
 }
+
 
 @end

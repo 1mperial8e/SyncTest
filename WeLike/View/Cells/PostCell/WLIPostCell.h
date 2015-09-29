@@ -40,6 +40,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *buttonVideo;
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonShare;
+@property (strong, nonatomic) IBOutlet UIButton *buttonMore;
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonCatMarket;
 @property (strong, nonatomic) IBOutlet UIButton *buttonCatCustomer;
@@ -58,6 +59,8 @@
 
 - (IBAction)buttonDeleteTouchUpInside:(id)sender;
 - (IBAction)buttonConnectTouchUpInside:(id)sender;
+- (IBAction)buttonShareTouchUpInside:(id)sender;
+- (IBAction)buttonMoreTouchUpInside:(id)sender;
 //- (IBAction)buttonLikesTouchUpInside:(id)sender;
 
 + (CGSize)sizeWithPost:(WLIPost*)post;

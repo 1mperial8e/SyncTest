@@ -148,11 +148,9 @@ static WLIPostCell *sharedCell = nil;
             [self.buttonCatPeople setSelected:NO];
         }
         
-//        if (self.post.postLikesCount == 1) {
-            [self.labelLikes setText:[NSString stringWithFormat:@"%d", self.post.postLikesCount]];
-//        } else {
-//            [self.labelLikes setText:[NSString stringWithFormat:@"%d likes", self.post.postLikesCount]];
-//        }
+        [self.labelLikes setText:[NSString stringWithFormat:@"%d", self.post.postLikesCount]];
+        [self.labelComments setText:[NSString stringWithFormat:@"%d", self.post.postCommentsCount]];
+
     }
 }
 
@@ -246,6 +244,14 @@ static WLIPostCell *sharedCell = nil;
     
     if ([self.delegate respondsToSelector:@selector(followUser:sender:)]) {
         [self.delegate followUser:self.post.user sender:self];
+    }
+}
+
+
+- (IBAction)buttonMoreTouchUpInside:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(showMoreForPost:sender:)]) {
+        [self.delegate showMoreForPost:self.post sender:self];
     }
 }
 

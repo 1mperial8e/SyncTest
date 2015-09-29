@@ -154,9 +154,9 @@
                                 <rect key="frame" x="294" y="316" width="13" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <animations/>
-                                <state key="normal" image="post-cell-share"/>
+                                <state key="normal" image="post-cell-more"/>
                                 <connections>
-                                    <action selector="buttonShareTouchUpInside:" destination="AD9-av-jcm" eventType="touchUpInside" id="cBD-l1-Bd5"/>
+                                    <action selector="buttonMoreTouchUpInside:" destination="AD9-av-jcm" eventType="touchUpInside" id="VNc-NE-fgD"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vbj-cr-Jsn">
@@ -213,7 +213,7 @@
                 <outlet property="buttonCatPeople" destination="znk-P9-MIq" id="ur6-HM-MVn"/>
                 <outlet property="buttonComment" destination="9K9-d1-m64" id="5K3-wx-FDW"/>
                 <outlet property="buttonLike" destination="bmc-yG-IiR" id="JVT-sf-We3"/>
-                <outlet property="buttonShare" destination="dLQ-lv-W0y" id="OOM-FM-eTv"/>
+                <outlet property="buttonMore" destination="dLQ-lv-W0y" id="bB2-Av-zi8"/>
                 <outlet property="buttonVideo" destination="FUr-JF-9IB" id="12a-Cr-9J2"/>
                 <outlet property="imageViewPostImage" destination="mqr-zA-tF9" id="mnQ-BW-1tn"/>
                 <outlet property="imageViewUser" destination="tUZ-8x-QGi" id="hfr-DP-El1"/>
@@ -242,6 +242,6 @@
         <image name="post-cell-add-user-h" width="95" height="31"/>
         <image name="post-cell-comments" width="20" height="18"/>
         <image name="post-cell-like" width="20" height="18"/>
-        <image name="post-cell-share" width="13" height="18"/>
+        <image name="post-cell-more" width="15" height="4"/>
     </resources>
 </document>

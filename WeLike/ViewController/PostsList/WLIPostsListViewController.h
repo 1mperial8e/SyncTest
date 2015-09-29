@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WLIViewController.h"
 
-@interface WLIPostsListViewController : WLIViewController <WLIViewControllerRefreshProtocol>
+@interface WLIPostsListViewController : WLIViewController <WLIViewControllerRefreshProtocol, UIActionSheetDelegate>
 
 
 @property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;

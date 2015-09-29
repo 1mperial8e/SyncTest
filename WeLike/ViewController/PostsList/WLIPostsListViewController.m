@@ -201,9 +201,19 @@
 
 
 
-//- (void)showShareForPost:(WLIPost*)post sender:(id)senderCell;
-//- (void)showDeleteForPost:(WLIPost*)post sender:(id)senderCell;
-//- (void)showConnectForPost:(WLIPost*)post sender:(id)senderCell;
+- (void)showShareForPost:(WLIPost*)post sender:(id)senderCell
+{
+    
+}
+- (void)showDeleteForPost:(WLIPost*)post sender:(id)senderCell
+{
+    
+}
+- (void)showConnectForPost:(WLIPost*)post sender:(id)senderCell
+{
+    
+}
+
 
 //- (void)showCatMarketForPost:(WLIPost*)post sender:(id)senderCell;
 //- (void)showCatCustomersForPost:(WLIPost*)post sender:(id)senderCell;

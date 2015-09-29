@@ -97,10 +97,10 @@
         [self.navigationController pushViewController:postViewController animated:YES];
     }
 }
-
-- (void)toggleLikeForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell {
-    
-}
+//
+//- (void)toggleLikeForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell {
+//    
+//}
 
 - (void)showCommentsForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell {
     
