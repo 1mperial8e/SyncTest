@@ -148,11 +148,11 @@ static WLIPostCell *sharedCell = nil;
             [self.buttonCatPeople setSelected:NO];
         }
         
-        if (self.post.postLikesCount == 1) {
-            [self.labelLikes setText:[NSString stringWithFormat:@"%d like", self.post.postLikesCount]];
-        } else {
-            [self.labelLikes setText:[NSString stringWithFormat:@"%d likes", self.post.postLikesCount]];
-        }
+//        if (self.post.postLikesCount == 1) {
+            [self.labelLikes setText:[NSString stringWithFormat:@"%d", self.post.postLikesCount]];
+//        } else {
+//            [self.labelLikes setText:[NSString stringWithFormat:@"%d likes", self.post.postLikesCount]];
+//        }
     }
 }
 
