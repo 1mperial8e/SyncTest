@@ -104,9 +104,9 @@ static WLIPostCell *sharedCell = nil;
         //Set and resize done
         
         if (self.post.postImagePath.length) {
-            self.buttonLike.frame = CGRectMake(self.buttonLike.frame.origin.x, CGRectGetMaxY(self.imageViewPostImage.frame) -self.buttonLike.frame.size.height, self.buttonLike.frame.size.width, self.buttonLike.frame.size.height);
-            self.buttonComment.frame = CGRectMake(self.buttonComment.frame.origin.x, CGRectGetMaxY(self.imageViewPostImage.frame) -self.buttonComment.frame.size.height, self.buttonComment.frame.size.width, self.buttonComment.frame.size.height);
-            self.buttonLikes.frame = CGRectMake(self.buttonLikes.frame.origin.x, CGRectGetMaxY(self.imageViewPostImage.frame) -self.buttonLike.frame.size.height, self.buttonLikes.frame.size.width, self.buttonLikes.frame.size.height);
+//            self.buttonLike.frame = CGRectMake(self.buttonLike.frame.origin.x, CGRectGetMaxY(self.imageViewPostImage.frame) + 18, self.buttonLike.frame.size.width, self.buttonLike.frame.size.height);
+//            self.buttonComment.frame = CGRectMake(self.buttonComment.frame.origin.x, CGRectGetMaxY(self.imageViewPostImage.frame) + 16, self.buttonComment.frame.size.width, self.buttonComment.frame.size.height);
+//            self.buttonLikes.frame = CGRectMake(self.buttonLikes.frame.origin.x, CGRectGetMaxY(self.imageViewPostImage.frame) -self.buttonLike.frame.size.height, self.buttonLikes.frame.size.width, self.buttonLikes.frame.size.height);
             
             if (downloads) {
                 [self.imageViewPostImage setImageWithURL:[NSURL URLWithString:self.post.postImagePath]];
@@ -116,21 +116,42 @@ static WLIPostCell *sharedCell = nil;
                 }
             }
         } else {
-            self.buttonLike.frame = CGRectMake(self.buttonLike.frame.origin.x, CGRectGetMinY(self.imageViewPostImage.frame), self.buttonLike.frame.size.width, self.buttonLike.frame.size.height);
-            self.buttonComment.frame = CGRectMake(self.buttonComment.frame.origin.x, CGRectGetMinY(self.imageViewPostImage.frame), self.buttonComment.frame.size.width, self.buttonComment.frame.size.height);
-            self.buttonLikes.frame = CGRectMake(self.buttonLikes.frame.origin.x, CGRectGetMinY(self.imageViewPostImage.frame), self.buttonLikes.frame.size.width, self.buttonLikes.frame.size.height);
+//            self.buttonLike.frame = CGRectMake(self.buttonLike.frame.origin.x, CGRectGetMinY(self.imageViewPostImage.frame), self.buttonLike.frame.size.width, self.buttonLike.frame.size.height);
+//            self.buttonComment.frame = CGRectMake(self.buttonComment.frame.origin.x, CGRectGetMinY(self.imageViewPostImage.frame), self.buttonComment.frame.size.width, self.buttonComment.frame.size.height);
+//            self.buttonLikes.frame = CGRectMake(self.buttonLikes.frame.origin.x, CGRectGetMinY(self.imageViewPostImage.frame), self.buttonLikes.frame.size.width, self.buttonLikes.frame.size.height);
         }
         
         if (self.post.likedThisPost) {
-            [self.buttonLike setImage:[UIImage imageNamed:@"btn-liked"] forState:UIControlStateNormal];
+             [self.buttonLike setSelected:YES];
         } else {
-            [self.buttonLike setImage:[UIImage imageNamed:@"btn-like"] forState:UIControlStateNormal];
+            [self.buttonLike setSelected:NO];
+        }
+        
+        if (self.post.categoryMarket) {
+            [self.buttonCatMarket setSelected:YES];
+        } else {
+            [self.buttonCatMarket setSelected:NO];
+        }
+        if (self.post.categoryCapabilities) {
+            [self.buttonCatCapabilities setSelected:YES];
+        } else {
+            [self.buttonCatCapabilities setSelected:NO];
+        }
+        if (self.post.categoryCustomer) {
+            [self.buttonCatCustomer setSelected:YES];
+        } else {
+            [self.buttonCatCustomer setSelected:NO];
+        }
+        if (self.post.categoryPeople) {
+            [self.buttonCatPeople setSelected:YES];
+        } else {
+            [self.buttonCatPeople setSelected:NO];
         }
         
         if (self.post.postLikesCount == 1) {
-            [self.buttonLikes setTitle:[NSString stringWithFormat:@"%d like", self.post.postLikesCount] forState:UIControlStateNormal];
+            [self.labelLikes setText:[NSString stringWithFormat:@"%d like", self.post.postLikesCount]];
         } else {
-            [self.buttonLikes setTitle:[NSString stringWithFormat:@"%d likes", self.post.postLikesCount] forState:UIControlStateNormal];
+            [self.labelLikes setText:[NSString stringWithFormat:@"%d likes", self.post.postLikesCount]];
         }
     }
 }
@@ -180,11 +201,59 @@ static WLIPostCell *sharedCell = nil;
     }
 }
 
-- (IBAction)buttonLikesTouchUpInside:(id)sender {
+- (IBAction)buttonShareTouchUpInside:(id)sender {
     
-    if ([self.delegate respondsToSelector:@selector(showLikesForPost:sender:)]) {
-        [self.delegate showLikesForPost:self.post sender:self];
+    if ([self.delegate respondsToSelector:@selector(showShareForPost:sender:)]) {
+        [self.delegate showShareForPost:self.post sender:self];
     }
 }
+
+- (IBAction)buttonCatMarketTouchUpInside:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(showCatMarketForPost:sender:)]) {
+        [self.delegate showCatMarketForPost:self.post sender:self];
+    }
+}
+
+- (IBAction)buttonCatCustomerTouchUpInside:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(showCatCustomersForPost:sender:)]) {
+        [self.delegate showCatCustomersForPost:self.post sender:self];
+    }
+}
+
+- (IBAction)buttonCatCapabilitiesTouchUpInside:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(showCatCapabilitiesForPost:sender:)]) {
+        [self.delegate showCatCapabilitiesForPost:self.post sender:self];
+    }
+}
+
+- (IBAction)buttonCatPeopleTouchUpInside:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(showCatPeopleForPost:sender:)]) {
+        [self.delegate showCatPeopleForPost:self.post sender:self];
+    }
+}
+
+- (IBAction)buttonDeleteTouchUpInside:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(deletePost:sender:)]) {
+        [self.delegate deletePost:self.post sender:self];
+    }
+}
+- (IBAction)buttonConnectTouchUpInside:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(followUser:sender:)]) {
+        [self.delegate followUser:self.post.user sender:self];
+    }
+}
+
+//- (IBAction)buttonLikesTouchUpInside:(id)sender {
+//    
+//    if ([self.delegate respondsToSelector:@selector(showLikesForPost:sender:)]) {
+//        [self.delegate showLikesForPost:self.post sender:self];
+//    }
+//}
 
 @end

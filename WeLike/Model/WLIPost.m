@@ -30,8 +30,13 @@
         _postCommentsCount = [self integerFromDictionary:postWithInfo forKey:@"totalComments"];
         _likedThisPost = [self boolFromDictionary:postWithInfo forKey:@"isLiked"];
         _commentedThisPost = [self boolFromDictionary:postWithInfo forKey:@"isCommented"];
+        
+        _categoryMarket = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] | 1;
+        _categoryCapabilities = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] | 2;
+        _categoryCustomer = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] | 4;
+        _categoryPeople = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] | 8;
     }
-    
+        
     return self;
 }
 

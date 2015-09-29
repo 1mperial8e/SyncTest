@@ -114,7 +114,7 @@
     
     if (indexPath.section == 1) {
         return 202;
-    } else if (indexPath.section == 1) {
+    } else if (indexPath.section == 2) {
             return [WLIPostCell sizeWithPost:self.posts[indexPath.row]].height;
     } else if (indexPath.section == 0){
         return 0; //44 * loading * self.posts.count == 0;
@@ -124,10 +124,26 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     if (indexPath.section == 2 && loadMore && !loading) {
         [self reloadData:NO];
     }
+}
+
+- (void)deletePost:(WLIPost *)post sender:(id)senderCell {
+
+    // Husk alert her.
+    [sharedConnect deletePostID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
+        if (serverResponseCode == OK)
+        {
+            [self.posts removeObject:post];
+            [self.tableViewRefresh reloadData];
+        }
+        else
+        {
+            // Alert melding som forteller at noe gikk galt.
+        }
+    }];
 }
 
 #pragma mark - View lifecycle

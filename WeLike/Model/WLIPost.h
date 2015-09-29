@@ -25,6 +25,12 @@
 @property (nonatomic) BOOL likedThisPost;
 @property (nonatomic) BOOL commentedThisPost;
 
+@property (nonatomic) BOOL categoryMarket;
+@property (nonatomic) BOOL categoryCustomer;
+@property (nonatomic) BOOL categoryCapabilities;
+@property (nonatomic) BOOL categoryPeople;
+
+
 - (id)initWithDictionary:(NSDictionary*)postWithInfo;
 
 @end

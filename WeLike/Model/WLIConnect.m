@@ -651,6 +651,22 @@ static WLIConnect *sharedConnect;
     }];
 }
 
+#pragma mark - delete
+
+- (void)deletePostID:(int)postID onCompletion:(void (^)(ServerResponse serverResponseCode))completion {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
+    [parameters setObject:[NSString stringWithFormat:@"%d", postID] forKey:@"postID"];
+    [httpClient POST:@"api/deletePost" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self debugger:parameters.description methodLog:@"api/setLike" dataLogFormatted:responseObject];
+        completion(OK);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self debugger:parameters.description methodLog:@"api/setLike" dataLog:error.description];
+        completion(UNKNOWN_ERROR);
+    }];
+}
 
 #pragma mark - follow
 
