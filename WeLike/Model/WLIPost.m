@@ -36,11 +36,11 @@
         _categoryCustomer = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] & 4;
         _categoryPeople = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] & 8;
         
-        NSLog(@"Category %@", [NSNumber numberWithInteger:[self integerFromDictionary:postWithInfo forKey:@"postCategory"]]);
-        NSLog(@"Category Market: %@", [NSNumber numberWithBool:_categoryMarket]);
-        NSLog(@"Category Capabilities: %@", [NSNumber numberWithBool:_categoryCapabilities]);
-        NSLog(@"Category Customer: %@", [NSNumber numberWithBool:_categoryCustomer]);
-        NSLog(@"Category People: %@", [NSNumber numberWithBool:_categoryPeople]);
+//        NSLog(@"Category %@", [NSNumber numberWithInteger:[self integerFromDictionary:postWithInfo forKey:@"postCategory"]]);
+//        NSLog(@"Category Market: %@", [NSNumber numberWithBool:_categoryMarket]);
+//        NSLog(@"Category Capabilities: %@", [NSNumber numberWithBool:_categoryCapabilities]);
+//        NSLog(@"Category Customer: %@", [NSNumber numberWithBool:_categoryCustomer]);
+//        NSLog(@"Category People: %@", [NSNumber numberWithBool:_categoryPeople]);
     }
         
     return self;
