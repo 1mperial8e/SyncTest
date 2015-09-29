@@ -12,6 +12,7 @@
 #import "GlobalDefines.h"
 #import "WLIProfileViewController.h"
 #import "WLISearchContentViewController.h"
+#import "WLICategoryPostsViewController.h"
 
 
 @interface WLIPostsListViewController ()
@@ -40,13 +41,14 @@
     
     [super viewDidLoad];
     
-    UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    profileButton.adjustsImageWhenHighlighted = NO;
-    profileButton.frame = CGRectMake(0.0f, 0.0f, 40.0f, 30.0f);
-    [profileButton setImage:[UIImage imageNamed:@"nav-btn-profile"] forState:UIControlStateNormal];
-    [profileButton addTarget:self action:@selector(profileButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:profileButton];
-
+    if (self.navigationController.viewControllers.count < 2) {
+        UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        profileButton.adjustsImageWhenHighlighted = NO;
+        profileButton.frame = CGRectMake(0.0f, 0.0f, 40.0f, 30.0f);
+        [profileButton setImage:[UIImage imageNamed:@"nav-btn-profile"] forState:UIControlStateNormal];
+        [profileButton addTarget:self action:@selector(profileButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:profileButton];
+    }
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.adjustsImageWhenHighlighted = NO;
     backButton.frame = CGRectMake(0.0f, 0.0f, 40.0f, 30.0f);
@@ -215,10 +217,30 @@
 }
 
 
-//- (void)showCatMarketForPost:(WLIPost*)post sender:(id)senderCell;
-//- (void)showCatCustomersForPost:(WLIPost*)post sender:(id)senderCell;
-//- (void)showCatCapabilitiesForPost:(WLIPost*)post sender:(id)senderCell;
-//- (void)showCatPeopleForPost:(WLIPost*)post sender:(id)senderCell;
+- (void)showCatMarketForPost:(WLIPost*)post sender:(id)senderCell
+{
+    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Market"];
+    categoryViewController.categoryID = 1;
+    [self.navigationController pushViewController:categoryViewController animated:YES];
+}
+- (void)showCatCustomersForPost:(WLIPost*)post sender:(id)senderCell
+{
+    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Customer"];
+    categoryViewController.categoryID = 4;
+    [self.navigationController pushViewController:categoryViewController animated:YES];
+}
+- (void)showCatCapabilitiesForPost:(WLIPost*)post sender:(id)senderCell
+{
+    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Capabilities"];
+    categoryViewController.categoryID = 2;
+    [self.navigationController pushViewController:categoryViewController animated:YES];
+}
+- (void)showCatPeopleForPost:(WLIPost*)post sender:(id)senderCell
+{
+    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"People"];
+    categoryViewController.categoryID = 8;
+    [self.navigationController pushViewController:categoryViewController animated:YES];
+}
 
 
 

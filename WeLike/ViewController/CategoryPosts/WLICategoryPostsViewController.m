@@ -7,7 +7,10 @@
 //
 
 #import "WLICategoryPostsViewController.h"
-#import "WLIMyDriveHeaderCell.h"
+#import "WLICategoryMarketCell.h"
+#import "WLICategoryCustomerCell.h"
+#import "WLICategoryCapabilitiesCell.h"
+#import "WLICategoryPeopleCell.h"
 #import "WLIPostCell.h"
 #import "WLILoadingCell.h"
 
@@ -20,12 +23,12 @@
 
 #pragma mark - Object lifecycle
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil withTitle:(NSString*)myTitle {
     
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        self.title = @"MyDrive";
+        self.title = myTitle;
         //        UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 105, 22)];
         //        [titleView addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-title-mydrive"]]];
         //        self.navigationItem.titleView = titleView;
@@ -45,10 +48,9 @@
     } else {
         page  = (self.posts.count / kDefaultPageSize) + 1;
     }
-    [sharedConnect mydriveTimelineForUserID:sharedConnect.currentUser.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode) {
+    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:[[NSNumber numberWithInteger:_categoryID] intValue] page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         loading = NO;
         self.posts = posts;
-        self.user = user;
         loadMore = posts.count == kDefaultPageSize;
         [self.tableViewRefresh reloadData];
         [refreshManager tableViewReloadFinishedAnimated:YES];
@@ -58,36 +60,37 @@
 #pragma mark - UITableViewDataSource methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"IndexPath: %ld - %ld", indexPath.section, indexPath.row);
     if (indexPath.section == 1){
+        id cell;
         static NSString *CellIdentifier;
         switch (_categoryID) {
             case 1:
-                CellIdentifier = @"WLICategoryCell";
+                CellIdentifier = @"WLICategoryMarketCell";
                 break;
                 
             case 2:
-                CellIdentifier = @"WLICategoryCell";
+                CellIdentifier = @"WLICategoryCapabilitiesCell";
                 break;
                 
             case 4:
-                CellIdentifier = @"WLICategoryCell";
+                CellIdentifier = @"WLICategoryCustomerCell";
                 break;
                 
             case 8:
-                CellIdentifier = @"WLICategoryCell";
+                CellIdentifier = @"WLICategoryPeopleCell";
                 break;
                 
             default:
+                CellIdentifier = @"WLILoadingCell";
                 break;
         }
-        
-        WLIMyDriveHeaderCell *cell = (WLIMyDriveHeaderCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil] lastObject];
-            //            cell.delegate = self;
         }
-        cell.userr = self.user;
         return cell;
+        
     } else if (indexPath.section == 2){
         static NSString *CellIdentifier = @"WLIPostCell";
         WLIPostCell *cell = (WLIPostCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -119,6 +122,7 @@
     if (section == 1) {
         return 1;
     } else if (section == 2) {
+        NSLog(@"Count posts: %ld", self.posts.count);
         return self.posts.count;
     } else {
         if (loadMore) {
@@ -135,7 +139,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 1) {
-        return 202;
+        return 270;
     } else if (indexPath.section == 2) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row]].height;
     } else if (indexPath.section == 0){
@@ -201,6 +205,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self reloadData:YES];
 }
 
 - (void)didReceiveMemoryWarning

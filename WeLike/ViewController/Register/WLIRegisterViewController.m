@@ -80,7 +80,7 @@
         [self.view endEditing:YES];
         [hud show:YES];
         
-        [sharedConnect registerUserWithUsername:self.textFieldUsername.text password:self.textFieldPassword.text email:self.textFieldEmail.text userAvatar:self.imageViewAvatar.image userType:WLIUserTypePerson userFullName:self.textFieldFullName.text userInfo:@"" latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
+        [sharedConnect registerUserWithUsername:self.textFieldUsername.text password:self.textFieldPassword.text email:self.textFieldEmail.text userAvatar:self.imageViewAvatar.image userType:WLIUserTypePerson userFullName:self.textFieldFullName.text userInfo:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode == OK) {
                 [self dismissViewControllerAnimated:YES completion:nil];

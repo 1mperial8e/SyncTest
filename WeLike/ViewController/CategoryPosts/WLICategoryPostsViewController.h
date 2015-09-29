@@ -14,9 +14,9 @@
     
 }
 
-@property (strong, nonatomic) WLIUser *user;
 @property NSInteger categoryID;
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil withTitle:(NSString*)myTitle;
 
 
 @end
