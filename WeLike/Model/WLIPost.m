@@ -31,10 +31,16 @@
         _likedThisPost = [self boolFromDictionary:postWithInfo forKey:@"isLiked"];
         _commentedThisPost = [self boolFromDictionary:postWithInfo forKey:@"isCommented"];
         
-        _categoryMarket = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] | 1;
-        _categoryCapabilities = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] | 2;
-        _categoryCustomer = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] | 4;
-        _categoryPeople = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] | 8;
+        _categoryMarket = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] & 1;
+        _categoryCapabilities = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] & 2;
+        _categoryCustomer = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] & 4;
+        _categoryPeople = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] & 8;
+        
+        NSLog(@"Category %@", [NSNumber numberWithInteger:[self integerFromDictionary:postWithInfo forKey:@"postCategory"]]);
+        NSLog(@"Category Market: %@", [NSNumber numberWithBool:_categoryMarket]);
+        NSLog(@"Category Capabilities: %@", [NSNumber numberWithBool:_categoryCapabilities]);
+        NSLog(@"Category Customer: %@", [NSNumber numberWithBool:_categoryCustomer]);
+        NSLog(@"Category People: %@", [NSNumber numberWithBool:_categoryPeople]);
     }
         
     return self;
