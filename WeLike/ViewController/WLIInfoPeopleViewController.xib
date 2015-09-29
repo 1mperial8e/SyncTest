@@ -52,6 +52,6 @@
         </scrollView>
     </objects>
     <resources>
-        <image name="People.png" width="273" height="273"/>
+        <image name="People.png" width="137" height="137"/>
     </resources>
 </document>

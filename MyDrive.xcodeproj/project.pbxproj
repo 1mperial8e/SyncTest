@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0743481B1BBABB2B00EAA2AA /* MyDrivelogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743481A1BBABB2B00EAA2AA /* MyDrivelogo.png */; settings = {ASSET_TAGS = (); }; };
 		074348241BBABCB700EAA2AA /* Capability.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743481C1BBABCB700EAA2AA /* Capability.png */; settings = {ASSET_TAGS = (); }; };
 		074348251BBABCB700EAA2AA /* Capability2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743481D1BBABCB700EAA2AA /* Capability2.png */; settings = {ASSET_TAGS = (); }; };
 		074348261BBABCB700EAA2AA /* Customer.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743481E1BBABCB700EAA2AA /* Customer.png */; settings = {ASSET_TAGS = (); }; };
@@ -17,6 +16,7 @@
 		0743482A1BBABCB700EAA2AA /* Peolple2.png in Resources */ = {isa = PBXBuildFile; fileRef = 074348221BBABCB700EAA2AA /* Peolple2.png */; settings = {ASSET_TAGS = (); }; };
 		0743482B1BBABCB700EAA2AA /* People.png in Resources */ = {isa = PBXBuildFile; fileRef = 074348231BBABCB700EAA2AA /* People.png */; settings = {ASSET_TAGS = (); }; };
 		0743482D1BBABD6D00EAA2AA /* infobutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743482C1BBABD6D00EAA2AA /* infobutton.png */; settings = {ASSET_TAGS = (); }; };
+		0743482F1BBABF4200EAA2AA /* MyDrivelogo2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743482E1BBABF4200EAA2AA /* MyDrivelogo2.png */; settings = {ASSET_TAGS = (); }; };
 		074D68881BB53B40000167DD /* Graph1.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D68871BB53B40000167DD /* Graph1.png */; settings = {ASSET_TAGS = (); }; };
 		074D688A1BB53C4D000167DD /* illustration2.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D68891BB53C4D000167DD /* illustration2.png */; settings = {ASSET_TAGS = (); }; };
 		074D688C1BB54B29000167DD /* director.mov in Resources */ = {isa = PBXBuildFile; fileRef = 074D688B1BB54B29000167DD /* director.mov */; settings = {ASSET_TAGS = (); }; };
@@ -161,7 +161,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0743481A1BBABB2B00EAA2AA /* MyDrivelogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MyDrivelogo.png; sourceTree = "<group>"; };
 		0743481C1BBABCB700EAA2AA /* Capability.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Capability.png; sourceTree = "<group>"; };
 		0743481D1BBABCB700EAA2AA /* Capability2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Capability2.png; sourceTree = "<group>"; };
 		0743481E1BBABCB700EAA2AA /* Customer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Customer.png; sourceTree = "<group>"; };
@@ -171,6 +170,7 @@
 		074348221BBABCB700EAA2AA /* Peolple2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Peolple2.png; sourceTree = "<group>"; };
 		074348231BBABCB700EAA2AA /* People.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = People.png; sourceTree = "<group>"; };
 		0743482C1BBABD6D00EAA2AA /* infobutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infobutton.png; sourceTree = "<group>"; };
+		0743482E1BBABF4200EAA2AA /* MyDrivelogo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MyDrivelogo2.png; sourceTree = "<group>"; };
 		074D68871BB53B40000167DD /* Graph1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Graph1.png; sourceTree = "<group>"; };
 		074D68891BB53C4D000167DD /* illustration2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = illustration2.png; sourceTree = "<group>"; };
 		074D688B1BB54B29000167DD /* director.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = director.mov; sourceTree = "<group>"; };
@@ -444,7 +444,7 @@
 				074348221BBABCB700EAA2AA /* Peolple2.png */,
 				074348231BBABCB700EAA2AA /* People.png */,
 				074D68891BB53C4D000167DD /* illustration2.png */,
-				0743481A1BBABB2B00EAA2AA /* MyDrivelogo.png */,
+				0743482E1BBABF4200EAA2AA /* MyDrivelogo2.png */,
 				0743482C1BBABD6D00EAA2AA /* infobutton.png */,
 				074D68871BB53B40000167DD /* Graph1.png */,
 			);
@@ -1253,6 +1253,7 @@
 				2C6D27F01896BACA00C459CB /* WLIPostViewController.xib in Resources */,
 				2ED2F2861BA95E8C00641F54 /* WLIInfoPageViewController.xib in Resources */,
 				2E28F3831BADE64F006CF0BE /* WLIFavoritesViewController.xib in Resources */,
+				0743482F1BBABF4200EAA2AA /* MyDrivelogo2.png in Resources */,
 				074D688A1BB53C4D000167DD /* illustration2.png in Resources */,
 				2C6D27F41896BACA00C459CB /* WLIProfileViewController.xib in Resources */,
 				2C6D27B51896BACA00C459CB /* MNMPullToRefreshIcon.png in Resources */,
@@ -1278,7 +1279,6 @@
 				074D68881BB53B40000167DD /* Graph1.png in Resources */,
 				2C6D27D91896BACA00C459CB /* WLIPostCell.xib in Resources */,
 				2C6D27E21896BACA00C459CB /* WLIFollowersViewController.xib in Resources */,
-				0743481B1BBABB2B00EAA2AA /* MyDrivelogo.png in Resources */,
 				2C6D27B41896BACA00C459CB /* MNMPullToRefresh.strings in Resources */,
 				2E0BDD2B1BB52F31004EACF5 /* WLIInfoMarketViewController.xib in Resources */,
 				0743482A1BBABCB700EAA2AA /* Peolple2.png in Resources */,

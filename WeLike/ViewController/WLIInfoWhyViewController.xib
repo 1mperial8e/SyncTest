@@ -27,7 +27,7 @@
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfI-CG-QtB">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="1116"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyDrivelogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="sla-UA-kjE">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyDrivelogo2.png" translatesAutoresizingMaskIntoConstraints="NO" id="sla-UA-kjE">
                             <rect key="frame" x="15" y="23" width="291" height="59"/>
                             <animations/>
                         </imageView>
@@ -98,7 +98,7 @@ CEO, SCB Nordic</string>
     </objects>
     <resources>
         <image name="Graph1.png" width="332" height="147"/>
-        <image name="MyDrivelogo.png" width="298" height="61"/>
+        <image name="MyDrivelogo2.png" width="298" height="61"/>
         <image name="illustration2.png" width="336" height="146"/>
     </resources>
 </document>

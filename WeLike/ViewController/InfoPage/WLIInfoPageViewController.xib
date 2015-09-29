@@ -90,7 +90,7 @@ Let`s look at MyDrive as the channel where we get to do anything and everything 
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SuA-Eb-Xg1">
                             <rect key="frame" x="15" y="11" width="297" height="60"/>
                             <animations/>
-                            <state key="normal" title="Button" image="MyDrivelogo.png"/>
+                            <state key="normal" title="Button" image="MyDrivelogo2.png"/>
                             <connections>
                                 <action selector="buttonPlayVideoTouchUpInside:" destination="-1" eventType="touchUpInside" id="o5f-um-hYe"/>
                             </connections>
@@ -121,7 +121,7 @@ Let`s look at MyDrive as the channel where we get to do anything and everything 
         <image name="Capability.png" width="137" height="137"/>
         <image name="Customer.png" width="137" height="137"/>
         <image name="Market.png" width="137" height="137"/>
-        <image name="MyDrivelogo.png" width="298" height="61"/>
+        <image name="MyDrivelogo2.png" width="298" height="61"/>
         <image name="People.png" width="137" height="137"/>
         <image name="infobutton.png" width="229" height="45"/>
     </resources>
