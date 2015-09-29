@@ -33,14 +33,14 @@
     self.tabBar.translucent = NO;
     self.tabBar.barTintColor = [UIColor colorWithRed:249.0f/255.0f green:249.0f/255.0f blue:249.0f/255.0f alpha:1.0f];
     self.tabBar.tintColor = [UIColor blackColor];
-    self.tabBar.selectedImageTintColor = [UIColor colorWithRed:176/255.0f green:162/255.0f blue:162/255.0f alpha:1.0f];
+    self.tabBar.selectedImageTintColor = [UIColor colorWithRed:255/255.0f green:0/255.0f blue:0/255.0f alpha:1.0f];
     
     UIColor *colorUnselected = [UIColor colorWithRed:176/255.0f green:162/255.0f blue:162/255.0f alpha:1.0f];
     UIFont *fontUnselected = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
     NSDictionary *attributesUnselected = @{NSFontAttributeName : fontUnselected, NSForegroundColorAttributeName : colorUnselected};
     [[UITabBarItem appearance] setTitleTextAttributes:attributesUnselected forState:UIControlStateNormal];
     
-    UIColor *colorSelected = [UIColor colorWithRed:226/255.0f green:32/255.0f blue:20/255.0f alpha:1.0f];
+    UIColor *colorSelected = [UIColor colorWithRed:255/255.0f green:0/255.0f blue:0/255.0f alpha:1.0f];
     UIFont *fontSelected = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
     NSDictionary *attributesSelected = @{NSFontAttributeName : fontSelected, NSForegroundColorAttributeName : colorSelected};
     [[UITabBarItem appearance] setTitleTextAttributes:attributesSelected forState:UIControlStateSelected];
