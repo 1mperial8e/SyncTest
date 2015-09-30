@@ -54,6 +54,7 @@ static WLIPostCell *sharedCell = nil;
     self.labelPostTitle.frame = frameDefaultLabelPostTitle;
     self.labelPostText.frame = frameDefaultLabelPostText;
     [self.buttonVideo setHidden:YES];
+    [_buttonConnect setHidden:NO];
 }
 
 + (CGSize)sizeWithPost:(WLIPost*)post {
@@ -155,7 +156,17 @@ static WLIPostCell *sharedCell = nil;
         
         [self.labelLikes setText:[NSString stringWithFormat:@"%d", self.post.postLikesCount]];
         [self.labelComments setText:[NSString stringWithFormat:@"%d", self.post.postCommentsCount]];
+        if (self.post.user.userID == [WLIConnect sharedConnect].currentUser.userID)
+        {
+            [_buttonConnect setHidden:YES];
+            [_buttonDelete setHidden:NO];
 
+        }
+        else
+        {
+            [_buttonConnect setHidden:NO];
+            [_buttonDelete setHidden:YES];
+        }
     }
 }
 

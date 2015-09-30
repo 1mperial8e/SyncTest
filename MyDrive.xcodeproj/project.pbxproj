@@ -138,7 +138,6 @@
 		2E0BDD3F1BB53065004EACF5 /* WLIInfoWhyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E0BDD3D1BB53065004EACF5 /* WLIInfoWhyViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2E28F3631BADA43E006CF0BE /* WLIPostsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F3621BADA43E006CF0BE /* WLIPostsListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2E28F3731BADE286006CF0BE /* WLIMyDriveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F3711BADE286006CF0BE /* WLIMyDriveViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2E28F3741BADE286006CF0BE /* WLICategoryPostsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E28F3721BADE286006CF0BE /* WLICategoryPostsViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2E28F3821BADE64F006CF0BE /* WLIFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F3801BADE64F006CF0BE /* WLIFavoritesViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2E28F3831BADE64F006CF0BE /* WLIFavoritesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E28F3811BADE64F006CF0BE /* WLIFavoritesViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2E28F3871BADE676006CF0BE /* WLIMyPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F3851BADE676006CF0BE /* WLIMyPostsViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -149,14 +148,14 @@
 		2E28F3981BADEEFF006CF0BE /* WLISearchContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E28F3961BADEEFF006CF0BE /* WLISearchContentViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2E4851771B9F8C27002216B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4851761B9F8C27002216B7 /* AVFoundation.framework */; };
 		2E65F58D1BBABD740077B44B /* WLICategoryPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E65F58B1BBABD740077B44B /* WLICategoryPostsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2E666A091BBC2A0C00392527 /* WLIMyDriveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E666A081BBC2A0C00392527 /* WLIMyDriveViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		2E666A0B1BBC2AC200392527 /* WLICategoryPostsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E666A0A1BBC2AC200392527 /* WLICategoryPostsViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2E9518671BBAC1B900248651 /* WLICategoryCapabilitiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E95185C1BBAC1B900248651 /* WLICategoryCapabilitiesCell.m */; settings = {ASSET_TAGS = (); }; };
 		2E9518681BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E95185D1BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib */; settings = {ASSET_TAGS = (); }; };
 		2E9518691BBAC1B900248651 /* WLICategoryCustomerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E95185F1BBAC1B900248651 /* WLICategoryCustomerCell.m */; settings = {ASSET_TAGS = (); }; };
-		2E95186A1BBAC1B900248651 /* WLICategoryCustomerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9518601BBAC1B900248651 /* WLICategoryCustomerCell.xib */; settings = {ASSET_TAGS = (); }; };
 		2E95186B1BBAC1B900248651 /* WLICategoryMarketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9518621BBAC1B900248651 /* WLICategoryMarketCell.m */; settings = {ASSET_TAGS = (); }; };
 		2E95186C1BBAC1B900248651 /* WLICategoryMarketCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9518631BBAC1B900248651 /* WLICategoryMarketCell.xib */; settings = {ASSET_TAGS = (); }; };
 		2E95186D1BBAC1B900248651 /* WLICategoryPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9518651BBAC1B900248651 /* WLICategoryPeopleCell.m */; settings = {ASSET_TAGS = (); }; };
-		2E95186E1BBAC1B900248651 /* WLICategoryPeopleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9518661BBAC1B900248651 /* WLICategoryPeopleCell.xib */; settings = {ASSET_TAGS = (); }; };
 		2ECF34911BB98D950096CD11 /* WLIMyDriveHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF34901BB98D950096CD11 /* WLIMyDriveHeaderCell.m */; settings = {ASSET_TAGS = (); }; };
 		2ECF34931BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF34921BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib */; settings = {ASSET_TAGS = (); }; };
 		2ED2F2851BA95E8C00641F54 /* WLIInfoPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -384,7 +383,6 @@
 		2E28F3621BADA43E006CF0BE /* WLIPostsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIPostsListViewController.m; path = PostsList/WLIPostsListViewController.m; sourceTree = "<group>"; };
 		2E28F3701BADE286006CF0BE /* WLIMyDriveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIMyDriveViewController.h; sourceTree = "<group>"; };
 		2E28F3711BADE286006CF0BE /* WLIMyDriveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIMyDriveViewController.m; sourceTree = "<group>"; };
-		2E28F3721BADE286006CF0BE /* WLICategoryPostsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLICategoryPostsViewController.xib; sourceTree = "<group>"; };
 		2E28F37F1BADE64F006CF0BE /* WLIFavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIFavoritesViewController.h; path = Favorites/WLIFavoritesViewController.h; sourceTree = "<group>"; };
 		2E28F3801BADE64F006CF0BE /* WLIFavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIFavoritesViewController.m; path = Favorites/WLIFavoritesViewController.m; sourceTree = "<group>"; };
 		2E28F3811BADE64F006CF0BE /* WLIFavoritesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLIFavoritesViewController.xib; path = Favorites/WLIFavoritesViewController.xib; sourceTree = "<group>"; };
@@ -400,6 +398,8 @@
 		2E4851761B9F8C27002216B7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2E65F58A1BBABD740077B44B /* WLICategoryPostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLICategoryPostsViewController.h; path = CategoryPosts/WLICategoryPostsViewController.h; sourceTree = "<group>"; };
 		2E65F58B1BBABD740077B44B /* WLICategoryPostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLICategoryPostsViewController.m; path = CategoryPosts/WLICategoryPostsViewController.m; sourceTree = "<group>"; };
+		2E666A081BBC2A0C00392527 /* WLIMyDriveViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIMyDriveViewController.xib; sourceTree = "<group>"; };
+		2E666A0A1BBC2AC200392527 /* WLICategoryPostsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLICategoryPostsViewController.xib; sourceTree = "<group>"; };
 		2E95185B1BBAC1B900248651 /* WLICategoryCapabilitiesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLICategoryCapabilitiesCell.h; path = CategoryCells/WLICategoryCapabilitiesCell.h; sourceTree = "<group>"; };
 		2E95185C1BBAC1B900248651 /* WLICategoryCapabilitiesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLICategoryCapabilitiesCell.m; path = CategoryCells/WLICategoryCapabilitiesCell.m; sourceTree = "<group>"; };
 		2E95185D1BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLICategoryCapabilitiesCell.xib; path = CategoryCells/WLICategoryCapabilitiesCell.xib; sourceTree = "<group>"; };
@@ -1129,6 +1129,7 @@
 		2E28F3641BADE143006CF0BE /* MyDrive */ = {
 			isa = PBXGroup;
 			children = (
+				2E666A081BBC2A0C00392527 /* WLIMyDriveViewController.xib */,
 				2E28F3701BADE286006CF0BE /* WLIMyDriveViewController.h */,
 				2E28F3711BADE286006CF0BE /* WLIMyDriveViewController.m */,
 			);
@@ -1178,9 +1179,9 @@
 		2E65F5891BBABD200077B44B /* CategoryPosts */ = {
 			isa = PBXGroup;
 			children = (
+				2E666A0A1BBC2AC200392527 /* WLICategoryPostsViewController.xib */,
 				2E65F58A1BBABD740077B44B /* WLICategoryPostsViewController.h */,
 				2E65F58B1BBABD740077B44B /* WLICategoryPostsViewController.m */,
-				2E28F3721BADE286006CF0BE /* WLICategoryPostsViewController.xib */,
 			);
 			name = CategoryPosts;
 			sourceTree = "<group>";
@@ -1294,6 +1295,7 @@
 				2C6D27EA1896BACA00C459CB /* WLINearbyViewController.xib in Resources */,
 				2E0BDD301BB52FA5004EACF5 /* WLIInfoCustomerViewController.xib in Resources */,
 				2C6D27E01896BACA00C459CB /* WLICommentsViewController.xib in Resources */,
+				2E666A0B1BBC2AC200392527 /* WLICategoryPostsViewController.xib in Resources */,
 				2E28F3921BADE8BA006CF0BE /* WLIFollowingsViewController.xib in Resources */,
 				2C6D27F21896BACA00C459CB /* WLIEditProfileViewController.xib in Resources */,
 				2E0BDD351BB52FC9004EACF5 /* WLIInfoCapabilityViewController.xib in Resources */,
@@ -1309,6 +1311,7 @@
 				0743482F1BBABF4200EAA2AA /* MyDrivelogo2.png in Resources */,
 				074D688A1BB53C4D000167DD /* illustration2.png in Resources */,
 				2C6D27F41896BACA00C459CB /* WLIProfileViewController.xib in Resources */,
+				2E666A091BBC2A0C00392527 /* WLIMyDriveViewController.xib in Resources */,
 				2C6D27B51896BACA00C459CB /* MNMPullToRefreshIcon.png in Resources */,
 				074348291BBABCB700EAA2AA /* Market2.png in Resources */,
 				2C6D27F61896BACA00C459CB /* WLIRegisterViewController.xib in Resources */,
@@ -1316,7 +1319,6 @@
 				2C6D27D51896BACA00C459CB /* WLILoadingCell.xib in Resources */,
 				2E28F3881BADE676006CF0BE /* WLIMyPostsViewController.xib in Resources */,
 				2E9518681BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib in Resources */,
-				2E28F3741BADE286006CF0BE /* WLICategoryPostsViewController.xib in Resources */,
 				2C6D27D71896BACA00C459CB /* WLILoadingCollectionViewCell.xib in Resources */,
 				074D688C1BB54B29000167DD /* director.mov in Resources */,
 				074348281BBABCB700EAA2AA /* Market.png in Resources */,

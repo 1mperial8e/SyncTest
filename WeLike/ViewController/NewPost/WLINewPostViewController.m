@@ -344,24 +344,28 @@
 -(IBAction)buttonCatMarketTouchUpInside:(id)sender
 {
     [self.buttonCategoryStateMarket setSelected:!self.buttonCategoryStateMarket.selected];
+    [self.buttonCategoryMarket setSelected:self.buttonCategoryStateMarket.selected];
     
 }
 
 -(IBAction)buttonCatCustomerTouchUpInside:(id)sender
 {
     [self.buttonCategoryStateCustomer setSelected:!self.buttonCategoryStateCustomer.selected];
+    [self.buttonCategoryCustomer setSelected:self.buttonCategoryStateCustomer.selected];
 
 }
 
 -(IBAction)buttonCatCapabilityTouchUpInside:(id)sender
 {
     [self.buttonCategoryStateCapability setSelected:!self.buttonCategoryStateCapability.selected];
+    [self.buttonCategoryCapability setSelected:self.buttonCategoryStateCapability.selected];
 
 }
 
 -(IBAction)buttonCatPeopleTouchUpInside:(id)sender
 {
     [self.buttonCategoryStatePeople setSelected:!self.buttonCategoryStatePeople.selected];
+    [self.buttonCategoryPeople setSelected:self.buttonCategoryStatePeople.selected];
 
 }
 
