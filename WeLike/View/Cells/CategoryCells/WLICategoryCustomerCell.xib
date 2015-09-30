@@ -3,28 +3,47 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="5Xl-s5-ei4" customClass="WLICategoryCustomerCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="270"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="131" id="5Xl-s5-ei4" customClass="WLICategoryCustomerCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="137"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Xl-s5-ei4" id="HSc-ah-yVr">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="269"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="136"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Customer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGw-VQ-hhh">
-                        <rect key="frame" x="106" y="37" width="75" height="21"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Customer.png" translatesAutoresizingMaskIntoConstraints="NO" id="zkt-Xi-x0d">
+                        <rect key="frame" x="8" y="8" width="107" height="107"/>
                         <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="We are the preferred choice with the leading offering." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sT2-Hc-bJp">
+                        <rect key="frame" x="123" y="8" width="189" height="38"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="“How we provide an exellent customer experience with our offerings at the right time and place.”" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4p-yU-uut">
+                        <rect key="frame" x="123" y="59" width="189" height="56"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                        <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <animations/>
             </tableViewCellContentView>
             <animations/>
-            <point key="canvasLocation" x="328" y="174"/>
+            <point key="canvasLocation" x="328" y="107.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Customer.png" width="137" height="137"/>
+    </resources>
 </document>
