@@ -132,25 +132,25 @@ static WLIPostCell *sharedCell = nil;
             [self.buttonConnect setSelected:NO];
         }
         
-        if (self.post.categoryMarket) {
-            [self.buttonCatMarket setSelected:YES];
+        if (!self.post.categoryMarket) {
+            [self.buttonCatMarket setHidden:YES];
         } else {
-            [self.buttonCatMarket setSelected:NO];
+            [self.buttonCatMarket setHidden:NO];
         }
-        if (self.post.categoryCapabilities) {
-            [self.buttonCatCapabilities setSelected:YES];
+        if (!self.post.categoryCapabilities) {
+            [self.buttonCatCapabilities setHidden:YES];
         } else {
-            [self.buttonCatCapabilities setSelected:NO];
+            [self.buttonCatCapabilities setHidden:NO];
         }
-        if (self.post.categoryCustomer) {
-            [self.buttonCatCustomer setSelected:YES];
+        if (!self.post.categoryCustomer) {
+            [self.buttonCatCustomer setHidden:YES];
         } else {
-            [self.buttonCatCustomer setSelected:NO];
+            [self.buttonCatCustomer setHidden:NO];
         }
-        if (self.post.categoryPeople) {
-            [self.buttonCatPeople setSelected:YES];
+        if (!self.post.categoryPeople) {
+            [self.buttonCatPeople setHidden:YES];
         } else {
-            [self.buttonCatPeople setSelected:NO];
+            [self.buttonCatPeople setHidden:NO];
         }
         
         [self.labelLikes setText:[NSString stringWithFormat:@"%d", self.post.postLikesCount]];
