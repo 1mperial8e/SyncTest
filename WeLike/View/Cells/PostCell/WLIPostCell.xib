@@ -155,6 +155,14 @@
                                 <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kBC-wk-L6Z">
+                                <rect key="frame" x="216" y="10" width="96" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="post-cell-delete-add-h"/>
+                                <connections>
+                                    <action selector="buttonDeleteTouchUpInside:" destination="AD9-av-jcm" eventType="touchUpInside" id="F0I-nn-rs7"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9Tk-O8-Uhi">
                                 <rect key="frame" x="216" y="9" width="95" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -214,6 +222,7 @@
                 <outlet property="buttonCatPeople" destination="znk-P9-MIq" id="ur6-HM-MVn"/>
                 <outlet property="buttonComment" destination="9K9-d1-m64" id="5K3-wx-FDW"/>
                 <outlet property="buttonConnect" destination="9Tk-O8-Uhi" id="lIC-lg-bjR"/>
+                <outlet property="buttonDelete" destination="kBC-wk-L6Z" id="sEf-7j-AId"/>
                 <outlet property="buttonLike" destination="bmc-yG-IiR" id="JVT-sf-We3"/>
                 <outlet property="buttonVideo" destination="FUr-JF-9IB" id="12a-Cr-9J2"/>
                 <outlet property="imageViewPostImage" destination="mqr-zA-tF9" id="mnQ-BW-1tn"/>
@@ -243,6 +252,7 @@
         <image name="post-cell-add-user" width="95" height="31"/>
         <image name="post-cell-add-user-h" width="95" height="31"/>
         <image name="post-cell-comments" width="30" height="27"/>
+        <image name="post-cell-delete-add-h" width="95" height="31"/>
         <image name="post-cell-like" width="28" height="25"/>
         <image name="post-cell-like-h" width="28" height="25"/>
     </resources>

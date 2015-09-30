@@ -689,10 +689,10 @@ static WLIConnect *sharedConnect;
     [parameters setObject:[NSString stringWithFormat:@"%d", postID] forKey:@"postID"];
     [httpClient POST:@"api/deletePost" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        [self debugger:parameters.description methodLog:@"api/setLike" dataLogFormatted:responseObject];
+        [self debugger:parameters.description methodLog:@"api/deletePost" dataLogFormatted:responseObject];
         completion(OK);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/setLike" dataLog:error.description];
+        [self debugger:parameters.description methodLog:@"api/deletePost" dataLog:error.description];
         completion(UNKNOWN_ERROR);
     }];
 }

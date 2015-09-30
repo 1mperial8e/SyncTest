@@ -53,6 +53,8 @@
 @property (strong, nonatomic) WLIPost *post;
 @property (weak, nonatomic) id<WLICellDelegate> delegate;
 
+@property BOOL showDeleteButton;
+
 - (IBAction)buttonUserTouchUpInside:(id)sender;
 - (IBAction)buttonPostTouchUpInside:(id)sender;
 - (IBAction)buttonVideoTouchUpInside:(id)sender;

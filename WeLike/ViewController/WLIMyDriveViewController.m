@@ -72,6 +72,7 @@
         if (cell == nil) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"WLIPostCell" owner:self options:nil] lastObject];
             cell.delegate = self;
+            cell.showDeleteButton = YES;
         }
         cell.post = self.posts[indexPath.row];
         return cell;
@@ -131,7 +132,7 @@
 }
 
 - (void)deletePost:(WLIPost *)post sender:(id)senderCell {
-    
+    morePost = post;
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete post" message:@"Are you sure you want to delete this post" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     deleteButtonIndex = [alert addButtonWithTitle:@"Yes"];
     [alert show];
@@ -142,16 +143,16 @@
 {
     if (buttonIndex == deleteButtonIndex) {
         [sharedConnect deletePostID:morePost.postID onCompletion:^(ServerResponse serverResponseCode) {
-            if (serverResponseCode == OK)
-            {
+//            if (serverResponseCode == OK)
+//            {
                 [self.posts removeObject:morePost];
                 [self.tableViewRefresh reloadData];
-            }
-            else
-            {
-                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete post" message:@"An error occoured when deleting!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-            }
+//            }
+//            else
+//            {
+//                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete post" message:@"An error occoured when deleting!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//                [alert show];
+//            }
         }];
     }
 }

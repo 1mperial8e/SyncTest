@@ -55,6 +55,8 @@ static WLIPostCell *sharedCell = nil;
     self.labelPostText.frame = frameDefaultLabelPostText;
     [self.buttonVideo setHidden:YES];
     [_buttonConnect setHidden:NO];
+    [self.buttonDelete setHidden:YES];
+    self.showDeleteButton = NO;
 }
 
 + (CGSize)sizeWithPost:(WLIPost*)post {
@@ -159,7 +161,8 @@ static WLIPostCell *sharedCell = nil;
         if (self.post.user.userID == [WLIConnect sharedConnect].currentUser.userID)
         {
             [_buttonConnect setHidden:YES];
-            [_buttonDelete setHidden:NO];
+            if (self.showDeleteButton)
+                [_buttonDelete setHidden:NO];
 
         }
         else
