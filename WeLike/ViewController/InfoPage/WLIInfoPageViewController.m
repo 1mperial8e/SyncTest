@@ -62,7 +62,7 @@
 //    [self.navigationController pushViewController:myViewController animated:YES];
     
     WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Customer"];
-    categoryViewController.categoryID = 3;
+    categoryViewController.categoryID = 4;
     [self.navigationController pushViewController:categoryViewController animated:YES];
 }
 - (IBAction)capabilityButtonTouchUpInside:(id)sender
@@ -80,7 +80,7 @@
 //    [self.navigationController pushViewController:myViewController animated:YES];
     
     WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"People"];
-    categoryViewController.categoryID = 4;
+    categoryViewController.categoryID = 8;
     [self.navigationController pushViewController:categoryViewController animated:YES];
 }
 - (IBAction)whyButtonTouchUpInside:(id)sender

@@ -150,6 +150,8 @@
 		2E65F58D1BBABD740077B44B /* WLICategoryPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E65F58B1BBABD740077B44B /* WLICategoryPostsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2E666A091BBC2A0C00392527 /* WLIMyDriveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E666A081BBC2A0C00392527 /* WLIMyDriveViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2E666A0B1BBC2AC200392527 /* WLICategoryPostsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E666A0A1BBC2AC200392527 /* WLICategoryPostsViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		2E666A0C1BBC2E5300392527 /* WLICategoryCustomerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9518601BBAC1B900248651 /* WLICategoryCustomerCell.xib */; settings = {ASSET_TAGS = (); }; };
+		2E666A0D1BBC2E6000392527 /* WLICategoryPeopleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9518661BBAC1B900248651 /* WLICategoryPeopleCell.xib */; settings = {ASSET_TAGS = (); }; };
 		2E9518671BBAC1B900248651 /* WLICategoryCapabilitiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E95185C1BBAC1B900248651 /* WLICategoryCapabilitiesCell.m */; settings = {ASSET_TAGS = (); }; };
 		2E9518681BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E95185D1BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib */; settings = {ASSET_TAGS = (); }; };
 		2E9518691BBAC1B900248651 /* WLICategoryCustomerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E95185F1BBAC1B900248651 /* WLICategoryCustomerCell.m */; settings = {ASSET_TAGS = (); }; };
@@ -1287,7 +1289,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E666A0C1BBC2E5300392527 /* WLICategoryCustomerCell.xib in Resources */,
 				2C6D27D11896BACA00C459CB /* WLICommentCell.xib in Resources */,
+				2E666A0D1BBC2E6000392527 /* WLICategoryPeopleCell.xib in Resources */,
 				0743482D1BBABD6D00EAA2AA /* infobutton.png in Resources */,
 				2CA087061AC94967002696D9 /* AviarySDKResources.bundle in Resources */,
 				2C6D27FB1896BACA00C459CB /* WLITimelineViewController.xib in Resources */,
