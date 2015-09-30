@@ -166,6 +166,10 @@ static WLIPostCell *sharedCell = nil;
         {
             [_buttonConnect setHidden:NO];
             [_buttonDelete setHidden:YES];
+            if (self.post.isConnected)
+            {
+                [_buttonConnect setSelected:YES];
+            }
         }
     }
 }
@@ -259,7 +263,7 @@ static WLIPostCell *sharedCell = nil;
 - (IBAction)buttonConnectTouchUpInside:(id)sender {
     
     if ([self.delegate respondsToSelector:@selector(followUser:sender:)]) {
-        [self.delegate followUser:self.post.user sender:sender];
+        [self.delegate showConnectForPost:self.post sender:sender];
     }
 }
 

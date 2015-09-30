@@ -217,18 +217,22 @@
     UIButton *btn = (UIButton *)senderCell;
     if ( btn.selected )
     {
+        NSLog(@"Disconnecting");
         [sConnect removeFollowWithFollowID:post.user.userID onCompletion:^(ServerResponse serverResponseCode) {
             if (serverResponseCode == OK)
             {
+                NSLog(@"Disconnected");
                 [btn setSelected:NO];
             }
         }];
     }
     else
     {
+        NSLog(@"Connecting");
         [sConnect setFollowOnUserID:post.user.userID onCompletion:^(WLIFollow *follow, ServerResponse serverResponseCode) {
             if (serverResponseCode == OK)
             {
+                NSLog(@"Connected");
                 [btn setSelected:YES];
             }
         }];

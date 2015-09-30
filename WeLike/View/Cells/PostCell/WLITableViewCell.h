@@ -29,6 +29,7 @@
 - (void)showDeleteForPost:(WLIPost*)post sender:(id)senderCell;
 - (void)deletePost:(WLIPost*)post sender:(id)senderCell;
 - (void)showMoreForPost:(WLIPost*)post sender:(id)senderCell;
+- (void)showConnectForPost:(WLIPost*)post sender:(id)senderCell;
 
 - (void)showCatMarketForPost:(WLIPost*)post sender:(id)senderCell;
 - (void)showCatCustomersForPost:(WLIPost*)post sender:(id)senderCell;
