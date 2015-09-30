@@ -2,16 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "320_64.png",
+      "filename" : "navback320_64.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "320_64 copy.png",
+      "filename" : "navback320_64@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "navback320_64@3x.png",
       "scale" : "3x"
     }
   ],

@@ -27,7 +27,7 @@
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfI-CG-QtB">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="1116"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyDriveLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="sla-UA-kjE">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyDrivelogo2.png" translatesAutoresizingMaskIntoConstraints="NO" id="sla-UA-kjE">
                             <rect key="frame" x="15" y="23" width="291" height="59"/>
                             <animations/>
                         </imageView>
@@ -62,12 +62,12 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNk-yW-yXl">
                             <rect key="frame" x="15" y="291" width="291" height="316"/>
                             <animations/>
-                            <mutableString key="text">The financial services industry is experiencing unprecedented disruption, with all the signs being that this will continue and gather pace.
+                            <string key="text">The financial services industry is experiencing unprecedented disruption, with all the signs being that this will continue and gather pace.
 The FinTech sector is seeing wave upon wave of new startup companies all wanting a piece of the action. Whilst far from certain, the stringent capital and regulatory requirements associated with banking operations will likely mean that disruption from startups and more established ‘digital players’ will be characterized by a ‘nibbling at the edges’ of banks’ business models, rather than at the core.
 The problem is that this disruption might occur at all the edges!
 
 To support our strategy, we need to adopt a beyond banking innovation
-</mutableString>
+</string>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -98,7 +98,7 @@ CEO, SCB Nordic</string>
     </objects>
     <resources>
         <image name="Graph1.png" width="332" height="147"/>
-        <image name="MyDriveLogo.png" width="291" height="60"/>
+        <image name="MyDrivelogo2.png" width="298" height="61"/>
         <image name="illustration2.png" width="336" height="146"/>
     </resources>
 </document>

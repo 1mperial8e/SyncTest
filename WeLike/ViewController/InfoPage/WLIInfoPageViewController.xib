@@ -26,7 +26,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="1142"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7m-Wl-uEx">
-                            <rect key="frame" x="15" y="92" width="291" height="93"/>
+                            <rect key="frame" x="15" y="81" width="291" height="93"/>
                             <animations/>
                             <string key="text">MyDrive is the platform that delivers the bridge between that big fuzzy thing called "corporate strategy" and personal actions supporte by a social media, leading to the company delivering on  20%by2020.</string>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
@@ -34,7 +34,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="46" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tx6-vd-qqg">
-                            <rect key="frame" x="15" y="561" width="291" height="521"/>
+                            <rect key="frame" x="15" y="530" width="291" height="521"/>
                             <animations/>
                             <string key="text">MyDrive is a simple tool to simply connect all of us together to allow us to converge on our new strategy in a device we carry with us. Our phones. MyDrive is about two things initially:
  1. Making our new strategy available and understandable to everyone in Santander.
@@ -49,14 +49,14 @@ Let`s look at MyDrive as the channel where we get to do anything and everything 
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What is MyDrive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4QB-uX-q8g">
-                            <rect key="frame" x="15" y="543" width="125" height="21"/>
+                            <rect key="frame" x="15" y="512" width="125" height="21"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoB-DU-4NN">
-                            <rect key="frame" x="46" y="199" width="100" height="100"/>
+                            <rect key="frame" x="46" y="189" width="100" height="100"/>
                             <animations/>
                             <state key="normal" title="Button" image="Market.png"/>
                             <connections>
@@ -64,7 +64,7 @@ Let`s look at MyDrive as the channel where we get to do anything and everything 
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cle-2z-s1D">
-                            <rect key="frame" x="175" y="199" width="100" height="100"/>
+                            <rect key="frame" x="175" y="189" width="100" height="100"/>
                             <animations/>
                             <state key="normal" title="Button" image="Customer.png"/>
                             <connections>
@@ -72,7 +72,7 @@ Let`s look at MyDrive as the channel where we get to do anything and everything 
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZV-0f-x90">
-                            <rect key="frame" x="46" y="323" width="100" height="100"/>
+                            <rect key="frame" x="46" y="313" width="100" height="100"/>
                             <animations/>
                             <state key="normal" title="Button" image="Capability.png"/>
                             <connections>
@@ -80,7 +80,7 @@ Let`s look at MyDrive as the channel where we get to do anything and everything 
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQb-6Y-8px">
-                            <rect key="frame" x="175" y="323" width="100" height="100"/>
+                            <rect key="frame" x="175" y="313" width="100" height="100"/>
                             <animations/>
                             <state key="normal" title="Button" image="People.png"/>
                             <connections>
@@ -88,20 +88,19 @@ Let`s look at MyDrive as the channel where we get to do anything and everything 
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SuA-Eb-Xg1">
-                            <rect key="frame" x="15" y="16" width="297" height="60"/>
+                            <rect key="frame" x="15" y="11" width="297" height="60"/>
                             <animations/>
-                            <state key="normal" title="Button" image="MyDriveLogo.png"/>
+                            <state key="normal" title="Button" image="MyDrivelogo2.png"/>
                             <connections>
                                 <action selector="buttonPlayVideoTouchUpInside:" destination="-1" eventType="touchUpInside" id="o5f-um-hYe"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sCI-b4-mqx">
-                            <rect key="frame" x="46" y="448" width="229" height="45"/>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sCI-b4-mqx">
+                            <rect key="frame" x="46" y="434" width="229" height="45"/>
                             <animations/>
-                            <color key="backgroundColor" red="0.85098039219999999" green="0.10980392160000001" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="19"/>
-                            <state key="normal" title="WHY 20% BY 2020?">
-                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" title="WHY 20% BY 2020?" backgroundImage="infobutton.png">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="whyButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="MrX-iC-o53"/>
@@ -119,10 +118,11 @@ Let`s look at MyDrive as the channel where we get to do anything and everything 
         </scrollView>
     </objects>
     <resources>
-        <image name="Capability.png" width="273" height="273"/>
-        <image name="Customer.png" width="273" height="273"/>
-        <image name="Market.png" width="273" height="273"/>
-        <image name="MyDriveLogo.png" width="291" height="60"/>
-        <image name="People.png" width="273" height="273"/>
+        <image name="Capability.png" width="137" height="137"/>
+        <image name="Customer.png" width="137" height="137"/>
+        <image name="Market.png" width="137" height="137"/>
+        <image name="MyDrivelogo2.png" width="298" height="61"/>
+        <image name="People.png" width="137" height="137"/>
+        <image name="infobutton.png" width="229" height="45"/>
     </resources>
 </document>
