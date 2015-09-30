@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLINewPostViewController">
             <connections>
@@ -34,6 +39,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="udx-LK-v12">
                     <rect key="frame" x="8" y="8" width="98" height="66"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <animations/>
                     <state key="normal" title="Button" image="post-image-placeholder.png"/>
                     <connections>
                         <action selector="buttonPostImageTouchUpInside:" destination="-1" eventType="touchUpInside" id="zed-wD-pNi"/>
@@ -42,18 +48,21 @@
                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn-video" id="dDV-Z8-4sO">
                     <rect key="frame" x="38" y="21" width="39" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <animations/>
                 </imageView>
                 <view contentMode="scaleToFill" id="IAc-YE-Ij3">
                     <rect key="frame" x="0.0" y="88" width="320" height="334"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-line" id="ECd-nH-uWL">
-                            <rect key="frame" x="8" y="166" width="304" height="1"/>
+                            <rect key="frame" x="8" y="194" width="304" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                         </imageView>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Title" textAlignment="natural" minimumFontSize="17" id="2lP-vX-gf1">
                             <rect key="frame" x="8" y="0.0" width="304" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -61,63 +70,65 @@
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Write something…" textAlignment="natural" id="wha-qf-nfS">
                             <rect key="frame" x="8" y="29" width="304" height="77"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="78n-Od-9n6">
-                            <rect key="frame" x="31" y="250" width="34" height="34"/>
+                            <rect key="frame" x="19" y="261" width="60" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="button-cat-market"/>
+                            <animations/>
+                            <state key="normal" image="btn44-cat-market"/>
+                            <state key="selected" image="btn44-cat-market-h"/>
                             <connections>
                                 <action selector="buttonCatMarketTouchUpInside:" destination="-1" eventType="touchUpInside" id="vha-Ow-jzZ"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="byZ-OE-agn">
-                            <rect key="frame" x="183" y="250" width="34" height="34"/>
+                            <rect key="frame" x="92" y="261" width="60" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="button-cat-consumer"/>
+                            <animations/>
+                            <state key="normal" image="btn44-cat-customer"/>
+                            <state key="selected" image="btn44-cat-customer-h"/>
                             <connections>
                                 <action selector="buttonCatCapabilityTouchUpInside:" destination="-1" eventType="touchUpInside" id="uqG-GY-TUi"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="c4G-V4-6T5">
-                            <rect key="frame" x="31" y="292" width="34" height="34"/>
+                            <rect key="frame" x="165" y="261" width="60" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="button-cat-capabilities"/>
+                            <animations/>
+                            <state key="normal" image="btn44-cat-capability"/>
+                            <state key="selected" image="btn44-cat-capability-h"/>
                             <connections>
                                 <action selector="buttonCatCustomerTouchUpInside:" destination="-1" eventType="touchUpInside" id="jr9-Qm-ew7"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vZ8-tY-DyM">
-                            <rect key="frame" x="183" y="292" width="34" height="34"/>
+                            <rect key="frame" x="242" y="261" width="60" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="button-cat-people"/>
+                            <animations/>
+                            <state key="normal" image="btn44-cat-people"/>
+                            <state key="selected" image="btn44-cat-people-h"/>
                             <connections>
                                 <action selector="buttonCatPeopleTouchUpInside:" destination="-1" eventType="touchUpInside" id="AvX-s8-HCt"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Xnm-4M-wfQ">
-                            <rect key="frame" x="159" y="259" width="16" height="16"/>
+                            <rect key="frame" x="114" y="235" width="16" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <state key="normal" image="button-cat-off"/>
                             <state key="selected" image="button-cat-on"/>
                             <connections>
                                 <action selector="buttonCatCapabilityTouchUpInside:" destination="-1" eventType="touchUpInside" id="tRi-4m-Jdh"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fZ9-8Z-Pto">
-                            <rect key="frame" x="159" y="301" width="16" height="16"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="button-cat-off"/>
-                            <state key="selected" image="button-cat-on"/>
-                            <connections>
-                                <action selector="buttonCatPeopleTouchUpInside:" destination="-1" eventType="touchUpInside" id="Fn4-A9-JVW"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="99M-l2-Myj">
-                            <rect key="frame" x="7" y="259" width="16" height="16"/>
+                            <rect key="frame" x="38" y="235" width="16" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <state key="normal" image="button-cat-off"/>
                             <state key="selected" image="button-cat-on"/>
                             <connections>
@@ -125,8 +136,9 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oAP-Im-3Z8">
-                            <rect key="frame" x="7" y="301" width="16" height="16"/>
+                            <rect key="frame" x="187" y="235" width="16" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <state key="normal" image="button-cat-off"/>
                             <state key="selected" image="button-cat-on"/>
                             <connections>
@@ -134,8 +146,9 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CHd-1Q-MPE">
-                            <rect key="frame" x="138" y="114" width="44" height="44"/>
+                            <rect key="frame" x="138" y="139" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <state key="normal" image="button-photo"/>
                             <state key="selected" image="button-photo-h"/>
                             <connections>
@@ -143,8 +156,9 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vdE-Kn-leH">
-                            <rect key="frame" x="190" y="114" width="44" height="44"/>
+                            <rect key="frame" x="190" y="139" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <state key="normal" image="button-video"/>
                             <state key="selected" image="button-video-h"/>
                             <connections>
@@ -152,8 +166,9 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oEQ-4R-UNa">
-                            <rect key="frame" x="86" y="114" width="44" height="44"/>
+                            <rect key="frame" x="86" y="139" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                             <state key="normal" image="button-text"/>
                             <state key="selected" image="button-text-h"/>
                             <connections>
@@ -161,48 +176,34 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose category (Optional):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qMV-Fs-sBW">
-                            <rect key="frame" x="8" y="175" width="216" height="21"/>
+                            <rect key="frame" x="8" y="195" width="216" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MARKET" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nNP-0e-rAI">
-                            <rect key="frame" x="73" y="256" width="57" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CUSTOMER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4ha-6D-Hzy">
-                            <rect key="frame" x="73" y="298" width="78" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CAPABILLITY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JU2-yr-6iF">
-                            <rect key="frame" x="225" y="256" width="89" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PEOPLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yes-8F-8ZA">
-                            <rect key="frame" x="225" y="298" width="58" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-line" id="bav-6r-lDw">
                             <rect key="frame" x="8" y="29" width="304" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
                         </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fZ9-8Z-Pto">
+                            <rect key="frame" x="264" y="235" width="16" height="16"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                            <state key="normal" image="button-cat-off"/>
+                            <state key="selected" image="button-cat-on"/>
+                            <connections>
+                                <action selector="buttonCatPeopleTouchUpInside:" destination="-1" eventType="touchUpInside" id="Fn4-A9-JVW"/>
+                            </connections>
+                        </button>
                     </subviews>
+                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -212,12 +213,16 @@
     <resources>
         <image name="bg-line" width="1" height="45"/>
         <image name="btn-video" width="58" height="58"/>
-        <image name="button-cat-capabilities" width="34" height="34"/>
-        <image name="button-cat-consumer" width="34" height="34"/>
-        <image name="button-cat-market" width="34" height="34"/>
+        <image name="btn44-cat-capability" width="60" height="60"/>
+        <image name="btn44-cat-capability-h" width="60" height="60"/>
+        <image name="btn44-cat-customer" width="60" height="60"/>
+        <image name="btn44-cat-customer-h" width="60" height="60"/>
+        <image name="btn44-cat-market" width="61" height="60"/>
+        <image name="btn44-cat-market-h" width="60" height="60"/>
+        <image name="btn44-cat-people" width="60" height="60"/>
+        <image name="btn44-cat-people-h" width="60" height="60"/>
         <image name="button-cat-off" width="16" height="16"/>
         <image name="button-cat-on" width="16" height="16"/>
-        <image name="button-cat-people" width="34" height="34"/>
         <image name="button-photo" width="44" height="44"/>
         <image name="button-photo-h" width="44" height="44"/>
         <image name="button-text" width="44" height="44"/>
