@@ -139,7 +139,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 1) {
-        return 270;
+         return 131;
     } else if (indexPath.section == 2) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row]].height;
     } else if (indexPath.section == 0){

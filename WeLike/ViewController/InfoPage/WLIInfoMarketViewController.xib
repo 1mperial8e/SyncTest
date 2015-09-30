@@ -24,7 +24,7 @@
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kRq-8E-gVX">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="536"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="People.png" translatesAutoresizingMaskIntoConstraints="NO" id="5Mr-RR-58H">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Market.png" translatesAutoresizingMaskIntoConstraints="NO" id="5Mr-RR-58H">
                             <rect key="frame" x="8" y="8" width="107" height="107"/>
                             <animations/>
                         </imageView>
@@ -62,6 +62,6 @@
         </scrollView>
     </objects>
     <resources>
-        <image name="People.png" width="137" height="137"/>
+        <image name="Market.png" width="137" height="137"/>
     </resources>
 </document>
