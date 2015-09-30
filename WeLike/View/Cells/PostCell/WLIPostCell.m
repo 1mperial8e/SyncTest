@@ -96,15 +96,15 @@ static WLIPostCell *sharedCell = nil;
             self.labelPostTitle.frame = CGRectMake(self.labelPostTitle.frame.origin.x, self.labelPostTitle.frame.origin.y, self.labelPostTitle.frame.size.width, frameDefaultLabelPostTitle.size.height);
         }
         
-        self.labelPostText.text = self.post.postText;
-        [self.labelPostText sizeToFit];
-        if (self.labelPostText.frame.size.width < frameDefaultLabelPostText.size.width) {
-            self.labelPostText.frame = CGRectMake(self.labelPostText.frame.origin.x, self.labelPostText.frame.origin.y, frameDefaultLabelPostText.size.width, self.labelPostTitle.frame.size.height);
-        }
-        if (self.labelPostText.frame.size.height < frameDefaultLabelPostText.size.height) {
-            self.labelPostText.frame = CGRectMake(self.labelPostText.frame.origin.x, self.labelPostText.frame.origin.y, self.labelPostText.frame.size.width, frameDefaultLabelPostText.size.height);
-        }
-        //Set and resize done
+        NSString *descriptionText = self.post.postText;
+        CGSize tempSize;
+        tempSize.width = self.labelPostText.bounds.size.width;
+        tempSize.height = 9999;
+        
+        CGRect theRect = [descriptionText boundingRectWithSize:tempSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.labelPostText.font} context:nil];
+        self.labelPostText.bounds = CGRectMake(self.labelPostText.bounds.origin.x, self.labelPostText.bounds.origin.y, self.labelPostText.bounds.size.width, theRect.size.height);
+        [self.labelPostText setNumberOfLines:100];
+
         
         if (self.post.postImagePath.length) {
 //            self.buttonLike.frame = CGRectMake(self.buttonLike.frame.origin.x, CGRectGetMaxY(self.imageViewPostImage.frame) + 18, self.buttonLike.frame.size.width, self.buttonLike.frame.size.height);
