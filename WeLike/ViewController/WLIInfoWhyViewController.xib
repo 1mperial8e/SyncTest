@@ -27,10 +27,6 @@
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfI-CG-QtB">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="1116"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyDrivelogo2.png" translatesAutoresizingMaskIntoConstraints="NO" id="sla-UA-kjE">
-                            <rect key="frame" x="15" y="23" width="291" height="59"/>
-                            <animations/>
-                        </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Graph1.png" translatesAutoresizingMaskIntoConstraints="NO" id="I5A-hM-JCm">
                             <rect key="frame" x="3" y="144" width="315" height="139"/>
                             <animations/>
@@ -56,7 +52,7 @@
                             <rect key="frame" x="9" y="100" width="303" height="21"/>
                             <animations/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNk-yW-yXl">
@@ -85,6 +81,10 @@ CEO, SCB Nordic</string>
                             <color key="textColor" red="0.024194611595959592" green="0.024194611595959592" blue="0.024194611595959592" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyDrivelogo2.png" translatesAutoresizingMaskIntoConstraints="NO" id="sla-UA-kjE">
+                            <rect key="frame" x="29" y="27" width="263" height="53"/>
+                            <animations/>
+                        </imageView>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
