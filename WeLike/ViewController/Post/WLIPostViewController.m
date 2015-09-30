@@ -292,7 +292,7 @@
         MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
         mailComposeViewController.navigationBar.tintColor = [UIColor whiteColor];
         mailComposeViewController.mailComposeDelegate = self;
-        [mailComposeViewController setToRecipients:@[@"report@welike.com"]];
+        [mailComposeViewController setToRecipients:@[@"post@appmedia.no"]];
         [mailComposeViewController setSubject:@"Report"];
         NSString *message = [NSString stringWithFormat:@"Reporting post with id: %d\n\nDescription: %@", self.post.postID, self.post.postTitle];
         [mailComposeViewController setMessageBody:message isHTML:NO];
