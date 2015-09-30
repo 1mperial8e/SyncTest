@@ -13,6 +13,8 @@
 #import "WLIInfoPeopleViewController.h"
 #import "WLIInfoWhyViewController.h"
 
+#import "WLICategoryPostsViewController.h"
+
 @interface WLIInfoPageViewController ()
 
 @end
@@ -47,23 +49,39 @@
 
 - (IBAction)marketButtonTouchUpInside:(id)sender
 {
-    WLIInfoMarketViewController *myViewController = [[WLIInfoMarketViewController alloc] initWithNibName:@"WLIInfoMarketViewController" bundle:nil];
-    [self.navigationController pushViewController:myViewController animated:YES];
+//    WLIInfoMarketViewController *myViewController = [[WLIInfoMarketViewController alloc] initWithNibName:@"WLIInfoMarketViewController" bundle:nil];
+//    [self.navigationController pushViewController:myViewController animated:YES];
+    
+    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Market"];
+    categoryViewController.categoryID = 1;
+    [self.navigationController pushViewController:categoryViewController animated:YES];
 }
 - (IBAction)customerButtonTouchUpInside:(id)sender
 {
-    WLIInfoCustomerViewController *myViewController = [[WLIInfoCustomerViewController alloc] initWithNibName:@"WLIInfoCustomerViewController" bundle:nil];
-    [self.navigationController pushViewController:myViewController animated:YES];
+//    WLIInfoCustomerViewController *myViewController = [[WLIInfoCustomerViewController alloc] initWithNibName:@"WLIInfoCustomerViewController" bundle:nil];
+//    [self.navigationController pushViewController:myViewController animated:YES];
+    
+    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Customer"];
+    categoryViewController.categoryID = 3;
+    [self.navigationController pushViewController:categoryViewController animated:YES];
 }
 - (IBAction)capabilityButtonTouchUpInside:(id)sender
 {
-    WLIInfoCapabilityViewController *myViewController = [[WLIInfoCapabilityViewController alloc] initWithNibName:@"WLIInfoCapabilityViewController" bundle:nil];
-    [self.navigationController pushViewController:myViewController animated:YES];
+//    WLIInfoCapabilityViewController *myViewController = [[WLIInfoCapabilityViewController alloc] initWithNibName:@"WLIInfoCapabilityViewController" bundle:nil];
+//    [self.navigationController pushViewController:myViewController animated:YES];
+    
+    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Capabilities"];
+    categoryViewController.categoryID = 2;
+    [self.navigationController pushViewController:categoryViewController animated:YES];
 }
 - (IBAction)peopleButtonTouchUpInside:(id)sender
 {
-    WLIInfoPeopleViewController *myViewController = [[WLIInfoPeopleViewController alloc] initWithNibName:@"WLIInfoPeopleViewController" bundle:nil];
-    [self.navigationController pushViewController:myViewController animated:YES];
+//    WLIInfoPeopleViewController *myViewController = [[WLIInfoPeopleViewController alloc] initWithNibName:@"WLIInfoPeopleViewController" bundle:nil];
+//    [self.navigationController pushViewController:myViewController animated:YES];
+    
+    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"People"];
+    categoryViewController.categoryID = 4;
+    [self.navigationController pushViewController:categoryViewController animated:YES];
 }
 - (IBAction)whyButtonTouchUpInside:(id)sender
 {
