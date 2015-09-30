@@ -23,6 +23,7 @@
 @property (nonatomic) int postLikesCount;
 @property (nonatomic) int postCommentsCount;
 @property (nonatomic) BOOL likedThisPost;
+@property (nonatomic) BOOL isConnected;
 @property (nonatomic) BOOL commentedThisPost;
 
 @property (nonatomic) BOOL categoryMarket;

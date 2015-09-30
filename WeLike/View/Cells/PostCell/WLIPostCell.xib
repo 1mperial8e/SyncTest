@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -161,6 +161,9 @@
                                 <animations/>
                                 <state key="normal" title="Button" image="post-cell-add-user"/>
                                 <state key="selected" image="post-cell-add-user-h"/>
+                                <connections>
+                                    <action selector="buttonConnectTouchUpInside:" destination="AD9-av-jcm" eventType="touchUpInside" id="DUR-X8-yqW"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lbJ-9g-YzS">
                                 <rect key="frame" x="15" y="374" width="180" height="21"/>
@@ -210,6 +213,7 @@
                 <outlet property="buttonCatMarket" destination="2tA-hc-xf3" id="Alu-YW-aaO"/>
                 <outlet property="buttonCatPeople" destination="znk-P9-MIq" id="ur6-HM-MVn"/>
                 <outlet property="buttonComment" destination="9K9-d1-m64" id="5K3-wx-FDW"/>
+                <outlet property="buttonConnect" destination="9Tk-O8-Uhi" id="lIC-lg-bjR"/>
                 <outlet property="buttonLike" destination="bmc-yG-IiR" id="JVT-sf-We3"/>
                 <outlet property="buttonVideo" destination="FUr-JF-9IB" id="12a-Cr-9J2"/>
                 <outlet property="imageViewPostImage" destination="mqr-zA-tF9" id="mnQ-BW-1tn"/>

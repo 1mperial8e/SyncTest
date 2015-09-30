@@ -213,6 +213,26 @@
 }
 - (void)showConnectForPost:(WLIPost*)post sender:(id)senderCell
 {
+    WLIConnect *sConnect = [WLIConnect sharedConnect];
+    UIButton *btn = (UIButton *)senderCell;
+    if ( btn.selected )
+    {
+        [sConnect removeFollowWithFollowID:post.user.userID onCompletion:^(ServerResponse serverResponseCode) {
+            if (serverResponseCode == OK)
+            {
+                [btn setSelected:NO];
+            }
+        }];
+    }
+    else
+    {
+        [sConnect setFollowOnUserID:post.user.userID onCompletion:^(WLIFollow *follow, ServerResponse serverResponseCode) {
+            if (serverResponseCode == OK)
+            {
+                [btn setSelected:YES];
+            }
+        }];
+    }
     
 }
 

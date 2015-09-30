@@ -126,6 +126,11 @@ static WLIPostCell *sharedCell = nil;
         } else {
             [self.buttonLike setSelected:NO];
         }
+        if (self.post.isConnected) {
+            [self.buttonConnect setSelected:YES];
+        } else {
+            [self.buttonConnect setSelected:NO];
+        }
         
         if (self.post.categoryMarket) {
             [self.buttonCatMarket setSelected:YES];
@@ -243,7 +248,7 @@ static WLIPostCell *sharedCell = nil;
 - (IBAction)buttonConnectTouchUpInside:(id)sender {
     
     if ([self.delegate respondsToSelector:@selector(followUser:sender:)]) {
-        [self.delegate followUser:self.post.user sender:self];
+        [self.delegate followUser:self.post.user sender:sender];
     }
 }
 
