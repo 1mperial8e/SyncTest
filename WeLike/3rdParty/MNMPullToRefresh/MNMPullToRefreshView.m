@@ -138,7 +138,7 @@
 
         [containerView_ addSubview:loadingActivityIndicator_];
         
-        UIColor *labelsColor = [UIColor colorWithRed:128.0f/255.0f green:128.0f/255.0f blue:128.0f/255.0f alpha:1.0f];
+        UIColor *labelsColor = [UIColor colorWithRed:255.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
         
         CGFloat topMargin = 10.0f;
         CGFloat gap = 20.0f;
