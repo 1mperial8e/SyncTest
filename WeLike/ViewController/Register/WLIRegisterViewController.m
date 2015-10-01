@@ -134,11 +134,11 @@
 
 - (void)adjustViewFrames {
 //    self.buttonRegister.frame = CGRectMake(self.buttonRegister.frame.origin.x, CGRectGetMaxY(self.textFieldFullName.frame) +20.0f, self.buttonRegister.frame.size.width, self.buttonRegister.frame.size.height);
-//    self.viewContentRegister.frame = CGRectMake(self.viewContentRegister.frame.origin.x, self.viewContentRegister.frame.origin.y, self.viewContentRegister.frame.size.width, CGRectGetMaxY(self.buttonRegister.frame) +20.0f);
-//    PNTToolbar *newToolbar = [PNTToolbar defaultToolbar];
-//    newToolbar.mainScrollView = self.scrollViewRegister;
-//    newToolbar.textFields = @[self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword, self.textFieldUsername, self.textFieldFullName];
-//    self.scrollViewRegister.contentSize = self.viewContentRegister.frame.size;
+    self.viewContentRegister.frame = CGRectMake(self.viewContentRegister.frame.origin.x, self.viewContentRegister.frame.origin.y, self.viewContentRegister.frame.size.width, CGRectGetMaxY(self.buttonRegister.frame) +20.0f);
+    PNTToolbar *newToolbar = [PNTToolbar defaultToolbar];
+    newToolbar.mainScrollView = self.scrollViewRegister;
+    newToolbar.textFields = @[self.textFieldFullName, self.textFieldUsername, self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword];
+    self.scrollViewRegister.contentSize = self.viewContentRegister.frame.size;
 }
 
 
