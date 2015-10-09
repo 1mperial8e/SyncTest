@@ -21,6 +21,7 @@
     if (self)
     {
         self.title = @"Timeline";
+        self.searchString = @"";
     }
     return self;
 }
@@ -38,7 +39,8 @@
     } else {
         page  = (self.posts.count / kDefaultPageSize) + 1;
     }
-    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+    
+    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:0 countryID:0 searchString:self.searchString page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         loading = NO;
         self.posts = posts;
         loadMore = posts.count == kDefaultPageSize;

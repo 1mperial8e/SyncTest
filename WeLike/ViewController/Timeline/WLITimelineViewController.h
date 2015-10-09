@@ -12,5 +12,6 @@
 @interface WLITimelineViewController : WLIPostsListViewController
 
 
+@property (strong, nonatomic) NSString *searchString;
 
 @end

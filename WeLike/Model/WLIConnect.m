@@ -9,7 +9,7 @@
 #import "WLIConnect.h"
 
 //#define kBaseLink @"http://10.0.0.84:8888/"
-#define kBaseLink @"http://mydrive.appmedia.no/"
+#define kBaseLink @"http://mydrive-dev.appmedia.no/"
 #define kAPIKey @"!#wli!sdWQDScxzczFžŽYewQsq_?wdX09612627364[3072∑34260-#"
 #define kConnectionTimeout 30
 #define kCompressionQuality 1.0f
@@ -278,6 +278,39 @@ static WLIConnect *sharedConnect;
         [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
         [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
         [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
+        
+        [httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSArray *rawPosts = [responseObject objectForKey:@"items"];
+            
+            NSMutableArray *posts = [NSMutableArray arrayWithCapacity:rawPosts.count];
+            for (NSDictionary *rawPost in rawPosts) {
+                WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
+                [posts addObject:post];
+            }
+            
+            [self debugger:parameters.description methodLog:@"api/getTimeline" dataLogFormatted:responseObject];
+            completion(posts, OK);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self debugger:parameters.description methodLog:@"api/getTimeline" dataLog:error.description];
+            completion(nil, UNKNOWN_ERROR);
+        }];
+    }
+}
+//($userID, $forUserID, $page = 1, $take = 10, $category = 0, $countryID = 0,  $searchstring = "")
+- (void)timelineForUserID:(int)userID withCategory:(int)categoryID countryID:(int)countryID searchString:(NSString*)searchString page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion {
+    
+    if (userID < 1) {
+        completion(nil, BAD_REQUEST);
+    } else {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
+        
+        [parameters setObject:[NSString stringWithFormat:@"%d", categoryID] forKey:@"categoryID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", countryID] forKey:@"countryID"];
+        [parameters setObject:[NSString stringWithFormat:@"%@", searchString] forKey:@"searchstring"];
         
         [httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawPosts = [responseObject objectForKey:@"items"];
@@ -787,6 +820,29 @@ static WLIConnect *sharedConnect;
             completion(nil, UNKNOWN_ERROR);
         }];
     }
+}
+
+
+- (void)hashtagsInSearch:(NSString*)searchString pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:[NSString stringWithFormat:@"%@", searchString] forKey:@"searchstring"];
+    [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
+    [httpClient POST:@"api/getPoplularHashtags" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *rawHashtags = responseObject[@"items"];
+        
+        NSMutableArray *hashtags = [NSMutableArray arrayWithCapacity:rawHashtags.count];
+        for (NSDictionary *rawHashtag in rawHashtags) {
+            WLIHashtag *hashtag = [[WLIHashtag alloc] initWithDictionary:rawHashtag];
+            [hashtags addObject:hashtag];
+        }
+        
+        [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLogFormatted:responseObject];
+        completion(hashtags, OK);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLog:error.description];
+        completion(nil, UNKNOWN_ERROR);
+    }];
 }
 
 - (void)logout {

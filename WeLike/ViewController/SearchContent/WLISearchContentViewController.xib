@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLISearchContentViewController">
             <connections>
+                <outlet property="tableViewRefresh" destination="EXV-sn-hpc" id="ei6-2L-6mq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

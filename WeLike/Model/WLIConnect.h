@@ -15,6 +15,7 @@
 #import "WLILike.h"
 #import "WLIFollow.h"
 #import "WLIComment.h"
+#import "WLIHashtag.h"
 
 enum ServerResponse {
     OK = 200,
@@ -61,9 +62,11 @@ typedef enum ServerResponse ServerResponse;
 
 - (void)usersForSearchString:(NSString*)searchString page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion;
 
-- (void)usersAroundLatitude:(float)latitude longitude:(float)longitude distance:(float)distance page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion;
+//- (void)usersAroundLatitude:(float)latitude longitude:(float)longitude distance:(float)distance page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion;
 
 - (void)timelineForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
+
+- (void)timelineForUserID:(int)userID withCategory:(int)categoryID countryID:(int)countryID searchString:(NSString*)searchString page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 
 - (void)timelineForUserID:(int)userID withCategory:(int)categoryID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 
@@ -112,6 +115,8 @@ typedef enum ServerResponse ServerResponse;
 - (void)followersForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *followers, ServerResponse serverResponseCode))completion;
 
 - (void)followingForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *following, ServerResponse serverResponseCode))completion;
+
+- (void)hashtagsInSearch:(NSString*)searchString pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion;
 
 - (void)logout;
 

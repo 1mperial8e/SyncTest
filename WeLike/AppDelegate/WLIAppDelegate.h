@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "WLITabBarController.h"
 
+#import "WLITimelineViewController.h"
+
 @interface WLIAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) WLITabBarController *tabBarController;
+@property (strong, nonatomic) WLITimelineViewController *timelineViewController;
 @property (strong, nonatomic) NSTimer *timer;
 
 - (void)createViewHierarchy;

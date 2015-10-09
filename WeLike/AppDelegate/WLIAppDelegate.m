@@ -11,7 +11,7 @@
 //#import "WLINearbyViewController.h"
 //#import "WLIPopularViewController.h"
 //#import "WLIProfileViewController.h"
-#import "WLITimelineViewController.h"
+
 #import "WLIInfoPageViewController.h"
 //#import "WLIFavoritesViewController.h"
 #import "WLIFollowingsViewController.h"
@@ -132,6 +132,7 @@
     self.tabBarController = [[WLITabBarController alloc] init];
     self.tabBarController.delegate = self;
     self.tabBarController.viewControllers = @[infoPageNavigationController, timelineNavigationController, newPostNavigationController, followingNavigationController, myDriveNavigationController];
+    self.timelineViewController = timelineViewController;
     
     UITabBarItem *infoPageTabBarItem = [[UITabBarItem alloc] initWithTitle:@"20by2020" image:[[UIImage imageNamed:@"tabbar-20-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-20"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     infoPageViewController.tabBarItem = infoPageTabBarItem;
