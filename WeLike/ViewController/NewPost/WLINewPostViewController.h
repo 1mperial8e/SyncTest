@@ -8,14 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "WLIViewController.h"
-#import <AviarySDK/AviarySDK.h>
 
 @import MediaPlayer;
 @import AVFoundation;
 
 
 
-@interface WLINewPostViewController : WLIViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVYPhotoEditorControllerDelegate, UITextViewDelegate, UITextFieldDelegate> {
+@interface WLINewPostViewController : WLIViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, UITextFieldDelegate> {
     
     enum PostTypeEnum {
         postTypeText = 1,

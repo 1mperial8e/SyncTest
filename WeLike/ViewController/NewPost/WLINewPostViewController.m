@@ -21,7 +21,6 @@
         // Custom initialization
         self.title = @"New post";
         self.video = nil;
-        [AFPhotoEditorController setAPIKey:kAviaryKey secret:kAviarySecret];
     }
     return self;
 }
@@ -370,23 +369,5 @@
 }
 
 
-
-#pragma - AFPhotoEditorController methods
-
-- (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
-    
-    [self.buttonPostImage setImage:image forState:UIControlStateNormal];
-    [self.buttonPostImage setTitle:@"" forState:UIControlStateNormal];
-    [self dismissViewControllerAnimated:YES completion:^{
-        if (![self.textViewPost isFirstResponder]) {
-            [self.textViewPost becomeFirstResponder];
-        }
-    }];
-}
-
-- (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 @end

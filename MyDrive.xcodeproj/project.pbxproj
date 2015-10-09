@@ -117,8 +117,6 @@
 		2C8AF27E1A1B77220003B22E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8AF27D1A1B77220003B22E /* OpenGLES.framework */; };
 		2C8AF2801A1B772F0003B22E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8AF27F1A1B772F0003B22E /* QuartzCore.framework */; };
 		2CA087021AC941C7002696D9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA087011AC941C7002696D9 /* MediaPlayer.framework */; };
-		2CA087041AC948BB002696D9 /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA087031AC948BB002696D9 /* AviarySDK.framework */; };
-		2CA087061AC94967002696D9 /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CA087051AC94967002696D9 /* AviarySDKResources.bundle */; };
 		2CCE1A9917ECD32B00680126 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCE1A9817ECD32B00680126 /* Foundation.framework */; };
 		2CCE1A9B17ECD32B00680126 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCE1A9A17ECD32B00680126 /* CoreGraphics.framework */; };
 		2CCE1A9D17ECD32B00680126 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCE1A9C17ECD32B00680126 /* UIKit.framework */; };
@@ -355,8 +353,6 @@
 		2C8AF27D1A1B77220003B22E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2C8AF27F1A1B772F0003B22E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2CA087011AC941C7002696D9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		2CA087031AC948BB002696D9 /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
-		2CA087051AC94967002696D9 /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
 		2CCE1A9517ECD32B00680126 /* MyDrive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDrive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CCE1A9817ECD32B00680126 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CCE1A9A17ECD32B00680126 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -447,7 +443,6 @@
 				C7B424BB183D254C003B51D0 /* libz.1.2.5.dylib in Frameworks */,
 				C7B424B9183D2540003B51D0 /* libsqlite3.0.dylib in Frameworks */,
 				C7B424B7183D2519003B51D0 /* MessageUI.framework in Frameworks */,
-				2CA087041AC948BB002696D9 /* AviarySDK.framework in Frameworks */,
 				07A349131B9D902700C7EBBD /* Crashlytics.framework in Frameworks */,
 				C7B424B5183D2507003B51D0 /* CoreData.framework in Frameworks */,
 				07A349121B9D902700C7EBBD /* Fabric.framework in Frameworks */,
@@ -503,7 +498,6 @@
 				07A349101B9D902700C7EBBD /* Fabric.framework */,
 				07A349111B9D902700C7EBBD /* Crashlytics.framework */,
 				2CF096DA1ACAE1F7004FB868 /* NSDate-TimeAgo */,
-				2C8AF2811A1B77BA0003B22E /* AviarySDK */,
 				2C6D26761896BACA00C459CB /* AFNetworking */,
 				2C6D26A71896BACA00C459CB /* BlockFramework */,
 				2C6D26AB1896BACA00C459CB /* Helper */,
@@ -1035,15 +1029,6 @@
 			path = WLIViewController;
 			sourceTree = "<group>";
 		};
-		2C8AF2811A1B77BA0003B22E /* AviarySDK */ = {
-			isa = PBXGroup;
-			children = (
-				2CA087051AC94967002696D9 /* AviarySDKResources.bundle */,
-				2CA087031AC948BB002696D9 /* AviarySDK.framework */,
-			);
-			path = AviarySDK;
-			sourceTree = "<group>";
-		};
 		2CCE1A8C17ECD32B00680126 = {
 			isa = PBXGroup;
 			children = (
@@ -1290,7 +1275,6 @@
 				2C6D27D11896BACA00C459CB /* WLICommentCell.xib in Resources */,
 				2E666A0D1BBC2E6000392527 /* WLICategoryPeopleCell.xib in Resources */,
 				0743482D1BBABD6D00EAA2AA /* infobutton.png in Resources */,
-				2CA087061AC94967002696D9 /* AviarySDKResources.bundle in Resources */,
 				2C6D27FB1896BACA00C459CB /* WLITimelineViewController.xib in Resources */,
 				2ED2F2881BAFF7D100641F54 /* WLINewPostViewController.xib in Resources */,
 				2E666A151BC6A15200392527 /* WLIHashtagTableViewCell.xib in Resources */,

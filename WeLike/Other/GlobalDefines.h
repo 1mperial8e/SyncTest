@@ -9,8 +9,7 @@
 #ifndef WeLike_GlobalDefines_h
 #define WeLike_GlobalDefines_h
 
-#define kAviaryKey @"j8q6p8efaolydstk"
-#define kAviarySecret @"kk4fd7pglcnrgbpd"
+
 #define kDefaultPageSize 20
 
 #endif
