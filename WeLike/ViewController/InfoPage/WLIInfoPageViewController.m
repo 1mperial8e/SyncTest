@@ -7,10 +7,10 @@
 //
 
 #import "WLIInfoPageViewController.h"
-#import "WLIInfoMarketViewController.h"
-#import "WLIInfoCustomerViewController.h"
-#import "WLIInfoCapabilityViewController.h"
-#import "WLIInfoPeopleViewController.h"
+//#import "WLIInfoMarketViewController.h"
+//#import "WLIInfoCustomerViewController.h"
+//#import "WLIInfoCapabilityViewController.h"
+//#import "WLIInfoPeopleViewController.h"
 #import "WLIInfoWhyViewController.h"
 
 #import "WLICategoryPostsViewController.h"
