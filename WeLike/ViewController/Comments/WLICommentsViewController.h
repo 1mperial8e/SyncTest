@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "WLIViewController.h"
 
-@interface WLICommentsViewController : WLIViewController <WLIViewControllerRefreshProtocol>
+@interface WLICommentsViewController : WLIViewController <WLIViewControllerRefreshProtocol> {
+    CGFloat oldViewHeight;
+}
 
 @property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;
 @property (strong, nonatomic) NSMutableArray *comments;

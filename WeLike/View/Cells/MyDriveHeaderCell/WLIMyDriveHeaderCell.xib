@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -19,39 +20,69 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="202"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RJG-or-3N6">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RJG-or-3N6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="194"/>
                         <animations/>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Xc-6Q-Wef">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Xc-6Q-Wef">
                         <rect key="frame" x="99" y="8" width="123" height="123"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="123" id="Cki-1x-Vxl"/>
+                            <constraint firstAttribute="height" constant="123" id="NSb-iw-LN5"/>
+                        </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RNp-pA-qw0" userLabel="Button Follow toggle">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RNp-pA-qw0" userLabel="Button Follow toggle">
                         <rect key="frame" x="190" y="99" width="30" height="30"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="gX2-Q6-kO0"/>
+                            <constraint firstAttribute="width" constant="30" id="vry-xB-Lvq"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="15"/>
                         <state key="normal" title="+">
                             <color key="titleColor" red="1" green="0.31372549020000001" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPn-tz-ZMs">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPn-tz-ZMs">
                         <rect key="frame" x="20" y="143" width="280" height="21"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Pym-ez-siT"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJj-hw-rcu">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJj-hw-rcu">
                         <rect key="frame" x="20" y="164" width="280" height="21"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="5bc-FI-0G8"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <animations/>
+                <constraints>
+                    <constraint firstItem="RJG-or-3N6" firstAttribute="top" secondItem="WDa-Dm-yrf" secondAttribute="topMargin" constant="-8" id="09e-0r-J3Z"/>
+                    <constraint firstItem="tPn-tz-ZMs" firstAttribute="leading" secondItem="WDa-Dm-yrf" secondAttribute="leadingMargin" constant="12" id="1O9-Jk-N4E"/>
+                    <constraint firstItem="RNp-pA-qw0" firstAttribute="top" secondItem="WDa-Dm-yrf" secondAttribute="topMargin" constant="91" id="ADg-sD-57O"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="tPn-tz-ZMs" secondAttribute="trailing" constant="12" id="EoC-Ph-cRF"/>
+                    <constraint firstItem="7Xc-6Q-Wef" firstAttribute="top" secondItem="WDa-Dm-yrf" secondAttribute="topMargin" id="MKB-y6-CAr"/>
+                    <constraint firstItem="RNp-pA-qw0" firstAttribute="centerX" secondItem="WDa-Dm-yrf" secondAttribute="centerX" constant="45" id="OQY-Sv-4xo"/>
+                    <constraint firstItem="RJG-or-3N6" firstAttribute="leading" secondItem="WDa-Dm-yrf" secondAttribute="leadingMargin" constant="-8" id="R4O-rK-e8H"/>
+                    <constraint firstItem="tJj-hw-rcu" firstAttribute="leading" secondItem="WDa-Dm-yrf" secondAttribute="leadingMargin" constant="12" id="f7O-pE-GLZ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="RJG-or-3N6" secondAttribute="trailing" constant="-8" id="oOb-gn-VPu"/>
+                    <constraint firstItem="tJj-hw-rcu" firstAttribute="top" secondItem="tPn-tz-ZMs" secondAttribute="bottom" id="ozN-G6-vpU"/>
+                    <constraint firstItem="RJG-or-3N6" firstAttribute="bottom" secondItem="WDa-Dm-yrf" secondAttribute="bottomMargin" id="twk-sI-FzM"/>
+                    <constraint firstItem="7Xc-6Q-Wef" firstAttribute="centerX" secondItem="WDa-Dm-yrf" secondAttribute="centerX" id="ucc-Vl-8lf"/>
+                    <constraint firstItem="tPn-tz-ZMs" firstAttribute="top" secondItem="7Xc-6Q-Wef" secondAttribute="bottom" constant="12" id="yUZ-4v-LjY"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="tJj-hw-rcu" secondAttribute="trailing" constant="12" id="zzx-HU-PQB"/>
+                </constraints>
             </tableViewCellContentView>
             <animations/>
             <connections>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -18,26 +20,46 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="136"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Customer.png" translatesAutoresizingMaskIntoConstraints="NO" id="zkt-Xi-x0d">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Customer.png" translatesAutoresizingMaskIntoConstraints="NO" id="zkt-Xi-x0d">
                         <rect key="frame" x="8" y="8" width="107" height="107"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="107" id="CHf-79-eUC"/>
+                            <constraint firstAttribute="height" constant="107" id="rHT-eQ-QeK"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="We are the preferred choice with the leading offering." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sT2-Hc-bJp">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are the preferred choice with the leading offering." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sT2-Hc-bJp">
                         <rect key="frame" x="123" y="8" width="189" height="38"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="zcT-Ra-Gcf"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="“How we provide an exellent customer experience with our offerings at the right time and place.”" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4p-yU-uut">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="“How we provide an exellent customer experience with our offerings at the right time and place.”" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4p-yU-uut">
                         <rect key="frame" x="123" y="59" width="189" height="56"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="CZr-iX-M5C"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <animations/>
+                <constraints>
+                    <constraint firstItem="P4p-yU-uut" firstAttribute="top" secondItem="sT2-Hc-bJp" secondAttribute="bottom" constant="13" id="5Xi-RS-jCy"/>
+                    <constraint firstItem="P4p-yU-uut" firstAttribute="trailing" secondItem="HSc-ah-yVr" secondAttribute="trailingMargin" id="Mj8-6b-ueB"/>
+                    <constraint firstItem="sT2-Hc-bJp" firstAttribute="top" secondItem="HSc-ah-yVr" secondAttribute="topMargin" id="RSZ-Rw-tAI"/>
+                    <constraint firstItem="sT2-Hc-bJp" firstAttribute="trailing" secondItem="HSc-ah-yVr" secondAttribute="trailingMargin" id="cXQ-d1-uKk"/>
+                    <constraint firstItem="sT2-Hc-bJp" firstAttribute="leading" secondItem="zkt-Xi-x0d" secondAttribute="trailing" constant="8" id="eBi-lJ-CSg"/>
+                    <constraint firstItem="P4p-yU-uut" firstAttribute="leading" secondItem="zkt-Xi-x0d" secondAttribute="trailing" constant="8" id="eSq-iq-xV5"/>
+                    <constraint firstItem="zkt-Xi-x0d" firstAttribute="top" secondItem="HSc-ah-yVr" secondAttribute="topMargin" id="sZn-Aq-MLx"/>
+                    <constraint firstItem="zkt-Xi-x0d" firstAttribute="leading" secondItem="HSc-ah-yVr" secondAttribute="leadingMargin" id="twa-61-Xft"/>
+                </constraints>
             </tableViewCellContentView>
             <animations/>
             <point key="canvasLocation" x="328" y="107.5"/>

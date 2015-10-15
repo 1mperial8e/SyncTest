@@ -60,7 +60,6 @@
 #pragma mark - UITableViewDataSource methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"IndexPath: %ld - %ld", indexPath.section, indexPath.row);
     if (indexPath.section == 1){
         id cell;
         static NSString *CellIdentifier;

@@ -33,7 +33,9 @@
     self.title = @"Login";
     
     self.buttonLogin.layer.cornerRadius = CGRectGetHeight(self.buttonLogin.frame)/2;
-
+    
+    self.viewContentLogin.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    
     [self.scrollViewLogin addSubview:self.viewContentLogin];
     self.scrollViewLogin.contentSize = self.viewContentLogin.frame.size;
     toolbar.mainScrollView = self.scrollViewLogin;
@@ -47,6 +49,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
+//-(void)viewDidLayoutSubviews
+//{
+//    [super viewDidLayoutSubviews];
+//    insetView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, CGRectGetMaxY(insetView.frame));
+//    scrollView.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width, CGRectGetMaxY(insetView.frame));
+//}
 
 - (void)viewWillDisappear:(BOOL)animated {
     

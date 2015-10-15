@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -20,26 +21,46 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="134"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Capability.png" translatesAutoresizingMaskIntoConstraints="NO" id="YRG-rQ-0K5">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Capability.png" translatesAutoresizingMaskIntoConstraints="NO" id="YRG-rQ-0K5">
                         <rect key="frame" x="8" y="8" width="107" height="107"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="107" id="4HR-EG-NYE"/>
+                            <constraint firstAttribute="height" constant="107" id="ldl-Zr-BdI"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="“How we define how we as a company must operate in order to capture the opportunities that lies within our target markets.”" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="887-7Q-Uht">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="“How we define how we as a company must operate in order to capture the opportunities that lies within our target markets.”" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="887-7Q-Uht">
                         <rect key="frame" x="123" y="49" width="189" height="66"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="66" id="04g-KC-U52"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="We are agile, insightdriven and truly collaborative." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vrs-ZN-GCq">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are agile, insightdriven and truly collaborative." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vrs-ZN-GCq">
                         <rect key="frame" x="123" y="8" width="187" height="33"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33" id="spu-ei-lwb"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <animations/>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="Vrs-ZN-GCq" secondAttribute="trailing" constant="2" id="5l5-Vf-mPa"/>
+                    <constraint firstItem="YRG-rQ-0K5" firstAttribute="top" secondItem="vr5-u3-0vf" secondAttribute="topMargin" id="CZv-OQ-8F3"/>
+                    <constraint firstItem="887-7Q-Uht" firstAttribute="leading" secondItem="YRG-rQ-0K5" secondAttribute="trailing" constant="8" id="DSU-jJ-UoJ"/>
+                    <constraint firstItem="Vrs-ZN-GCq" firstAttribute="top" secondItem="vr5-u3-0vf" secondAttribute="topMargin" id="NRM-M5-0UF"/>
+                    <constraint firstItem="887-7Q-Uht" firstAttribute="top" secondItem="Vrs-ZN-GCq" secondAttribute="bottom" constant="8" id="WMv-z0-j5q"/>
+                    <constraint firstItem="Vrs-ZN-GCq" firstAttribute="leading" secondItem="YRG-rQ-0K5" secondAttribute="trailing" constant="8" id="czF-OA-chH"/>
+                    <constraint firstItem="YRG-rQ-0K5" firstAttribute="leading" secondItem="vr5-u3-0vf" secondAttribute="leadingMargin" id="pWs-LO-ujB"/>
+                    <constraint firstItem="887-7Q-Uht" firstAttribute="trailing" secondItem="vr5-u3-0vf" secondAttribute="trailingMargin" id="xd2-Ts-UdJ"/>
+                </constraints>
             </tableViewCellContentView>
             <animations/>
             <point key="canvasLocation" x="276" y="137.5"/>

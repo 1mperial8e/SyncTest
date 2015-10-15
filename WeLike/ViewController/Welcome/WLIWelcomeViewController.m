@@ -7,7 +7,7 @@
 //
 
 #import "WLIWelcomeViewController.h"
-#import "UIDevice+Resolutions.h"
+//#import "UIDevice+Resolutions.h"
 
 @implementation WLIWelcomeViewController
 
@@ -31,13 +31,13 @@
     [super viewDidLoad];
 }
 
-- (void)loadView {
-    
-    [super loadView];
-    if ([UIDevice currentDevice].resolution == UIDeviceResolution_iPhoneRetina35 || [UIDevice currentDevice].resolution == UIDeviceResolution_iPhoneStandard) {
-        self.imageViewLogo.frame = CGRectMake(self.imageViewLogo.frame.origin.x, 126.0f, self.imageViewLogo.frame.size.width, self.imageViewLogo.frame.size.height);
-    }
-}
+//- (void)loadView {
+//    
+//    [super loadView];
+//    if ([UIDevice currentDevice].resolution == UIDeviceResolution_iPhoneRetina35 || [UIDevice currentDevice].resolution == UIDeviceResolution_iPhoneStandard) {
+//        self.imageViewLogo.frame = CGRectMake(self.imageViewLogo.frame.origin.x, 126.0f, self.imageViewLogo.frame.size.width, self.imageViewLogo.frame.size.height);
+//    }
+//}
 
 - (void)didReceiveMemoryWarning {
     

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,25 +15,36 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Zbb-U7-ZZH">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zbb-U7-ZZH">
                         <rect key="frame" x="20" y="7" width="30" height="30"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="hM3-ur-ser"/>
+                            <constraint firstAttribute="height" constant="30" id="tUi-qr-RYS"/>
+                        </constraints>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar-overlay" id="vDv-kP-s1z">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar-overlay" translatesAutoresizingMaskIntoConstraints="NO" id="vDv-kP-s1z">
                         <rect key="frame" x="20" y="7" width="30" height="30"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="0T6-WB-6zH"/>
+                            <constraint firstAttribute="height" constant="30" id="nQt-no-7Od"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IYc-fh-SEN">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYc-fh-SEN">
                         <rect key="frame" x="68" y="11" width="199" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="z8Z-RR-u2n"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="15"/>
                         <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="7qc-7p-g1n">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7qc-7p-g1n">
                         <rect key="frame" x="275" y="9" width="25" height="25"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="11M-SI-kIy"/>
+                            <constraint firstAttribute="height" constant="25" id="pkI-W2-rjA"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <state key="normal" image="btn-follow">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -41,9 +54,8 @@
                             <action selector="buttonFollowUnfollowTouchUpInside:" destination="tlw-fh-Okf" eventType="touchUpInside" id="nzl-m2-YTK"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="k7B-fE-9MD">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k7B-fE-9MD">
                         <rect key="frame" x="0.0" y="0.0" width="267" height="43"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -53,21 +65,32 @@
                         </connections>
                     </button>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="k7B-fE-9MD" secondAttribute="bottom" constant="-8" id="0NT-o4-gIR"/>
+                    <constraint firstItem="7qc-7p-g1n" firstAttribute="top" secondItem="Ad0-Kv-QH5" secondAttribute="topMargin" constant="1" id="5EB-Hs-HSd"/>
+                    <constraint firstItem="Zbb-U7-ZZH" firstAttribute="leading" secondItem="Ad0-Kv-QH5" secondAttribute="leadingMargin" constant="12" id="Cnt-XR-Hdy"/>
+                    <constraint firstItem="k7B-fE-9MD" firstAttribute="top" secondItem="Ad0-Kv-QH5" secondAttribute="topMargin" constant="-8" id="Wea-s2-tFC"/>
+                    <constraint firstItem="IYc-fh-SEN" firstAttribute="top" secondItem="Ad0-Kv-QH5" secondAttribute="topMargin" constant="3" id="YXd-B3-gO2"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="7qc-7p-g1n" secondAttribute="trailing" constant="12" id="a3P-WI-4aZ"/>
+                    <constraint firstItem="7qc-7p-g1n" firstAttribute="leading" secondItem="k7B-fE-9MD" secondAttribute="trailing" constant="8" id="ahZ-7f-ULt"/>
+                    <constraint firstItem="7qc-7p-g1n" firstAttribute="leading" secondItem="IYc-fh-SEN" secondAttribute="trailing" constant="8" id="auQ-nn-oE0"/>
+                    <constraint firstItem="Zbb-U7-ZZH" firstAttribute="top" secondItem="Ad0-Kv-QH5" secondAttribute="topMargin" constant="-1" id="eKp-by-WND"/>
+                    <constraint firstItem="vDv-kP-s1z" firstAttribute="top" secondItem="Ad0-Kv-QH5" secondAttribute="topMargin" constant="-1" id="osT-I8-KLC"/>
+                    <constraint firstItem="k7B-fE-9MD" firstAttribute="leading" secondItem="Ad0-Kv-QH5" secondAttribute="leadingMargin" constant="-8" id="x5C-YV-g0v"/>
+                    <constraint firstItem="IYc-fh-SEN" firstAttribute="leading" secondItem="vDv-kP-s1z" secondAttribute="trailing" constant="18" id="xjf-TE-xrB"/>
+                    <constraint firstItem="vDv-kP-s1z" firstAttribute="leading" secondItem="Ad0-Kv-QH5" secondAttribute="leadingMargin" constant="12" id="yOa-uv-e7g"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="buttonFollowUnfollow" destination="7qc-7p-g1n" id="3Hm-ly-y0H"/>
                 <outlet property="imageViewUserImage" destination="Zbb-U7-ZZH" id="tL0-B2-590"/>
                 <outlet property="labelUserName" destination="IYc-fh-SEN" id="cwF-dd-9Lc"/>
             </connections>
+            <point key="canvasLocation" x="381" y="455"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="avatar-overlay" width="100" height="100"/>
         <image name="btn-follow" width="25" height="25"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

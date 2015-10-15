@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -18,26 +20,46 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="134"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="People.png" translatesAutoresizingMaskIntoConstraints="NO" id="xap-pL-pBb">
-                        <rect key="frame" x="9" y="8" width="107" height="107"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="People.png" translatesAutoresizingMaskIntoConstraints="NO" id="xap-pL-pBb">
+                        <rect key="frame" x="8" y="8" width="107" height="107"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="107" id="Jjd-31-MrD"/>
+                            <constraint firstAttribute="height" constant="107" id="uVK-ar-9Zc"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="We are the best place to work and inspire people to be the best version of themselves." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0P8-EA-EbF">
-                        <rect key="frame" x="124" y="8" width="187" height="51"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are the best place to work and inspire people to be the best version of themselves." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0P8-EA-EbF">
+                        <rect key="frame" x="123" y="8" width="189" height="51"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="51" id="U8K-M0-gfK"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="“How we define the importance of our employees, lead and recruit, retain and develop the greatest talents in the geography.”" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3uh-CW-tZB">
-                        <rect key="frame" x="124" y="59" width="187" height="56"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="“How we define the importance of our employees, lead and recruit, retain and develop the greatest talents in the geography.”" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3uh-CW-tZB">
+                        <rect key="frame" x="123" y="59" width="189" height="56"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="MBG-Mb-QYx"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <animations/>
+                <constraints>
+                    <constraint firstItem="3uh-CW-tZB" firstAttribute="trailing" secondItem="Cbv-sh-Cki" secondAttribute="trailingMargin" id="0X8-lX-N7i"/>
+                    <constraint firstItem="xap-pL-pBb" firstAttribute="top" secondItem="Cbv-sh-Cki" secondAttribute="topMargin" id="7yP-0b-e6x"/>
+                    <constraint firstItem="3uh-CW-tZB" firstAttribute="leading" secondItem="xap-pL-pBb" secondAttribute="trailing" constant="8" id="bgd-89-GFz"/>
+                    <constraint firstItem="0P8-EA-EbF" firstAttribute="leading" secondItem="xap-pL-pBb" secondAttribute="trailing" constant="8" id="ime-qh-Iuh"/>
+                    <constraint firstItem="xap-pL-pBb" firstAttribute="leading" secondItem="Cbv-sh-Cki" secondAttribute="leadingMargin" id="s8t-br-WTo"/>
+                    <constraint firstItem="3uh-CW-tZB" firstAttribute="top" secondItem="0P8-EA-EbF" secondAttribute="bottom" id="wLe-7D-kF9"/>
+                    <constraint firstItem="0P8-EA-EbF" firstAttribute="top" secondItem="Cbv-sh-Cki" secondAttribute="topMargin" id="wS6-yw-OK6"/>
+                    <constraint firstItem="0P8-EA-EbF" firstAttribute="trailing" secondItem="Cbv-sh-Cki" secondAttribute="trailingMargin" id="xaf-ni-d6x"/>
+                </constraints>
             </tableViewCellContentView>
             <animations/>
             <point key="canvasLocation" x="265" y="140.5"/>

@@ -12,6 +12,8 @@
 
 @interface WLIInfoPageViewController : WLIViewController {
     IBOutlet UIScrollView *scrollView;
+    IBOutlet UIView *insetView;
+    IBOutlet UILabel *lastLabel;
 }
 
 

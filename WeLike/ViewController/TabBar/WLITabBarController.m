@@ -48,6 +48,7 @@
     welcomeViewController = [[WLIWelcomeViewController alloc] initWithNibName:@"WLIWelcomeViewController" bundle:nil];
     welcomeViewController.delegate = self;
     [welcomeViewController loadView];
+    welcomeViewController.view.frame = CGRectMake(0.0f, 0.0f, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     [self.view addSubview:welcomeViewController.view];
     welcomeViewController.view.frame = self.view.frame;
 }

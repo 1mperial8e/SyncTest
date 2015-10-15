@@ -31,9 +31,20 @@
 
 - (void)viewDidLoad {
     
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    tapGesture.cancelsTouchesInView = NO;
+    [self.tableViewRefresh addGestureRecognizer:tapGesture];
+    
     [super viewDidLoad];
     self.title = @"Comments";
     [self reloadData:YES];
+}
+-(void)dismissKeyboard
+{
+    if ([self.textFieldEnterComment isFirstResponder]) {
+        [self.textFieldEnterComment resignFirstResponder];
+    }
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -184,16 +195,18 @@
 - (void)keyboardWillShow:(NSNotification *)notification {
     
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat height = keyboardFrame.origin.y - 64.0f - CGRectGetHeight(self.viewEnterComment.frame);
-    self.tableViewRefresh.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableViewRefresh.frame), height);
-    self.viewEnterComment.frame = CGRectMake(0.0f, CGRectGetMaxY(self.tableViewRefresh.frame), CGRectGetWidth(self.viewEnterComment.frame), CGRectGetHeight(self.viewEnterComment.frame));
+    oldViewHeight = CGRectGetHeight(self.tableViewRefresh.frame);
+//    CGFloat height = keyboardFrame.origin.y - 64.0f - CGRectGetHeight(self.viewEnterComment.frame);
+//    self.tableViewRefresh.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableViewRefresh.frame), height);
+//    self.viewEnterComment.frame = CGRectMake(0.0f, CGRectGetMaxY(self.tableViewRefresh.frame), CGRectGetWidth(self.viewEnterComment.frame), CGRectGetHeight(self.viewEnterComment.frame));
+    self.view.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableViewRefresh.frame), keyboardFrame.origin.y);
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    
-    CGFloat height = CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.viewEnterComment.frame);
-    self.tableViewRefresh.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableViewRefresh.frame), height);
-    self.viewEnterComment.frame = CGRectMake(0.0f, CGRectGetMaxY(self.tableViewRefresh.frame), CGRectGetWidth(self.viewEnterComment.frame), CGRectGetHeight(self.viewEnterComment.frame));
+//    CGFloat height = CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.viewEnterComment.frame);
+//    self.tableViewRefresh.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableViewRefresh.frame), height);
+//    self.viewEnterComment.frame = CGRectMake(0.0f, CGRectGetMaxY(self.tableViewRefresh.frame), CGRectGetWidth(self.viewEnterComment.frame), CGRectGetHeight(self.viewEnterComment.frame));
+    self.view.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableViewRefresh.frame), [[UIScreen mainScreen] bounds].size.height - 60.0f);
 }
 
 

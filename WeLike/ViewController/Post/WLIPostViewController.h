@@ -10,7 +10,10 @@
 #import "WLIViewController.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
-@interface WLIPostViewController : WLIViewController <WLIViewControllerRefreshProtocol, MFMailComposeViewControllerDelegate, UIAlertViewDelegate>
+@interface WLIPostViewController : WLIViewController <WLIViewControllerRefreshProtocol, MFMailComposeViewControllerDelegate, UIAlertViewDelegate> {
+    CGFloat oldViewHeight;
+}
+
 
 @property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;
 @property (strong, nonatomic) NSMutableArray *comments;

@@ -16,6 +16,17 @@
 
 #pragma mark - Object lifecycle
 
+//-(id)initWithCoder:(NSCoder*)coder
+//{
+//    self = [super init];
+//    if (self) {
+//        // Custom initialization
+//        self.title = @"Why 20 % by 2020?";
+//    }
+//    return self;
+//}
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -29,8 +40,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    scrollView.contentSize = CGSizeMake(320, 1116);
+//    scrollView.contentSize = CGSizeMake(320, 1116);
+}
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    scrollView.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width, CGRectGetMaxY(insetView.frame));
 }
 
 - (void)didReceiveMemoryWarning {

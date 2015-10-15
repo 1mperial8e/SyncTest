@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,14 +14,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="K32-5n-dp0">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K32-5n-dp0">
                         <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vSD-RI-hex">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vSD-RI-hex">
                         <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -33,15 +32,21 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="vSD-RI-hex" firstAttribute="leading" secondItem="cKg-Uf-vR7" secondAttribute="leading" id="0Dv-Di-pf4"/>
+                <constraint firstItem="vSD-RI-hex" firstAttribute="top" secondItem="cKg-Uf-vR7" secondAttribute="top" id="4rV-b5-5bq"/>
+                <constraint firstAttribute="bottom" secondItem="vSD-RI-hex" secondAttribute="bottom" id="7i1-HU-g9M"/>
+                <constraint firstAttribute="trailing" secondItem="vSD-RI-hex" secondAttribute="trailing" id="Iqt-pk-z2g"/>
+                <constraint firstAttribute="bottom" secondItem="K32-5n-dp0" secondAttribute="bottom" id="SNx-ec-ddT"/>
+                <constraint firstItem="K32-5n-dp0" firstAttribute="leading" secondItem="cKg-Uf-vR7" secondAttribute="leading" id="TV1-4s-Y7k"/>
+                <constraint firstItem="K32-5n-dp0" firstAttribute="top" secondItem="cKg-Uf-vR7" secondAttribute="top" id="UZN-aR-n99"/>
+                <constraint firstAttribute="trailing" secondItem="K32-5n-dp0" secondAttribute="trailing" id="sak-fR-nhc"/>
+            </constraints>
             <size key="customSize" width="98" height="100"/>
             <connections>
                 <outlet property="imageViewPost" destination="K32-5n-dp0" id="tcd-JK-Vr2"/>
             </connections>
+            <point key="canvasLocation" x="381" y="455"/>
         </collectionViewCell>
     </objects>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

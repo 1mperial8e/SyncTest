@@ -10,6 +10,8 @@
 
 @interface WLIInfoWhyViewController : WLIViewController {
     IBOutlet UIScrollView *scrollView;
+    IBOutlet UILabel *lastLabel;
+    IBOutlet UIView *insetView;
 }
 
 

@@ -37,8 +37,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    scrollView.contentSize = CGSizeMake(320, 1142);
+    scrollView.contentSize = CGSizeMake(375, 1116);
+}
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    insetView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, CGRectGetMaxY(insetView.frame));
+    scrollView.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width, CGRectGetMaxY(insetView.frame));
 }
 
 - (void)didReceiveMemoryWarning {
