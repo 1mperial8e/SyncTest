@@ -60,7 +60,7 @@ static WLIPostCell *sharedCell = nil;
     [self removeCategoryButtons];
 }
 
-+ (CGSize)sizeWithPost:(WLIPost*)post {
++ (CGSize)sizeWithPost:(WLIPost*)post withWidth:(CGFloat)width{
     
     if (!sharedCell) {
         sharedCell = [[[NSBundle mainBundle] loadNibNamed:@"WLIPostCell" owner:nil options:nil] lastObject];
@@ -69,7 +69,7 @@ static WLIPostCell *sharedCell = nil;
     sharedCell.post = post;
     [sharedCell updateFramesAndDataWithDownloads:NO];
     
-    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetMaxY(sharedCell.labelPostText.frame) + 44.0f);
+    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetMaxY(sharedCell.labelPostText.frame) - 490 + (width * (292/245)));
     NSLog(@"ShardeSize: %f", size.height);
     return size;
 }
@@ -165,7 +165,7 @@ static WLIPostCell *sharedCell = nil;
 -(void)insertCategoryButtons
 {
     CGFloat positionCounter = 0;
-    CGFloat positionY = 3;
+    CGFloat positionY = 6;
     CGFloat positionDistance = 8;
     
     if (self.post.categoryMarket) {

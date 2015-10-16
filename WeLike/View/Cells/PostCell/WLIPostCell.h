@@ -68,7 +68,7 @@
 - (IBAction)buttonMoreTouchUpInside:(id)sender;
 //- (IBAction)buttonLikesTouchUpInside:(id)sender;
 
-+ (CGSize)sizeWithPost:(WLIPost*)post;
++ (CGSize)sizeWithPost:(WLIPost*)post withWidth:(CGFloat)width;
 
 - (IBAction)buttonCatMarketTouchUpInside:(id)sender;
 - (IBAction)buttonCatCustomerTouchUpInside:(id)sender;

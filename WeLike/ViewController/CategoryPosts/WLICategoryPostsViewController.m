@@ -140,7 +140,7 @@
     if (indexPath.section == 1) {
          return 131;
     } else if (indexPath.section == 2) {
-        return [WLIPostCell sizeWithPost:self.posts[indexPath.row]].height;
+        return [WLIPostCell sizeWithPost:self.posts[indexPath.row]  withWidth:self.view.frame.size.width].height;
     } else if (indexPath.section == 0){
         return 0; //44 * loading * self.posts.count == 0;
     } else {

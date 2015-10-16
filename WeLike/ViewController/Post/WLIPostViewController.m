@@ -157,7 +157,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 1) {
-        return [WLIPostCell sizeWithPost:self.post].height;
+        return [WLIPostCell sizeWithPost:self.post withWidth:self.view.frame.size.width].height;
     } else if (indexPath.section == 2){
         return [WLICommentCell sizeWithComment:self.comments[indexPath.row]].height;
     } else if (indexPath.section == 0){

@@ -148,9 +148,9 @@
 #pragma mark - UITableViewDelegate methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSLog(@"Section: %ld - Row: %ld", indexPath.section, indexPath.row);
     if (indexPath.section == 1) {
-        return [WLIPostCell sizeWithPost:self.posts[indexPath.row]].height;
+        return [WLIPostCell sizeWithPost:self.posts[indexPath.row] withWidth:self.view.frame.size.width].height;
     } else if (indexPath.section == 0){
         return 0; //44 * loading * self.posts.count == 0;
     } else {
