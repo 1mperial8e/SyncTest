@@ -57,6 +57,7 @@ static WLIPostCell *sharedCell = nil;
     [_buttonConnect setHidden:NO];
     [self.buttonDelete setHidden:YES];
     self.showDeleteButton = NO;
+    [self removeCategoryButtons];
 }
 
 + (CGSize)sizeWithPost:(WLIPost*)post {
@@ -68,8 +69,8 @@ static WLIPostCell *sharedCell = nil;
     sharedCell.post = post;
     [sharedCell updateFramesAndDataWithDownloads:NO];
     
-    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetMaxY(sharedCell.labelPostText.frame) + 8.0f +10.0f);
-    
+    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetMaxY(sharedCell.labelPostText.frame) + 44.0f);
+    NSLog(@"ShardeSize: %f", size.height);
     return size;
 }
 
@@ -87,25 +88,28 @@ static WLIPostCell *sharedCell = nil;
         self.labelTimeAgo.text = self.post.postTimeAgo;
         
         //Set and resize
-        self.labelPostTitle.text = self.post.postTitle;
-        [self.labelPostTitle sizeToFit];
-        if (self.labelPostTitle.frame.size.width < frameDefaultLabelPostTitle.size.width) {
-            self.labelPostTitle.frame = CGRectMake(self.labelPostTitle.frame.origin.x, self.labelPostTitle.frame.origin.y, frameDefaultLabelPostTitle.size.width, self.labelPostTitle.frame.size.height);
-        }
-        if (self.labelPostTitle.frame.size.height < frameDefaultLabelPostTitle.size.height) {
-            self.labelPostTitle.frame = CGRectMake(self.labelPostTitle.frame.origin.x, self.labelPostTitle.frame.origin.y, self.labelPostTitle.frame.size.width, frameDefaultLabelPostTitle.size.height);
-        }
+//        self.labelPostTitle.text = self.post.postTitle;
+//        [self.labelPostTitle sizeToFit];
+//        if (self.labelPostTitle.frame.size.width < frameDefaultLabelPostTitle.size.width) {
+//            self.labelPostTitle.frame = CGRectMake(self.labelPostTitle.frame.origin.x, self.labelPostTitle.frame.origin.y, frameDefaultLabelPostTitle.size.width, self.labelPostTitle.frame.size.height);
+//        }
+//        if (self.labelPostTitle.frame.size.height < frameDefaultLabelPostTitle.size.height) {
+//            self.labelPostTitle.frame = CGRectMake(self.labelPostTitle.frame.origin.x, self.labelPostTitle.frame.origin.y, self.labelPostTitle.frame.size.width, frameDefaultLabelPostTitle.size.height);
+//        }
         
-        NSString *descriptionText = self.post.postText;
-        CGSize tempSize;
-        tempSize.width = self.labelPostText.bounds.size.width;
-        tempSize.height = 9999;
-        
-        CGRect theRect = [descriptionText boundingRectWithSize:tempSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.labelPostText.font} context:nil];
-        self.labelPostText.bounds = CGRectMake(self.labelPostText.bounds.origin.x, self.labelPostText.bounds.origin.y, self.labelPostText.bounds.size.width, theRect.size.height);
-        [self.labelPostText setNumberOfLines:100];
+//        NSString *descriptionText = self.post.postText;
+//        CGSize tempSize;
+//        tempSize.width = self.labelPostText.bounds.size.width;
+//        tempSize.height = 9999;
+//        
+//        CGRect theRect = [descriptionText boundingRectWithSize:tempSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.labelPostText.font} context:nil];
+//        NSLog(@"Height stuff: %f - 21 + %f", self.frame.size.height, theRect.size.height);
+
+//        self.labelPostText.bounds = CGRectMake(self.labelPostText.bounds.origin.x, self.labelPostText.bounds.origin.y, self.labelPostText.bounds.size.width, theRect.size.height);
+//        [self.labelPostText setNumberOfLines:100];
         self.labelPostText.text = self.post.postText;
-        
+//        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height - 21 + theRect.size.height);
+
         if (self.post.postImagePath.length) {
 //            self.buttonLike.frame = CGRectMake(self.buttonLike.frame.origin.x, CGRectGetMaxY(self.imageViewPostImage.frame) + 18, self.buttonLike.frame.size.width, self.buttonLike.frame.size.height);
 //            self.buttonComment.frame = CGRectMake(self.buttonComment.frame.origin.x, CGRectGetMaxY(self.imageViewPostImage.frame) + 16, self.buttonComment.frame.size.width, self.buttonComment.frame.size.height);
@@ -135,26 +139,7 @@ static WLIPostCell *sharedCell = nil;
             [self.buttonConnect setSelected:NO];
         }
         
-        if (!self.post.categoryMarket) {
-            [self.buttonCatMarket setHidden:YES];
-        } else {
-            [self.buttonCatMarket setHidden:NO];
-        }
-        if (!self.post.categoryCapabilities) {
-            [self.buttonCatCapabilities setHidden:YES];
-        } else {
-            [self.buttonCatCapabilities setHidden:NO];
-        }
-        if (!self.post.categoryCustomer) {
-            [self.buttonCatCustomer setHidden:YES];
-        } else {
-            [self.buttonCatCustomer setHidden:NO];
-        }
-        if (!self.post.categoryPeople) {
-            [self.buttonCatPeople setHidden:YES];
-        } else {
-            [self.buttonCatPeople setHidden:NO];
-        }
+        [self insertCategoryButtons];
         
         [self.labelLikes setText:[NSString stringWithFormat:@"%d", self.post.postLikesCount]];
         [self.labelComments setText:[NSString stringWithFormat:@"%d", self.post.postCommentsCount]];
@@ -175,6 +160,63 @@ static WLIPostCell *sharedCell = nil;
             }
         }
     }
+}
+
+-(void)insertCategoryButtons
+{
+    CGFloat positionCounter = 0;
+    CGFloat positionY = 3;
+    CGFloat positionDistance = 8;
+    
+    if (self.post.categoryMarket) {
+        self.buttonCatMarket = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.buttonCatMarket.adjustsImageWhenHighlighted = NO;
+        self.buttonCatMarket.frame = CGRectMake(positionCounter, positionY, 75.0f, 21.0f);
+        [self.buttonCatMarket setImage:[UIImage imageNamed:@"btn21-cateory-markets"] forState:UIControlStateNormal];
+        [self.buttonCatMarket addTarget:self action:@selector(buttonCatMarketTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        [self.categoryView addSubview:self.buttonCatMarket];
+        positionCounter = positionCounter + self.buttonCatMarket.frame.size.width + positionDistance;
+    }
+    if (self.post.categoryCapabilities) {
+        self.buttonCatCustomer = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.buttonCatCustomer.adjustsImageWhenHighlighted = NO;
+        self.buttonCatCustomer.frame = CGRectMake(positionCounter, positionY, 95.0f, 21.0f);
+        [self.buttonCatCustomer setImage:[UIImage imageNamed:@"btn21-cateory-capability"] forState:UIControlStateNormal];
+        [self.buttonCatCustomer addTarget:self action:@selector(buttonCatCustomerTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        [self.categoryView addSubview:self.buttonCatCustomer];
+        positionCounter = positionCounter + self.buttonCatCustomer.frame.size.width + positionDistance;
+    }
+    if (self.post.categoryCustomer) {
+        self.buttonCatCapabilities = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.buttonCatCapabilities.adjustsImageWhenHighlighted = NO;
+        self.buttonCatCapabilities.frame = CGRectMake(positionCounter, positionY, 95.0f, 21.0f);
+        [self.buttonCatCapabilities setImage:[UIImage imageNamed:@"btn21-cateory-customers"] forState:UIControlStateNormal];
+        [self.buttonCatCapabilities addTarget:self action:@selector(buttonCatCapabilitiesTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        [self.categoryView addSubview:self.buttonCatCapabilities];
+        positionCounter = positionCounter + self.buttonCatCapabilities.frame.size.width + positionDistance;
+    }
+    if (self.post.categoryPeople) {
+        self.buttonCatPeople = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.buttonCatPeople.adjustsImageWhenHighlighted = NO;
+        self.buttonCatPeople.frame = CGRectMake(positionCounter, positionY, 67.0f, 21.0f);
+        [self.buttonCatPeople setImage:[UIImage imageNamed:@"btn21-cateory-people"] forState:UIControlStateNormal];
+        [self.buttonCatPeople addTarget:self action:@selector(buttonCatPeopleTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        [self.categoryView addSubview:self.buttonCatPeople];
+        positionCounter = positionCounter + self.buttonCatPeople.frame.size.width + positionDistance;
+    }
+
+}
+-(void)removeCategoryButtons
+{
+    [self.buttonCatMarket removeFromSuperview];
+    [self.buttonCatMarket removeTarget:self action:@selector(buttonCatMarketTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.buttonCatCustomer removeFromSuperview];
+    [self.buttonCatCustomer removeTarget:self action:@selector(buttonCatCustomerTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonCatCapabilities removeFromSuperview];
+    [self.buttonCatCapabilities removeTarget:self action:@selector(buttonCatCapabilitiesTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonCatPeople removeFromSuperview];
+    [self.buttonCatPeople removeTarget:self action:@selector(buttonCatPeopleTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 

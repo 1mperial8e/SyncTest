@@ -44,6 +44,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *buttonShare;
 @property (strong, nonatomic) IBOutlet UIButton *buttonMore;
 
+@property (strong, nonatomic) IBOutlet UIView *categoryView;
 @property (strong, nonatomic) IBOutlet UIButton *buttonCatMarket;
 @property (strong, nonatomic) IBOutlet UIButton *buttonCatCustomer;
 @property (strong, nonatomic) IBOutlet UIButton *buttonCatCapabilities;
@@ -68,6 +69,12 @@
 //- (IBAction)buttonLikesTouchUpInside:(id)sender;
 
 + (CGSize)sizeWithPost:(WLIPost*)post;
+
+- (IBAction)buttonCatMarketTouchUpInside:(id)sender;
+- (IBAction)buttonCatCustomerTouchUpInside:(id)sender;
+- (IBAction)buttonCatCapabilitiesTouchUpInside:(id)sender;
+- (IBAction)buttonCatPeopleTouchUpInside:(id)sender;
+
 
 
 @end
