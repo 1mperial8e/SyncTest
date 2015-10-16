@@ -138,6 +138,7 @@
 		2E666A101BC6987400392527 /* WLIHashtag.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E666A0F1BC6987400392527 /* WLIHashtag.m */; settings = {ASSET_TAGS = (); }; };
 		2E666A141BC6A15200392527 /* WLIHashtagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E666A121BC6A15200392527 /* WLIHashtagTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		2E666A151BC6A15200392527 /* WLIHashtagTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E666A131BC6A15200392527 /* WLIHashtagTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		2E696D7B1BD118870077381C /* WLINewPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E696D7A1BD118870077381C /* WLINewPostViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2E9518671BBAC1B900248651 /* WLICategoryCapabilitiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E95185C1BBAC1B900248651 /* WLICategoryCapabilitiesCell.m */; settings = {ASSET_TAGS = (); }; };
 		2E9518681BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E95185D1BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib */; settings = {ASSET_TAGS = (); }; };
 		2E9518691BBAC1B900248651 /* WLICategoryCustomerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E95185F1BBAC1B900248651 /* WLICategoryCustomerCell.m */; settings = {ASSET_TAGS = (); }; };
@@ -148,7 +149,7 @@
 		2ECF34931BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF34921BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib */; settings = {ASSET_TAGS = (); }; };
 		2ED2F2851BA95E8C00641F54 /* WLIInfoPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2ED2F2861BA95E8C00641F54 /* WLIInfoPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		2ED2F2881BAFF7D100641F54 /* WLINewPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2871BAFF7D100641F54 /* WLINewPostViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		2ED2F2881BAFF7D100641F54 /* WLINewPostViewController-old.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2871BAFF7D100641F54 /* WLINewPostViewController-old.xib */; settings = {ASSET_TAGS = (); }; };
 		C7B424B5183D2507003B51D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B4183D2507003B51D0 /* CoreData.framework */; };
 		C7B424B7183D2519003B51D0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B6183D2519003B51D0 /* MessageUI.framework */; };
 		C7B424B9183D2540003B51D0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B8183D2540003B51D0 /* libsqlite3.0.dylib */; };
@@ -368,6 +369,7 @@
 		2E666A111BC6A15200392527 /* WLIHashtagTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIHashtagTableViewCell.h; path = SearchContent/WLIHashtagTableViewCell.h; sourceTree = "<group>"; };
 		2E666A121BC6A15200392527 /* WLIHashtagTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIHashtagTableViewCell.m; path = SearchContent/WLIHashtagTableViewCell.m; sourceTree = "<group>"; };
 		2E666A131BC6A15200392527 /* WLIHashtagTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLIHashtagTableViewCell.xib; path = SearchContent/WLIHashtagTableViewCell.xib; sourceTree = "<group>"; };
+		2E696D7A1BD118870077381C /* WLINewPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLINewPostViewController.xib; sourceTree = "<group>"; };
 		2E95185B1BBAC1B900248651 /* WLICategoryCapabilitiesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLICategoryCapabilitiesCell.h; path = CategoryCells/WLICategoryCapabilitiesCell.h; sourceTree = "<group>"; };
 		2E95185C1BBAC1B900248651 /* WLICategoryCapabilitiesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLICategoryCapabilitiesCell.m; path = CategoryCells/WLICategoryCapabilitiesCell.m; sourceTree = "<group>"; };
 		2E95185D1BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLICategoryCapabilitiesCell.xib; path = CategoryCells/WLICategoryCapabilitiesCell.xib; sourceTree = "<group>"; };
@@ -386,7 +388,7 @@
 		2ED2F2821BA95E8C00641F54 /* WLIInfoPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIInfoPageViewController.h; path = InfoPage/WLIInfoPageViewController.h; sourceTree = "<group>"; };
 		2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIInfoPageViewController.m; path = InfoPage/WLIInfoPageViewController.m; sourceTree = "<group>"; };
 		2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLIInfoPageViewController.xib; path = InfoPage/WLIInfoPageViewController.xib; sourceTree = "<group>"; };
-		2ED2F2871BAFF7D100641F54 /* WLINewPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLINewPostViewController.xib; sourceTree = "<group>"; };
+		2ED2F2871BAFF7D100641F54 /* WLINewPostViewController-old.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "WLINewPostViewController-old.xib"; sourceTree = "<group>"; };
 		C7B4244A183D0809003B51D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C7B424B4183D2507003B51D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C7B424B6183D2519003B51D0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -889,7 +891,8 @@
 			children = (
 				2C6D272F1896BACA00C459CB /* WLINewPostViewController.h */,
 				2C6D27301896BACA00C459CB /* WLINewPostViewController.m */,
-				2ED2F2871BAFF7D100641F54 /* WLINewPostViewController.xib */,
+				2ED2F2871BAFF7D100641F54 /* WLINewPostViewController-old.xib */,
+				2E696D7A1BD118870077381C /* WLINewPostViewController.xib */,
 				2E0BDD241BB4B8DD004EACF5 /* post-image-placeholder.png */,
 			);
 			path = NewPost;
@@ -1200,7 +1203,7 @@
 				2E666A0D1BBC2E6000392527 /* WLICategoryPeopleCell.xib in Resources */,
 				0743482D1BBABD6D00EAA2AA /* infobutton.png in Resources */,
 				2C6D27FB1896BACA00C459CB /* WLITimelineViewController.xib in Resources */,
-				2ED2F2881BAFF7D100641F54 /* WLINewPostViewController.xib in Resources */,
+				2ED2F2881BAFF7D100641F54 /* WLINewPostViewController-old.xib in Resources */,
 				2E666A151BC6A15200392527 /* WLIHashtagTableViewCell.xib in Resources */,
 				2C6D27E01896BACA00C459CB /* WLICommentsViewController.xib in Resources */,
 				2E666A0B1BBC2AC200392527 /* WLICategoryPostsViewController.xib in Resources */,
@@ -1242,6 +1245,7 @@
 				2C6D27B41896BACA00C459CB /* MNMPullToRefresh.strings in Resources */,
 				0743482A1BBABCB700EAA2AA /* Peolple2.png in Resources */,
 				074348241BBABCB700EAA2AA /* Capability.png in Resources */,
+				2E696D7B1BD118870077381C /* WLINewPostViewController.xib in Resources */,
 				2C6D27FD1896BACA00C459CB /* WLIWelcomeViewController.xib in Resources */,
 				2C6D27F81896BACA00C459CB /* WLISearchViewController.xib in Resources */,
 				2C6D27C61896BACA00C459CB /* InfoPlist.strings in Resources */,
