@@ -50,7 +50,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)reloadData:(BOOL)reloadAll {
 
+}
 
 - (IBAction)marketButtonTouchUpInside:(id)sender
 {

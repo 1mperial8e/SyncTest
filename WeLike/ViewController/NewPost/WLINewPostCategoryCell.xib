@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WLINewPostCategoryCell" id="4Kc-kB-SF0">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Kc-kB-SF0" id="pjE-Ft-j9s">
+                <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strategy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JaD-wl-s32">
+                        <rect key="frame" x="8" y="11" width="559" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Xgs-ji-eGP"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ca-it-UJK">
+                        <rect key="frame" x="8" y="11" width="559" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="2BW-yo-X2E"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="4Ca-it-UJK" secondAttribute="trailing" constant="-8" id="1Ux-QW-Ztu"/>
+                    <constraint firstItem="JaD-wl-s32" firstAttribute="top" secondItem="pjE-Ft-j9s" secondAttribute="topMargin" constant="3" id="3hi-iK-ruu"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="JaD-wl-s32" secondAttribute="trailing" constant="-8" id="O9n-f2-nTr"/>
+                    <constraint firstItem="JaD-wl-s32" firstAttribute="leading" secondItem="pjE-Ft-j9s" secondAttribute="leadingMargin" id="OCb-LZ-AUK"/>
+                    <constraint firstItem="4Ca-it-UJK" firstAttribute="top" secondItem="pjE-Ft-j9s" secondAttribute="topMargin" constant="3" id="qJy-Pf-SaU"/>
+                    <constraint firstItem="4Ca-it-UJK" firstAttribute="leading" secondItem="pjE-Ft-j9s" secondAttribute="leadingMargin" id="tGe-Rb-R11"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="353" y="1124"/>
+        </tableViewCell>
+    </objects>
+</document>

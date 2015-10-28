@@ -7,7 +7,7 @@
 //
 
 #import "WLIAppDelegate.h"
-#import "WLINewPostViewController.h"
+#import "WLINewPostTableViewController.h"
 //#import "WLINearbyViewController.h"
 //#import "WLIPopularViewController.h"
 //#import "WLIProfileViewController.h"
@@ -93,8 +93,8 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController  shouldSelectViewController:(UIViewController *)viewController {
     
     UINavigationController *navigationViewController = (UINavigationController *)viewController;
-    if ([navigationViewController.topViewController isKindOfClass:[WLINewPostViewController class]]) {
-        WLINewPostViewController *newPostViewController = [[WLINewPostViewController alloc] initWithNibName:@"WLINewPostViewController" bundle:nil];
+    if ([navigationViewController.topViewController isKindOfClass:[WLINewPostTableViewController class]]) {
+        WLINewPostTableViewController *newPostViewController = [[WLINewPostTableViewController alloc] initWithNibName:@"WLINewPostTableViewController" bundle:nil];
         UINavigationController *newPostNavigationController = [[UINavigationController alloc] initWithRootViewController:newPostViewController];
         newPostNavigationController.navigationBar.translucent = NO;
         [tabBarController presentViewController:newPostNavigationController animated:YES completion:nil];
@@ -117,7 +117,7 @@
     UINavigationController *timelineNavigationController = [[UINavigationController alloc] initWithRootViewController:timelineViewController];
     timelineNavigationController.navigationBar.translucent = NO;
     
-    WLINewPostViewController *newPostViewController = [[WLINewPostViewController alloc] initWithNibName:@"WLINewPostViewController" bundle:nil];
+    WLINewPostTableViewController *newPostViewController = [[WLINewPostTableViewController alloc] initWithNibName:@"WLINewPostTableViewController" bundle:nil];
     UINavigationController *newPostNavigationController = [[UINavigationController alloc] initWithRootViewController:newPostViewController];
     newPostNavigationController.navigationBar.translucent = NO;
     
@@ -146,7 +146,7 @@
     UITabBarItem *followingTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Connect" image:[[UIImage imageNamed:@"tabbar-following-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-following"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     followingNavigationController.tabBarItem = followingTabBarItem;
 
-    UITabBarItem *myDriveTabBarItem = [[UITabBarItem alloc] initWithTitle:@"MyDrive" image:[[UIImage imageNamed:@"tabbar-mydrive-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-mydrive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UITabBarItem *myDriveTabBarItem = [[UITabBarItem alloc] initWithTitle:@"MyEnergy" image:[[UIImage imageNamed:@"tabbar-mydrive-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-mydrive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     myDriveViewController.tabBarItem = myDriveTabBarItem;
     
     self.window.rootViewController = self.tabBarController;

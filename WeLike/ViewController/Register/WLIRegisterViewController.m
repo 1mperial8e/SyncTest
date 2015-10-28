@@ -32,9 +32,20 @@
     self.title = @"Register";
     
     self.buttonRegister.layer.cornerRadius = CGRectGetHeight(self.buttonRegister.frame)/2;
+    
+    self.viewContentRegister.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
 
     [self.scrollViewRegister addSubview:self.viewContentRegister];
     [self adjustViewFrames];
+    
+    
+    
+    
+    
+    self.scrollViewRegister.contentSize = self.viewContentRegister.frame.size;
+    toolbar.mainScrollView = self.scrollViewRegister;
+    toolbar.textFields = @[self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword, self.textFieldUsername, self.textFieldFullName];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -57,7 +68,14 @@
 #pragma mark - Button methods
 
 - (IBAction)buttonSelectAvatarTouchUpInside:(UIButton *)sender {
-    
+    for (NSInteger i = 0; i < [toolbar.textFields count]; i++ )
+    {
+        id field = [toolbar.textFields objectAtIndex:i];
+        if ([field isFirstResponder])
+        {
+            [field resignFirstResponder];
+        }
+    }
     [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Gallery", @"Camera", nil] showInView:self.view];
 }
 

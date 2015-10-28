@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		074348241BBABCB700EAA2AA /* Capability.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743481C1BBABCB700EAA2AA /* Capability.png */; settings = {ASSET_TAGS = (); }; };
-		074348251BBABCB700EAA2AA /* Capability2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743481D1BBABCB700EAA2AA /* Capability2.png */; settings = {ASSET_TAGS = (); }; };
-		074348261BBABCB700EAA2AA /* Customer.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743481E1BBABCB700EAA2AA /* Customer.png */; settings = {ASSET_TAGS = (); }; };
-		074348271BBABCB700EAA2AA /* Customer2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743481F1BBABCB700EAA2AA /* Customer2.png */; settings = {ASSET_TAGS = (); }; };
-		074348281BBABCB700EAA2AA /* Market.png in Resources */ = {isa = PBXBuildFile; fileRef = 074348201BBABCB700EAA2AA /* Market.png */; settings = {ASSET_TAGS = (); }; };
-		074348291BBABCB700EAA2AA /* Market2.png in Resources */ = {isa = PBXBuildFile; fileRef = 074348211BBABCB700EAA2AA /* Market2.png */; settings = {ASSET_TAGS = (); }; };
-		0743482A1BBABCB700EAA2AA /* Peolple2.png in Resources */ = {isa = PBXBuildFile; fileRef = 074348221BBABCB700EAA2AA /* Peolple2.png */; settings = {ASSET_TAGS = (); }; };
-		0743482B1BBABCB700EAA2AA /* People.png in Resources */ = {isa = PBXBuildFile; fileRef = 074348231BBABCB700EAA2AA /* People.png */; settings = {ASSET_TAGS = (); }; };
-		0743482D1BBABD6D00EAA2AA /* infobutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743482C1BBABD6D00EAA2AA /* infobutton.png */; settings = {ASSET_TAGS = (); }; };
-		0743482F1BBABF4200EAA2AA /* MyDrivelogo2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743482E1BBABF4200EAA2AA /* MyDrivelogo2.png */; settings = {ASSET_TAGS = (); }; };
-		074D68881BB53B40000167DD /* Graph1.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D68871BB53B40000167DD /* Graph1.png */; settings = {ASSET_TAGS = (); }; };
-		074D688A1BB53C4D000167DD /* illustration2.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D68891BB53C4D000167DD /* illustration2.png */; settings = {ASSET_TAGS = (); }; };
-		074D688C1BB54B29000167DD /* director.mov in Resources */ = {isa = PBXBuildFile; fileRef = 074D688B1BB54B29000167DD /* director.mov */; settings = {ASSET_TAGS = (); }; };
+		074348241BBABCB700EAA2AA /* Capability.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743481C1BBABCB700EAA2AA /* Capability.png */; };
+		074348251BBABCB700EAA2AA /* Capability2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743481D1BBABCB700EAA2AA /* Capability2.png */; };
+		074348261BBABCB700EAA2AA /* Customer.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743481E1BBABCB700EAA2AA /* Customer.png */; };
+		074348271BBABCB700EAA2AA /* Customer2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743481F1BBABCB700EAA2AA /* Customer2.png */; };
+		074348281BBABCB700EAA2AA /* Market.png in Resources */ = {isa = PBXBuildFile; fileRef = 074348201BBABCB700EAA2AA /* Market.png */; };
+		074348291BBABCB700EAA2AA /* Market2.png in Resources */ = {isa = PBXBuildFile; fileRef = 074348211BBABCB700EAA2AA /* Market2.png */; };
+		0743482A1BBABCB700EAA2AA /* Peolple2.png in Resources */ = {isa = PBXBuildFile; fileRef = 074348221BBABCB700EAA2AA /* Peolple2.png */; };
+		0743482B1BBABCB700EAA2AA /* People.png in Resources */ = {isa = PBXBuildFile; fileRef = 074348231BBABCB700EAA2AA /* People.png */; };
+		0743482D1BBABD6D00EAA2AA /* infobutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743482C1BBABD6D00EAA2AA /* infobutton.png */; };
+		0743482F1BBABF4200EAA2AA /* MyDrivelogo2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0743482E1BBABF4200EAA2AA /* MyDrivelogo2.png */; };
+		074D68881BB53B40000167DD /* Graph1.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D68871BB53B40000167DD /* Graph1.png */; };
+		074D688A1BB53C4D000167DD /* illustration2.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D68891BB53C4D000167DD /* illustration2.png */; };
+		074D688C1BB54B29000167DD /* director.mov in Resources */ = {isa = PBXBuildFile; fileRef = 074D688B1BB54B29000167DD /* director.mov */; };
 		07A349121B9D902700C7EBBD /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A349101B9D902700C7EBBD /* Fabric.framework */; };
 		07A349131B9D902700C7EBBD /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A349111B9D902700C7EBBD /* Crashlytics.framework */; };
 		2C5B5C7D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5C6D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m */; };
@@ -94,7 +94,6 @@
 		2C6D27E61896BACA00C459CB /* WLILikesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D27251896BACA00C459CB /* WLILikesViewController.xib */; };
 		2C6D27E71896BACA00C459CB /* WLILoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D27281896BACA00C459CB /* WLILoginViewController.m */; };
 		2C6D27E81896BACA00C459CB /* WLILoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D27291896BACA00C459CB /* WLILoginViewController.xib */; };
-		2C6D27EB1896BACA00C459CB /* WLINewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D27301896BACA00C459CB /* WLINewPostViewController.m */; };
 		2C6D27EF1896BACA00C459CB /* WLIPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D27381896BACA00C459CB /* WLIPostViewController.m */; };
 		2C6D27F01896BACA00C459CB /* WLIPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D27391896BACA00C459CB /* WLIPostViewController.xib */; };
 		2C6D27F11896BACA00C459CB /* WLIEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D273D1896BACA00C459CB /* WLIEditProfileViewController.m */; };
@@ -119,37 +118,47 @@
 		2CCE1A9B17ECD32B00680126 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCE1A9A17ECD32B00680126 /* CoreGraphics.framework */; };
 		2CCE1A9D17ECD32B00680126 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCE1A9C17ECD32B00680126 /* UIKit.framework */; };
 		2CF096DD1ACAE1F7004FB868 /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF096DC1ACAE1F7004FB868 /* NSDate+TimeAgo.m */; };
-		2E0BDD251BB4B8DD004EACF5 /* post-image-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E0BDD241BB4B8DD004EACF5 /* post-image-placeholder.png */; settings = {ASSET_TAGS = (); }; };
-		2E28F3631BADA43E006CF0BE /* WLIPostsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F3621BADA43E006CF0BE /* WLIPostsListViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2E28F3731BADE286006CF0BE /* WLIMyDriveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F3711BADE286006CF0BE /* WLIMyDriveViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2E28F3911BADE8BA006CF0BE /* WLIFollowingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F38F1BADE8BA006CF0BE /* WLIFollowingsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2E28F3921BADE8BA006CF0BE /* WLIFollowingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E28F3901BADE8BA006CF0BE /* WLIFollowingsViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		2E28F3971BADEEFF006CF0BE /* WLISearchContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F3951BADEEFF006CF0BE /* WLISearchContentViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2E28F3981BADEEFF006CF0BE /* WLISearchContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E28F3961BADEEFF006CF0BE /* WLISearchContentViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		2E29E3311BCE635F00769DD1 /* WLIPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E29E3301BCE635F00769DD1 /* WLIPostCell.xib */; settings = {ASSET_TAGS = (); }; };
+		2E28F3631BADA43E006CF0BE /* WLIPostsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F3621BADA43E006CF0BE /* WLIPostsListViewController.m */; };
+		2E28F3731BADE286006CF0BE /* WLIMyDriveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F3711BADE286006CF0BE /* WLIMyDriveViewController.m */; };
+		2E28F3911BADE8BA006CF0BE /* WLIFollowingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F38F1BADE8BA006CF0BE /* WLIFollowingsViewController.m */; };
+		2E28F3921BADE8BA006CF0BE /* WLIFollowingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E28F3901BADE8BA006CF0BE /* WLIFollowingsViewController.xib */; };
+		2E28F3971BADEEFF006CF0BE /* WLISearchContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E28F3951BADEEFF006CF0BE /* WLISearchContentViewController.m */; };
+		2E28F3981BADEEFF006CF0BE /* WLISearchContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E28F3961BADEEFF006CF0BE /* WLISearchContentViewController.xib */; };
+		2E29E3311BCE635F00769DD1 /* WLIPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E29E3301BCE635F00769DD1 /* WLIPostCell.xib */; };
 		2E4851771B9F8C27002216B7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4851761B9F8C27002216B7 /* AVFoundation.framework */; };
-		2E4918561BCBDBD100E25255 /* WLIInfoWhyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E4918541BCBDBD100E25255 /* WLIInfoWhyViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2E4918571BCBDBD100E25255 /* WLIInfoWhyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E4918551BCBDBD100E25255 /* WLIInfoWhyViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		2E65F58D1BBABD740077B44B /* WLICategoryPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E65F58B1BBABD740077B44B /* WLICategoryPostsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2E666A091BBC2A0C00392527 /* WLIMyDriveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E666A081BBC2A0C00392527 /* WLIMyDriveViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		2E666A0B1BBC2AC200392527 /* WLICategoryPostsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E666A0A1BBC2AC200392527 /* WLICategoryPostsViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		2E666A0C1BBC2E5300392527 /* WLICategoryCustomerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9518601BBAC1B900248651 /* WLICategoryCustomerCell.xib */; settings = {ASSET_TAGS = (); }; };
-		2E666A0D1BBC2E6000392527 /* WLICategoryPeopleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9518661BBAC1B900248651 /* WLICategoryPeopleCell.xib */; settings = {ASSET_TAGS = (); }; };
-		2E666A101BC6987400392527 /* WLIHashtag.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E666A0F1BC6987400392527 /* WLIHashtag.m */; settings = {ASSET_TAGS = (); }; };
-		2E666A141BC6A15200392527 /* WLIHashtagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E666A121BC6A15200392527 /* WLIHashtagTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		2E666A151BC6A15200392527 /* WLIHashtagTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E666A131BC6A15200392527 /* WLIHashtagTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
-		2E696D7B1BD118870077381C /* WLINewPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E696D7A1BD118870077381C /* WLINewPostViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		2E9518671BBAC1B900248651 /* WLICategoryCapabilitiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E95185C1BBAC1B900248651 /* WLICategoryCapabilitiesCell.m */; settings = {ASSET_TAGS = (); }; };
-		2E9518681BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E95185D1BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib */; settings = {ASSET_TAGS = (); }; };
-		2E9518691BBAC1B900248651 /* WLICategoryCustomerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E95185F1BBAC1B900248651 /* WLICategoryCustomerCell.m */; settings = {ASSET_TAGS = (); }; };
-		2E95186B1BBAC1B900248651 /* WLICategoryMarketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9518621BBAC1B900248651 /* WLICategoryMarketCell.m */; settings = {ASSET_TAGS = (); }; };
-		2E95186C1BBAC1B900248651 /* WLICategoryMarketCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9518631BBAC1B900248651 /* WLICategoryMarketCell.xib */; settings = {ASSET_TAGS = (); }; };
-		2E95186D1BBAC1B900248651 /* WLICategoryPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9518651BBAC1B900248651 /* WLICategoryPeopleCell.m */; settings = {ASSET_TAGS = (); }; };
-		2ECF34911BB98D950096CD11 /* WLIMyDriveHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF34901BB98D950096CD11 /* WLIMyDriveHeaderCell.m */; settings = {ASSET_TAGS = (); }; };
-		2ECF34931BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF34921BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib */; settings = {ASSET_TAGS = (); }; };
-		2ED2F2851BA95E8C00641F54 /* WLIInfoPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2ED2F2861BA95E8C00641F54 /* WLIInfoPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		2ED2F2881BAFF7D100641F54 /* WLINewPostViewController-old.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2871BAFF7D100641F54 /* WLINewPostViewController-old.xib */; settings = {ASSET_TAGS = (); }; };
+		2E4918561BCBDBD100E25255 /* WLIInfoWhyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E4918541BCBDBD100E25255 /* WLIInfoWhyViewController.m */; };
+		2E4918571BCBDBD100E25255 /* WLIInfoWhyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E4918551BCBDBD100E25255 /* WLIInfoWhyViewController.xib */; };
+		2E65F58D1BBABD740077B44B /* WLICategoryPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E65F58B1BBABD740077B44B /* WLICategoryPostsViewController.m */; };
+		2E666A091BBC2A0C00392527 /* WLIMyDriveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E666A081BBC2A0C00392527 /* WLIMyDriveViewController.xib */; };
+		2E666A0B1BBC2AC200392527 /* WLICategoryPostsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E666A0A1BBC2AC200392527 /* WLICategoryPostsViewController.xib */; };
+		2E666A0C1BBC2E5300392527 /* WLICategoryCustomerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9518601BBAC1B900248651 /* WLICategoryCustomerCell.xib */; };
+		2E666A0D1BBC2E6000392527 /* WLICategoryPeopleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9518661BBAC1B900248651 /* WLICategoryPeopleCell.xib */; };
+		2E666A101BC6987400392527 /* WLIHashtag.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E666A0F1BC6987400392527 /* WLIHashtag.m */; };
+		2E666A141BC6A15200392527 /* WLIHashtagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E666A121BC6A15200392527 /* WLIHashtagTableViewCell.m */; };
+		2E666A151BC6A15200392527 /* WLIHashtagTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E666A131BC6A15200392527 /* WLIHashtagTableViewCell.xib */; };
+		2E696D7B1BD118870077381C /* WLINewPostTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E696D7A1BD118870077381C /* WLINewPostTableViewController.xib */; };
+		2E9518671BBAC1B900248651 /* WLICategoryCapabilitiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E95185C1BBAC1B900248651 /* WLICategoryCapabilitiesCell.m */; };
+		2E9518681BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E95185D1BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib */; };
+		2E9518691BBAC1B900248651 /* WLICategoryCustomerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E95185F1BBAC1B900248651 /* WLICategoryCustomerCell.m */; };
+		2E95186B1BBAC1B900248651 /* WLICategoryMarketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9518621BBAC1B900248651 /* WLICategoryMarketCell.m */; };
+		2E95186C1BBAC1B900248651 /* WLICategoryMarketCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9518631BBAC1B900248651 /* WLICategoryMarketCell.xib */; };
+		2E95186D1BBAC1B900248651 /* WLICategoryPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9518651BBAC1B900248651 /* WLICategoryPeopleCell.m */; };
+		2EC320441BDE5AEE0038E7B3 /* WLISelectOnOffSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC320431BDE5AEE0038E7B3 /* WLISelectOnOffSwitchCell.m */; };
+		2EC320471BDF964B0038E7B3 /* WLINewPostImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC320461BDF964B0038E7B3 /* WLINewPostImageCell.m */; };
+		2ECF34911BB98D950096CD11 /* WLIMyDriveHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF34901BB98D950096CD11 /* WLIMyDriveHeaderCell.m */; };
+		2ECF34931BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF34921BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib */; };
+		2ED2F2851BA95E8C00641F54 /* WLIInfoPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */; };
+		2ED2F2861BA95E8C00641F54 /* WLIInfoPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */; };
+		2EDF59A01BD90973008A0267 /* WLIStrategySelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDF599E1BD90973008A0267 /* WLIStrategySelectTableViewController.m */; };
+		2EDF59A11BD90973008A0267 /* WLIStrategySelectTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EDF599F1BD90973008A0267 /* WLIStrategySelectTableViewController.xib */; };
+		2EDF59A61BD9098C008A0267 /* WLICountrySelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDF59A41BD9098C008A0267 /* WLICountrySelectTableViewController.m */; };
+		2EDF59A71BD9098C008A0267 /* WLICountrySelectTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EDF59A51BD9098C008A0267 /* WLICountrySelectTableViewController.xib */; };
+		2EDF59A91BD909C5008A0267 /* WLISelectOnOffSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EDF59A81BD909C5008A0267 /* WLISelectOnOffSwitchCell.xib */; };
+		2EEF2C191BD4ECBA001785C5 /* WLINewPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEF2C181BD4ECBA001785C5 /* WLINewPostTableViewController.m */; };
+		2EEF2C1C1BD64B0F001785C5 /* WLINewPostAttachmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EEF2C1B1BD64B0F001785C5 /* WLINewPostAttachmentCell.xib */; };
+		2EEF2C1E1BD64B39001785C5 /* WLINewPostImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EEF2C1D1BD64B39001785C5 /* WLINewPostImageCell.xib */; };
+		2EEF2C201BD64B69001785C5 /* WLINewPostTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EEF2C1F1BD64B69001785C5 /* WLINewPostTextCell.xib */; };
+		2EEF2C221BD64B8F001785C5 /* WLINewPostCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EEF2C211BD64B8F001785C5 /* WLINewPostCategoryCell.xib */; };
 		C7B424B5183D2507003B51D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B4183D2507003B51D0 /* CoreData.framework */; };
 		C7B424B7183D2519003B51D0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B6183D2519003B51D0 /* MessageUI.framework */; };
 		C7B424B9183D2540003B51D0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B8183D2540003B51D0 /* libsqlite3.0.dylib */; };
@@ -305,8 +314,6 @@
 		2C6D27271896BACA00C459CB /* WLILoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLILoginViewController.h; sourceTree = "<group>"; };
 		2C6D27281896BACA00C459CB /* WLILoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLILoginViewController.m; sourceTree = "<group>"; };
 		2C6D27291896BACA00C459CB /* WLILoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLILoginViewController.xib; sourceTree = "<group>"; };
-		2C6D272F1896BACA00C459CB /* WLINewPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLINewPostViewController.h; sourceTree = "<group>"; };
-		2C6D27301896BACA00C459CB /* WLINewPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLINewPostViewController.m; sourceTree = "<group>"; };
 		2C6D27371896BACA00C459CB /* WLIPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIPostViewController.h; sourceTree = "<group>"; };
 		2C6D27381896BACA00C459CB /* WLIPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIPostViewController.m; sourceTree = "<group>"; };
 		2C6D27391896BACA00C459CB /* WLIPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIPostViewController.xib; sourceTree = "<group>"; };
@@ -344,7 +351,6 @@
 		2CCE1A9C17ECD32B00680126 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2CF096DB1ACAE1F7004FB868 /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
 		2CF096DC1ACAE1F7004FB868 /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
-		2E0BDD241BB4B8DD004EACF5 /* post-image-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "post-image-placeholder.png"; sourceTree = "<group>"; };
 		2E28F3611BADA43E006CF0BE /* WLIPostsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIPostsListViewController.h; path = PostsList/WLIPostsListViewController.h; sourceTree = "<group>"; };
 		2E28F3621BADA43E006CF0BE /* WLIPostsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIPostsListViewController.m; path = PostsList/WLIPostsListViewController.m; sourceTree = "<group>"; };
 		2E28F3701BADE286006CF0BE /* WLIMyDriveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIMyDriveViewController.h; sourceTree = "<group>"; };
@@ -369,7 +375,7 @@
 		2E666A111BC6A15200392527 /* WLIHashtagTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIHashtagTableViewCell.h; path = SearchContent/WLIHashtagTableViewCell.h; sourceTree = "<group>"; };
 		2E666A121BC6A15200392527 /* WLIHashtagTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIHashtagTableViewCell.m; path = SearchContent/WLIHashtagTableViewCell.m; sourceTree = "<group>"; };
 		2E666A131BC6A15200392527 /* WLIHashtagTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLIHashtagTableViewCell.xib; path = SearchContent/WLIHashtagTableViewCell.xib; sourceTree = "<group>"; };
-		2E696D7A1BD118870077381C /* WLINewPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLINewPostViewController.xib; sourceTree = "<group>"; };
+		2E696D7A1BD118870077381C /* WLINewPostTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLINewPostTableViewController.xib; sourceTree = "<group>"; };
 		2E95185B1BBAC1B900248651 /* WLICategoryCapabilitiesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLICategoryCapabilitiesCell.h; path = CategoryCells/WLICategoryCapabilitiesCell.h; sourceTree = "<group>"; };
 		2E95185C1BBAC1B900248651 /* WLICategoryCapabilitiesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLICategoryCapabilitiesCell.m; path = CategoryCells/WLICategoryCapabilitiesCell.m; sourceTree = "<group>"; };
 		2E95185D1BBAC1B900248651 /* WLICategoryCapabilitiesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLICategoryCapabilitiesCell.xib; path = CategoryCells/WLICategoryCapabilitiesCell.xib; sourceTree = "<group>"; };
@@ -382,13 +388,29 @@
 		2E9518641BBAC1B900248651 /* WLICategoryPeopleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLICategoryPeopleCell.h; path = CategoryCells/WLICategoryPeopleCell.h; sourceTree = "<group>"; };
 		2E9518651BBAC1B900248651 /* WLICategoryPeopleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLICategoryPeopleCell.m; path = CategoryCells/WLICategoryPeopleCell.m; sourceTree = "<group>"; };
 		2E9518661BBAC1B900248651 /* WLICategoryPeopleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLICategoryPeopleCell.xib; path = CategoryCells/WLICategoryPeopleCell.xib; sourceTree = "<group>"; };
+		2EC320421BDE5AEE0038E7B3 /* WLISelectOnOffSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLISelectOnOffSwitchCell.h; sourceTree = "<group>"; };
+		2EC320431BDE5AEE0038E7B3 /* WLISelectOnOffSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLISelectOnOffSwitchCell.m; sourceTree = "<group>"; };
+		2EC320451BDF964B0038E7B3 /* WLINewPostImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLINewPostImageCell.h; sourceTree = "<group>"; };
+		2EC320461BDF964B0038E7B3 /* WLINewPostImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLINewPostImageCell.m; sourceTree = "<group>"; };
 		2ECF348F1BB98D950096CD11 /* WLIMyDriveHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIMyDriveHeaderCell.h; path = MyDriveHeaderCell/WLIMyDriveHeaderCell.h; sourceTree = "<group>"; };
 		2ECF34901BB98D950096CD11 /* WLIMyDriveHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIMyDriveHeaderCell.m; path = MyDriveHeaderCell/WLIMyDriveHeaderCell.m; sourceTree = "<group>"; };
 		2ECF34921BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLIMyDriveHeaderCell.xib; path = MyDriveHeaderCell/WLIMyDriveHeaderCell.xib; sourceTree = "<group>"; };
 		2ED2F2821BA95E8C00641F54 /* WLIInfoPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIInfoPageViewController.h; path = InfoPage/WLIInfoPageViewController.h; sourceTree = "<group>"; };
 		2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIInfoPageViewController.m; path = InfoPage/WLIInfoPageViewController.m; sourceTree = "<group>"; };
 		2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLIInfoPageViewController.xib; path = InfoPage/WLIInfoPageViewController.xib; sourceTree = "<group>"; };
-		2ED2F2871BAFF7D100641F54 /* WLINewPostViewController-old.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "WLINewPostViewController-old.xib"; sourceTree = "<group>"; };
+		2EDF599D1BD90973008A0267 /* WLIStrategySelectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIStrategySelectTableViewController.h; sourceTree = "<group>"; };
+		2EDF599E1BD90973008A0267 /* WLIStrategySelectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIStrategySelectTableViewController.m; sourceTree = "<group>"; };
+		2EDF599F1BD90973008A0267 /* WLIStrategySelectTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIStrategySelectTableViewController.xib; sourceTree = "<group>"; };
+		2EDF59A31BD9098C008A0267 /* WLICountrySelectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLICountrySelectTableViewController.h; sourceTree = "<group>"; };
+		2EDF59A41BD9098C008A0267 /* WLICountrySelectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLICountrySelectTableViewController.m; sourceTree = "<group>"; };
+		2EDF59A51BD9098C008A0267 /* WLICountrySelectTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLICountrySelectTableViewController.xib; sourceTree = "<group>"; };
+		2EDF59A81BD909C5008A0267 /* WLISelectOnOffSwitchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLISelectOnOffSwitchCell.xib; sourceTree = "<group>"; };
+		2EEF2C171BD4ECBA001785C5 /* WLINewPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLINewPostTableViewController.h; sourceTree = "<group>"; };
+		2EEF2C181BD4ECBA001785C5 /* WLINewPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLINewPostTableViewController.m; sourceTree = "<group>"; };
+		2EEF2C1B1BD64B0F001785C5 /* WLINewPostAttachmentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLINewPostAttachmentCell.xib; sourceTree = "<group>"; };
+		2EEF2C1D1BD64B39001785C5 /* WLINewPostImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLINewPostImageCell.xib; sourceTree = "<group>"; };
+		2EEF2C1F1BD64B69001785C5 /* WLINewPostTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLINewPostTextCell.xib; sourceTree = "<group>"; };
+		2EEF2C211BD64B8F001785C5 /* WLINewPostCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLINewPostCategoryCell.xib; sourceTree = "<group>"; };
 		C7B4244A183D0809003B51D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C7B424B4183D2507003B51D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C7B424B6183D2519003B51D0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -889,11 +911,12 @@
 		2C6D272E1896BACA00C459CB /* NewPost */ = {
 			isa = PBXGroup;
 			children = (
-				2C6D272F1896BACA00C459CB /* WLINewPostViewController.h */,
-				2C6D27301896BACA00C459CB /* WLINewPostViewController.m */,
-				2ED2F2871BAFF7D100641F54 /* WLINewPostViewController-old.xib */,
-				2E696D7A1BD118870077381C /* WLINewPostViewController.xib */,
-				2E0BDD241BB4B8DD004EACF5 /* post-image-placeholder.png */,
+				2EDF59A21BD90978008A0267 /* Country */,
+				2EEF2C241BD67B80001785C5 /* Stratetgy */,
+				2EEF2C1A1BD649F1001785C5 /* Cells */,
+				2EEF2C171BD4ECBA001785C5 /* WLINewPostTableViewController.h */,
+				2EEF2C181BD4ECBA001785C5 /* WLINewPostTableViewController.m */,
+				2E696D7A1BD118870077381C /* WLINewPostTableViewController.xib */,
 			);
 			path = NewPost;
 			sourceTree = "<group>";
@@ -1137,6 +1160,42 @@
 			name = InfoPage;
 			sourceTree = "<group>";
 		};
+		2EDF59A21BD90978008A0267 /* Country */ = {
+			isa = PBXGroup;
+			children = (
+				2EDF59A31BD9098C008A0267 /* WLICountrySelectTableViewController.h */,
+				2EDF59A41BD9098C008A0267 /* WLICountrySelectTableViewController.m */,
+				2EDF59A51BD9098C008A0267 /* WLICountrySelectTableViewController.xib */,
+			);
+			name = Country;
+			sourceTree = "<group>";
+		};
+		2EEF2C1A1BD649F1001785C5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2EEF2C1B1BD64B0F001785C5 /* WLINewPostAttachmentCell.xib */,
+				2EEF2C1D1BD64B39001785C5 /* WLINewPostImageCell.xib */,
+				2EC320451BDF964B0038E7B3 /* WLINewPostImageCell.h */,
+				2EC320461BDF964B0038E7B3 /* WLINewPostImageCell.m */,
+				2EEF2C1F1BD64B69001785C5 /* WLINewPostTextCell.xib */,
+				2EEF2C211BD64B8F001785C5 /* WLINewPostCategoryCell.xib */,
+				2EDF59A81BD909C5008A0267 /* WLISelectOnOffSwitchCell.xib */,
+				2EC320421BDE5AEE0038E7B3 /* WLISelectOnOffSwitchCell.h */,
+				2EC320431BDE5AEE0038E7B3 /* WLISelectOnOffSwitchCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		2EEF2C241BD67B80001785C5 /* Stratetgy */ = {
+			isa = PBXGroup;
+			children = (
+				2EDF599D1BD90973008A0267 /* WLIStrategySelectTableViewController.h */,
+				2EDF599E1BD90973008A0267 /* WLIStrategySelectTableViewController.m */,
+				2EDF599F1BD90973008A0267 /* WLIStrategySelectTableViewController.xib */,
+			);
+			name = Stratetgy;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1203,13 +1262,12 @@
 				2E666A0D1BBC2E6000392527 /* WLICategoryPeopleCell.xib in Resources */,
 				0743482D1BBABD6D00EAA2AA /* infobutton.png in Resources */,
 				2C6D27FB1896BACA00C459CB /* WLITimelineViewController.xib in Resources */,
-				2ED2F2881BAFF7D100641F54 /* WLINewPostViewController-old.xib in Resources */,
 				2E666A151BC6A15200392527 /* WLIHashtagTableViewCell.xib in Resources */,
 				2C6D27E01896BACA00C459CB /* WLICommentsViewController.xib in Resources */,
 				2E666A0B1BBC2AC200392527 /* WLICategoryPostsViewController.xib in Resources */,
 				2E28F3921BADE8BA006CF0BE /* WLIFollowingsViewController.xib in Resources */,
 				2C6D27F21896BACA00C459CB /* WLIEditProfileViewController.xib in Resources */,
-				2E0BDD251BB4B8DD004EACF5 /* post-image-placeholder.png in Resources */,
+				2EEF2C1C1BD64B0F001785C5 /* WLINewPostAttachmentCell.xib in Resources */,
 				2C6D27D31896BACA00C459CB /* WLILikeCell.xib in Resources */,
 				2C6D27B61896BACA00C459CB /* MNMPullToRefreshIcon@2x.png in Resources */,
 				2C6D27E61896BACA00C459CB /* WLILikesViewController.xib in Resources */,
@@ -1219,7 +1277,10 @@
 				074D688A1BB53C4D000167DD /* illustration2.png in Resources */,
 				2C6D27F41896BACA00C459CB /* WLIProfileViewController.xib in Resources */,
 				2E666A091BBC2A0C00392527 /* WLIMyDriveViewController.xib in Resources */,
+				2EDF59A71BD9098C008A0267 /* WLICountrySelectTableViewController.xib in Resources */,
 				2C6D27B51896BACA00C459CB /* MNMPullToRefreshIcon.png in Resources */,
+				2EEF2C201BD64B69001785C5 /* WLINewPostTextCell.xib in Resources */,
+				2EDF59A11BD90973008A0267 /* WLIStrategySelectTableViewController.xib in Resources */,
 				074348291BBABCB700EAA2AA /* Market2.png in Resources */,
 				2C6D27F61896BACA00C459CB /* WLIRegisterViewController.xib in Resources */,
 				2ECF34931BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib in Resources */,
@@ -1228,6 +1289,7 @@
 				2C6D27D71896BACA00C459CB /* WLILoadingCollectionViewCell.xib in Resources */,
 				074D688C1BB54B29000167DD /* director.mov in Resources */,
 				2E29E3311BCE635F00769DD1 /* WLIPostCell.xib in Resources */,
+				2EEF2C1E1BD64B39001785C5 /* WLINewPostImageCell.xib in Resources */,
 				074348281BBABCB700EAA2AA /* Market.png in Resources */,
 				074348251BBABCB700EAA2AA /* Capability2.png in Resources */,
 				2C6D27DC1896BACA00C459CB /* WLIPostCollectionViewCell.xib in Resources */,
@@ -1239,15 +1301,17 @@
 				2E95186C1BBAC1B900248651 /* WLICategoryMarketCell.xib in Resources */,
 				2C6D27DE1896BACA00C459CB /* WLIUserCell.xib in Resources */,
 				2C6D27E41896BACA00C459CB /* WLIFollowingViewController.xib in Resources */,
+				2EEF2C221BD64B8F001785C5 /* WLINewPostCategoryCell.xib in Resources */,
 				074D68881BB53B40000167DD /* Graph1.png in Resources */,
 				2C6D27D91896BACA00C459CB /* WLIPostCell_old.xib in Resources */,
 				2C6D27E21896BACA00C459CB /* WLIFollowersViewController.xib in Resources */,
 				2C6D27B41896BACA00C459CB /* MNMPullToRefresh.strings in Resources */,
 				0743482A1BBABCB700EAA2AA /* Peolple2.png in Resources */,
 				074348241BBABCB700EAA2AA /* Capability.png in Resources */,
-				2E696D7B1BD118870077381C /* WLINewPostViewController.xib in Resources */,
+				2E696D7B1BD118870077381C /* WLINewPostTableViewController.xib in Resources */,
 				2C6D27FD1896BACA00C459CB /* WLIWelcomeViewController.xib in Resources */,
 				2C6D27F81896BACA00C459CB /* WLISearchViewController.xib in Resources */,
+				2EDF59A91BD909C5008A0267 /* WLISelectOnOffSwitchCell.xib in Resources */,
 				2C6D27C61896BACA00C459CB /* InfoPlist.strings in Resources */,
 				2C6D27E81896BACA00C459CB /* WLILoginViewController.xib in Resources */,
 			);
@@ -1285,12 +1349,12 @@
 				2C6D27BF1896BACA00C459CB /* SBJsonStreamTokeniser.m in Sources */,
 				2C6D27BC1896BACA00C459CB /* SBJsonStreamParserAccumulator.m in Sources */,
 				2C6D27E71896BACA00C459CB /* WLILoginViewController.m in Sources */,
-				2C6D27EB1896BACA00C459CB /* WLINewPostViewController.m in Sources */,
 				2C6D27FC1896BACA00C459CB /* WLIWelcomeViewController.m in Sources */,
 				2E666A141BC6A15200392527 /* WLIHashtagTableViewCell.m in Sources */,
 				2C5B5CA01A1A8FAE00175A58 /* AFURLSessionManager.m in Sources */,
 				2C6D27CA1896BACA00C459CB /* WLIConnect.m in Sources */,
 				2E9518671BBAC1B900248651 /* WLICategoryCapabilitiesCell.m in Sources */,
+				2EC320441BDE5AEE0038E7B3 /* WLISelectOnOffSwitchCell.m in Sources */,
 				2C6D27C21896BACA00C459CB /* SBJsonStreamWriterState.m in Sources */,
 				2C5B5C7E1A1A8F9500175A58 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2C5B5C7F1A1A8F9500175A58 /* UIAlertView+AFNetworking.m in Sources */,
@@ -1303,7 +1367,9 @@
 				2C6D27C81896BACA00C459CB /* main.m in Sources */,
 				2C6D27C01896BACA00C459CB /* SBJsonStreamWriter.m in Sources */,
 				2C6D27D81896BACA00C459CB /* WLIPostCell.m in Sources */,
+				2EC320471BDF964B0038E7B3 /* WLINewPostImageCell.m in Sources */,
 				2C6D27FA1896BACA00C459CB /* WLITimelineViewController.m in Sources */,
+				2EDF59A61BD9098C008A0267 /* WLICountrySelectTableViewController.m in Sources */,
 				2E28F3631BADA43E006CF0BE /* WLIPostsListViewController.m in Sources */,
 				2C6D27EF1896BACA00C459CB /* WLIPostViewController.m in Sources */,
 				2C6D27B21896BACA00C459CB /* MBProgressHUD.m in Sources */,
@@ -1332,6 +1398,7 @@
 				2C5B5C811A1A8F9500175A58 /* UIImageView+AFNetworking.m in Sources */,
 				2C6D27F51896BACA00C459CB /* WLIRegisterViewController.m in Sources */,
 				2C6D27BA1896BACA00C459CB /* SBJsonParser.m in Sources */,
+				2EEF2C191BD4ECBA001785C5 /* WLINewPostTableViewController.m in Sources */,
 				2C6D27CE1896BACA00C459CB /* WLIPost.m in Sources */,
 				2C5B5C7D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				2E65F58D1BBABD740077B44B /* WLICategoryPostsViewController.m in Sources */,
@@ -1346,6 +1413,7 @@
 				2ECF34911BB98D950096CD11 /* WLIMyDriveHeaderCell.m in Sources */,
 				2E4918561BCBDBD100E25255 /* WLIInfoWhyViewController.m in Sources */,
 				2C6D27C11896BACA00C459CB /* SBJsonStreamWriterAccumulator.m in Sources */,
+				2EDF59A01BD90973008A0267 /* WLIStrategySelectTableViewController.m in Sources */,
 				2C6D27F11896BACA00C459CB /* WLIEditProfileViewController.m in Sources */,
 				2C6D27CB1896BACA00C459CB /* WLIFollow.m in Sources */,
 				2C6D27C91896BACA00C459CB /* WLIComment.m in Sources */,

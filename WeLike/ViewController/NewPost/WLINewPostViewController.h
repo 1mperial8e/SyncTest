@@ -23,7 +23,6 @@
     } postType;
 }
 
-@property (strong, nonatomic) IBOutlet UIView *contentView;
 
 @property (strong, nonatomic) IBOutlet UITextField *titleFieldPost;
 @property (strong, nonatomic) IBOutlet UITextView *textViewPost;
