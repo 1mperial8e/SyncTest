@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -17,8 +17,11 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="postPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="xji-JI-38S">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="430"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                 </subviews>
+                <animations/>
                 <constraints>
                     <constraint firstItem="xji-JI-38S" firstAttribute="leading" secondItem="5XM-Fl-Foe" secondAttribute="leadingMargin" constant="-8" id="7Az-Za-M4U"/>
                     <constraint firstAttribute="trailingMargin" secondItem="xji-JI-38S" secondAttribute="trailing" constant="-8" id="AF0-la-3Uc"/>
@@ -26,6 +29,7 @@
                     <constraint firstAttribute="bottomMargin" secondItem="xji-JI-38S" secondAttribute="bottom" constant="-8" id="WZ6-6S-ddM"/>
                 </constraints>
             </tableViewCellContentView>
+            <animations/>
             <connections>
                 <outlet property="imgView" destination="xji-JI-38S" id="ZvU-Fc-cNL"/>
             </connections>
