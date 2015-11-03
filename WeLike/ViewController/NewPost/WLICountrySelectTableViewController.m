@@ -56,7 +56,7 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"WLISelectOnOffSwitchCell" owner:self options:nil] lastObject];
     }
-    cell.cellContent = [postTableViewController.countries objectAtIndex:indexPath.row];
+//    cell.cellContent = [postTableViewController.countries objectAtIndex:indexPath.row];
 //    UILabel *myLabel = (UILabel *)[cell viewWithTag:1];
 //    UISwitch *mySwitch = (UISwitch *)[cell viewWithTag:2];
 //    NSMutableDictionary *countryDict = [postTableViewController.countries objectAtIndex:indexPath.row];

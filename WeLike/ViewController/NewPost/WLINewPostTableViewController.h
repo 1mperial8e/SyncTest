@@ -45,8 +45,10 @@
 //@property BOOL countryNorway;
 //@property BOOL countrySweden;
 
-@property (strong, nonatomic) NSMutableArray *countries;
-@property (strong, nonatomic) NSMutableArray *strategies;
+@property (strong, nonatomic) NSMutableDictionary *countryStates;
+@property (strong, nonatomic) NSMutableDictionary *catStates;
+//@property (strong, nonatomic) NSMutableArray *countries;
+//@property (strong, nonatomic) NSMutableArray *strategies;
 
 @property (strong, nonatomic) NSArray *countryIDs;
 

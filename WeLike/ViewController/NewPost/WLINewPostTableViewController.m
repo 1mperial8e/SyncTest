@@ -10,6 +10,8 @@
 #import "WLICountrySelectTableViewController.h"
 #import "WLIStrategySelectTableViewController.h"
 #import "WLINewPostImageCell.h"
+#import "WLISelectCountryTableViewCell.h"
+#import "WLICategorySelectTableViewCell.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -23,16 +25,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    cellIdentifiers = [NSArray arrayWithObjects:@"WLINewPostAttachmentCell", @"WLINewPostImageCell", @"WLINewPostTextCell", @"WLINewPostCategoryCell", @"WLINewPostCategoryCell", @"WLINewPostCategoryCell", nil];
+    cellIdentifiers = [NSArray arrayWithObjects:@"WLINewPostAttachmentCell", @"WLINewPostTextCell", @"WLINewPostImageCell", @"WLISelectCountryTableViewCell", @"WLICategorySelectTableViewCell", @"WLINewPostCategoryCell", nil];
     
-    self.countries = [NSMutableArray arrayWithObjects:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"Denmark", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Finland", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Norway", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Sweden", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], nil];
+//    self.countries = [NSMutableArray arrayWithObjects:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"Denmark", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Finland", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Norway", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Sweden", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], nil];
     
-    self.strategies = [NSMutableArray arrayWithObjects:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"Market", @"name", [NSNumber numberWithBool:NO], @"isOn", [NSNumber numberWithInteger:1], @"catCode", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Customer", @"name", [NSNumber numberWithBool:NO], @"isOn", [NSNumber numberWithInteger:2], @"catCode", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Capabilities", @"name", [NSNumber numberWithBool:NO], @"isOn", [NSNumber numberWithInteger:4], @"catCode", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"People", @"name", [NSNumber numberWithBool:NO], @"isOn", [NSNumber numberWithInteger:8], @"catCode", nil], nil];
+    self.countryStates = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"all", [NSNumber numberWithBool:NO], @"denmark", [NSNumber numberWithBool:NO], @"finldand", [NSNumber numberWithBool:NO], @"norway", [NSNumber numberWithBool:NO], @"sweden", [NSNumber numberWithBool:NO], nil];
+    self.catStates = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"market", [NSNumber numberWithBool:NO], @"capability", [NSNumber numberWithBool:NO], @"customer", [NSNumber numberWithBool:NO], @"people", [NSNumber numberWithBool:NO], nil];
+
+    
+//    self.strategies = [NSMutableArray arrayWithObjects:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"Market", @"name", [NSNumber numberWithBool:NO], @"isOn", [NSNumber numberWithInteger:1], @"catCode", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Customer", @"name", [NSNumber numberWithBool:NO], @"isOn", [NSNumber numberWithInteger:2], @"catCode", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Capabilities", @"name", [NSNumber numberWithBool:NO], @"isOn", [NSNumber numberWithInteger:4], @"catCode", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"People", @"name", [NSNumber numberWithBool:NO], @"isOn", [NSNumber numberWithInteger:8], @"catCode", nil], nil];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    self.image = nil;
+    self.image = [UIImage imageNamed:@"postPlaceholder"];
     imageSet = NO;
     
     UIButton *publishButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -126,12 +132,28 @@
     WLIConnect *sharedConnect;
     
     NSInteger categoryCode = 0;
+
+    if ([[self.catStates objectForKey:@"market"] boolValue])
+        categoryCode = categoryCode + 1;
+    if ([[self.catStates objectForKey:@"capability"] boolValue])
+        categoryCode = categoryCode + 1;
+    if ([[self.catStates objectForKey:@"customer"] boolValue])
+        categoryCode = categoryCode + 1;
+    if ([[self.catStates objectForKey:@"people"] boolValue])
+        categoryCode = categoryCode + 1;
     
-    for (NSInteger i = 0; i < [self.countries count]; i++) {
-        NSMutableDictionary *dict = [self.countries objectAtIndex:i];
-        if ([[dict objectForKey:@"isOn"] boolValue])
-            categoryCode = categoryCode + [[dict objectForKey:@"catCode"] integerValue];
-    }
+//    if ([[self.countryStates objectForKey:@"all"] boolValue])
+//        categoryCode = categoryCode + 1;
+//    if ([[self.countryStates objectForKey:@"market"] boolValue])
+//        categoryCode = categoryCode + 1;
+//    if ([[self.countryStates objectForKey:@"capability"] boolValue])
+//        categoryCode = categoryCode + 1;
+//    if ([[self.countryStates objectForKey:@"customer"] boolValue])
+//        categoryCode = categoryCode + 1;
+//    if ([[self.countryStates objectForKey:@"people"] boolValue])
+//        categoryCode = categoryCode + 1;
+    
+
     
     if (self.video == nil)
     {
@@ -170,10 +192,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSLog(@"Testing testing testing");
 
-    if (!imageSet)
-    {
-        return 4;
-    }
+//    if (!imageSet)
+//    {
+//        return 4;
+//    }
     return 5;
 }
 
@@ -183,10 +205,10 @@
     NSMutableArray *stratArray = [[NSMutableArray alloc] initWithCapacity:6];
     NSMutableArray *countryArray = [[NSMutableArray alloc] initWithCapacity:10];
 
-    if (rowNumber > 0 && !imageSet)
-    {
-        rowNumber = rowNumber + 1;
-    }
+//    if (rowNumber > 0 && !imageSet)
+//    {
+//        rowNumber = rowNumber + 1;
+//    }
     NSLog(@"Hei1: %ld", (long)rowNumber);
     NSString *cellID = [cellIdentifiers objectAtIndex:rowNumber];
     NSLog(@"Hei2");
@@ -195,6 +217,8 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:self options:nil] lastObject];
     }
+    WLISelectCountryTableViewCell *cell3 = (WLISelectCountryTableViewCell*)cell;
+    WLICategorySelectTableViewCell *cell4 = (WLICategorySelectTableViewCell*)cell;
     
     switch (rowNumber) {
         case 0:
@@ -205,7 +229,7 @@
             [addVideo addTarget:self action:@selector(buttonAddVideoTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
 //            [addAttachment addTarget:self action:@selector(buttonAddAttachmentTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
             break;
-        case 1:
+        case 2:
             imageView = (UIImageView *)[cell viewWithTag:1];
             if (self.image != nil)
             {
@@ -213,35 +237,15 @@
                 cell2.img = self.image;
             }
             break;
-        case 2:
+        case 1:
             contentTextView = (UITextView *)[cell viewWithTag:1];
             [contentTextView setText:self.textContent];
             break;
         case 3:
-            for (NSInteger i = 0; i < [self.strategies count]; i++) {
-                NSMutableDictionary *dict = [self.strategies objectAtIndex:i];
-                if ([[dict objectForKey:@"isOn"] boolValue])
-                    [stratArray addObject:[dict objectForKey:@"name"]];
-            }
-            strategyHeader = (UILabel *)[cell viewWithTag:1];
-            strategyContent = (UILabel *)[cell viewWithTag:2];
-            [strategyHeader setText:@"Strategy"];
-//            if ([stratArray count] > 0)
-                [strategyContent setText:[stratArray componentsJoinedByString:@", "]];
+            cell3.countryDict = self.countryStates;
             break;
         case 4:
-            for (NSInteger i = 0; i < [self.countries count]; i++) {
-                NSMutableDictionary *dict = [self.countries objectAtIndex:i];
-                if ([[dict objectForKey:@"isOn"] boolValue])
-                    [countryArray addObject:[dict objectForKey:@"name"]];
-            }
-            
-            countryHeader = (UILabel *)[cell viewWithTag:1];
-            countryContent = (UILabel *)[cell viewWithTag:2];
-            [countryHeader setText:@"Countries"];
-            NSLog(@"Setting country");
-//            if ([countryArray count] > 0)
-                [countryContent setText:[countryArray componentsJoinedByString:@", "]];
+            cell4.catDict = self.catStates;
             break;
             
         default:
@@ -254,27 +258,27 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat ret;
     NSInteger rowNumber = indexPath.row;
-    if (rowNumber > 0 && !imageSet)
-    {
-        rowNumber = rowNumber + 1;
-    }
+//    if (rowNumber > 0 && !imageSet)
+//    {
+//        rowNumber = rowNumber + 1;
+//    }
     switch (rowNumber) {
         case 0:
             return 44;
             break;
-        case 1:
+        case 2:
             ret = [[UIScreen mainScreen] bounds].size.width * (430.0f / 600.0f);
             NSLog(@"Ret: %f", ret);
             return ret;
             break;
-        case 2:
+        case 1:
             return 135;
             break;
         case 3:
-            return 44;
+            return 52;
             break;
         case 4:
-            return 44;
+            return 99;
             break;
             
         default:
@@ -283,31 +287,31 @@
     }
     return 44;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSInteger rowNumber = indexPath.row;
-    if (rowNumber > 0 && !imageSet)
-    {
-        rowNumber = rowNumber + 1;
-    }
-    if (rowNumber == 4)
-    {
-        WLICountrySelectTableViewController *countrySelectViewController = [[WLICountrySelectTableViewController alloc] initWithNibName:@"WLICountrySelectTableViewController" bundle:nil];
-        //    profileNavigationController.navigationBar.translucent = NO;
-        [self.navigationController pushViewController:countrySelectViewController animated:YES];
-        [countrySelectViewController setPostViewController:self];
-    }
-    else if (rowNumber == 3)
-    {
-        WLIStrategySelectTableViewController *strategySelectViewController = [[WLIStrategySelectTableViewController alloc] initWithNibName:@"WLIStrategySelectTableViewController" bundle:nil];
-        //    profileNavigationController.navigationBar.translucent = NO;
-        [self.navigationController pushViewController:strategySelectViewController animated:YES];
-        [strategySelectViewController setPostViewController:self];
-    }
-    if ([contentTextView isFirstResponder]) {
-        [contentTextView resignFirstResponder];
-    }
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    NSInteger rowNumber = indexPath.row;
+////    if (rowNumber > 0 && !imageSet)
+////    {
+////        rowNumber = rowNumber + 1;
+////    }
+//    if (rowNumber == 4)
+//    {
+//        WLICountrySelectTableViewController *countrySelectViewController = [[WLICountrySelectTableViewController alloc] initWithNibName:@"WLICountrySelectTableViewController" bundle:nil];
+//        //    profileNavigationController.navigationBar.translucent = NO;
+//        [self.navigationController pushViewController:countrySelectViewController animated:YES];
+//        [countrySelectViewController setPostViewController:self];
+//    }
+//    else if (rowNumber == 3)
+//    {
+//        WLIStrategySelectTableViewController *strategySelectViewController = [[WLIStrategySelectTableViewController alloc] initWithNibName:@"WLIStrategySelectTableViewController" bundle:nil];
+//        //    profileNavigationController.navigationBar.translucent = NO;
+//        [self.navigationController pushViewController:strategySelectViewController animated:YES];
+//        [strategySelectViewController setPostViewController:self];
+//    }
+//    if ([contentTextView isFirstResponder]) {
+//        [contentTextView resignFirstResponder];
+//    }
+//}
 
 /*
 // Override to support conditional editing of the table view.

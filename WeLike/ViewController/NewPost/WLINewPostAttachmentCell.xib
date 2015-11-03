@@ -16,40 +16,30 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mHa-8J-Gne">
-                        <rect key="frame" x="278" y="0.0" width="44" height="44"/>
+                        <rect key="frame" x="319" y="-1" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="4R3-ae-8Yc"/>
                             <constraint firstAttribute="height" constant="44" id="d9e-ns-mdn"/>
                         </constraints>
-                        <state key="normal" image="button-video-h"/>
+                        <state key="normal" image="postNewVideoBtn"/>
                         <state key="selected" image="button-photo-h"/>
                     </button>
-                    <button hidden="YES" opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRy-Dx-WSh">
-                        <rect key="frame" x="330" y="0.0" width="44" height="44"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="44" id="IVm-i5-YsM"/>
-                            <constraint firstAttribute="height" constant="44" id="S8O-jK-hSs"/>
-                        </constraints>
-                        <state key="normal" image="button-text-h"/>
-                        <state key="selected" image="button-video-h"/>
-                    </button>
                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HiU-vt-yAD">
-                        <rect key="frame" x="226" y="0.0" width="44" height="44"/>
+                        <rect key="frame" x="238" y="-1" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="Ij6-y8-XPf"/>
                             <constraint firstAttribute="width" constant="44" id="wlG-Hd-4F8"/>
                         </constraints>
-                        <state key="normal" image="button-photo-h"/>
+                        <state key="normal" image="postNewImageBtn"/>
                         <state key="selected" image="button-text-h"/>
                     </button>
                 </subviews>
+                <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstItem="HiU-vt-yAD" firstAttribute="top" secondItem="mn3-Wp-Uos" secondAttribute="topMargin" constant="-8" id="Jqh-ys-Pcs"/>
-                    <constraint firstItem="hRy-Dx-WSh" firstAttribute="top" secondItem="mn3-Wp-Uos" secondAttribute="topMargin" constant="-8" id="KfR-dS-GNv"/>
-                    <constraint firstItem="hRy-Dx-WSh" firstAttribute="centerX" secondItem="mn3-Wp-Uos" secondAttribute="centerX" constant="52" id="Sfz-HK-aI3"/>
-                    <constraint firstItem="mHa-8J-Gne" firstAttribute="centerX" secondItem="mn3-Wp-Uos" secondAttribute="centerX" id="fDO-Sn-lHW"/>
-                    <constraint firstItem="HiU-vt-yAD" firstAttribute="centerX" secondItem="mn3-Wp-Uos" secondAttribute="centerX" constant="-52" id="qNg-T4-Jmq"/>
-                    <constraint firstItem="mHa-8J-Gne" firstAttribute="top" secondItem="mn3-Wp-Uos" secondAttribute="topMargin" constant="-8" id="yiw-F6-aT0"/>
+                    <constraint firstItem="HiU-vt-yAD" firstAttribute="top" secondItem="mn3-Wp-Uos" secondAttribute="topMargin" constant="-9" id="Jqh-ys-Pcs"/>
+                    <constraint firstItem="mHa-8J-Gne" firstAttribute="centerX" secondItem="mn3-Wp-Uos" secondAttribute="centerX" constant="41" id="fDO-Sn-lHW"/>
+                    <constraint firstItem="HiU-vt-yAD" firstAttribute="centerX" secondItem="mn3-Wp-Uos" secondAttribute="centerX" constant="-40" id="qNg-T4-Jmq"/>
+                    <constraint firstItem="mHa-8J-Gne" firstAttribute="top" secondItem="mn3-Wp-Uos" secondAttribute="topMargin" constant="-9" id="yiw-F6-aT0"/>
                 </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="367" y="396"/>
@@ -58,6 +48,7 @@
     <resources>
         <image name="button-photo-h" width="44" height="44"/>
         <image name="button-text-h" width="44" height="44"/>
-        <image name="button-video-h" width="44" height="44"/>
+        <image name="postNewImageBtn" width="32" height="24"/>
+        <image name="postNewVideoBtn" width="29" height="24"/>
     </resources>
 </document>

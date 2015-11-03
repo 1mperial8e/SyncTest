@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="99" id="KGk-i7-Jjw" customClass="WLICategorySelectTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="98"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGe-uG-cQr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="29N-XS-F1t">
+                                <rect key="frame" x="300" y="0.0" width="1" height="88"/>
+                                <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="1" id="IL0-zC-01o"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DDh-Rh-Bhd">
+                                <rect key="frame" x="8" y="44" width="584" height="1"/>
+                                <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="REB-BO-JRP"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8b0-jL-MNE">
+                                <rect key="frame" x="20" y="4" width="260" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="uct-cI-Ah3"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="14" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Market" image="button-cat-market">
+                                    <color key="titleColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="selected" image="button-cat-market">
+                                    <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Um6-mm-Swa">
+                                <rect key="frame" x="320" y="4" width="260" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="yId-Hd-XXa"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="14" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Customer" image="button-cat-consumer">
+                                    <color key="titleColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="selected" image="button-cat-consumer"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gv1-Z3-CjK">
+                                <rect key="frame" x="320" y="52" width="260" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="ZCD-hE-x6K"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="14" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="People" image="button-cat-people">
+                                    <color key="titleColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="selected" image="button-cat-people">
+                                    <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9Y-q5-1Mf">
+                                <rect key="frame" x="20" y="52" width="260" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="GvX-Ho-iAQ"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="14" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Capabilities" image="button-cat-capabilities">
+                                    <color key="titleColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="selected" image="button-cat-capabilities">
+                                    <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8b0-jL-MNE" firstAttribute="top" secondItem="HGe-uG-cQr" secondAttribute="top" constant="4" id="0P2-UJ-tS2"/>
+                            <constraint firstItem="Um6-mm-Swa" firstAttribute="leading" secondItem="29N-XS-F1t" secondAttribute="trailing" constant="19" id="0z6-ln-9Oz"/>
+                            <constraint firstItem="E9Y-q5-1Mf" firstAttribute="leading" secondItem="HGe-uG-cQr" secondAttribute="leading" constant="20" id="2NB-68-a7f"/>
+                            <constraint firstItem="29N-XS-F1t" firstAttribute="leading" secondItem="8b0-jL-MNE" secondAttribute="trailing" constant="20" id="2wy-GJ-Zq2"/>
+                            <constraint firstAttribute="trailing" secondItem="DDh-Rh-Bhd" secondAttribute="trailing" constant="8" id="7aG-V0-eko"/>
+                            <constraint firstItem="Um6-mm-Swa" firstAttribute="width" secondItem="8b0-jL-MNE" secondAttribute="width" id="BJ7-HH-Xk8"/>
+                            <constraint firstItem="8b0-jL-MNE" firstAttribute="leading" secondItem="HGe-uG-cQr" secondAttribute="leading" constant="20" id="FaV-TX-Cqz"/>
+                            <constraint firstItem="E9Y-q5-1Mf" firstAttribute="width" secondItem="8b0-jL-MNE" secondAttribute="width" id="H81-tF-ft3"/>
+                            <constraint firstItem="29N-XS-F1t" firstAttribute="centerX" secondItem="HGe-uG-cQr" secondAttribute="centerX" id="Num-Ng-O8I"/>
+                            <constraint firstAttribute="bottom" secondItem="29N-XS-F1t" secondAttribute="bottom" id="Ofw-de-laY"/>
+                            <constraint firstAttribute="trailing" secondItem="Gv1-Z3-CjK" secondAttribute="trailing" constant="20" id="Ted-kE-uzg"/>
+                            <constraint firstItem="DDh-Rh-Bhd" firstAttribute="leading" secondItem="HGe-uG-cQr" secondAttribute="leading" constant="8" id="aYG-yS-xJE"/>
+                            <constraint firstItem="Um6-mm-Swa" firstAttribute="top" secondItem="HGe-uG-cQr" secondAttribute="top" constant="4" id="d02-Tt-gWW"/>
+                            <constraint firstItem="Gv1-Z3-CjK" firstAttribute="leading" secondItem="29N-XS-F1t" secondAttribute="trailing" constant="19" id="fHP-EE-4tK"/>
+                            <constraint firstItem="Gv1-Z3-CjK" firstAttribute="width" secondItem="8b0-jL-MNE" secondAttribute="width" id="fTt-Ki-pps"/>
+                            <constraint firstItem="29N-XS-F1t" firstAttribute="leading" secondItem="E9Y-q5-1Mf" secondAttribute="trailing" constant="20" id="gBX-Nz-GzJ"/>
+                            <constraint firstItem="E9Y-q5-1Mf" firstAttribute="top" secondItem="DDh-Rh-Bhd" secondAttribute="bottom" constant="7" id="hqH-Qv-AFG"/>
+                            <constraint firstAttribute="trailing" secondItem="Um6-mm-Swa" secondAttribute="trailing" constant="20" id="imd-xL-FFd"/>
+                            <constraint firstItem="DDh-Rh-Bhd" firstAttribute="top" secondItem="HGe-uG-cQr" secondAttribute="top" constant="44" id="rjh-fF-jik"/>
+                            <constraint firstItem="29N-XS-F1t" firstAttribute="top" secondItem="HGe-uG-cQr" secondAttribute="top" id="uc0-dD-juW"/>
+                            <constraint firstItem="Gv1-Z3-CjK" firstAttribute="top" secondItem="DDh-Rh-Bhd" secondAttribute="bottom" constant="7" id="yHz-8y-Oaa"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="HGe-uG-cQr" secondAttribute="bottom" constant="2" id="IJn-O9-1p9"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="HGe-uG-cQr" secondAttribute="trailing" constant="-8" id="Syh-oA-6WD"/>
+                    <constraint firstItem="HGe-uG-cQr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="j63-sz-EFk"/>
+                    <constraint firstItem="HGe-uG-cQr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="wgJ-UP-Kmj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="362" y="519.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="button-cat-capabilities" width="34" height="34"/>
+        <image name="button-cat-consumer" width="34" height="34"/>
+        <image name="button-cat-market" width="34" height="34"/>
+        <image name="button-cat-people" width="34" height="34"/>
+    </resources>
+</document>

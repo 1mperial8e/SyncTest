@@ -56,7 +56,7 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"WLISelectOnOffSwitchCell" owner:self options:nil] lastObject];
     }
-    cell.cellContent = [postTableViewController.strategies objectAtIndex:indexPath.row];
+//    cell.cellContent = [postTableViewController.strategies objectAtIndex:indexPath.row];
 
     return cell;
 }

@@ -9,11 +9,11 @@
 #import "WLIHashTextView.h"
 
 @implementation WLIHashTextView
-//
-//
+
+
 //-(void)drawRect:(CGRect)rect {
 //    if(self.attributedText.string.length<=0) {
-//        self.text = EMPTY;
+//        self.text = @"";
 //        return;
 //    }
 //    

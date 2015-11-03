@@ -15,19 +15,33 @@
                 <rect key="frame" x="0.0" y="0.0" width="600" height="151"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bEr-Vg-gJ4">
-                        <rect key="frame" x="8" y="8" width="584" height="135"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="twitter"/>
-                    </textView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hk2-gL-Rcc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="144"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bEr-Vg-gJ4">
+                                <rect key="frame" x="8" y="8" width="584" height="135"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="twitter"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="bEr-Vg-gJ4" secondAttribute="bottom" constant="1" id="3XV-MF-J9p"/>
+                            <constraint firstItem="bEr-Vg-gJ4" firstAttribute="top" secondItem="Hk2-gL-Rcc" secondAttribute="top" constant="8" id="B53-6g-VdP"/>
+                            <constraint firstAttribute="trailing" secondItem="bEr-Vg-gJ4" secondAttribute="trailing" constant="8" id="Xgv-IB-vUf"/>
+                            <constraint firstItem="bEr-Vg-gJ4" firstAttribute="leading" secondItem="Hk2-gL-Rcc" secondAttribute="leading" constant="8" id="ZJ4-Vp-YhY"/>
+                        </constraints>
+                    </view>
                 </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="bEr-Vg-gJ4" firstAttribute="leading" secondItem="oTC-N8-Z1G" secondAttribute="leadingMargin" id="euZ-rA-WsH"/>
-                    <constraint firstItem="bEr-Vg-gJ4" firstAttribute="bottom" secondItem="oTC-N8-Z1G" secondAttribute="bottomMargin" id="kRu-dr-Oq7"/>
-                    <constraint firstItem="bEr-Vg-gJ4" firstAttribute="trailing" secondItem="oTC-N8-Z1G" secondAttribute="trailingMargin" id="kuL-n6-gvq"/>
-                    <constraint firstItem="bEr-Vg-gJ4" firstAttribute="top" secondItem="oTC-N8-Z1G" secondAttribute="topMargin" id="tjE-PA-pFO"/>
+                    <constraint firstItem="Hk2-gL-Rcc" firstAttribute="leading" secondItem="oTC-N8-Z1G" secondAttribute="leadingMargin" constant="-8" id="0tg-h7-rMW"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Hk2-gL-Rcc" secondAttribute="trailing" constant="-8" id="RrE-i5-NYz"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Hk2-gL-Rcc" secondAttribute="bottom" constant="-1" id="c6T-7P-g0j"/>
+                    <constraint firstItem="Hk2-gL-Rcc" firstAttribute="top" secondItem="oTC-N8-Z1G" secondAttribute="topMargin" constant="-8" id="iYZ-nL-SPi"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <point key="canvasLocation" x="376" y="1128"/>
         </tableViewCell>
     </objects>
