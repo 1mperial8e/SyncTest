@@ -44,6 +44,9 @@
                                 <state key="selected" image="button-cat-market">
                                     <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="switchMAValueChanged:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Jid-Ii-Oh5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Um6-mm-Swa">
                                 <rect key="frame" x="320" y="4" width="260" height="32"/>
@@ -55,6 +58,9 @@
                                     <color key="titleColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <state key="selected" image="button-cat-consumer"/>
+                                <connections>
+                                    <action selector="switchCUValueChanged:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="oUW-Zw-e2h"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gv1-Z3-CjK">
                                 <rect key="frame" x="320" y="52" width="260" height="32"/>
@@ -68,6 +74,9 @@
                                 <state key="selected" image="button-cat-people">
                                     <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="switchPEValueChanged:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rEb-XR-L1U"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9Y-q5-1Mf">
                                 <rect key="frame" x="20" y="52" width="260" height="32"/>
@@ -81,6 +90,9 @@
                                 <state key="selected" image="button-cat-capabilities">
                                     <color key="titleColor" red="0.85882352939999995" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="switchCAValueChanged:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hdI-2C-nsl"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -117,6 +129,12 @@
                     <constraint firstItem="HGe-uG-cQr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="wgJ-UP-Kmj"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="capabilityBtn" destination="E9Y-q5-1Mf" id="zqk-Tq-27L"/>
+                <outlet property="customerBtn" destination="Um6-mm-Swa" id="Llz-eK-EyW"/>
+                <outlet property="marketBtn" destination="8b0-jL-MNE" id="Iu3-Q5-MHn"/>
+                <outlet property="peopleBtn" destination="Gv1-Z3-CjK" id="ebB-w1-0zJ"/>
+            </connections>
             <point key="canvasLocation" x="362" y="519.5"/>
         </tableViewCell>
     </objects>

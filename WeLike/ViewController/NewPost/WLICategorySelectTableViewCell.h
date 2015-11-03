@@ -17,10 +17,9 @@
 @property (strong, nonatomic) NSMutableDictionary *catDict;
 
 
-- (IBAction)switchAValueChanged:(id)sender;
-- (IBAction)switchDValueChanged:(id)sender;
-- (IBAction)switchFValueChanged:(id)sender;
-- (IBAction)switchNValueChanged:(id)sender;
-- (IBAction)switchSValueChanged:(id)sender;
+- (IBAction)switchMAValueChanged:(id)sender;
+- (IBAction)switchCAValueChanged:(id)sender;
+- (IBAction)switchCUValueChanged:(id)sender;
+- (IBAction)switchPEValueChanged:(id)sender;
 
 @end
