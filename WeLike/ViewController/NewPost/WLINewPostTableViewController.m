@@ -161,7 +161,7 @@
         NSLog(@"Publishing without video");
         [sharedConnect sendPostWithTitle:@"" postText:self.textContent postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.image onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
             NSLog(@"Server resp: %d", serverResponseCode);
-            [self dismissViewControllerAnimated:YES completion:nil];
+//            [self dismissViewControllerAnimated:YES completion:nil];
         }];
     }
     else
@@ -169,10 +169,10 @@
         NSLog(@"Publishing with video");
         [sharedConnect sendPostWithTitle:@"" postText:self.textContent postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.image postVideo:self.video onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
             NSLog(@"Server resp: %d", serverResponseCode);
-            [self dismissViewControllerAnimated:YES completion:nil];
+//            [self dismissViewControllerAnimated:YES completion:nil];
         }];
     }
-//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(IBAction)cancelButtonTouchUpInside:(id)sender
@@ -243,6 +243,8 @@
         case 1:
             contentTextView = (UITextView *)[cell viewWithTag:1];
             [contentTextView setText:self.textContent];
+            contentTextView.delegate = self;
+
             break;
         case 3:
             cell3.countryDict = self.countryStates;
