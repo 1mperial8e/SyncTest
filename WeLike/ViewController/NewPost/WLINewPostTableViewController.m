@@ -27,7 +27,7 @@
     [super viewDidLoad];
     sharedConnect = [WLIConnect sharedConnect];
     self.textContent = @"";
-    cellIdentifiers = [NSArray arrayWithObjects:@"WLINewPostAttachmentCell", @"WLINewPostTextCell", @"WLINewPostImageCell", @"WLISelectCountryTableViewCell", @"WLICategorySelectTableViewCell", @"WLINewPostCategoryCell", nil];
+    cellIdentifiers = [NSArray arrayWithObjects:@"WLINewPostTextCell", @"WLINewPostImageCell", @"WLINewPostAttachmentCell", @"WLISelectCountryTableViewCell", @"WLICategorySelectTableViewCell", @"WLINewPostCategoryCell", nil];
     
 //    self.countries = [NSMutableArray arrayWithObjects:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"Denmark", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Finland", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Norway", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Sweden", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], nil];
     
@@ -206,8 +206,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger rowNumber = indexPath.row;
-    NSMutableArray *stratArray = [[NSMutableArray alloc] initWithCapacity:6];
-    NSMutableArray *countryArray = [[NSMutableArray alloc] initWithCapacity:10];
+//    NSMutableArray *stratArray = [[NSMutableArray alloc] initWithCapacity:6];
+//    NSMutableArray *countryArray = [[NSMutableArray alloc] initWithCapacity:10];
 
 //    if (rowNumber > 0 && !imageSet)
 //    {
