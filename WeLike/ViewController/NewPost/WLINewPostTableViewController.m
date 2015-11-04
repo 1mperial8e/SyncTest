@@ -22,9 +22,10 @@
 
 @implementation WLINewPostTableViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    sharedConnect = [WLIConnect sharedConnect];
     cellIdentifiers = [NSArray arrayWithObjects:@"WLINewPostAttachmentCell", @"WLINewPostTextCell", @"WLINewPostImageCell", @"WLISelectCountryTableViewCell", @"WLICategorySelectTableViewCell", @"WLINewPostCategoryCell", nil];
     
 //    self.countries = [NSMutableArray arrayWithObjects:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"Denmark", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Finland", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Norway", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Sweden", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], nil];
@@ -129,7 +130,7 @@
 
 - (IBAction)publishButtonTouchUpInside:(id)sender
 {
-    WLIConnect *sharedConnect;
+//    WLIConnect *sharedConnect;
     
     NSInteger categoryCode = 0;
 
@@ -157,6 +158,7 @@
     
     if (self.video == nil)
     {
+        NSLog(@"Publishing without video");
         [sharedConnect sendPostWithTitle:@"" postText:self.textContent postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.image onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
             NSLog(@"Server resp: %d", serverResponseCode);
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -164,12 +166,13 @@
     }
     else
     {
+        NSLog(@"Publishing with video");
         [sharedConnect sendPostWithTitle:@"" postText:self.textContent postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.image postVideo:self.video onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
             NSLog(@"Server resp: %d", serverResponseCode);
             [self dismissViewControllerAnimated:YES completion:nil];
         }];
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(IBAction)cancelButtonTouchUpInside:(id)sender

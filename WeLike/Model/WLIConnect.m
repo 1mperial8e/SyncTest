@@ -452,11 +452,14 @@ static WLIConnect *sharedConnect;
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:postTitle forKey:@"postTitle"];
-        [parameters setObject:postText forKey:@"postText"];
+        if (postTitle != nil)
+            [parameters setObject:postTitle forKey:@"postTitle"];
+        if (postText != nil)
+            [parameters setObject:postText forKey:@"postText"];
         if (postKeywords != nil)
             [parameters setObject:postKeywords forKey:@"postKeywords"];
-       [parameters setObject:postCategory forKey:@"postCategory"];
+        if (postCategory != nil)
+            [parameters setObject:postCategory forKey:@"postCategory"];
         
         NSLog(@"Post: %@", parameters);
 

@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "WLIViewController.h"
 
+#import "WLIConnect.h"
+
 @import MediaPlayer;
 @import AVFoundation;
 
 @interface WLINewPostTableViewController : UITableViewController <UITextViewDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     NSArray *cellIdentifiers;
+    
+    __weak WLIConnect *sharedConnect;
     
     IBOutlet UIButton *addPicture;
     IBOutlet UIButton *addVideo;
