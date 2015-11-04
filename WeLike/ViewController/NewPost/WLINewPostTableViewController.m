@@ -26,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     sharedConnect = [WLIConnect sharedConnect];
+    self.textContent = @"";
     cellIdentifiers = [NSArray arrayWithObjects:@"WLINewPostAttachmentCell", @"WLINewPostTextCell", @"WLINewPostImageCell", @"WLISelectCountryTableViewCell", @"WLICategorySelectTableViewCell", @"WLINewPostCategoryCell", nil];
     
 //    self.countries = [NSMutableArray arrayWithObjects:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"Denmark", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Finland", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Norway", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Sweden", @"name", [NSNumber numberWithBool:NO], @"isOn", nil], nil];
@@ -224,7 +225,7 @@
     WLICategorySelectTableViewCell *cell4 = (WLICategorySelectTableViewCell*)cell;
     
     switch (rowNumber) {
-        case 0:
+        case 2: // Select image button
             addPicture = (UIButton *)[cell viewWithTag:1];
             addVideo = (UIButton *)[cell viewWithTag:2];
 //            addAttachment = (UIButton *)[cell viewWithTag:3];
@@ -232,7 +233,7 @@
             [addVideo addTarget:self action:@selector(buttonAddVideoTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
 //            [addAttachment addTarget:self action:@selector(buttonAddAttachmentTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
             break;
-        case 2:
+        case 1: // Image display
             imageView = (UIImageView *)[cell viewWithTag:1];
             if (self.image != nil)
             {
@@ -240,7 +241,7 @@
                 cell2.img = self.image;
             }
             break;
-        case 1:
+        case 0: // Text View
             contentTextView = (UITextView *)[cell viewWithTag:1];
             [contentTextView setText:self.textContent];
             contentTextView.delegate = self;
@@ -268,15 +269,15 @@
 //        rowNumber = rowNumber + 1;
 //    }
     switch (rowNumber) {
-        case 0:
+        case 2: // Select image button
             return 44;
             break;
-        case 2:
+        case 1: // Image display
             ret = [[UIScreen mainScreen] bounds].size.width * (430.0f / 600.0f);
             NSLog(@"Ret: %f", ret);
             return ret;
             break;
-        case 1:
+        case 0: // Text View
             return 135;
             break;
         case 3:
