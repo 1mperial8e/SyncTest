@@ -7,8 +7,6 @@
 //
 
 #import "WLITimelineViewController.h"
-#import "WLIPostCell.h"
-#import "WLILoadingCell.h"
 #import "GlobalDefines.h"
 
 @implementation WLITimelineViewController
@@ -36,30 +34,19 @@
     if (reloadAll) {
         loadMore = YES;
         page = 1;
+        [self.posts removeAllObjects];
     } else {
-        page  = (self.posts.count / kDefaultPageSize) + 1;
+        page = (self.posts.count / kDefaultPageSize) + 1;
     }
     
+    __weak typeof(self) weakSelf = self;
     [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:0 countryID:0 searchString:self.searchString page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         loading = NO;
-        self.posts = posts;
-        loadMore = posts.count == kDefaultPageSize;
-        [self.tableViewRefresh reloadData];
+        loadMore = !(posts.count % kDefaultPageSize);
+        [weakSelf.posts addObjectsFromArray:posts];
+        [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)] withRowAnimation:UITableViewRowAnimationAutomatic];
         [refreshManager tableViewReloadFinishedAnimated:YES];
     }];
 }
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 
 @end

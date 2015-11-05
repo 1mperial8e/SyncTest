@@ -1263,11 +1263,6 @@
 				CLASSPREFIX = WLI;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Goran Vuksic";
-				TargetAttributes = {
-					2CCE1A9417ECD32B00680126 = {
-						DevelopmentTeam = Y63VS2VG4D;
-					};
-				};
 			};
 			buildConfigurationList = 2CCE1A9017ECD32B00680126 /* Build configuration list for PBXProject "MyDrive" */;
 			compatibilityVersion = "Xcode 3.2";

@@ -13,30 +13,8 @@
 
 @class WLIMyDriveHeaderCell;
 
-@interface WLIMyDriveHeaderCell : WLITableViewCell {
-    
-    CGRect frameDefaultLabelPostTitle;
-    CGRect frameDefaultLabelPostText;
-    CGRect frameDefaultImageViewPost;
-    MPMoviePlayerViewController *movieController;
-    
-    IBOutlet UIView *topView;
-    IBOutlet UIView *middleView;
-    IBOutlet UIView *bottomView;
-    
-}
+@interface WLIMyDriveHeaderCell : WLITableViewCell
 
-@property (strong, nonatomic) IBOutlet UIImageView *imageViewUser;
-@property (strong, nonatomic) IBOutlet UILabel *labelUserName;
-@property (strong, nonatomic) IBOutlet UILabel *labelUserEmail;
-@property (strong, nonatomic) IBOutlet UIButton *buttonFollow;
-
-
-
-@property (strong, nonatomic) WLIUser *userr;
-//@property (weak, nonatomic) id<WLICellDelegate> delegate;
-
-
-
+@property (strong, nonatomic) WLIUser *user;
 
 @end

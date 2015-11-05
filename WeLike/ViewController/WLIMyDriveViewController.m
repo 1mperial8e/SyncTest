@@ -11,25 +11,20 @@
 #import "WLIPostCell.h"
 #import "WLILoadingCell.h"
 
+static CGFloat const HeaderCellHeight = 156;
+
 @interface WLIMyDriveViewController ()
 
 @end
 
 @implementation WLIMyDriveViewController
 
-#pragma mark - Object lifecycle
+#pragma mark - Lifecycle
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-    {
-        self.title = @"MyEnergy";
-//        UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 105, 22)];
-//        [titleView addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-title-mydrive"]]];
-//        self.navigationItem.titleView = titleView;
-    }
-    return self;
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.title = @"My Energy";
 }
 
 #pragma mark - Data loading methods
@@ -41,16 +36,32 @@
     if (reloadAll) {
         loadMore = YES;
         page = 1;
+        [self.posts removeAllObjects];
+        [self reloadUserInfo];
+        return;
     } else {
         page  = (self.posts.count / kDefaultPageSize) + 1;
     }
+    
+    __weak typeof(self) weakSelf = self;
     [sharedConnect mydriveTimelineForUserID:sharedConnect.currentUser.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode) {
         loading = NO;
-        self.posts = posts;
-        self.user = user;
-        loadMore = posts.count == kDefaultPageSize;
-        [self.tableViewRefresh reloadData];
+        [weakSelf.posts addObjectsFromArray:posts];
+        weakSelf.navigationItem.title = user.userUsername;
+        loadMore = (posts.count == kDefaultPageSize);
+        [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 4)] withRowAnimation:UITableViewRowAnimationAutomatic];
         [refreshManager tableViewReloadFinishedAnimated:YES];
+    }];
+}
+
+- (void)reloadUserInfo
+{
+    __weak typeof(self) weakSelf = self;
+    [sharedConnect userWithUserID:sharedConnect.currentUser.userID onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
+        if (serverResponseCode == OK) {
+            weakSelf.user = user;
+        }
+        [weakSelf reloadData:NO];
     }];
 }
 
@@ -64,7 +75,7 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"WLIMyDriveHeaderCell" owner:self options:nil] lastObject];
 //            cell.delegate = self;
         }
-        cell.userr = self.user;
+        cell.user = self.user;
         return cell;
     } else if (indexPath.section == 2){
         static NSString *CellIdentifier = @"WLIPostCell";
@@ -114,7 +125,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 1) {
-        return 202;
+        return HeaderCellHeight;
     } else if (indexPath.section == 2) {
             return [WLIPostCell sizeWithPost:self.posts[indexPath.row] withWidth:self.view.frame.size.width].height;
     } else if (indexPath.section == 0){
@@ -173,18 +184,6 @@
     } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Share"]) {
         [self showShareForPost:morePost sender:self];
     }
-}
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 @end

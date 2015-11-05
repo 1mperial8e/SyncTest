@@ -30,6 +30,7 @@
     if (self) {
         // Custom initialization
         self.title = @"Timeline";
+        self.posts = [NSMutableArray array];
     }
     return self;
 }
@@ -57,12 +58,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 
     [self reloadData:YES];
-}
-
-- (void)didReceiveMemoryWarning {
-    
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(IBAction)profileButtonTouchUpInside:(id)sender
@@ -121,7 +116,7 @@
         if (cell == nil) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"WLILoadingCell" owner:self options:nil] lastObject];
         }
-        
+        [cell.refreshControl startAnimating];
         return cell;
     }
 }
@@ -135,20 +130,16 @@
     
     if (section == 1) {
         return self.posts.count;
-    } else {
-        if (loadMore) {
-            return 1;
-        } else {
-            return 0;
-        }
+    } else if (section == 2) {
+        return 1;
     }
+    return 0;
 }
-
 
 #pragma mark - UITableViewDelegate methods
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Section: %ld - Row: %ld", indexPath.section, indexPath.row);
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 1) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row] withWidth:self.view.frame.size.width].height;
     } else if (indexPath.section == 0){

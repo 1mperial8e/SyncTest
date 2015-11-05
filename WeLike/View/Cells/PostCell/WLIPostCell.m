@@ -11,28 +11,26 @@
 
 static WLIPostCell *sharedCell = nil;
 
+static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44, 1 container for 33, 27 is text label bottom constant. Temporary solution
+
 @implementation WLIPostCell
 
 #pragma mark - Object lifecycle
 
-- (id)initWithFrame:(CGRect)frame {
-    
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-- (void)awakeFromNib {
-    
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     frameDefaultLabelPostTitle = self.labelPostTitle.frame;
     frameDefaultLabelPostText = self.labelPostText.frame;
     //frameDefaultImageViewPost = self.imageViewPostImage.frame;
     
-    self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height/2;
+    self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height / 2;
     self.imageViewUser.layer.masksToBounds = YES;
+    self.imageViewUser.layer.borderWidth = 2;
+    self.imageViewUser.layer.borderColor = [UIColor redColor].CGColor;
+    
+    self.buttonDelete.layer.cornerRadius = 4;
+    self.buttonDelete.layer.masksToBounds = NO;
 }
 
 
@@ -61,7 +59,7 @@ static WLIPostCell *sharedCell = nil;
 }
 
 + (CGSize)sizeWithPost:(WLIPost*)post withWidth:(CGFloat)width{
-    
+
     if (!sharedCell) {
         sharedCell = [[[NSBundle mainBundle] loadNibNamed:@"WLIPostCell" owner:nil options:nil] lastObject];
     }
@@ -69,7 +67,8 @@ static WLIPostCell *sharedCell = nil;
     sharedCell.post = post;
     [sharedCell updateFramesAndDataWithDownloads:NO];
     
-    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetMaxY(sharedCell.labelPostText.frame) - 490 + (width * (292/245)));
+//    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetMaxY(sharedCell.labelPostText.frame) - 490 + (width * (292/245)));
+    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetHeight(sharedCell.labelPostText.frame) + StaticCellHeight + (width * 245) / 292);
     NSLog(@"ShardeSize: %f", size.height);
     return size;
 }
@@ -162,92 +161,69 @@ static WLIPostCell *sharedCell = nil;
     }
 }
 
+#pragma mark - Category buttons
+
 -(void)insertCategoryButtons
 {
-    CGFloat positionCounter = 6;
-    CGFloat positionY = 12;
-    CGFloat positionDistance = 1;
-    UIColor *myColor = [UIColor redColor];
-    UIFont *myFont = [UIFont fontWithName:@"HelveticaNeue" size:12.0];
-
+    UIFont *buttonsFont = [UIFont systemFontOfSize:12.0];
+    CGFloat leftSpacing = 10;
+    CGFloat lastButtonMaxX = leftSpacing;
+    CGRect firstButtonFrame = CGRectMake(0, (CGRectGetHeight(self.categoryView.frame) - 30) / 2, 20, 30);
+    
     if (self.post.categoryMarket) {
-        self.buttonCatMarket = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.buttonCatMarket.adjustsImageWhenHighlighted = NO;
-        self.buttonCatMarket.frame = CGRectMake(positionCounter, positionY, 75.0f, 21.0f);
-//        [self.buttonCatMarket setImage:[UIImage imageNamed:@"btn21-cateory-markets"] forState:UIControlStateNormal];
-//        [self.buttonCatMarket setTitle:@"Market" forState:UIControlStateNormal];
-        NSMutableAttributedString *stringCatMarket = [[NSMutableAttributedString alloc]initWithString:@"Market"];
-        NSRange range=[stringCatMarket.string rangeOfString:stringCatMarket.string];
-        [stringCatMarket addAttribute:NSForegroundColorAttributeName value:myColor range:range];
-        [stringCatMarket addAttribute:NSFontAttributeName value:myFont range:range];
-        [self.buttonCatMarket setAttributedTitle:stringCatMarket forState:UIControlStateNormal];
-//        [self.buttonCatMarket setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        self.buttonCatMarket = [self buttonWithTitle:@"Market"];
+        firstButtonFrame.size.width = [[self.buttonCatMarket titleForState:UIControlStateNormal] sizeWithAttributes:@{NSFontAttributeName : buttonsFont}].width;
+        firstButtonFrame.origin.x = lastButtonMaxX;
+        self.buttonCatMarket.frame = firstButtonFrame;
         [self.buttonCatMarket addTarget:self action:@selector(buttonCatMarketTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
         [self.categoryView addSubview:self.buttonCatMarket];
-        positionCounter = positionCounter + self.buttonCatMarket.frame.size.width + positionDistance;
-    }
-    if (self.post.categoryCapabilities) {
-        self.buttonCatCustomer = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.buttonCatCustomer.adjustsImageWhenHighlighted = NO;
-        self.buttonCatCustomer.frame = CGRectMake(positionCounter, positionY, 95.0f, 21.0f);
-//        [self.buttonCatCustomer setImage:[UIImage imageNamed:@"btn21-cateory-capability"] forState:UIControlStateNormal];
-//        [self.buttonCatCustomer setTitle:@"Customer" forState:UIControlStateNormal];
-//        [self.buttonCatCustomer setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        NSMutableAttributedString *stringCatCustomer = [[NSMutableAttributedString alloc]initWithString:@"Customer"];
-        NSRange range=[stringCatCustomer.string rangeOfString:stringCatCustomer.string];
-        [stringCatCustomer addAttribute:NSForegroundColorAttributeName value:myColor range:range];
-        [stringCatCustomer addAttribute:NSFontAttributeName value:myFont range:range];
-        [self.buttonCatCustomer setAttributedTitle:stringCatCustomer forState:UIControlStateNormal];
-        [self.buttonCatCustomer addTarget:self action:@selector(buttonCatCustomerTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-        [self.categoryView addSubview:self.buttonCatCustomer];
-        positionCounter = positionCounter + self.buttonCatCustomer.frame.size.width + positionDistance;
+        lastButtonMaxX = CGRectGetMaxX(firstButtonFrame) + leftSpacing;
     }
     if (self.post.categoryCustomer) {
-        self.buttonCatCapabilities = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.buttonCatCapabilities.adjustsImageWhenHighlighted = NO;
-        self.buttonCatCapabilities.frame = CGRectMake(positionCounter, positionY, 95.0f, 21.0f);
-//        [self.buttonCatCapabilities setImage:[UIImage imageNamed:@"btn21-cateory-customers"] forState:UIControlStateNormal];
-//        [self.buttonCatCapabilities setTitle:@"Capabilities" forState:UIControlStateNormal];
-//        [self.buttonCatCapabilities setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        NSMutableAttributedString *stringCatCapabilities = [[NSMutableAttributedString alloc]initWithString:@"Capabilities"];
-        NSRange range=[stringCatCapabilities.string rangeOfString:stringCatCapabilities.string];
-        [stringCatCapabilities addAttribute:NSForegroundColorAttributeName value:myColor range:range];
-        [stringCatCapabilities addAttribute:NSFontAttributeName value:myFont range:range];
-        [self.buttonCatCapabilities setAttributedTitle:stringCatCapabilities forState:UIControlStateNormal];
-//        [self.buttonCatCapabilities setBackgroundColor:[UIColor redColor]];
+        self.buttonCatCustomer = [self buttonWithTitle:@"Customer"];
+        firstButtonFrame.size.width = [[self.buttonCatCustomer titleForState:UIControlStateNormal] sizeWithAttributes:@{NSFontAttributeName : buttonsFont}].width;
+        firstButtonFrame.origin.x = lastButtonMaxX;
+        self.buttonCatCustomer.frame = firstButtonFrame;
+        [self.buttonCatCustomer addTarget:self action:@selector(buttonCatCustomerTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        [self.categoryView addSubview:self.buttonCatCustomer];
+        lastButtonMaxX = CGRectGetMaxX(firstButtonFrame) + leftSpacing;
+    }
+    if (self.post.categoryCapabilities) {
+        self.buttonCatCapabilities = [self buttonWithTitle:@"Capabilities"];
+        firstButtonFrame.size.width = [[self.buttonCatCapabilities titleForState:UIControlStateNormal] sizeWithAttributes:@{NSFontAttributeName : buttonsFont}].width;
+        firstButtonFrame.origin.x = lastButtonMaxX;
+        self.buttonCatCapabilities.frame = firstButtonFrame;
         [self.buttonCatCapabilities addTarget:self action:@selector(buttonCatCapabilitiesTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
         [self.categoryView addSubview:self.buttonCatCapabilities];
-        positionCounter = positionCounter + self.buttonCatCapabilities.frame.size.width + positionDistance;
+        lastButtonMaxX = CGRectGetMaxX(firstButtonFrame) + leftSpacing;
     }
     if (self.post.categoryPeople) {
-        self.buttonCatPeople = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.buttonCatPeople.adjustsImageWhenHighlighted = NO;
-        self.buttonCatPeople.frame = CGRectMake(positionCounter, positionY, 67.0f, 21.0f);
-//        [self.buttonCatPeople setImage:[UIImage imageNamed:@"btn21-cateory-people"] forState:UIControlStateNormal];
-//        [self.buttonCatPeople setTitle:@"People" forState:UIControlStateNormal];
-//        [self.buttonCatPeople setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        NSMutableAttributedString *stringCatPeople = [[NSMutableAttributedString alloc]initWithString:@"People"];
-        NSRange range=[stringCatPeople.string rangeOfString:stringCatPeople.string];
-        [stringCatPeople addAttribute:NSForegroundColorAttributeName value:myColor range:range];
-        [stringCatPeople addAttribute:NSFontAttributeName value:myFont range:range];
-        [self.buttonCatPeople setAttributedTitle:stringCatPeople forState:UIControlStateNormal];
+        self.buttonCatPeople = [self buttonWithTitle:@"People"];
+        firstButtonFrame.size.width = [[self.buttonCatPeople titleForState:UIControlStateNormal] sizeWithAttributes:@{NSFontAttributeName : buttonsFont}].width;
+        firstButtonFrame.origin.x = lastButtonMaxX;
+        self.buttonCatPeople.frame = firstButtonFrame;
         [self.buttonCatPeople addTarget:self action:@selector(buttonCatPeopleTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
         [self.categoryView addSubview:self.buttonCatPeople];
-        positionCounter = positionCounter + self.buttonCatPeople.frame.size.width + positionDistance;
+        lastButtonMaxX = CGRectGetMaxX(firstButtonFrame) + leftSpacing;
     }
-
 }
+
+- (UIButton *)buttonWithTitle:(NSString *)title
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.adjustsImageWhenHighlighted = NO;
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:12.f];
+    return button;
+}
+
 -(void)removeCategoryButtons
 {
     [self.buttonCatMarket removeFromSuperview];
-    [self.buttonCatMarket removeTarget:self action:@selector(buttonCatMarketTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    
     [self.buttonCatCustomer removeFromSuperview];
-    [self.buttonCatCustomer removeTarget:self action:@selector(buttonCatCustomerTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonCatCapabilities removeFromSuperview];
-    [self.buttonCatCapabilities removeTarget:self action:@selector(buttonCatCapabilitiesTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonCatPeople removeFromSuperview];
-    [self.buttonCatPeople removeTarget:self action:@selector(buttonCatPeopleTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 

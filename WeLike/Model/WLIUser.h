@@ -28,7 +28,6 @@ typedef enum {
 @property (nonatomic, strong) NSString *userUsername;
 @property (nonatomic, assign) BOOL followingUser;
 
-
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
 
@@ -38,9 +37,6 @@ typedef enum {
 @property (nonatomic) int likesCount;
 @property (nonatomic) int myPostsCount;
 
-
-
 - (id)initWithDictionary:(NSDictionary*)userWithInfo;
-
 
 @end
