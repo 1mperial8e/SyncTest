@@ -36,14 +36,14 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44
 
 #pragma mark - Cell methods
 
-- (void)layoutSubviews {
-    
+- (void)layoutSubviews
+{
     [super layoutSubviews];
     [self updateFramesAndDataWithDownloads:YES];
 }
 
-- (void)prepareForReuse {
-    
+- (void)prepareForReuse
+{
     [super prepareForReuse];
     [self.imageViewUser cancelImageRequestOperation];
     self.imageViewUser.image = nil;
@@ -58,73 +58,34 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44
     [self removeCategoryButtons];
 }
 
-+ (CGSize)sizeWithPost:(WLIPost*)post withWidth:(CGFloat)width{
-
++ (CGSize)sizeWithPost:(WLIPost*)post withWidth:(CGFloat)width
+{
     if (!sharedCell) {
         sharedCell = [[[NSBundle mainBundle] loadNibNamed:@"WLIPostCell" owner:nil options:nil] lastObject];
     }
-    [sharedCell prepareForReuse];
-    sharedCell.post = post;
-    [sharedCell updateFramesAndDataWithDownloads:NO];
+    sharedCell.labelPostText.text = post.postText.length ? post.postText : @" ";
+    CGSize textSize = [sharedCell.labelPostText sizeThatFits:CGSizeMake(width - 16, MAXFLOAT)]; // 16 left & right spacing
     
-//    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetMaxY(sharedCell.labelPostText.frame) - 490 + (width * (292/245)));
-    CGSize size = CGSizeMake(sharedCell.frame.size.width, CGRectGetHeight(sharedCell.labelPostText.frame) + StaticCellHeight + (width * 245) / 292);
-    NSLog(@"ShardeSize: %f", size.height);
+    CGSize size = CGSizeMake(width, textSize.height + StaticCellHeight + (width * 245) / 292);
     return size;
 }
 
 - (void)updateFramesAndDataWithDownloads:(BOOL)downloads {
     
     if (self.post) {
-        if (downloads) {
-            [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.post.user.userAvatarPath]];
-            if (self.post.postVideoPath.length)
-            {
-                [self.buttonVideo setHidden:NO];
-            }
+        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.post.user.userAvatarPath]];
+        if (self.post.postVideoPath.length) {
+            [self.buttonVideo setHidden:NO];
         }
         self.labelUserName.text = self.post.user.userFullName;
         self.labelTimeAgo.text = self.post.postTimeAgo;
-        
-        //Set and resize
-//        self.labelPostTitle.text = self.post.postTitle;
-//        [self.labelPostTitle sizeToFit];
-//        if (self.labelPostTitle.frame.size.width < frameDefaultLabelPostTitle.size.width) {
-//            self.labelPostTitle.frame = CGRectMake(self.labelPostTitle.frame.origin.x, self.labelPostTitle.frame.origin.y, frameDefaultLabelPostTitle.size.width, self.labelPostTitle.frame.size.height);
-//        }
-//        if (self.labelPostTitle.frame.size.height < frameDefaultLabelPostTitle.size.height) {
-//            self.labelPostTitle.frame = CGRectMake(self.labelPostTitle.frame.origin.x, self.labelPostTitle.frame.origin.y, self.labelPostTitle.frame.size.width, frameDefaultLabelPostTitle.size.height);
-//        }
-        
-//        NSString *descriptionText = self.post.postText;
-//        CGSize tempSize;
-//        tempSize.width = self.labelPostText.bounds.size.width;
-//        tempSize.height = 9999;
-//        
-//        CGRect theRect = [descriptionText boundingRectWithSize:tempSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.labelPostText.font} context:nil];
-//        NSLog(@"Height stuff: %f - 21 + %f", self.frame.size.height, theRect.size.height);
-
-//        self.labelPostText.bounds = CGRectMake(self.labelPostText.bounds.origin.x, self.labelPostText.bounds.origin.y, self.labelPostText.bounds.size.width, theRect.size.height);
-//        [self.labelPostText setNumberOfLines:100];
         self.labelPostText.text = self.post.postText;
-//        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height - 21 + theRect.size.height);
 
         if (self.post.postImagePath.length) {
-//            self.buttonLike.frame = CGRectMake(self.buttonLike.frame.origin.x, CGRectGetMaxY(self.imageViewPostImage.frame) + 18, self.buttonLike.frame.size.width, self.buttonLike.frame.size.height);
-//            self.buttonComment.frame = CGRectMake(self.buttonComment.frame.origin.x, CGRectGetMaxY(self.imageViewPostImage.frame) + 16, self.buttonComment.frame.size.width, self.buttonComment.frame.size.height);
-//            self.buttonLikes.frame = CGRectMake(self.buttonLikes.frame.origin.x, CGRectGetMaxY(self.imageViewPostImage.frame) -self.buttonLike.frame.size.height, self.buttonLikes.frame.size.width, self.buttonLikes.frame.size.height);
-            
-            if (downloads) {
-                [self.imageViewPostImage setImageWithURL:[NSURL URLWithString:self.post.postImagePath]];
-                if (self.post.postVideoPath.length)
-                {
-                    [self.buttonVideo setHidden:NO];
-                }
+            [self.imageViewPostImage setImageWithURL:[NSURL URLWithString:self.post.postImagePath]];
+            if (self.post.postVideoPath.length) {
+                [self.buttonVideo setHidden:NO];
             }
-        } else {
-//            self.buttonLike.frame = CGRectMake(self.buttonLike.frame.origin.x, CGRectGetMinY(self.imageViewPostImage.frame), self.buttonLike.frame.size.width, self.buttonLike.frame.size.height);
-//            self.buttonComment.frame = CGRectMake(self.buttonComment.frame.origin.x, CGRectGetMinY(self.imageViewPostImage.frame), self.buttonComment.frame.size.width, self.buttonComment.frame.size.height);
-//            self.buttonLikes.frame = CGRectMake(self.buttonLikes.frame.origin.x, CGRectGetMinY(self.imageViewPostImage.frame), self.buttonLikes.frame.size.width, self.buttonLikes.frame.size.height);
         }
         
         if (self.post.likedThisPost) {
@@ -142,19 +103,14 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44
         
         [self.labelLikes setText:[NSString stringWithFormat:@"%d", self.post.postLikesCount]];
         [self.labelComments setText:[NSString stringWithFormat:@"%d", self.post.postCommentsCount]];
-        if (self.post.user.userID == [WLIConnect sharedConnect].currentUser.userID)
-        {
+        if (self.post.user.userID == [WLIConnect sharedConnect].currentUser.userID) {
             [_buttonConnect setHidden:YES];
             if (self.showDeleteButton)
                 [_buttonDelete setHidden:NO];
-
-        }
-        else
-        {
+        } else {
             [_buttonConnect setHidden:NO];
             [_buttonDelete setHidden:YES];
-            if (self.post.isConnected)
-            {
+            if (self.post.isConnected) {
                 [_buttonConnect setSelected:YES];
             }
         }

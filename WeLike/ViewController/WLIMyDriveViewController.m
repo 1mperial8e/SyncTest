@@ -47,7 +47,6 @@ static CGFloat const HeaderCellHeight = 156;
     [sharedConnect mydriveTimelineForUserID:sharedConnect.currentUser.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode) {
         loading = NO;
         [weakSelf.posts addObjectsFromArray:posts];
-        weakSelf.navigationItem.title = user.userUsername;
         loadMore = (posts.count == kDefaultPageSize);
         [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 4)] withRowAnimation:UITableViewRowAnimationAutomatic];
         [refreshManager tableViewReloadFinishedAnimated:YES];
@@ -60,6 +59,7 @@ static CGFloat const HeaderCellHeight = 156;
     [sharedConnect userWithUserID:sharedConnect.currentUser.userID onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
         if (serverResponseCode == OK) {
             weakSelf.user = user;
+            weakSelf.navigationItem.title = user.userUsername;
         }
         [weakSelf reloadData:NO];
     }];
@@ -73,7 +73,6 @@ static CGFloat const HeaderCellHeight = 156;
         WLIMyDriveHeaderCell *cell = (WLIMyDriveHeaderCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"WLIMyDriveHeaderCell" owner:self options:nil] lastObject];
-//            cell.delegate = self;
         }
         cell.user = self.user;
         return cell;
@@ -119,7 +118,6 @@ static CGFloat const HeaderCellHeight = 156;
     }
 }
 
-
 #pragma mark - UITableViewDelegate methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -144,12 +142,11 @@ static CGFloat const HeaderCellHeight = 156;
 
 - (void)deletePost:(WLIPost *)post sender:(id)senderCell {
     morePost = post;
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete post" message:@"Are you sure you want to delete this post" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete post" message:@"Are you sure you want to delete this post" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
     deleteButtonIndex = [alert addButtonWithTitle:@"Yes"];
     [alert show];
-
-    
 }
+
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == deleteButtonIndex) {

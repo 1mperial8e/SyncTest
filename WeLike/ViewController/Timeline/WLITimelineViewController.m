@@ -34,7 +34,6 @@
     if (reloadAll) {
         loadMore = YES;
         page = 1;
-        [self.posts removeAllObjects];
     } else {
         page = (self.posts.count / kDefaultPageSize) + 1;
     }
@@ -42,8 +41,14 @@
     __weak typeof(self) weakSelf = self;
     [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:0 countryID:0 searchString:self.searchString page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         loading = NO;
-        loadMore = !(posts.count % kDefaultPageSize);
-        [weakSelf.posts addObjectsFromArray:posts];
+        if (serverResponseCode == OK) {
+            loadMore = (posts.count == kDefaultPageSize);
+            if (reloadAll) {
+                [weakSelf.posts removeAllObjects];
+            }
+            [weakSelf.posts addObjectsFromArray:posts];
+
+        }
         [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)] withRowAnimation:UITableViewRowAnimationAutomatic];
         [refreshManager tableViewReloadFinishedAnimated:YES];
     }];

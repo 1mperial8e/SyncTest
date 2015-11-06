@@ -15,7 +15,7 @@
 #import "WLICategoryPostsViewController.h"
 
 
-@interface WLIPostsListViewController ()
+@interface WLIPostsListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -156,6 +156,13 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1) {
+        WLIPostCell *postCell = (WLIPostCell *)cell;
+        [postCell.imageViewPostImage cancelImageRequestOperation];
+    }
+}
 
 #pragma mark - WLIPostCellDelegate methods
 
