@@ -45,9 +45,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8b0-jL-MNE">
                                 <rect key="frame" x="20" y="4" width="260" height="32"/>
                                 <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="uct-cI-Ah3"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <inset key="titleEdgeInsets" minX="14" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Market" image="button-cat-market">
@@ -63,9 +60,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Um6-mm-Swa">
                                 <rect key="frame" x="320" y="4" width="260" height="32"/>
                                 <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="yId-Hd-XXa"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <inset key="titleEdgeInsets" minX="14" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Customer" image="button-cat-consumer">
@@ -82,9 +76,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gv1-Z3-CjK">
                                 <rect key="frame" x="320" y="52" width="260" height="32"/>
                                 <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="ZCD-hE-x6K"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <inset key="titleEdgeInsets" minX="14" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="People" image="button-cat-people">
@@ -99,11 +90,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9Y-q5-1Mf">
-                                <rect key="frame" x="20" y="52" width="260" height="32"/>
+                                <rect key="frame" x="20" y="52" width="270" height="32"/>
                                 <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="GvX-Ho-iAQ"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <inset key="titleEdgeInsets" minX="14" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Capabilities" image="button-cat-capabilities">
@@ -125,23 +113,24 @@
                             <constraint firstItem="Um6-mm-Swa" firstAttribute="leading" secondItem="29N-XS-F1t" secondAttribute="trailing" constant="19" id="0z6-ln-9Oz"/>
                             <constraint firstItem="E9Y-q5-1Mf" firstAttribute="leading" secondItem="HGe-uG-cQr" secondAttribute="leading" constant="20" id="2NB-68-a7f"/>
                             <constraint firstItem="29N-XS-F1t" firstAttribute="leading" secondItem="8b0-jL-MNE" secondAttribute="trailing" constant="20" id="2wy-GJ-Zq2"/>
+                            <constraint firstItem="DDh-Rh-Bhd" firstAttribute="top" secondItem="8b0-jL-MNE" secondAttribute="bottom" constant="8" id="54c-dC-Hz7"/>
                             <constraint firstAttribute="trailing" secondItem="DDh-Rh-Bhd" secondAttribute="trailing" constant="8" id="7aG-V0-eko"/>
-                            <constraint firstItem="Um6-mm-Swa" firstAttribute="width" secondItem="8b0-jL-MNE" secondAttribute="width" id="BJ7-HH-Xk8"/>
                             <constraint firstItem="8b0-jL-MNE" firstAttribute="leading" secondItem="HGe-uG-cQr" secondAttribute="leading" constant="20" id="FaV-TX-Cqz"/>
-                            <constraint firstItem="E9Y-q5-1Mf" firstAttribute="width" secondItem="8b0-jL-MNE" secondAttribute="width" id="H81-tF-ft3"/>
+                            <constraint firstAttribute="bottom" secondItem="E9Y-q5-1Mf" secondAttribute="bottom" constant="4" id="JNi-2u-CtB"/>
                             <constraint firstItem="29N-XS-F1t" firstAttribute="centerX" secondItem="HGe-uG-cQr" secondAttribute="centerX" id="Num-Ng-O8I"/>
                             <constraint firstAttribute="bottom" secondItem="29N-XS-F1t" secondAttribute="bottom" id="Ofw-de-laY"/>
                             <constraint firstAttribute="trailing" secondItem="Gv1-Z3-CjK" secondAttribute="trailing" constant="20" id="Ted-kE-uzg"/>
+                            <constraint firstItem="DDh-Rh-Bhd" firstAttribute="centerY" secondItem="HGe-uG-cQr" secondAttribute="centerY" id="aEe-54-Azm"/>
                             <constraint firstItem="DDh-Rh-Bhd" firstAttribute="leading" secondItem="HGe-uG-cQr" secondAttribute="leading" constant="8" id="aYG-yS-xJE"/>
                             <constraint firstItem="Um6-mm-Swa" firstAttribute="top" secondItem="HGe-uG-cQr" secondAttribute="top" constant="4" id="d02-Tt-gWW"/>
                             <constraint firstItem="Gv1-Z3-CjK" firstAttribute="leading" secondItem="29N-XS-F1t" secondAttribute="trailing" constant="19" id="fHP-EE-4tK"/>
-                            <constraint firstItem="Gv1-Z3-CjK" firstAttribute="width" secondItem="8b0-jL-MNE" secondAttribute="width" id="fTt-Ki-pps"/>
-                            <constraint firstItem="29N-XS-F1t" firstAttribute="leading" secondItem="E9Y-q5-1Mf" secondAttribute="trailing" constant="20" id="gBX-Nz-GzJ"/>
+                            <constraint firstItem="29N-XS-F1t" firstAttribute="leading" secondItem="E9Y-q5-1Mf" secondAttribute="trailing" constant="10" id="gBX-Nz-GzJ"/>
                             <constraint firstItem="E9Y-q5-1Mf" firstAttribute="top" secondItem="DDh-Rh-Bhd" secondAttribute="bottom" constant="7" id="hqH-Qv-AFG"/>
                             <constraint firstAttribute="trailing" secondItem="Um6-mm-Swa" secondAttribute="trailing" constant="20" id="imd-xL-FFd"/>
-                            <constraint firstItem="DDh-Rh-Bhd" firstAttribute="top" secondItem="HGe-uG-cQr" secondAttribute="top" constant="44" id="rjh-fF-jik"/>
                             <constraint firstItem="29N-XS-F1t" firstAttribute="top" secondItem="HGe-uG-cQr" secondAttribute="top" id="uc0-dD-juW"/>
+                            <constraint firstAttribute="bottom" secondItem="Gv1-Z3-CjK" secondAttribute="bottom" constant="4" id="xSc-EG-pHq"/>
                             <constraint firstItem="Gv1-Z3-CjK" firstAttribute="top" secondItem="DDh-Rh-Bhd" secondAttribute="bottom" constant="7" id="yHz-8y-Oaa"/>
+                            <constraint firstItem="DDh-Rh-Bhd" firstAttribute="top" secondItem="Um6-mm-Swa" secondAttribute="bottom" constant="8" id="zbf-MQ-GeG"/>
                         </constraints>
                     </view>
                 </subviews>
