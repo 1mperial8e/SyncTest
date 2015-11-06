@@ -13,50 +13,43 @@
 
 #pragma mark - Object lifecycle
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-- (void)awakeFromNib {
-    
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     self.imageViewUserImage.layer.cornerRadius = self.imageViewUserImage.frame.size.height/2;
     self.imageViewUserImage.layer.masksToBounds = YES;
+    self.imageViewUserImage.layer.borderColor = [UIColor redColor].CGColor;
+    self.imageViewUserImage.layer.borderWidth = 2.f;
 }
 
+#pragma mark - Accessors
 
-#pragma mark - Cell methods
+- (void)setUser:(WLIUser *)user
+{
+    _user = user;
+    [self setupCell];
+}
 
-- (void)layoutSubviews {
-    
-    [super layoutSubviews];
+#pragma mark - Configure cell
+
+- (void)setupCell
+{
     [self.imageViewUserImage setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath]];
     self.labelUserName.text = self.user.userFullName;
-    if (self.user.followingUser) {
-        [self.buttonFollowUnfollow setImage:[UIImage imageNamed:@"btn-unfollow"] forState:UIControlStateNormal];
-    } else {
-        [self.buttonFollowUnfollow setImage:[UIImage imageNamed:@"btn-follow"] forState:UIControlStateNormal];
-    }
+    self.buttonFollowUnfollow.selected = self.user.followingUser;
 }
-
 
 #pragma mark - Action methods
 
-- (IBAction)buttonUserTouchUpInside:(id)sender {
-    
+- (IBAction)buttonUserTouchUpInside:(id)sender
+{    
     if ([self.delegate respondsToSelector:@selector(showUser:sender:)]) {
         [self.delegate showUser:self.user sender:self];
     }
 }
 
-- (IBAction)buttonFollowUnfollowTouchUpInside:(UIButton *)sender {
-    
-    
+- (IBAction)buttonFollowUnfollowTouchUpInside:(UIButton *)sender
+{
     if (self.user.followingUser) {
         if ([self.delegate respondsToSelector:@selector(unfollowUser:sender:)]) {
             [self.delegate unfollowUser:self.user sender:self];

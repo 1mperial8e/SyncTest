@@ -6,14 +6,21 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
+// Controllers
 #import "WLIMyDriveViewController.h"
+#import "WLIFollowersViewController.h"
+#import "WLIFollowingViewController.h"
+
+// Cells
 #import "WLIMyDriveHeaderCell.h"
 #import "WLIPostCell.h"
 #import "WLILoadingCell.h"
 
 static CGFloat const HeaderCellHeight = 156;
 
-@interface WLIMyDriveViewController ()
+static NSString *const HeaderCellIdentifier = @"WLIMyDriveHeaderCell";
+
+@interface WLIMyDriveViewController () <MyDriveHeaderCellDelegate>
 
 @end
 
@@ -25,6 +32,8 @@ static CGFloat const HeaderCellHeight = 156;
 {
     [super viewDidLoad];
     self.title = @"My Energy";
+    self.tableViewRefresh.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.tableViewRefresh registerNib:[UINib nibWithNibName:NSStringFromClass(WLIMyDriveHeaderCell.class) bundle:nil] forCellReuseIdentifier:HeaderCellIdentifier];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -80,15 +89,29 @@ static CGFloat const HeaderCellHeight = 156;
     }];
 }
 
+#pragma mark - MyDriveHeaderCellDelegate
+
+- (void)showFollowersList
+{
+    WLIFollowersViewController *followersViewController = [WLIFollowersViewController new];
+    followersViewController.user = self.user;
+    [self.navigationController pushViewController:followersViewController animated:YES];
+}
+
+- (void)showFollowingsList
+{
+    WLIFollowingViewController *followingsViewController = [WLIFollowingViewController new];
+    followingsViewController.user = self.user;
+    [self.navigationController pushViewController:followingsViewController animated:YES];
+}
+
 #pragma mark - UITableViewDataSource methods
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 1){
-        static NSString *CellIdentifier = @"WLIMyDriveHeaderCell";
-        WLIMyDriveHeaderCell *cell = (WLIMyDriveHeaderCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"WLIMyDriveHeaderCell" owner:self options:nil] lastObject];
-        }
+        WLIMyDriveHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier forIndexPath:indexPath];
+        cell.delegate = self;
         cell.user = self.user;
         return cell;
     } else if (indexPath.section == 2){

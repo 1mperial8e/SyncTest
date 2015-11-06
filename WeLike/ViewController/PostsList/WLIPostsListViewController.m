@@ -42,14 +42,6 @@
     
     [super viewDidLoad];
     
-    if (self.navigationController.viewControllers.count < 2) {
-        UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        profileButton.adjustsImageWhenHighlighted = NO;
-        profileButton.frame = CGRectMake(0.0f, 0.0f, 40.0f, 30.0f);
-        [profileButton setImage:[UIImage imageNamed:@"nav-btn-profile"] forState:UIControlStateNormal];
-        [profileButton addTarget:self action:@selector(profileButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:profileButton];
-    }
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.adjustsImageWhenHighlighted = NO;
     backButton.frame = CGRectMake(0.0f, 0.0f, 40.0f, 30.0f);
@@ -264,6 +256,47 @@
     [self.navigationController pushViewController:categoryViewController animated:YES];
 }
 
+- (void)followUser:(WLIUser *)user sender:(id)senderCell
+{
+    [self follow:YES user:user cellToReload:senderCell];
+}
 
+- (void)unfollowUser:(WLIUser *)user sender:(id)senderCell
+{
+    [self follow:NO user:user cellToReload:senderCell];
+}
+
+- (void)follow:(BOOL)follow user:(WLIUser *)user cellToReload:(WLIPostCell *)cell
+{
+    __block NSIndexPath *indexPath = [self.tableViewRefresh indexPathForCell:cell];
+    __weak typeof(self) weakSelf = self;
+    void (^followUserCompletion)(WLIFollow *, ServerResponse) = ^(WLIFollow *wliFollow, ServerResponse serverResponseCode) {
+        if (serverResponseCode == OK) {
+            user.followingUser = follow;
+            cell.post.user = user;
+            if (indexPath) {
+                [weakSelf.tableViewRefresh reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        } else {
+            NSString *message = @"An error occured, user was not followed.";
+            if (!follow) {
+                message = @"An error occured, user was not unfollowed.";
+            }
+            [[[UIAlertView alloc] initWithTitle:@"Error"
+                                        message:message
+                                       delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil]
+             performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+        }
+    };
+    if (follow) {
+        [sharedConnect setFollowOnUserID:user.userID onCompletion:followUserCompletion];
+    } else {
+        [sharedConnect removeFollowWithFollowID:user.userID onCompletion:^(ServerResponse serverResponseCode) {
+            followUserCompletion(nil, serverResponseCode);
+        }];
+    }
+}
 
 @end

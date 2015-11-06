@@ -26,6 +26,7 @@
     }
 
     self.scrollViewEditProfile.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    
     [self.scrollViewEditProfile addSubview:self.viewContentEditProfile];
     toolbar.mainScrollView = self.scrollViewEditProfile;
     

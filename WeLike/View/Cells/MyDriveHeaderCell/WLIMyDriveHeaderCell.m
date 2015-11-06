@@ -39,9 +39,10 @@
 {
     [super awakeFromNib];
     [self configureViews];
+    [self addGestures];
 }
 
-#pragma mark - UI
+#pragma mark - Setup cell
 
 - (void)configureViews
 {
@@ -54,6 +55,30 @@
     self.buttonEditProfile.layer.masksToBounds = YES;
     self.buttonEditProfile.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.buttonEditProfile.layer.borderWidth = 1;
+}
+
+- (void)addGestures
+{
+    UITapGestureRecognizer *followingTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followingTap:)];
+    UITapGestureRecognizer *followersTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followersTap:)];
+    [self.followersLabel.superview addGestureRecognizer:followersTap];
+    [self.followingLabel.superview addGestureRecognizer:followingTap];
+}
+
+#pragma mark - Gestures
+
+- (void)followersTap:(UITapGestureRecognizer *)gesture
+{
+    if ([self.delegate respondsToSelector:@selector(showFollowersList)]) {
+        [self.delegate showFollowersList];
+    }
+}
+
+- (void)followingTap:(UITapGestureRecognizer *)gesture
+{
+    if ([self.delegate respondsToSelector:@selector(showFollowingsList)]) {
+        [self.delegate showFollowingsList];
+    }
 }
 
 #pragma mark - Accessors

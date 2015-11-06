@@ -15,32 +15,33 @@
 
 #pragma mark - Object lifecycle
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
         self.followers = [NSMutableArray array];
         self.title = @"Followers";
     }
     return self;
 }
 
-
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
-    
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    self.tableViewRefresh.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self reloadData];
 }
 
-- (void)didReceiveMemoryWarning {
-    
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    if ([self.tableViewRefresh respondsToSelector:@selector(layoutMargins)]) {
+        self.tableViewRefresh.layoutMargins = UIEdgeInsetsZero;
+    }
+    self.tableViewRefresh.separatorInset = UIEdgeInsetsZero;
 }
-
 
 #pragma mark - Data loading methods
 
@@ -108,12 +109,7 @@
     }
 }
 
-
 #pragma mark - UITableViewDelegate methods
-
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -126,43 +122,62 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.separatorInset = UIEdgeInsetsZero;
+    if ([cell respondsToSelector:@selector(layoutMargins)]) {
+        cell.layoutMargins = UIEdgeInsetsZero;
+    }
+
     if (indexPath.section == 2 && loadMore && !loading) {
         [self reloadData];
     }
 }
 
 
-#pragma mark - WLIUserCellDelegate methods
+#pragma mark - WLIUserCellDelegate
 
-- (void)followUser:(WLIUser *)user sender:(id)senderCell {
-    
-    WLIUserCell *cell = (WLIUserCell*)senderCell;
-    [cell.buttonFollowUnfollow setImage:[UIImage imageNamed:@"btn-unfollow"] forState:UIControlStateNormal];
-    user.followingUser = YES;
-    [sharedConnect setFollowOnUserID:user.userID onCompletion:^(WLIFollow *follow, ServerResponse serverResponseCode) {
-        if (serverResponseCode != OK) {
-            user.followingUser = NO;
-            [cell.buttonFollowUnfollow setImage:[UIImage imageNamed:@"btn-follow"] forState:UIControlStateNormal];
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured, user was not followed." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
-    }];
+- (void)followUser:(WLIUser *)user sender:(id)senderCell
+{
+    [self follow:YES user:user cellToReload:senderCell];
 }
 
-- (void)unfollowUser:(WLIUser *)user sender:(id)senderCell {
-    
-    WLIUserCell *cell = (WLIUserCell*)senderCell;
-    [cell.buttonFollowUnfollow setImage:[UIImage imageNamed:@"btn-follow"] forState:UIControlStateNormal];
-    user.followingUser = NO;
-    [sharedConnect removeFollowWithFollowID:user.userID onCompletion:^(ServerResponse serverResponseCode) {
-        if (serverResponseCode != OK) {
-            user.followingUser = YES;
-            [cell.buttonFollowUnfollow setImage:[UIImage imageNamed:@"btn-unfollow"] forState:UIControlStateNormal];
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured, user was not unfollowed." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
-    }];
+- (void)unfollowUser:(WLIUser *)user sender:(id)senderCell
+{
+    [self follow:NO user:user cellToReload:senderCell];
 }
 
+- (void)follow:(BOOL)follow user:(WLIUser *)user cellToReload:(WLIUserCell *)cell
+{
+    __block NSIndexPath *indexPath = [self.tableViewRefresh indexPathForCell:cell];
+    __weak typeof(self) weakSelf = self;
+    void (^followUserCompletion)(WLIFollow *, ServerResponse) = ^(WLIFollow *wliFollow, ServerResponse serverResponseCode) {
+        if (serverResponseCode == OK) {
+            user.followingUser = follow;
+            cell.user = user;
+            if (indexPath) {
+                [weakSelf.tableViewRefresh reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        } else {
+            NSString *message = @"An error occured, user was not followed.";
+            if (!follow) {
+                message = @"An error occured, user was not unfollowed.";
+            }
+            [[[UIAlertView alloc] initWithTitle:@"Error"
+                                        message:message
+                                       delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil]
+             performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+        }
+    };
+    if (follow) {
+        [sharedConnect setFollowOnUserID:user.userID onCompletion:followUserCompletion];
+    } else {
+        [sharedConnect removeFollowWithFollowID:user.userID onCompletion:^(ServerResponse serverResponseCode) {
+            followUserCompletion(nil, serverResponseCode);
+        }];
+    }
+}
 
 @end

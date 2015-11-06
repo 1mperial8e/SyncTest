@@ -11,10 +11,17 @@
 
 #import "WLIUser.h"
 
-@class WLIMyDriveHeaderCell;
+@protocol MyDriveHeaderCellDelegate <NSObject>
+
+@optional
+- (void)showFollowingsList;
+- (void)showFollowersList;
+
+@end
 
 @interface WLIMyDriveHeaderCell : WLITableViewCell
 
 @property (strong, nonatomic) WLIUser *user;
+@property (weak, nonatomic) id<MyDriveHeaderCellDelegate> delegate;
 
 @end

@@ -126,7 +126,7 @@
                                         <state key="normal" title="Button" image="postFollowBtn"/>
                                         <state key="selected" image="postFollowingBtn"/>
                                         <connections>
-                                            <action selector="buttonConnectTouchUpInside:" destination="NHx-lt-jXj" eventType="touchUpInside" id="0fP-Cw-SE0"/>
+                                            <action selector="followButtonAction:" destination="NHx-lt-jXj" eventType="touchUpInside" id="8Ni-bg-xEX"/>
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="post-cell-time" translatesAutoresizingMaskIntoConstraints="NO" id="TU7-HF-7mX">
@@ -256,7 +256,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vWW-5m-XLg">
                                         <rect key="frame" x="0.0" y="2" width="116" height="42"/>
                                         <animations/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dVR-cH-Hns" userLabel="LikesView">
                                         <rect key="frame" x="117" y="2" width="116" height="42"/>
@@ -274,8 +274,8 @@
                                                     <action selector="buttonLikeTouchUpInside:" destination="NHx-lt-jXj" eventType="touchUpInside" id="2ar-b6-LiY"/>
                                                 </connections>
                                             </button>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwN-Ye-Ady">
-                                                <rect key="frame" x="79" y="13" width="21" height="15"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwN-Ye-Ady">
+                                                <rect key="frame" x="79" y="21" width="0.0" height="0.0"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -283,7 +283,7 @@
                                             </label>
                                         </subviews>
                                         <animations/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="jwN-Ye-Ady" firstAttribute="leading" secondItem="wTq-IS-nCN" secondAttribute="trailing" constant="8" id="9lP-Nd-Spf"/>
                                             <constraint firstItem="wTq-IS-nCN" firstAttribute="centerX" secondItem="dVR-cH-Hns" secondAttribute="centerX" id="E5W-Ia-Flo"/>
@@ -294,7 +294,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xEQ-qX-4lv">
                                         <rect key="frame" x="234" y="2" width="116" height="42"/>
                                         <animations/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Di0-Ne-c3x" userLabel="ChatView">
                                         <rect key="frame" x="351" y="2" width="116" height="42"/>
@@ -311,8 +311,8 @@
                                                     <action selector="buttonCommentTouchUpInside:" destination="NHx-lt-jXj" eventType="touchUpInside" id="fQJ-Dy-lpW"/>
                                                 </connections>
                                             </button>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eir-rs-qDW">
-                                                <rect key="frame" x="79" y="14" width="21" height="15"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eir-rs-qDW">
+                                                <rect key="frame" x="79" y="21" width="0.0" height="0.0"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -320,7 +320,7 @@
                                             </label>
                                         </subviews>
                                         <animations/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="HgY-d5-XKh" firstAttribute="centerY" secondItem="Di0-Ne-c3x" secondAttribute="centerY" id="EUf-gi-gRa"/>
                                             <constraint firstItem="Eir-rs-qDW" firstAttribute="centerY" secondItem="Di0-Ne-c3x" secondAttribute="centerY" id="ZrN-re-ggB"/>
@@ -337,7 +337,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ms9-OJ-WCs">
                                         <rect key="frame" x="468" y="2" width="116" height="42"/>
                                         <animations/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                                 <animations/>
@@ -416,8 +416,8 @@
             <connections>
                 <outlet property="bottomView" destination="eJm-ef-1fh" id="aj8-zH-U8W"/>
                 <outlet property="buttonComment" destination="HgY-d5-XKh" id="Gke-as-FD6"/>
-                <outlet property="buttonConnect" destination="p6d-M9-6XM" id="oAr-oC-0Qe"/>
                 <outlet property="buttonDelete" destination="02X-vI-UEj" id="NdC-DO-qUn"/>
+                <outlet property="buttonFollow" destination="p6d-M9-6XM" id="Lyc-YS-D4l"/>
                 <outlet property="buttonLike" destination="wTq-IS-nCN" id="ZaT-kW-tX6"/>
                 <outlet property="buttonVideo" destination="sbr-sq-xNl" id="H63-Ct-QxR"/>
                 <outlet property="categoryView" destination="Yf8-Og-rbg" id="Tah-Tl-sa1"/>

@@ -52,7 +52,7 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44
     self.labelPostTitle.frame = frameDefaultLabelPostTitle;
     self.labelPostText.frame = frameDefaultLabelPostText;
     [self.buttonVideo setHidden:YES];
-    [_buttonConnect setHidden:NO];
+    self.buttonFollow.hidden = NO;
     [self.buttonDelete setHidden:YES];
     self.showDeleteButton = NO;
     [self removeCategoryButtons];
@@ -93,26 +93,26 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44
         } else {
             [self.buttonLike setSelected:NO];
         }
-        if (self.post.isConnected) {
-            [self.buttonConnect setSelected:YES];
-        } else {
-            [self.buttonConnect setSelected:NO];
-        }
-        
+        self.buttonFollow.selected = self.post.user.followingUser;
+
         [self insertCategoryButtons];
         
-        [self.labelLikes setText:[NSString stringWithFormat:@"%d", self.post.postLikesCount]];
-        [self.labelComments setText:[NSString stringWithFormat:@"%d", self.post.postCommentsCount]];
+        if (self.post.postLikesCount > 0) {
+            self.labelLikes.hidden = NO;
+            [self.labelLikes setText:[NSString stringWithFormat:@"%d", self.post.postLikesCount]];
+        }
+        if (self.post.postCommentsCount) {
+            self.labelComments.hidden = NO;
+            [self.labelComments setText:[NSString stringWithFormat:@"%d", self.post.postCommentsCount]];
+        }
         if (self.post.user.userID == [WLIConnect sharedConnect].currentUser.userID) {
-            [_buttonConnect setHidden:YES];
-            if (self.showDeleteButton)
+            self.buttonFollow.hidden = YES;
+            if (self.showDeleteButton) {
                 [_buttonDelete setHidden:NO];
-        } else {
-            [_buttonConnect setHidden:NO];
-            [_buttonDelete setHidden:YES];
-            if (self.post.isConnected) {
-                [_buttonConnect setSelected:YES];
             }
+        } else {
+            self.buttonFollow.hidden = NO;
+            [_buttonDelete setHidden:YES];
         }
     }
 }
@@ -268,13 +268,13 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44
         [self.delegate deletePost:self.post sender:self];
     }
 }
-- (IBAction)buttonConnectTouchUpInside:(id)sender {
-    
+
+- (IBAction)followButtonAction:(id)sender
+{
     if ([self.delegate respondsToSelector:@selector(followUser:sender:)]) {
-        [self.delegate showConnectForPost:self.post sender:sender];
+        [self.delegate followUser:self.post.user sender:self];
     }
 }
-
 
 - (IBAction)buttonMoreTouchUpInside:(id)sender {
     

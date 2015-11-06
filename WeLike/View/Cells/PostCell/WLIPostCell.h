@@ -34,7 +34,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewPostImage;
 @property (strong, nonatomic) IBOutlet UIButton *buttonLike;
 @property (strong, nonatomic) IBOutlet UIButton *buttonComment;
-@property (strong, nonatomic) IBOutlet UIButton *buttonConnect;
+@property (strong, nonatomic) IBOutlet UIButton *buttonFollow;
 @property (strong, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (strong, nonatomic) IBOutlet UILabel *labelComments;
 //@property (strong, nonatomic) IBOutlet UIButton *buttonLikes;
