@@ -158,7 +158,7 @@
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1) {
+    if ([cell isKindOfClass:[WLIPostCell class]]) {
         WLIPostCell *postCell = (WLIPostCell *)cell;
         [postCell.imageViewPostImage cancelImageRequestOperation];
     }
