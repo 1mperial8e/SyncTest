@@ -27,6 +27,14 @@ static CGFloat const HeaderCellHeight = 156;
     self.title = @"My Energy";
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (!self.user) {
+        self.user = sharedConnect.currentUser;
+    }
+}
+
 #pragma mark - Data loading methods
 
 - (void)reloadData:(BOOL)reloadAll {
@@ -151,19 +159,17 @@ static CGFloat const HeaderCellHeight = 156;
 {
     if (buttonIndex == deleteButtonIndex) {
         [sharedConnect deletePostID:morePost.postID onCompletion:^(ServerResponse serverResponseCode) {
-//            if (serverResponseCode == OK)
-//            {
+            if (serverResponseCode == OK) {
                 [self.posts removeObject:morePost];
                 [self.tableViewRefresh reloadData];
-//            }
-//            else
-//            {
-//                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete post" message:@"An error occoured when deleting!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//                [alert show];
-//            }
+            } else {
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Delete post" message:@"An error occoured when deleting!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
         }];
     }
 }
+
 - (void)showMoreForPost:(WLIPost*)post sender:(id)senderCell
 {
     morePost = post;
@@ -175,9 +181,7 @@ static CGFloat const HeaderCellHeight = 156;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Delete post"]) {
-        // Delete
         [self deletePost:morePost sender:self];
-
     } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Share"]) {
         [self showShareForPost:morePost sender:self];
     }

@@ -82,17 +82,6 @@
     [self updateFramesAndDataWithDownloads:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)setUser:(WLIUser *)user {
-    
-    _user = user;
-}
-
 - (WLIUser*)user {
     
     if (_user) {

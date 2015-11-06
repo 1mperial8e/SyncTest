@@ -11,25 +11,14 @@
 
 @implementation WLIEditProfileViewController
 
-#pragma mark - Object lifecycle
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
-    
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Edit Profile";
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
     saveButton.adjustsImageWhenHighlighted = NO;
@@ -38,16 +27,16 @@
     [saveButton addTarget:self action:@selector(barButtonItemSaveTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:saveButton];
     
+    self.scrollViewEditProfile.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     [self.scrollViewEditProfile addSubview:self.viewContentEditProfile];
     toolbar.mainScrollView = self.scrollViewEditProfile;
     
-    self.viewContentEditProfile.frame = CGRectMake(self.viewContentEditProfile.frame.origin.x, self.viewContentEditProfile.frame.origin.y, self.viewContentEditProfile.frame.size.width, CGRectGetMaxY(self.textFieldFullName.frame) +20.0f);
+    self.viewContentEditProfile.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, CGRectGetMaxY(self.textFieldFullName.frame) +20.0f);
     toolbar.textFields = @[self.textFieldUsername, self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword, self.textFieldFullName];
-
     
     self.scrollViewEditProfile.contentSize = self.viewContentEditProfile.frame.size;
     
-    //self.imageViewAvatar.layer.cornerRadius = 3.0f;
+    self.imageViewAvatar.layer.cornerRadius = CGRectGetHeight(self.imageViewAvatar.frame) / 2;
     self.imageViewAvatar.layer.masksToBounds = YES;
     NSURL *avatarURL = [NSURL URLWithString:sharedConnect.currentUser.userAvatarPath];
     [self.imageViewAvatar setImageWithURL:avatarURL placeholderImage:[UIImage imageNamed:@"avatar-empty"]];
@@ -66,12 +55,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -117,8 +104,8 @@
     }
 }
 
-- (IBAction)buttonSelectAvatarTouchUpInside:(UIButton *)sender {
-    
+- (IBAction)buttonSelectAvatarTouchUpInside:(UIButton *)sender
+{
     WLIAppDelegate *appDelegate = (WLIAppDelegate*)[UIApplication sharedApplication].delegate;
     [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Gallery", @"Camera", nil] showFromTabBar:appDelegate.tabBarController.tabBar];
 }
@@ -137,7 +124,6 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 #pragma mark - UIActionSheetDelegate methods
 
@@ -158,25 +144,18 @@
     }
 }
 
-#pragma mark - NSNotification methods
+#pragma mark - Keyboard methods
 
-- (void)keyboardWillShow:(NSNotification *)notification {
-    
+- (void)keyboardWillShow:(NSNotification *)notification
+{
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat height = keyboardFrame.origin.y - 64.0f;
-    self.scrollViewEditProfile.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.scrollViewEditProfile.frame), height);
+    CGFloat height = keyboardFrame.size.height + 5;
+    self.scrollViewEditProfile.contentInset = UIEdgeInsetsMake(0, 0, height, 0);
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification {
-    
-    CGFloat height = CGRectGetHeight(self.view.frame);
-    self.scrollViewEditProfile.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.scrollViewEditProfile.frame), height);
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    self.scrollViewEditProfile.contentInset = UIEdgeInsetsZero;
 }
-
-
-- (void)dealloc {
-    
-}
-
 
 @end

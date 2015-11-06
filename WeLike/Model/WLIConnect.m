@@ -83,7 +83,6 @@ static WLIConnect *sharedConnect;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-
 #pragma mark - User
 
 - (void)loginUserWithUsername:(NSString*)username andPassword:(NSString*)password onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion {
