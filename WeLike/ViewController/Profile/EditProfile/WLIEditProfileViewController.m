@@ -20,13 +20,11 @@
     self.title = @"Edit Profile";
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    saveButton.adjustsImageWhenHighlighted = NO;
-    saveButton.frame = CGRectMake(0.0f, 0.0f, 40.0f, 30.0f);
-    [saveButton setImage:[UIImage imageNamed:@"nav-btn-save"] forState:UIControlStateNormal];
-    [saveButton addTarget:self action:@selector(barButtonItemSaveTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:saveButton];
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(barButtonItemSaveTouchUpInside:)];
+    if (self.navigationController.presentingViewController) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cacelAction:)];
+    }
+
     self.scrollViewEditProfile.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     [self.scrollViewEditProfile addSubview:self.viewContentEditProfile];
     toolbar.mainScrollView = self.scrollViewEditProfile;
@@ -61,8 +59,16 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
 #pragma mark - Actions methods
+
+- (void)cacelAction:(id)sender
+{
+    if (self.navigationController.presentingViewController) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 - (void)barButtonItemSaveTouchUpInside:(UIBarButtonItem*)barButtonItemSave {
     
@@ -99,7 +105,7 @@
         
         [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userEmail:self.textFieldEmail.text password:password userAvatar:image userFullName:self.textFieldFullName.text userInfo:@"" latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self cacelAction:nil];
         }];
     }
 }

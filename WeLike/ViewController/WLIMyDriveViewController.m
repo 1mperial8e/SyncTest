@@ -30,8 +30,15 @@ static CGFloat const HeaderCellHeight = 156;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (!self.user) {
-        self.user = sharedConnect.currentUser;
+    self.user = sharedConnect.currentUser;
+    if (self.user) {
+        self.navigationItem.title = self.user.userUsername;
+        for (WLIPost *post in self.posts) {
+            post.user.userFullName = self.user.userFullName;
+            post.user.userUsername = self.user.userUsername;
+            post.user.userAvatarPath = self.user.userAvatarPath;
+        }
+        [self.tableViewRefresh reloadData];
     }
 }
 
