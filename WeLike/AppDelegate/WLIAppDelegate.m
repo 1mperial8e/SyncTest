@@ -86,7 +86,7 @@
 
 #pragma mark - UITabBarControllerDelegate methods
 
-- (BOOL)tabBarController:(UITabBarController *)tabBarController  shouldSelectViewController:(UIViewController *)viewController {
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     
     UINavigationController *navigationViewController = (UINavigationController *)viewController;
     if ([navigationViewController.topViewController isKindOfClass:[WLINewPostTableViewController class]]) {

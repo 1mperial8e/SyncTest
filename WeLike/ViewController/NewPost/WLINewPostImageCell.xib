@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="600" height="430"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="postPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="xji-JI-38S">
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="postPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="xji-JI-38S">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="430"/>
                         <animations/>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -23,10 +22,10 @@
                 </subviews>
                 <animations/>
                 <constraints>
-                    <constraint firstItem="xji-JI-38S" firstAttribute="leading" secondItem="5XM-Fl-Foe" secondAttribute="leadingMargin" constant="-8" id="7Az-Za-M4U"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="xji-JI-38S" secondAttribute="trailing" constant="-8" id="AF0-la-3Uc"/>
-                    <constraint firstItem="xji-JI-38S" firstAttribute="top" secondItem="5XM-Fl-Foe" secondAttribute="topMargin" constant="-8" id="DYR-9e-jVI"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="xji-JI-38S" secondAttribute="bottom" constant="-8" id="WZ6-6S-ddM"/>
+                    <constraint firstItem="xji-JI-38S" firstAttribute="top" secondItem="5XM-Fl-Foe" secondAttribute="top" id="5jb-Ko-JdZ"/>
+                    <constraint firstAttribute="bottom" secondItem="xji-JI-38S" secondAttribute="bottom" id="D4G-zf-Gfc"/>
+                    <constraint firstAttribute="trailing" secondItem="xji-JI-38S" secondAttribute="trailing" id="NcT-pM-AzB"/>
+                    <constraint firstItem="xji-JI-38S" firstAttribute="leading" secondItem="5XM-Fl-Foe" secondAttribute="leading" id="Tz6-lR-XD3"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>
