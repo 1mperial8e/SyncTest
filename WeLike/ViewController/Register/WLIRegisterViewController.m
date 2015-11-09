@@ -141,11 +141,7 @@
 
 - (void)selectAvatarButtonAction:(id)sender
 {
-    for (UITextField *textField in toolbar.textFields) {
-        if ([textField isFirstResponder]) {
-            [textField resignFirstResponder];
-        }
-    }
+    [self.tableView endEditing:NO];
     
     [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image"
                                  delegate:self

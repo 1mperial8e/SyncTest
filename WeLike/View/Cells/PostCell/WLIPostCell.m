@@ -73,7 +73,7 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44
 - (void)updateFramesAndDataWithDownloads:(BOOL)downloads {
     
     if (self.post) {
-        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.post.user.userAvatarPath]];
+        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.post.user.userAvatarPath] placeholderImage:DefaultAvatar];
         if (self.post.postVideoPath.length) {
             [self.buttonVideo setHidden:NO];
         }

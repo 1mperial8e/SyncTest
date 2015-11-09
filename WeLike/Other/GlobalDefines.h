@@ -11,5 +11,6 @@
 
 
 #define kDefaultPageSize 20
+#define DefaultAvatar [UIImage imageNamed:@"avatar-empty"]
 
 #endif

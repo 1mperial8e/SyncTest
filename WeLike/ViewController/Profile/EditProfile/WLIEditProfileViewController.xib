@@ -3,29 +3,12 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-            <string>HelveticaNeue</string>
-            <string>HelveticaNeue</string>
-            <string>HelveticaNeue</string>
-            <string>HelveticaNeue</string>
-        </mutableArray>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLIEditProfileViewController">
             <connections>
-                <outlet property="imageViewAvatar" destination="SiW-e0-vJf" id="O8B-Ht-Brh"/>
-                <outlet property="scrollViewEditProfile" destination="mQa-fn-KF3" id="JXF-KG-ioW"/>
-                <outlet property="textFieldEmail" destination="ncO-DD-iS9" id="2EJ-dD-Q5r"/>
-                <outlet property="textFieldFullName" destination="SYl-qX-ErP" id="EhR-qM-DCp"/>
-                <outlet property="textFieldPassword" destination="cGv-wh-KW1" id="56E-ml-76k"/>
-                <outlet property="textFieldRepassword" destination="RRw-eY-Gzf" id="IqD-6Y-HIG"/>
-                <outlet property="textFieldUsername" destination="gNk-ZW-4je" id="5Xn-qH-YOh"/>
+                <outlet property="tableView" destination="ZFr-L3-LWE" id="4iI-ry-Xjw"/>
                 <outlet property="view" destination="1" id="3"/>
-                <outlet property="viewContentEditProfile" destination="S0j-yA-alE" id="ejO-0d-doX"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -33,119 +16,25 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQa-fn-KF3">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZFr-L3-LWE">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <animations/>
-                </scrollView>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="yVo-UC-aVp"/>
+                        <outlet property="delegate" destination="-1" id="hhX-So-2PJ"/>
+                    </connections>
+                </tableView>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="mQa-fn-KF3" firstAttribute="top" secondItem="1" secondAttribute="top" id="26c-F4-yn8"/>
-                <constraint firstAttribute="bottom" secondItem="mQa-fn-KF3" secondAttribute="bottom" id="8ND-jZ-0NU"/>
-                <constraint firstAttribute="trailing" secondItem="mQa-fn-KF3" secondAttribute="trailing" id="qv2-tA-BxN"/>
-                <constraint firstItem="mQa-fn-KF3" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="uhX-wc-nYI"/>
+                <constraint firstAttribute="trailing" secondItem="ZFr-L3-LWE" secondAttribute="trailing" id="42K-z9-a4Q"/>
+                <constraint firstAttribute="bottom" secondItem="ZFr-L3-LWE" secondAttribute="bottom" id="Esx-FK-RaX"/>
+                <constraint firstItem="ZFr-L3-LWE" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="MdJ-CG-IcI"/>
+                <constraint firstItem="ZFr-L3-LWE" firstAttribute="top" secondItem="1" secondAttribute="top" id="dad-8A-864"/>
             </constraints>
             <point key="canvasLocation" x="801" y="339"/>
         </view>
-        <view contentMode="scaleToFill" id="S0j-yA-alE">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gNk-ZW-4je">
-                    <rect key="frame" x="18" y="138" width="564" height="30"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="Sh8-O3-6Nm"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ncO-DD-iS9">
-                    <rect key="frame" x="18" y="186" width="564" height="30"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cGv-wh-KW1">
-                    <rect key="frame" x="18" y="234" width="564" height="30"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="repassword" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RRw-eY-Gzf">
-                    <rect key="frame" x="18" y="282" width="564" height="30"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="full name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SYl-qX-ErP">
-                    <rect key="frame" x="18" y="330" width="564" height="30"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SiW-e0-vJf">
-                    <rect key="frame" x="250" y="20" width="100" height="100"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="100" id="0SG-fs-y2f"/>
-                        <constraint firstAttribute="width" secondItem="SiW-e0-vJf" secondAttribute="height" multiplier="1:1" id="gUM-xg-Gyg"/>
-                    </constraints>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZV-Wo-MWu">
-                    <rect key="frame" x="250" y="20" width="100" height="100"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="yZV-Wo-MWu" secondAttribute="height" multiplier="1:1" id="JKs-lU-uv6"/>
-                        <constraint firstAttribute="height" constant="100" id="bMA-Jy-YSi"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" image="avatar-overlay">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="buttonSelectAvatarTouchUpInside:" destination="-1" eventType="touchUpInside" id="96G-pF-P3E"/>
-                    </connections>
-                </button>
-            </subviews>
-            <animations/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="RRw-eY-Gzf" firstAttribute="top" secondItem="cGv-wh-KW1" secondAttribute="bottom" constant="18" id="055-I3-lli"/>
-                <constraint firstItem="yZV-Wo-MWu" firstAttribute="centerX" secondItem="S0j-yA-alE" secondAttribute="centerX" id="1dY-mm-HZt"/>
-                <constraint firstItem="SYl-qX-ErP" firstAttribute="height" secondItem="gNk-ZW-4je" secondAttribute="height" id="2Rs-YL-5Wb"/>
-                <constraint firstItem="SiW-e0-vJf" firstAttribute="centerX" secondItem="S0j-yA-alE" secondAttribute="centerX" id="2fm-GP-8E6"/>
-                <constraint firstItem="SYl-qX-ErP" firstAttribute="leading" secondItem="S0j-yA-alE" secondAttribute="leading" constant="18" id="4qb-Fv-ZwC"/>
-                <constraint firstItem="cGv-wh-KW1" firstAttribute="top" secondItem="ncO-DD-iS9" secondAttribute="bottom" constant="18" id="5c2-gY-OpM"/>
-                <constraint firstItem="cGv-wh-KW1" firstAttribute="leading" secondItem="S0j-yA-alE" secondAttribute="leading" constant="18" id="AcD-8U-UEn"/>
-                <constraint firstAttribute="trailing" secondItem="gNk-ZW-4je" secondAttribute="trailing" constant="18" id="CNE-MV-hZT"/>
-                <constraint firstItem="cGv-wh-KW1" firstAttribute="height" secondItem="gNk-ZW-4je" secondAttribute="height" id="CoK-6s-ViX"/>
-                <constraint firstItem="ncO-DD-iS9" firstAttribute="top" secondItem="gNk-ZW-4je" secondAttribute="bottom" constant="18" id="D3W-RC-EeJ"/>
-                <constraint firstItem="ncO-DD-iS9" firstAttribute="height" secondItem="gNk-ZW-4je" secondAttribute="height" id="F8O-SB-qKX"/>
-                <constraint firstAttribute="trailing" secondItem="SYl-qX-ErP" secondAttribute="trailing" constant="18" id="HZu-uv-m9Y"/>
-                <constraint firstItem="SiW-e0-vJf" firstAttribute="top" secondItem="S0j-yA-alE" secondAttribute="top" constant="20" id="I3l-jT-how"/>
-                <constraint firstItem="RRw-eY-Gzf" firstAttribute="height" secondItem="gNk-ZW-4je" secondAttribute="height" id="M73-kc-PU8"/>
-                <constraint firstItem="SYl-qX-ErP" firstAttribute="top" secondItem="RRw-eY-Gzf" secondAttribute="bottom" constant="18" id="MbC-7a-nzF"/>
-                <constraint firstItem="yZV-Wo-MWu" firstAttribute="top" secondItem="S0j-yA-alE" secondAttribute="top" constant="20" id="R4k-EJ-HeF"/>
-                <constraint firstAttribute="trailing" secondItem="ncO-DD-iS9" secondAttribute="trailing" constant="18" id="e4L-RK-jPV"/>
-                <constraint firstItem="RRw-eY-Gzf" firstAttribute="leading" secondItem="S0j-yA-alE" secondAttribute="leading" constant="18" id="iX1-3K-gYZ"/>
-                <constraint firstAttribute="trailing" secondItem="cGv-wh-KW1" secondAttribute="trailing" constant="18" id="tJ8-H2-nae"/>
-                <constraint firstAttribute="trailing" secondItem="RRw-eY-Gzf" secondAttribute="trailing" constant="18" id="u4a-RX-W8i"/>
-                <constraint firstItem="gNk-ZW-4je" firstAttribute="leading" secondItem="S0j-yA-alE" secondAttribute="leading" constant="18" id="v7q-2R-QuA"/>
-                <constraint firstItem="ncO-DD-iS9" firstAttribute="leading" secondItem="S0j-yA-alE" secondAttribute="leading" constant="18" id="xpk-7v-cQ9"/>
-                <constraint firstItem="gNk-ZW-4je" firstAttribute="top" secondItem="yZV-Wo-MWu" secondAttribute="bottom" constant="18" id="xvU-Lw-Oxl"/>
-            </constraints>
-            <nil key="simulatedStatusBarMetrics"/>
-            <point key="canvasLocation" x="807" y="992"/>
-        </view>
-        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="2t4-5t-Gfd">
-            <connections>
-                <action selector="handleLongTapGesture:" destination="-1" id="DVv-d6-4Os"/>
-            </connections>
-        </pongPressGestureRecognizer>
     </objects>
-    <resources>
-        <image name="avatar-overlay" width="100" height="100"/>
-    </resources>
 </document>

@@ -8,12 +8,8 @@
 
 #import "WLIAppDelegate.h"
 #import "WLINewPostTableViewController.h"
-//#import "WLINearbyViewController.h"
-//#import "WLIPopularViewController.h"
-//#import "WLIProfileViewController.h"
 
 #import "WLIInfoPageViewController.h"
-//#import "WLIFavoritesViewController.h"
 #import "WLIFollowingsViewController.h"
 #import "WLIMyDriveViewController.h"
 
@@ -143,10 +139,10 @@
     UITabBarItem *newPostTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Add Energy" image:[[UIImage imageNamed:@"tabbar-newpost-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-newpost"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     newPostViewController.tabBarItem = newPostTabBarItem;
     
-    UITabBarItem *followingTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Connect" image:[[UIImage imageNamed:@"tabbar-following-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-following"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UITabBarItem *followingTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Following" image:[[UIImage imageNamed:@"tabbar-following-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-following"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     followingNavigationController.tabBarItem = followingTabBarItem;
 
-    UITabBarItem *myDriveTabBarItem = [[UITabBarItem alloc] initWithTitle:@"MyEnergy" image:[[UIImage imageNamed:@"tabbar-mydrive-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-mydrive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UITabBarItem *myDriveTabBarItem = [[UITabBarItem alloc] initWithTitle:@"My Energy" image:[[UIImage imageNamed:@"tabbar-mydrive-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-mydrive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     myDriveViewController.tabBarItem = myDriveTabBarItem;
     
     self.window.rootViewController = self.tabBarController;

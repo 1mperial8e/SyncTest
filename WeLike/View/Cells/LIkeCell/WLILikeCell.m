@@ -62,7 +62,7 @@ static WLILikeCell *sharedCell = nil;
             NSURL *userImageURL = [NSURL URLWithString:self.like.user.userAvatarPath];
             NSMutableURLRequest *userImageRequest = [NSMutableURLRequest requestWithURL:userImageURL cachePolicy:NSURLRequestReloadRevalidatingCacheData timeoutInterval:120.0];
             __weak WLILikeCell *weakSelf = self;
-            [self.imageViewUser setImageWithURLRequest:userImageRequest placeholderImage:[UIImage imageNamed:@""] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+            [self.imageViewUser setImageWithURLRequest:userImageRequest placeholderImage:DefaultAvatar success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                 weakSelf.imageViewUser.image = image;
             } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) { }];
         }

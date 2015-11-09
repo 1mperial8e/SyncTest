@@ -7,63 +7,152 @@
 //
 
 #import "WLIEditProfileViewController.h"
+
+// Cells
+#import "WLIRegisterAvatarTableViewCell.h"
+#import "WLIRegisterTableViewCell.h"
+
+// Models
 #import "WLIAppDelegate.h"
+
+@interface WLIEditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak, nonatomic) UITextField *textFieldEmail;
+@property (weak, nonatomic) UITextField *textFieldPassword;
+@property (weak, nonatomic) UITextField *textFieldRepassword;
+@property (weak, nonatomic) UITextField *textFieldUsername;
+@property (weak, nonatomic) UITextField *textFieldFullName;
+
+@property (weak, nonatomic) UIImageView *avatarImageView;
+
+@property (assign, nonatomic) BOOL imageReplaced;
+
+@end
 
 @implementation WLIEditProfileViewController
 
-#pragma mark - View lifecycle
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.title = @"Edit Profile";
-    self.automaticallyAdjustsScrollViewInsets = NO;
+
+    self.navigationItem.title = @"Edit Profile";
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(barButtonItemSaveTouchUpInside:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveChangesAction:)];
     if (self.navigationController.presentingViewController) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cacelAction:)];
     }
 
-    self.scrollViewEditProfile.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-    
-    [self.scrollViewEditProfile addSubview:self.viewContentEditProfile];
-    toolbar.mainScrollView = self.scrollViewEditProfile;
-    
-    self.viewContentEditProfile.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, CGRectGetMaxY(self.textFieldFullName.frame) +20.0f);
-    toolbar.textFields = @[self.textFieldUsername, self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword, self.textFieldFullName];
-    
-    self.scrollViewEditProfile.contentSize = self.viewContentEditProfile.frame.size;
-    
-    self.imageViewAvatar.layer.cornerRadius = CGRectGetHeight(self.imageViewAvatar.frame) / 2;
-    self.imageViewAvatar.layer.masksToBounds = YES;
-    NSURL *avatarURL = [NSURL URLWithString:sharedConnect.currentUser.userAvatarPath];
-    [self.imageViewAvatar setImageWithURL:avatarURL placeholderImage:[UIImage imageNamed:@"avatar-empty"]];
-    
-    self.textFieldUsername.text = sharedConnect.currentUser.userUsername;
-    self.textFieldEmail.text = sharedConnect.currentUser.userEmail;
-    self.textFieldFullName.text = sharedConnect.currentUser.userFullName;
-    self.textFieldUsername.text = sharedConnect.currentUser.userUsername;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    [self.tableView registerNib:WLIRegisterAvatarTableViewCell.nib forCellReuseIdentifier:WLIRegisterAvatarTableViewCell.ID];
+    [self.tableView registerNib:WLIRegisterTableViewCell.nib forCellReuseIdentifier:WLIRegisterTableViewCell.ID];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (self.textFieldEmail && self.textFieldPassword && self.textFieldRepassword && self.textFieldUsername && self.textFieldFullName) {
+        toolbar.mainScrollView = self.tableView;
+        toolbar.textFields = @[self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword, /*self.textFieldUsername,*/ self.textFieldFullName];
+    }
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 6;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    if (indexPath.row == 0) {
+        cell = [self avatarCellForIndexPath:indexPath];
+    } else {
+        cell = [self dataFieldCellForIndexPath:indexPath];
+    }
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat heigh = 50.f;
+    if (indexPath.row == 0) {
+        heigh = 130.f;
+    }
+    return heigh;
+}
+
+#pragma mark - ConfigureCell
+
+- (UITableViewCell *)avatarCellForIndexPath:(NSIndexPath *)indexPath
+{
+    WLIRegisterAvatarTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WLIRegisterAvatarTableViewCell.ID forIndexPath:indexPath];
+    self.avatarImageView = cell.avatarImageView;
+    self.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.avatarImageView.bounds) / 2;
+    self.avatarImageView.layer.masksToBounds = YES;
+    [cell.chooseAvatarButton addTarget:self action:@selector(selectAvatarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    return cell;
+}
+
+- (UITableViewCell *)dataFieldCellForIndexPath:(NSIndexPath *)indexPath
+{
+    WLIRegisterTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WLIRegisterTableViewCell.ID forIndexPath:indexPath];
+    if (indexPath.row == 1) {
+        cell.textField.placeholder = @"email address";
+        cell.textField.keyboardType = UIKeyboardTypeEmailAddress;
+        self.textFieldEmail = cell.textField;
+        self.textFieldEmail.text = sharedConnect.currentUser.userEmail;
+    } else if (indexPath.row == 2) {
+        cell.textField.placeholder = @"password";
+        cell.textField.secureTextEntry = YES;
+        self.textFieldPassword = cell.textField;
+    } else if (indexPath.row == 3) {
+        cell.textField.placeholder = @"retype password";
+        cell.textField.secureTextEntry = YES;
+        self.textFieldRepassword = cell.textField;
+    } else if (indexPath.row == 4) {
+        cell.textField.placeholder = @"username";
+        self.textFieldUsername = cell.textField;
+        self.textFieldUsername.userInteractionEnabled = NO;
+        self.textFieldUsername.text = sharedConnect.currentUser.userUsername;
+    } else if (indexPath.row == 5) {
+        cell.textField.placeholder = @"full name";
+        self.textFieldFullName = cell.textField;
+        self.textFieldFullName.text = sharedConnect.currentUser.userFullName;
+    }
+    return cell;
 }
 
 #pragma mark - Actions methods
 
 - (void)cacelAction:(id)sender
 {
+    [self.tableView endEditing:NO];
     if (self.navigationController.presentingViewController) {
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
@@ -71,39 +160,39 @@
     }
 }
 
-- (void)barButtonItemSaveTouchUpInside:(UIBarButtonItem*)barButtonItemSave {
+- (void)selectAvatarButtonAction:(id)sender
+{
+    [self.tableView endEditing:NO];
     
-    if (!self.textFieldEmail.text.length) {
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Email is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    } else if (!self.textFieldUsername.text.length) {
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Username is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    } else if (![self.textFieldPassword.text isEqualToString:self.textFieldRepassword.text]) {
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Password and repassword doesn't match." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    } else if (!self.textFieldFullName.text.length) {
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Full Name is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    } else
-//    if (!self.imageViewAvatar.image) {
-//        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Avatar image is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-//    } else
-    {
-        
-    NSString *password;
-    if (self.textFieldPassword.text.length) {
-        if (self.textFieldPassword.text.length < 4) {
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Your password needs to be at least 4 characters long." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            return;
-        } else {
-            password = self.textFieldPassword.text;
-        }
-    }
-    
+    [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image"
+                                 delegate:self
+                        cancelButtonTitle:@"Cancel"
+                   destructiveButtonTitle:nil
+                        otherButtonTitles:@"Gallery", @"Camera", nil] showInView:self.view];
+}
 
-        [hud show:YES];
-        UIImage *image;
-        if (imageReplaced) {
-            image = self.imageViewAvatar.image;
+- (void)saveChangesAction:(UIBarButtonItem*)barButtonItemSave
+{
+    if (!self.textFieldEmail.text.length) {
+        [self showErrorWithMessage:@"Email is required."];
+    } /*else if (!self.textFieldUsername.text.length) {
+        [self showErrorWithMessage:@"Username is required."];
+    }*/ else if (![self.textFieldPassword.text isEqualToString:self.textFieldRepassword.text]) {
+        [self showErrorWithMessage:@"Password and repassword doesn't match."];
+    } else if (!self.textFieldFullName.text.length) {
+        [self showErrorWithMessage:@"Full Name is required."];
+    } else {
+        NSString *password;
+        if (self.textFieldPassword.text.length) {
+            if (self.textFieldPassword.text.length < 4) {
+                [self showErrorWithMessage:@"Your password needs to be at least 4 characters long."];
+                return;
+            } else {
+                password = self.textFieldPassword.text;
+            }
         }
-        
+        [hud show:YES];
+        UIImage *image = self.imageReplaced ? self.avatarImageView.image : nil;
         [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userEmail:self.textFieldEmail.text password:password userAvatar:image userFullName:self.textFieldFullName.text userInfo:@"" latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
             [self cacelAction:nil];
@@ -111,31 +200,31 @@
     }
 }
 
-- (IBAction)buttonSelectAvatarTouchUpInside:(UIButton *)sender
-{
-    WLIAppDelegate *appDelegate = (WLIAppDelegate*)[UIApplication sharedApplication].delegate;
-    [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Gallery", @"Camera", nil] showFromTabBar:appDelegate.tabBarController.tabBar];
-}
+#pragma mark - Alert
 
+- (void)showErrorWithMessage:(NSString *)message
+{
+    [[[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+}
 
 #pragma mark - UIImagePickerControllerDelegate methods
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
-    imageReplaced = YES;
-    self.imageViewAvatar.image = info[UIImagePickerControllerEditedImage];
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    self.imageReplaced = YES;
+    self.avatarImageView.image = info[UIImagePickerControllerEditedImage];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UIActionSheetDelegate methods
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Gallery"]) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.delegate = self;
@@ -151,18 +240,18 @@
     }
 }
 
-#pragma mark - Keyboard methods
+#pragma mark - NSNotification
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat height = keyboardFrame.size.height + 5;
-    self.scrollViewEditProfile.contentInset = UIEdgeInsetsMake(0, 0, height, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, height, 0);
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-    self.scrollViewEditProfile.contentInset = UIEdgeInsetsZero;
+    self.tableView.contentInset = UIEdgeInsetsZero;
 }
 
 @end

@@ -9,7 +9,7 @@
 #import "WLIViewController.h"
 #import "WLICommentsViewController.h"
 #import "WLILikesViewController.h"
-#import "WLIProfileViewController.h"
+//#import "WLIProfileViewController.h"
 #import "WLIPostViewController.h"
 
 @implementation WLIViewController
@@ -84,9 +84,9 @@
 
 - (void)showUser:(WLIUser*)user sender:(WLIPostCell*)senderCell {
     
-    WLIProfileViewController *profileViewController = [[WLIProfileViewController alloc] initWithNibName:@"WLIProfileViewController" bundle:nil];
-    profileViewController.user = user;
-    [self.navigationController pushViewController:profileViewController animated:YES];
+//    WLIProfileViewController *profileViewController = [[WLIProfileViewController alloc] initWithNibName:@"WLIProfileViewController" bundle:nil];
+//    profileViewController.user = user;
+//    [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
 - (void)showImageForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell {

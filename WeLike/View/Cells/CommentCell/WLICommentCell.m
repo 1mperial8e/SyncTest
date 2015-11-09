@@ -67,7 +67,7 @@ static WLICommentCell *sharedCell = nil;
     if (self.comment && ![self.comment isEqual:[NSNull null]]) {
         
         if (downloads) {
-            [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.comment.user.userAvatarPath]];
+            [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.comment.user.userAvatarPath] placeholderImage:DefaultAvatar];
         }
         
         self.labelUsername.text = self.comment.user.userFullName;

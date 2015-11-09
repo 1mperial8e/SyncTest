@@ -101,7 +101,7 @@
 - (void)updateInfo
 {
     if (self.user) {
-        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath]];
+        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
         self.labelUserName.text = self.user.userFullName;
         self.labelUserEmail.text = self.user.userEmail;
         

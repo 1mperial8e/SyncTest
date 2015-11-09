@@ -109,11 +109,11 @@
 
     
     if (downloads) {
-        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath]];
+        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
         
         [sharedConnect userWithUserID:self.user.userID onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             _user = user;
-            [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath]];
+            [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
             self.labelName.text = self.user.userFullName;
             self.labelEmail.text = self.user.userEmail;
             if (self.user.followingUser) {

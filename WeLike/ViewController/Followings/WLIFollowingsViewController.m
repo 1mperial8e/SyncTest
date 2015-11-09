@@ -14,18 +14,6 @@
 
 @implementation WLIFollowingsViewController
 
-#pragma mark - Object lifecycle
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-    {
-        self.title = @"Connect";
-    }
-    return self;
-}
-
 #pragma mark - Data loading methods
 
 - (void)reloadData:(BOOL)reloadAll {
@@ -38,11 +26,18 @@
     } else {
         page  = (self.posts.count / kDefaultPageSize) + 1;
     }
+    __weak typeof(self) weakSelf = self;
     [sharedConnect connectTimelineForUserID:sharedConnect.currentUser.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         loading = NO;
-        self.posts = posts;
-        loadMore = posts.count == kDefaultPageSize;
-        [self.tableViewRefresh reloadData];
+        if (serverResponseCode == OK) {
+            loadMore = (posts.count == kDefaultPageSize);
+            if (reloadAll) {
+                [weakSelf.posts removeAllObjects];
+            }
+            [weakSelf.posts addObjectsFromArray:posts];
+            
+        }
+        [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)] withRowAnimation:UITableViewRowAnimationAutomatic];
         [refreshManager tableViewReloadFinishedAnimated:YES];
     }];
 }
@@ -52,11 +47,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
+    self.navigationItem.title = @"Following";
 }
 
 @end

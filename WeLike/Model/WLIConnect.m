@@ -360,6 +360,7 @@ static WLIConnect *sharedConnect;
         }];
     }
 }
+
 - (void)connectTimelineForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion {
     
     if (userID < 1) {

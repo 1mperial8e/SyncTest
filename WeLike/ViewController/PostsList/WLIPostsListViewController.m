@@ -10,7 +10,6 @@
 #import "WLIPostCell.h"
 #import "WLILoadingCell.h"
 #import "GlobalDefines.h"
-#import "WLIProfileViewController.h"
 #import "WLISearchContentViewController.h"
 #import "WLICategoryPostsViewController.h"
 
@@ -54,10 +53,10 @@
 
 -(IBAction)profileButtonTouchUpInside:(id)sender
 {
-    WLIProfileViewController *profileViewController = [[WLIProfileViewController alloc] initWithNibName:@"WLIProfileViewController" bundle:nil];
-    UINavigationController *profileNavigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
-//    profileNavigationController.navigationBar.translucent = NO;
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:profileNavigationController animated:YES completion:nil];
+//    WLIProfileViewController *profileViewController = [[WLIProfileViewController alloc] initWithNibName:@"WLIProfileViewController" bundle:nil];
+//    UINavigationController *profileNavigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+////    profileNavigationController.navigationBar.translucent = NO;
+//    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:profileNavigationController animated:YES completion:nil];
 }
 -(IBAction)searchButtonTouchUpInside:(id)sender
 {
