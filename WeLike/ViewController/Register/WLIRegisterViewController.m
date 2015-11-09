@@ -8,130 +8,210 @@
 
 #import "WLIRegisterViewController.h"
 
+// Cells
+#import "WLIRegisterAvatarTableViewCell.h"
+#import "WLIRegisterTableViewCell.h"
+
+@interface WLIRegisterViewController () <UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak, nonatomic) UITextField *textFieldEmail;
+@property (weak, nonatomic) UITextField *textFieldPassword;
+@property (weak, nonatomic) UITextField *textFieldRepassword;
+@property (weak, nonatomic) UITextField *textFieldUsername;
+@property (weak, nonatomic) UITextField *textFieldFullName;
+
+@property (weak, nonatomic) UIImageView *avatarImageView;
+
+@end
 
 @implementation WLIRegisterViewController
 
-
-#pragma mark - Object lifecycle
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
-    
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.title = @"Register";
     
-    self.buttonRegister.layer.cornerRadius = CGRectGetHeight(self.buttonRegister.frame)/2;
-    
-    self.viewContentRegister.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
-
-    [self.scrollViewRegister addSubview:self.viewContentRegister];
-    [self adjustViewFrames];
-    
-    
-    
-    
-    
-    self.scrollViewRegister.contentSize = self.viewContentRegister.frame.size;
-    toolbar.mainScrollView = self.scrollViewRegister;
-    toolbar.textFields = @[self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword, self.textFieldUsername, self.textFieldFullName];
-
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    [self.tableView registerNib:WLIRegisterAvatarTableViewCell.nib forCellReuseIdentifier:WLIRegisterAvatarTableViewCell.ID];
+    [self.tableView registerNib:WLIRegisterTableViewCell.nib forCellReuseIdentifier:WLIRegisterTableViewCell.ID];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (self.textFieldEmail && self.textFieldPassword && self.textFieldRepassword && self.textFieldUsername && self.textFieldFullName) {
+        toolbar.mainScrollView = self.tableView;
+        toolbar.textFields = @[self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword, self.textFieldUsername, self.textFieldFullName];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    
-    [super viewWillDisappear:animated];
 }
 
+#pragma mark - UITableViewDataSource
 
-#pragma mark - Button methods
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 7;
+}
 
-- (IBAction)buttonSelectAvatarTouchUpInside:(UIButton *)sender {
-    for (NSInteger i = 0; i < [toolbar.textFields count]; i++ )
-    {
-        id field = [toolbar.textFields objectAtIndex:i];
-        if ([field isFirstResponder])
-        {
-            [field resignFirstResponder];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    if (indexPath.row == 0) {
+        cell = [self avatarCellForIndexPath:indexPath];
+    } else {
+        cell = [self dataFieldCellForIndexPath:indexPath];
+    }
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat heigh = 50.f;
+    if (indexPath.row == 0) {
+        heigh = 130.f;
+    }
+    return heigh;
+}
+
+#pragma mark - ConfigureCell
+
+- (UITableViewCell *)avatarCellForIndexPath:(NSIndexPath *)indexPath
+{
+    WLIRegisterAvatarTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WLIRegisterAvatarTableViewCell.ID forIndexPath:indexPath];
+    self.avatarImageView = cell.avatarImageView;
+    self.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.avatarImageView.bounds) / 2;
+    self.avatarImageView.layer.masksToBounds = YES;
+    [cell.chooseAvatarButton addTarget:self action:@selector(selectAvatarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    return cell;
+}
+
+- (UITableViewCell *)dataFieldCellForIndexPath:(NSIndexPath *)indexPath
+{
+    WLIRegisterTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WLIRegisterTableViewCell.ID forIndexPath:indexPath];
+    if (indexPath.row == 1) {
+        cell.textField.placeholder = @"email address";
+        cell.textField.keyboardType = UIKeyboardTypeEmailAddress;
+        self.textFieldEmail = cell.textField;
+    } else if (indexPath.row == 2) {
+        cell.textField.placeholder = @"password";
+        cell.textField.secureTextEntry = YES;
+        self.textFieldPassword = cell.textField;
+    } else if (indexPath.row == 3) {
+        cell.textField.placeholder = @"retype password";
+        cell.textField.secureTextEntry = YES;
+        self.textFieldRepassword = cell.textField;
+    } else if (indexPath.row == 4) {
+        cell.textField.placeholder = @"username";
+        self.textFieldUsername = cell.textField;
+    } else if (indexPath.row == 5) {
+        cell.textField.placeholder = @"full name";
+        self.textFieldFullName = cell.textField;
+    } else if (indexPath.row == 6) {
+        cell.registerButton.hidden = NO;
+        cell.textField.hidden = YES;
+        [cell.registerButton addTarget:self action:@selector(registerButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return cell;
+}
+
+#pragma mark - Actions
+
+- (void)selectAvatarButtonAction:(id)sender
+{
+    for (UITextField *textField in toolbar.textFields) {
+        if ([textField isFirstResponder]) {
+            [textField resignFirstResponder];
         }
     }
-    [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Gallery", @"Camera", nil] showInView:self.view];
+    
+    [[[UIActionSheet alloc] initWithTitle:@"Where do you want to choose your image"
+                                 delegate:self
+                        cancelButtonTitle:@"Cancel"
+                   destructiveButtonTitle:nil
+                        otherButtonTitles:@"Gallery", @"Camera", nil] showInView:self.view];
 }
 
-- (IBAction)buttonRegisterTouchUpInside:(id)sender {
-
+- (void)registerButtonAction:(id)sender
+{
     if (!self.textFieldEmail.text.length) {
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Email is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [self showErrorWithMessage:@"Email is required."];
     } else if (self.textFieldPassword.text.length < 4 || self.textFieldRepassword.text.length < 4) {
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Password is required. Your password should be at least 4 characters long." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [self showErrorWithMessage:@"Password is required. Your password should be at least 4 characters long."];
     } else if (!self.textFieldUsername.text.length) {
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Username is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [self showErrorWithMessage:@"Username is required."];
     } else if (![self.textFieldPassword.text isEqualToString:self.textFieldRepassword.text]) {
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Password and repassword doesn't match." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [self showErrorWithMessage:@"Password and repassword doesn't match."];
     } else if (!self.textFieldFullName.text.length) {
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Full Name is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    } else if (!self.imageViewAvatar.image) {
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Avatar image is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [self showErrorWithMessage:@"Full Name is required."];
+    } else if (!self.avatarImageView.image) {
+        [self showErrorWithMessage:@"Avatar image is required."];
     } else {
-        
         [self.view endEditing:YES];
         [hud show:YES];
         
-        [sharedConnect registerUserWithUsername:self.textFieldUsername.text password:self.textFieldPassword.text email:self.textFieldEmail.text userAvatar:self.imageViewAvatar.image userType:WLIUserTypePerson userFullName:self.textFieldFullName.text userInfo:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
+        __weak typeof(self) weakSelf = self;
+        [sharedConnect registerUserWithUsername:self.textFieldUsername.text password:self.textFieldPassword.text email:self.textFieldEmail.text userAvatar:self.avatarImageView.image userType:WLIUserTypePerson userFullName:self.textFieldFullName.text userInfo:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode == OK) {
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
             } else if (serverResponseCode == NO_CONNECTION) {
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:@"No connection. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [weakSelf showErrorWithMessage:@"No connection. Please try again."];
             } else if (serverResponseCode == CONFLICT) {
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:@"User already exists. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [weakSelf showErrorWithMessage:@"User already exists. Please try again."];
             } else {
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Something went wrong. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [weakSelf showErrorWithMessage:@"Something went wrong. Please try again."];
             }
         }];
     }
 }
 
+#pragma mark - Alert
+
+- (void)showErrorWithMessage:(NSString *)message
+{
+    [[[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+}
 
 #pragma mark - UIImagePickerControllerDelegate methods
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
-    self.imageViewAvatar.image = info[UIImagePickerControllerEditedImage];
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{    
+    self.avatarImageView.image = info[UIImagePickerControllerEditedImage];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 #pragma mark - UIActionSheetDelegate methods
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Gallery"]) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.delegate = self;
@@ -147,38 +227,18 @@
     }
 }
 
+#pragma mark - NSNotification
 
-#pragma mark - Other methods
-
-- (void)adjustViewFrames {
-//    self.buttonRegister.frame = CGRectMake(self.buttonRegister.frame.origin.x, CGRectGetMaxY(self.textFieldFullName.frame) +20.0f, self.buttonRegister.frame.size.width, self.buttonRegister.frame.size.height);
-    self.viewContentRegister.frame = CGRectMake(self.viewContentRegister.frame.origin.x, self.viewContentRegister.frame.origin.y, self.viewContentRegister.frame.size.width, CGRectGetMaxY(self.buttonRegister.frame) +20.0f);
-    PNTToolbar *newToolbar = [PNTToolbar defaultToolbar];
-    newToolbar.mainScrollView = self.scrollViewRegister;
-    newToolbar.textFields = @[self.textFieldFullName, self.textFieldUsername, self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword];
-    self.scrollViewRegister.contentSize = self.viewContentRegister.frame.size;
-}
-
-
-#pragma mark - NSNotification methods
-
-- (void)keyboardWillShow:(NSNotification *)notification {
-    
+- (void)keyboardWillShow:(NSNotification *)notification
+{
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat height = keyboardFrame.origin.y - (64.0f + 44.0f);
-    self.scrollViewRegister.frame = CGRectMake(0.0f, 44.0f, CGRectGetWidth(self.scrollViewRegister.frame), height);
+    CGFloat height = keyboardFrame.size.height + 5;
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, height, 0);
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification {
-    
-    CGFloat height = CGRectGetHeight(self.view.frame);
-    self.scrollViewRegister.frame = CGRectMake(0.0f, 44.0f, CGRectGetWidth(self.scrollViewRegister.frame), height);
-}
-
-
-- (void)dealloc {
-    
-
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    self.tableView.contentInset = UIEdgeInsetsZero;
 }
 
 @end

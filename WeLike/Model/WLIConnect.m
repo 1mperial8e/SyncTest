@@ -9,7 +9,10 @@
 #import "WLIConnect.h"
 
 //#define kBaseLink @"http://10.0.0.84:8888/"
-#define kBaseLink @"http://mydrive-dev.appmedia.no/"
+
+#define kBaseLink @"http://mydrive-rails-dev.appmedia.no"
+//#define kBaseLink @"http://mydrive-dev.appmedia.no/"
+
 #define kAPIKey @"!#wli!sdWQDScxzczFžŽYewQsq_?wdX09612627364[3072∑34260-#"
 #define kConnectionTimeout 30
 #define kCompressionQuality 1.0f
@@ -847,12 +850,11 @@ static WLIConnect *sharedConnect;
     }];
 }
 
-- (void)logout {
-    
+- (void)logout
+{
     _currentUser = nil;
     [self removeCurrentUser];
 }
-
 
 #pragma mark - debugger
 

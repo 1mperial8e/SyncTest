@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WLIRegisterAvatarTableViewCell" rowHeight="174" id="KGk-i7-Jjw" customClass="WLIRegisterAvatarTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="174"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="173"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HVz-wx-Jqn">
+                        <rect key="frame" x="110" y="37" width="100" height="100"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar-empty" translatesAutoresizingMaskIntoConstraints="NO" id="an9-NV-Hk6">
+                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                <animations/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqP-zo-I3X">
+                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                <animations/>
+                                <state key="normal" image="avatar-overlay"/>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="an9-NV-Hk6" firstAttribute="top" secondItem="HVz-wx-Jqn" secondAttribute="top" id="MPo-GB-uKv"/>
+                            <constraint firstItem="mqP-zo-I3X" firstAttribute="top" secondItem="HVz-wx-Jqn" secondAttribute="top" id="ROJ-Lb-JJI"/>
+                            <constraint firstAttribute="bottom" secondItem="an9-NV-Hk6" secondAttribute="bottom" id="VN7-Mw-Ehq"/>
+                            <constraint firstAttribute="width" secondItem="HVz-wx-Jqn" secondAttribute="height" multiplier="1:1" id="biE-nD-Jy8"/>
+                            <constraint firstItem="an9-NV-Hk6" firstAttribute="leading" secondItem="HVz-wx-Jqn" secondAttribute="leading" id="eQy-dW-7gY"/>
+                            <constraint firstAttribute="bottom" secondItem="mqP-zo-I3X" secondAttribute="bottom" id="gX5-NM-Gqg"/>
+                            <constraint firstAttribute="trailing" secondItem="mqP-zo-I3X" secondAttribute="trailing" id="gs5-j0-9Pj"/>
+                            <constraint firstAttribute="width" constant="100" id="krX-gq-Z7C"/>
+                            <constraint firstAttribute="trailing" secondItem="an9-NV-Hk6" secondAttribute="trailing" id="n3y-Bx-HoJ"/>
+                            <constraint firstItem="mqP-zo-I3X" firstAttribute="leading" secondItem="HVz-wx-Jqn" secondAttribute="leading" id="tDp-zB-6Pf"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstItem="HVz-wx-Jqn" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Jn1-qQ-eOm"/>
+                    <constraint firstItem="HVz-wx-Jqn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ScP-gl-RvN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="avatarImageView" destination="an9-NV-Hk6" id="wJB-N5-hQZ"/>
+                <outlet property="chooseAvatarButton" destination="mqP-zo-I3X" id="9tZ-lr-GXB"/>
+            </connections>
+            <point key="canvasLocation" x="364" y="242"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="avatar-empty" width="100" height="100"/>
+        <image name="avatar-overlay" width="100" height="100"/>
+    </resources>
+</document>
