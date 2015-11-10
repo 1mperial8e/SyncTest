@@ -59,7 +59,7 @@ static WLIConnect *sharedConnect;
         httpClient.responseSerializer = [AFJSONResponseSerializer serializer];
         json = [[SBJsonParser alloc] init];
         _dateFormatter = [[NSDateFormatter alloc] init];
-        [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [_dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.zzz'Z'"];
         _dateOnlyFormatter = [[NSDateFormatter alloc] init];
         [_dateOnlyFormatter setDateFormat:@"MM/dd/yyyy"];
         [_dateOnlyFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];

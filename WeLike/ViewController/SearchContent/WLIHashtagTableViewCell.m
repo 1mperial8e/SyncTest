@@ -8,50 +8,48 @@
 
 #import "WLIHashtagTableViewCell.h"
 
-//static WLIHashtagTableViewCell *sharedCell = nil;
+@interface WLIHashtagTableViewCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *tagNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tagCountLabel;
+
+@end
 
 @implementation WLIHashtagTableViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
+#pragma mark - Accessors
+
+- (void)setHashtag:(WLIHashtag *)hashtag
+{
+    _hashtag = hashtag;
+    [self updateInfo];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+#pragma mark - Info
 
-    // Configure the view for the selected state
+- (void)updateInfo
+{
+    self.tagNameLabel.text = self.hashtag.tagname;
+    self.tagCountLabel.text = [NSString stringWithFormat:@"%d", self.hashtag.tagcount];
 }
 
-
-#pragma mark - Object lifecycle
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-
-
-#pragma mark - Cell methods
-
-- (void)layoutSubviews {
-    
-    [super layoutSubviews];
-    [self updateFrame];
-}
-
-- (void)updateFrame {
-    tagName.text = self.hashtag.tagname;
-    tagCount.text = [NSString stringWithFormat:@"%d", self.hashtag.tagcount];
-}
+#pragma mark - Actions
 
 - (IBAction)hashTagClickedTouchUpInside:(WLIHashtag*)hashtag sender:(id)senderCell
 {
     [self.delegate hashTagClicked:hashtag sender:self];
+}
+
+#pragma mark - Static
+
++ (NSString *)ID
+{
+    return NSStringFromClass(self.class);
+}
+
++ (UINib *)nib
+{
+    return [UINib nibWithNibName:self.ID bundle:nil];
 }
 
 @end

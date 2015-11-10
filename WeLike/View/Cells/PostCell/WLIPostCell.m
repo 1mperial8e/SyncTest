@@ -271,8 +271,14 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44
 
 - (IBAction)followButtonAction:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(followUser:sender:)]) {
-        [self.delegate followUser:self.post.user sender:self];
+    if (self.post.user.followingUser) {
+        if ([self.delegate respondsToSelector:@selector(unfollowUser:sender:)]) {
+            [self.delegate unfollowUser:self.post.user sender:self];
+        }
+    } else {
+        if ([self.delegate respondsToSelector:@selector(followUser:sender:)]) {
+            [self.delegate followUser:self.post.user sender:self];
+        }
     }
 }
 

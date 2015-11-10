@@ -12,8 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLICommentsViewController">
             <connections>
-                <outlet property="tableViewRefresh" destination="F64-wK-Aao" id="SSr-Av-Quf"/>
+                <outlet property="tableViewRefresh" destination="F64-wK-Aao" id="HVB-pD-riC"/>
                 <outlet property="textFieldEnterComment" destination="HVH-NW-b0H" id="VMK-W6-ZrW"/>
+                <outlet property="textInputViewBottomConstraint" destination="1oW-pp-CK0" id="OPY-nz-2Tm"/>
                 <outlet property="view" destination="1" id="3"/>
                 <outlet property="viewEnterComment" destination="TF5-37-k9P" id="NO4-iO-dZr"/>
             </connections>
@@ -60,14 +61,12 @@
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="F64-wK-Aao" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="0DN-gP-FEa"/>
                 <constraint firstAttribute="bottom" secondItem="TF5-37-k9P" secondAttribute="bottom" id="1oW-pp-CK0"/>
                 <constraint firstItem="F64-wK-Aao" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="4gX-JP-LXx"/>
                 <constraint firstItem="TF5-37-k9P" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="JK3-Nv-nl5"/>
+                <constraint firstAttribute="bottom" secondItem="F64-wK-Aao" secondAttribute="bottom" constant="50" id="K5v-Bu-uw0"/>
                 <constraint firstItem="F64-wK-Aao" firstAttribute="top" secondItem="1" secondAttribute="top" id="hLP-5q-aFp"/>
                 <constraint firstAttribute="trailing" secondItem="F64-wK-Aao" secondAttribute="trailing" id="jIC-39-YsK"/>
-                <constraint firstItem="TF5-37-k9P" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="knm-Tk-wLJ"/>
-                <constraint firstItem="TF5-37-k9P" firstAttribute="top" secondItem="F64-wK-Aao" secondAttribute="bottom" id="mzX-jS-6dr"/>
                 <constraint firstAttribute="trailing" secondItem="TF5-37-k9P" secondAttribute="trailing" id="tcS-Jc-bnu"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>

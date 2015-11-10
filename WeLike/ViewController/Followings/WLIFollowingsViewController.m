@@ -16,8 +16,8 @@
 
 #pragma mark - Data loading methods
 
-- (void)reloadData:(BOOL)reloadAll {
-    
+- (void)reloadData:(BOOL)reloadAll
+{    
     loading = YES;
     NSUInteger page;
     if (reloadAll) {

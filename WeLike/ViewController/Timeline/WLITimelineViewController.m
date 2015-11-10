@@ -42,13 +42,12 @@
     [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:0 countryID:0 searchString:self.searchString page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         loading = NO;
         if (serverResponseCode == OK) {
-            loadMore = (posts.count == kDefaultPageSize);
             if (reloadAll) {
                 [weakSelf.posts removeAllObjects];
             }
             [weakSelf.posts addObjectsFromArray:posts];
-
         }
+        loadMore = (posts.count == kDefaultPageSize);
         [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)] withRowAnimation:UITableViewRowAnimationAutomatic];
         [refreshManager tableViewReloadFinishedAnimated:YES];
     }];

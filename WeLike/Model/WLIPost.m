@@ -30,6 +30,7 @@
         _postCommentsCount = [self integerFromDictionary:postWithInfo forKey:@"totalComments"];
         _likedThisPost = [self boolFromDictionary:postWithInfo forKey:@"isLiked"];
         _isConnected = [self boolFromDictionary:postWithInfo forKey:@"isConnected"];
+        _user.followingUser = _isConnected;
         _commentedThisPost = [self boolFromDictionary:postWithInfo forKey:@"isCommented"];
         
         _categoryMarket = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] & 1;

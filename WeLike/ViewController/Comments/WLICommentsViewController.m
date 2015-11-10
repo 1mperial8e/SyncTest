@@ -7,155 +7,158 @@
 //
 
 #import "WLICommentsViewController.h"
+
+// Cells
 #import "WLICommentCell.h"
 #import "WLILoadingCell.h"
-#import "GlobalDefines.h"
+
+static NSString *const CommentCellIdentifier = @"WLICommentCell";
+static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
+
+@interface WLICommentsViewController () <WLIViewControllerRefreshProtocol>
+
+@property (weak, nonatomic) IBOutlet UIView *viewEnterComment;
+@property (weak, nonatomic) IBOutlet UITextField *textFieldEnterComment;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textInputViewBottomConstraint;
+
+@property (strong, nonatomic) NSMutableArray *comments;
+
+@end
 
 @implementation WLICommentsViewController
 
-
-#pragma mark - Object lifecycle
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        self.comments = [NSMutableArray array];
-    }
-    return self;
-}
-
+@synthesize tableViewRefresh;
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
-    
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.comments = [NSMutableArray array];
+
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     tapGesture.cancelsTouchesInView = NO;
     [self.tableViewRefresh addGestureRecognizer:tapGesture];
-    
-    [super viewDidLoad];
-    self.title = @"Comments";
+    [self.tableViewRefresh registerNib:[UINib nibWithNibName:NSStringFromClass(WLICommentCell.class) bundle:nil] forCellReuseIdentifier:CommentCellIdentifier];
+    [self.tableViewRefresh registerNib:[UINib nibWithNibName:NSStringFromClass(WLILoadingCell.class) bundle:nil] forCellReuseIdentifier:LoadingCellIdentifier];
+
+    self.navigationItem.title = @"Comments";
     [self reloadData:YES];
 }
--(void)dismissKeyboard
+
+- (void)viewWillAppear:(BOOL)animated
 {
-    if ([self.textFieldEnterComment isFirstResponder]) {
-        [self.textFieldEnterComment resignFirstResponder];
-    }
-
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    
     [super viewWillAppear:animated];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
     self.textFieldEnterComment.text = @"";
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    
-    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - Gesture
+
+- (void)dismissKeyboard
+{
+    if ([self.textFieldEnterComment isFirstResponder]) {
+        [self.textFieldEnterComment resignFirstResponder];
+    }
+}
 
 #pragma mark - Data loading methods
 
-- (void)reloadData:(BOOL)reloadAll {
-    
+- (void)reloadData:(BOOL)reloadAll
+{
     loading = YES;
     NSUInteger page = reloadAll ? 1 : (self.comments.count / kDefaultPageSize) + 1;
+    __weak typeof(self) weakSelf = self;
     [sharedConnect commentsForPostID:self.post.postID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *comments, ServerResponse serverResponseCode) {
         loading = NO;
         if (reloadAll) {
-            [self.comments removeAllObjects];
+            [weakSelf.comments removeAllObjects];
         }
-        [self.comments addObjectsFromArray:comments];
+        [weakSelf.comments addObjectsFromArray:comments];
         loadMore = comments.count == kDefaultPageSize;
-        [self.tableViewRefresh reloadData];
+        [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationAutomatic];
         [refreshManager tableViewReloadFinishedAnimated:YES];
     }];
 }
 
+#pragma mark - UITableViewDataSource
 
-#pragma mark - UITableViewDataSource methods
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 1){
-        static NSString *CellIdentifier = @"WLICommentCell";
-        WLICommentCell *cell = (WLICommentCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"WLICommentCell" owner:self options:nil] lastObject];
-            cell.delegate = self;
-        }
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return self.comments.count;
+    } else {
+        return loadMore;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        WLICommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CommentCellIdentifier forIndexPath:indexPath];
+        cell.delegate = self;
         cell.comment = self.comments[indexPath.row];
         return cell;
     } else {
-        static NSString *CellIdentifier = @"WLILoadingCell";
-        WLILoadingCell *cell = (WLILoadingCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"WLILoadingCell" owner:self options:nil] lastObject];
-        }
-        
+        WLILoadingCell *cell = [tableView dequeueReusableCellWithIdentifier:LoadingCellIdentifier forIndexPath:indexPath];
         return cell;
     }
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return 3;
-}
+#pragma mark - UITableViewDelegate
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	
-    if (section == 1) {
-        return self.comments.count;
-    } else {
-        if (loadMore) {
-            return 1;
-        } else {
-            return 0;
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BOOL canDelete = NO;
+    if (indexPath.section == 0) {
+        WLIComment *comment = self.comments[indexPath.row];
+        if (comment.user.userID == sharedConnect.currentUser.userID) {
+            canDelete = YES;
         }
-    }
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 1) {
-        return YES;
+        if (self.post.user.userID == sharedConnect.currentUser.userID) {
+            canDelete = YES;
+        }
     } else {
-        return NO;
+        canDelete = NO;
     }
+    return canDelete;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         WLIComment *comment = self.comments[indexPath.row];
+        [hud show:YES];
+        __weak typeof(self) weakSelf = self;
         [sharedConnect removeCommentWithCommentID:comment.commentID onCompletion:^(ServerResponse serverResponseCode) {
-            
+            if (serverResponseCode == OK) {
+                [hud hide:YES];
+                [weakSelf.comments removeObject:comment];
+                weakSelf.post.postCommentsCount--;
+                [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [weakSelf.tableViewRefresh setEditing:NO animated:YES];
+            }
         }];
     }
 }
 
-
-#pragma mark - UITableViewDelegate methods
-
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 1) {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
         return [WLICommentCell sizeWithComment:self.comments[indexPath.row]].height;
     } else if (indexPath.section == 0){
         return 44 * loadMore * self.comments.count == 0;
@@ -164,50 +167,61 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 2 && loadMore && !loading) {
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{    
+    if (indexPath.section == 1 && loadMore && !loading) {
         [self reloadData:NO];
     }
 }
 
-
 #pragma mark - UITextFieldDelegate methods
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     if (self.textFieldEnterComment.text.length) {
         [hud show:YES];
+        __weak typeof(self) weakSelf = self;
         [sharedConnect sendCommentOnPostID:self.post.postID withCommentText:self.textFieldEnterComment.text onCompletion:^(WLIComment *comment, ServerResponse serverResponseCode) {
-            [hud hide:YES];
-            [self.comments insertObject:comment atIndex:0];
-            [self.tableViewRefresh reloadData];
-            self.textFieldEnterComment.text = @"";
+            if (serverResponseCode == OK) {
+                [hud hide:YES];
+                [weakSelf.comments insertObject:comment atIndex:0];
+                weakSelf.post.postCommentsCount++;
+                [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationAutomatic];
+                weakSelf.textFieldEnterComment.text = @"";
+            }
         }];
     }
     [textField resignFirstResponder];
     return YES;
 }
 
+#pragma mark - NSNotification
 
-#pragma mark - NSNotification methods
-
-- (void)keyboardWillShow:(NSNotification *)notification {
-    
+- (void)keyboardWillShow:(NSNotification *)notification
+{
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    oldViewHeight = CGRectGetHeight(self.tableViewRefresh.frame);
-//    CGFloat height = keyboardFrame.origin.y - 64.0f - CGRectGetHeight(self.viewEnterComment.frame);
-//    self.tableViewRefresh.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableViewRefresh.frame), height);
-//    self.viewEnterComment.frame = CGRectMake(0.0f, CGRectGetMaxY(self.tableViewRefresh.frame), CGRectGetWidth(self.viewEnterComment.frame), CGRectGetHeight(self.viewEnterComment.frame));
-    self.view.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableViewRefresh.frame), keyboardFrame.origin.y);
+    __block CGFloat height = keyboardFrame.size.height - self.tabBarController.tabBar.frame.size.height;
+    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    NSInteger animationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:duration delay:0 options:animationCurve animations:^{
+        weakSelf.textInputViewBottomConstraint.constant = height;
+        [weakSelf.view layoutIfNeeded];
+    } completion:nil];
+    
+    self.tableViewRefresh.contentInset = UIEdgeInsetsMake(0, 0, height, 0);
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification {
-//    CGFloat height = CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.viewEnterComment.frame);
-//    self.tableViewRefresh.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableViewRefresh.frame), height);
-//    self.viewEnterComment.frame = CGRectMake(0.0f, CGRectGetMaxY(self.tableViewRefresh.frame), CGRectGetWidth(self.viewEnterComment.frame), CGRectGetHeight(self.viewEnterComment.frame));
-    self.view.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableViewRefresh.frame), [[UIScreen mainScreen] bounds].size.height - 60.0f);
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    NSInteger animationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:duration delay:0 options:animationCurve animations:^{
+        weakSelf.textInputViewBottomConstraint.constant = 0;
+        [weakSelf.view layoutIfNeeded];
+    } completion:nil];
+    self.tableViewRefresh.contentInset = UIEdgeInsetsZero;
 }
-
 
 @end

@@ -7,13 +7,7 @@
 //
 
 #import "WLIViewController.h"
-#import "WLIHashtagTableViewCell.h"
-#import "WLILoadingCell.h"
-#import "WLIHashtag.h"
 
-@interface WLISearchContentViewController : WLIViewController <UISearchBarDelegate, WLIHashtagTableViewCellDelegate>
-
-@property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;
-@property (strong, nonatomic) NSArray *hashtags;
+@interface WLISearchContentViewController : WLIViewController
 
 @end

@@ -163,6 +163,9 @@
          [senderCell.buttonLike setSelected:NO];
         post.postLikesCount--;
         post.likedThisPost = NO;
+        if (post.postLikesCount == 0) {
+            senderCell.labelLikes.hidden = YES;
+        }
         [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d", post.postLikesCount]];
         
         [[WLIConnect sharedConnect] removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
@@ -178,7 +181,9 @@
         post.postLikesCount++;
         post.likedThisPost = YES;
         [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d", post.postLikesCount]];
-        
+        if (post.postLikesCount > 0) {
+            senderCell.labelLikes.hidden = NO;
+        }
         [[WLIConnect sharedConnect] setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
             if (serverResponseCode != OK) {
                 [senderCell.buttonLike setImage:[UIImage imageNamed:@"post-cell-like"] forState:UIControlStateNormal];

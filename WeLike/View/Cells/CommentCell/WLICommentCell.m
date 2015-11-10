@@ -15,36 +15,26 @@ static WLICommentCell *sharedCell = nil;
 
 #pragma mark - Object lifecycle
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-- (void)awakeFromNib {
-    
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     frameDefaultLabelCommentText = self.labelCommentTtext.frame;
     //frameDefaultImageViewPost = self.imageViewPostImage.frame;
     
-    self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height/2;
+    self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height / 2;
     self.imageViewUser.layer.masksToBounds = YES;
 }
 
-
 #pragma mark - Cell methods
 
-- (void)layoutSubviews {
-    
+- (void)layoutSubviews
+{
     [super layoutSubviews];
     [self updateFramesAndDataWithDownloads:YES];
 }
 
-- (void)prepareForReuse {
-    
+- (void)prepareForReuse
+{    
     [super prepareForReuse];
     [self.imageViewUser cancelImageRequestOperation];
     self.labelCommentTtext.frame = frameDefaultLabelCommentText;

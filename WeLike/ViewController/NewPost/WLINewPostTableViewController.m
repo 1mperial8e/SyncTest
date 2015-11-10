@@ -231,10 +231,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat ret;
     NSInteger rowNumber = indexPath.row;
-//    if (rowNumber > 0 && !imageSet)
-//    {
-//        rowNumber = rowNumber + 1;
-//    }
+
     switch (rowNumber) {
         case 0: // Select image button
             return 44;

@@ -6,7 +6,6 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "WLIHashtag.h"
 
 @class WLIHashtagTableViewCell;
@@ -15,20 +14,14 @@
 
 - (void)hashTagClicked:(WLIHashtag*)hashtag sender:(id)senderCell;
 
-
-
-
 @end
 
-@interface WLIHashtagTableViewCell : UITableViewCell {
-    IBOutlet UILabel *tagName;
-    IBOutlet UILabel *tagCount;
-}
+@interface WLIHashtagTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) WLIHashtag *hashtag;
 @property (weak, nonatomic) id<WLIHashtagTableViewCellDelegate> delegate;
 
-
-- (IBAction)hashTagClickedTouchUpInside:(WLIHashtag*)hashtag sender:(id)senderCell;
++ (NSString *)ID;
++ (UINib *)nib;
 
 @end
