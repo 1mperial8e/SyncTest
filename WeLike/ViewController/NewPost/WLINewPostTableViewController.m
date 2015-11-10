@@ -59,7 +59,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 {
     self.sharedConnect = [WLIConnect sharedConnect];
     self.textContent = @"";
-    self.countryStates = [@{@"all" : @NO, @"denmark" : @NO, @"finland" : @NO, @"norway" : @NO, @"sweden" : @NO} mutableCopy];
+    self.countryStates = [@{@"all" : @YES, @"denmark" : @NO, @"finland" : @NO, @"norway" : @NO, @"sweden" : @NO} mutableCopy];
     self.catStates = [@{@"market" : @NO, @"capability" : @NO, @"customer" : @NO, @"people" : @NO} mutableCopy];
 }
 
@@ -126,11 +126,11 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     if ([[self.catStates objectForKey:@"market"] boolValue])
         categoryCode = categoryCode + 1;
     if ([[self.catStates objectForKey:@"capability"] boolValue])
-        categoryCode = categoryCode + 1;
+        categoryCode = categoryCode + 2;
     if ([[self.catStates objectForKey:@"customer"] boolValue])
-        categoryCode = categoryCode + 1;
+        categoryCode = categoryCode + 4;
     if ([[self.catStates objectForKey:@"people"] boolValue])
-        categoryCode = categoryCode + 1;
+        categoryCode = categoryCode + 8;
     NSString *countries = @"";
     if ([[self.countryStates objectForKey:@"all"] boolValue]) {
         [countries stringByAppendingString:@"0"];
@@ -164,9 +164,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     }
 
     
-    if (self.video == nil)
-    {
-        NSLog(@"Publishing without video");
+    if (self.video == nil) {
         [self.sharedConnect sendPostWithCountries:countries postText:self.textContent postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.image onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
             NSLog(@"Server resp: %d", serverResponseCode);
 //            [self dismissViewControllerAnimated:YES completion:nil];
@@ -334,7 +332,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:(NSString *)kUTTypeImage]) {
-        self.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        self.image = [info objectForKey:UIImagePickerControllerEditedImage];
     } else {
         self.video = [NSData dataWithContentsOfURL:[info objectForKey:UIImagePickerControllerMediaURL]];
         AVURLAsset *videoAsset = [[AVURLAsset alloc] initWithURL:[info objectForKey:UIImagePickerControllerMediaURL] options:nil];

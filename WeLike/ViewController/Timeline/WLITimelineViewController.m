@@ -50,6 +50,7 @@
     NSUInteger page;
     if (reloadAll) {
         loadMore = YES;
+        self.searchString = @"";
         page = 1;
     } else {
         page = (self.posts.count / kDefaultPageSize) + 1;
@@ -60,8 +61,8 @@
         loading = NO;
         if (serverResponseCode == OK) {
             if (reloadAll) {
-                [weakSelf.posts removeAllObjects];
                 [weakSelf.tableViewRefresh setContentOffset:CGPointZero];
+                [weakSelf.posts removeAllObjects];
             }
             [weakSelf.posts addObjectsFromArray:posts];
         }

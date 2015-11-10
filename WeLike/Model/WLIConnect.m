@@ -462,8 +462,7 @@ static WLIConnect *sharedConnect;
         [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
         if (postText != nil)
             [parameters setObject:postText forKey:@"postText"];
-        if (postKeywords != nil)
-            [parameters setObject:postKeywords forKey:@"postKeywords"];
+        [parameters setObject:postKeywords ? postKeywords : @[] forKey:@"postKeywords"];
         if (postCategory != nil)
             [parameters setObject:postCategory forKey:@"postCategory"];
         if (countries) {

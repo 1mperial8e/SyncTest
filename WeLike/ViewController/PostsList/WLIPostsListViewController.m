@@ -80,7 +80,10 @@
     }
     [sharedConnect timelineForUserID:sharedConnect.currentUser.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         loading = NO;
-        self.posts = posts;
+        if (reloadAll) {
+            [self.posts removeAllObjects];
+        }
+        [self.posts addObjectsFromArray:posts];
         loadMore = posts.count == kDefaultPageSize;
         [self.tableViewRefresh reloadData];
         [refreshManager tableViewReloadFinishedAnimated:YES];
