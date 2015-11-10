@@ -10,8 +10,9 @@
 
 @implementation WLIUser
 
-- (id)initWithDictionary:(NSDictionary*)userWithInfo {
-   
+- (id)initWithDictionary:(NSDictionary*)userWithInfo
+{
+    userWithInfo = userWithInfo.nonnullDictionary;
     self = [self init];
     if (self) {
         _userID = [self integerFromDictionary:userWithInfo forKey:@"userID"];

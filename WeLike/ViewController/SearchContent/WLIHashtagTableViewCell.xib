@@ -16,10 +16,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VUM-Ue-TNA">
-                        <rect key="frame" x="8" y="11" width="254" height="21"/>
+                        <rect key="frame" x="8" y="11" width="254" height="20"/>
                         <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                        <color key="textColor" red="0.47450980390000003" green="0.47450980390000003" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJw-8k-XNV">
@@ -29,15 +29,16 @@
                             <constraint firstAttribute="width" constant="42" id="qgw-g0-4w5"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <animations/>
                 <constraints>
                     <constraint firstItem="VJw-8k-XNV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="686-Mu-USR"/>
-                    <constraint firstItem="VUM-Ue-TNA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="Soa-5E-hcu"/>
+                    <constraint firstItem="VJw-8k-XNV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Fbz-67-I1Q"/>
                     <constraint firstItem="VUM-Ue-TNA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="THM-41-Rnf"/>
+                    <constraint firstItem="VUM-Ue-TNA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Tfn-GR-69l"/>
                     <constraint firstItem="VJw-8k-XNV" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="eRZ-8R-aXq"/>
                     <constraint firstItem="VJw-8k-XNV" firstAttribute="leading" secondItem="VUM-Ue-TNA" secondAttribute="trailing" constant="8" id="sUi-UW-IAH"/>
                 </constraints>

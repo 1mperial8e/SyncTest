@@ -11,8 +11,9 @@
 
 @implementation WLIPost
 
-- (id)initWithDictionary:(NSDictionary*)postWithInfo {
-
+- (id)initWithDictionary:(NSDictionary *)postWithInfo
+{
+    postWithInfo = postWithInfo.nonnullDictionary;
     self = [self init];
     if (self) {
         _postID = [self integerFromDictionary:postWithInfo forKey:@"postID"];

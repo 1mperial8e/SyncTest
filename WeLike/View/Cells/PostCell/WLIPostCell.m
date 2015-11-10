@@ -8,6 +8,7 @@
 
 #import "WLIPostCell.h"
 #import "WLIConnect.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 static WLIPostCell *sharedCell = nil;
 
@@ -83,9 +84,14 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44
 
         if (self.post.postImagePath.length) {
             [self.imageViewPostImage setImageWithURL:[NSURL URLWithString:self.post.postImagePath]];
-            if (self.post.postVideoPath.length) {
-                [self.buttonVideo setHidden:NO];
-            }
+        } else if (self.post.postVideoPath.length) {
+//            NSURL *videoURL = [NSURL URLWithString:self.post.postVideoPath] ;
+//            MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
+//            UIImage  *thumbnail = [player thumbnailImageAtTime:1.0 timeOption:MPMovieTimeOptionNearestKeyFrame];
+//            player = nil;
+            [self.buttonVideo setHidden:NO];
+        } else {
+            self.imageViewPostImage.image = [UIImage imageNamed:@"postPlaceholder"];
         }
         
         if (self.post.likedThisPost) {

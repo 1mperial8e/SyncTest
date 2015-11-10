@@ -61,6 +61,7 @@
         if (serverResponseCode == OK) {
             if (reloadAll) {
                 [weakSelf.posts removeAllObjects];
+                [weakSelf.tableViewRefresh setContentOffset:CGPointZero];
             }
             [weakSelf.posts addObjectsFromArray:posts];
         }

@@ -172,6 +172,7 @@
 		4F69E8DF1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F69E8DD1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.xib */; };
 		4F69E8E31BF0B49500A6CD5A /* WLIRegisterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8E11BF0B49500A6CD5A /* WLIRegisterTableViewCell.m */; };
 		4F69E8E41BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F69E8E21BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib */; };
+		4F69E8E81BF24B1200A6CD5A /* NSDictionary+Nonnull.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8E71BF24B1200A6CD5A /* NSDictionary+Nonnull.m */; };
 		C7B424B5183D2507003B51D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B4183D2507003B51D0 /* CoreData.framework */; };
 		C7B424B7183D2519003B51D0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B6183D2519003B51D0 /* MessageUI.framework */; };
 		C7B424B9183D2540003B51D0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B8183D2540003B51D0 /* libsqlite3.0.dylib */; };
@@ -444,6 +445,8 @@
 		4F69E8E01BF0B49500A6CD5A /* WLIRegisterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIRegisterTableViewCell.h; sourceTree = "<group>"; };
 		4F69E8E11BF0B49500A6CD5A /* WLIRegisterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIRegisterTableViewCell.m; sourceTree = "<group>"; };
 		4F69E8E21BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIRegisterTableViewCell.xib; sourceTree = "<group>"; };
+		4F69E8E61BF24B1200A6CD5A /* NSDictionary+Nonnull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Nonnull.h"; sourceTree = "<group>"; };
+		4F69E8E71BF24B1200A6CD5A /* NSDictionary+Nonnull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Nonnull.m"; sourceTree = "<group>"; };
 		C7B4244A183D0809003B51D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C7B424B4183D2507003B51D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C7B424B6183D2519003B51D0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -764,6 +767,7 @@
 		2C6D26F21896BACA00C459CB /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				4F69E8E51BF24AF100A6CD5A /* Categories */,
 				2C6D26F31896BACA00C459CB /* GlobalDefines.h */,
 			);
 			path = Other;
@@ -1281,6 +1285,15 @@
 			path = RegisterCell;
 			sourceTree = "<group>";
 		};
+		4F69E8E51BF24AF100A6CD5A /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				4F69E8E61BF24B1200A6CD5A /* NSDictionary+Nonnull.h */,
+				4F69E8E71BF24B1200A6CD5A /* NSDictionary+Nonnull.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1435,6 +1448,7 @@
 				2C6D27BF1896BACA00C459CB /* SBJsonStreamTokeniser.m in Sources */,
 				2C6D27BC1896BACA00C459CB /* SBJsonStreamParserAccumulator.m in Sources */,
 				2C6D27E71896BACA00C459CB /* WLILoginViewController.m in Sources */,
+				4F69E8E81BF24B1200A6CD5A /* NSDictionary+Nonnull.m in Sources */,
 				2C6D27FC1896BACA00C459CB /* WLIWelcomeViewController.m in Sources */,
 				2E666A141BC6A15200392527 /* WLIHashtagTableViewCell.m in Sources */,
 				2C5B5CA01A1A8FAE00175A58 /* AFURLSessionManager.m in Sources */,

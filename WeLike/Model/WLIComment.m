@@ -12,7 +12,9 @@
 @implementation WLIComment
 
 //Initializes WLIComment object from NSDictionary that was created by JSON parsing.
-- (id)initWithDictionary:(NSDictionary*)commentWithInfo {
+- (id)initWithDictionary:(NSDictionary*)commentWithInfo
+{
+    commentWithInfo = commentWithInfo.nonnullDictionary;
     self = [self init];
     if (self) {
         
