@@ -125,7 +125,7 @@
     if (section == 1) {
         return self.posts.count;
     } else if (section == 2) {
-        return 1;
+        return loadMore;
     }
     return 0;
 }

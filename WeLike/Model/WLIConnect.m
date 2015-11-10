@@ -537,20 +537,6 @@ static WLIConnect *sharedConnect;
             [self debugger:parameters.description methodLog:@"api/sendPost" dataLog:error.description];
             completion(nil, UNKNOWN_ERROR);
         }];
-        
-        /*
-         [httpClient POST:@"api/sendPost" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-         NSDictionary *rawPost = [responseObject objectForKey:@"item"];
-         WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
-         
-         [self debugger:parameters.description methodLog:@"api/sendPost" dataLogFormatted:responseObject];
-         completion(post, OK);
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         [self debugger:parameters.description methodLog:@"api/sendPost" dataLog:error.description];
-         completion(nil, UNKNOWN_ERROR);
-         }];
-         */
-        NSLog(@"Posting video DONE");
     }
 }
 
