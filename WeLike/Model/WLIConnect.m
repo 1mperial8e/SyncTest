@@ -448,22 +448,27 @@ static WLIConnect *sharedConnect;
 
 #pragma mark - posts
 
-- (void)sendPostWithTitle:(NSString*)postTitle postText:(NSString*)postText postKeywords:(NSArray*)postKeywords postCategory:(NSNumber*)postCategory postImage:(UIImage*)postImage onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion {
-    
-    if (!postTitle.length && !postImage) {
+- (void)sendPostWithCountries:(NSString *)countries
+                     postText:(NSString *)postText
+                 postKeywords:(NSArray *)postKeywords
+                 postCategory:(NSNumber *)postCategory
+                    postImage:(UIImage *)postImage
+                 onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion
+{
+    if (!postImage) {
         completion(nil, BAD_REQUEST);
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-        if (postTitle != nil)
-            [parameters setObject:postTitle forKey:@"postTitle"];
         if (postText != nil)
             [parameters setObject:postText forKey:@"postText"];
         if (postKeywords != nil)
             [parameters setObject:postKeywords forKey:@"postKeywords"];
         if (postCategory != nil)
             [parameters setObject:postCategory forKey:@"postCategory"];
-        
+        if (countries) {
+            [parameters setObject:countries forKey:@"countries"];
+        }
         NSLog(@"Post: %@", parameters);
 
         [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -485,32 +490,29 @@ static WLIConnect *sharedConnect;
             completion(nil, UNKNOWN_ERROR);
         }];
         
-        /*
-        [httpClient POST:@"api/sendPost" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary *rawPost = [responseObject objectForKey:@"item"];
-            WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
-            
-            [self debugger:parameters.description methodLog:@"api/sendPost" dataLogFormatted:responseObject];
-            completion(post, OK);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/sendPost" dataLog:error.description];
-            completion(nil, UNKNOWN_ERROR);
-        }];
-         */
     }
 }
 
-- (void)sendPostWithTitle:(NSString*)postTitle postText:(NSString*)postText postKeywords:(NSArray*)postKeywords postCategory:(NSNumber*)postCategory postImage:(UIImage*)postImage postVideo:(NSData*)postVideoData onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion {
+- (void)sendPostWithCountries:(NSString *)countries
+                     postText:(NSString *)postText
+                 postKeywords:(NSArray *)postKeywords
+                 postCategory:(NSNumber *)postCategory
+                    postImage:(UIImage *)postImage
+                    postVideo:(NSData *)postVideoData
+                 onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion
+{
 //    NSLog(@"Posting image with file size: %ld", postVideoData.length);
 //    NSLog(@"Posting video with file size: %ld", postVideoData.length);
     
-    if (!postTitle.length && !postVideoData && !postImage) {
+    if (!postVideoData && !postImage) {
         completion(nil, BAD_REQUEST);
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:postTitle forKey:@"postTitle"];
         [parameters setObject:postText forKey:@"postText"];
+        if (countries) {
+            [parameters setObject:countries forKey:@"countries"];
+        }
         if (postKeywords != nil)
             [parameters setObject:postKeywords forKey:@"postKeywords"];
         [parameters setObject:postCategory forKey:@"postCategory"];

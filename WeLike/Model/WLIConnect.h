@@ -77,9 +77,20 @@ typedef enum ServerResponse ServerResponse;
 
 #pragma mark - posts
 
-- (void)sendPostWithTitle:(NSString*)postTitle postText:(NSString*)postText postKeywords:(NSArray*)postKeywords postCategory:(NSNumber*)postCategory postImage:(UIImage*)postImage onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion;
+- (void)sendPostWithCountries:(NSString *)countries
+                     postText:(NSString *)postText
+                 postKeywords:(NSArray *)postKeywords
+                 postCategory:(NSNumber *)postCategory
+                    postImage:(UIImage *)postImage
+                 onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion;
 
-- (void)sendPostWithTitle:(NSString*)postTitle postText:(NSString*)postText postKeywords:(NSArray*)postKeywords postCategory:(NSNumber*)postCategory postImage:(UIImage*)postImage postVideo:(NSData*)postVideoData onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion;
+- (void)sendPostWithCountries:(NSString *)countries
+                     postText:(NSString *)postText
+                 postKeywords:(NSArray *)postKeywords
+                 postCategory:(NSNumber *)postCategory
+                    postImage:(UIImage *)postImage
+                    postVideo:(NSData *)postVideoData
+                 onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion;
 
 - (void)recentPostsWithPageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 

@@ -13,6 +13,12 @@
 #import "WLISelectCountryTableViewCell.h"
 #import "WLICategorySelectTableViewCell.h"
 
+static NSString *const AttachmentCellId = @"WLINewPostAttachmentCell";
+static NSString *const TextCellId = @"WLINewPostTextCell";
+static NSString *const ImageCellId = @"WLINewPostImageCell";
+static NSString *const CountryCellId = @"WLISelectCountryTableViewCell";
+static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
+
 @interface WLINewPostTableViewController () <UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) WLIConnect *sharedConnect;
@@ -35,21 +41,9 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = @"ADD ENERGY";
-    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
-    self.sharedConnect = [WLIConnect sharedConnect];
-    self.textContent = @"";
-    cellIdentifiers = [NSArray arrayWithObjects:@"WLINewPostAttachmentCell", @"WLINewPostTextCell", @"WLINewPostImageCell", @"WLISelectCountryTableViewCell", @"WLICategorySelectTableViewCell", @"WLINewPostCategoryCell", nil];
-    
-    self.countryStates = [@{@"all" : @NO,
-                           @"denmark" : @NO,
-                           @"finldand" : @NO,
-                           @"norway" : @NO,
-                           @"sweden" : @NO} mutableCopy];
-    self.catStates = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"market", [NSNumber numberWithBool:NO], @"capability", [NSNumber numberWithBool:NO], @"customer", [NSNumber numberWithBool:NO], @"people", [NSNumber numberWithBool:NO], nil];
-
-    
-    self.image = [UIImage imageNamed:@"postPlaceholder"];
+    [self setupDefaults];
+    [self setupTableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStylePlain target:self action:@selector(publishButtonAction:)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonAction:)];
@@ -57,6 +51,26 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
     tapGesture.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapGesture];
+}
+
+#pragma mark - Defaults
+
+- (void)setupDefaults
+{
+    self.sharedConnect = [WLIConnect sharedConnect];
+    self.textContent = @"";
+    self.countryStates = [@{@"all" : @NO, @"denmark" : @NO, @"finland" : @NO, @"norway" : @NO, @"sweden" : @NO} mutableCopy];
+    self.catStates = [@{@"market" : @NO, @"capability" : @NO, @"customer" : @NO, @"people" : @NO} mutableCopy];
+}
+
+- (void)setupTableView
+{
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    [self.tableView registerNib:[UINib nibWithNibName:AttachmentCellId bundle:nil] forCellReuseIdentifier:AttachmentCellId];
+    [self.tableView registerNib:[UINib nibWithNibName:TextCellId bundle:nil] forCellReuseIdentifier:TextCellId];
+    [self.tableView registerNib:[UINib nibWithNibName:ImageCellId bundle:nil] forCellReuseIdentifier:ImageCellId];
+    [self.tableView registerNib:[UINib nibWithNibName:CountryCellId bundle:nil] forCellReuseIdentifier:CountryCellId];
+    [self.tableView registerNib:[UINib nibWithNibName:CategoryCellId bundle:nil] forCellReuseIdentifier:CategoryCellId];
 }
 
 #pragma mark - Gestures
@@ -70,7 +84,6 @@
 
 - (IBAction)buttonAddImageTouchUpInside:(id)sender
 {
-    NSLog(@"AddImage");
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -88,7 +101,6 @@
 
 - (IBAction)buttonAddVideoTouchUpInside:(id)sender
 {
-    NSLog(@"AddVideo");
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -119,24 +131,43 @@
         categoryCode = categoryCode + 1;
     if ([[self.catStates objectForKey:@"people"] boolValue])
         categoryCode = categoryCode + 1;
-    
-//    if ([[self.countryStates objectForKey:@"all"] boolValue])
-//        categoryCode = categoryCode + 1;
-//    if ([[self.countryStates objectForKey:@"market"] boolValue])
-//        categoryCode = categoryCode + 1;
-//    if ([[self.countryStates objectForKey:@"capability"] boolValue])
-//        categoryCode = categoryCode + 1;
-//    if ([[self.countryStates objectForKey:@"customer"] boolValue])
-//        categoryCode = categoryCode + 1;
-//    if ([[self.countryStates objectForKey:@"people"] boolValue])
-//        categoryCode = categoryCode + 1;
-    
+    NSString *countries = @"";
+    if ([[self.countryStates objectForKey:@"all"] boolValue]) {
+        [countries stringByAppendingString:@"0"];
+    } else {
+        BOOL addComa = NO;
+        if ([[self.countryStates objectForKey:@"denmark"] boolValue]) {
+            countries = [countries stringByAppendingString:@"1"];
+            addComa = YES;
+        }
+        if ([[self.countryStates objectForKey:@"finland"] boolValue]) {
+            if (addComa) {
+                countries = [countries stringByAppendingString:@","];
+            }
+            addComa = YES;
+            countries = [countries stringByAppendingString:@"2"];
+        }
+        if ([[self.countryStates objectForKey:@"norway"] boolValue]){
+            if (addComa) {
+                countries = [countries stringByAppendingString:@","];
+            }
+            addComa = YES;
+            countries = [countries stringByAppendingString:@"3"];
+        }
+        if ([[self.countryStates objectForKey:@"sweden"] boolValue]){
+            if (addComa) {
+                countries = [countries stringByAppendingString:@","];
+            }
+            addComa = YES;
+            countries = [countries stringByAppendingString:@"4"];
+        }
+    }
 
     
     if (self.video == nil)
     {
         NSLog(@"Publishing without video");
-        [self.sharedConnect sendPostWithTitle:@"" postText:self.textContent postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.image onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
+        [self.sharedConnect sendPostWithCountries:countries postText:self.textContent postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.image onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
             NSLog(@"Server resp: %d", serverResponseCode);
 //            [self dismissViewControllerAnimated:YES completion:nil];
         }];
@@ -144,7 +175,7 @@
     else
     {
         NSLog(@"Publishing with video");
-        [self.sharedConnect sendPostWithTitle:@"" postText:self.textContent postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.image postVideo:self.video onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
+        [self.sharedConnect sendPostWithCountries:countries postText:self.textContent postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.image postVideo:self.video onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
             NSLog(@"Server resp: %d", serverResponseCode);
 //            [self dismissViewControllerAnimated:YES completion:nil];
         }];
@@ -171,56 +202,46 @@
     return 5;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     NSInteger rowNumber = indexPath.row;
-//    NSMutableArray *stratArray = [[NSMutableArray alloc] initWithCapacity:6];
-//    NSMutableArray *countryArray = [[NSMutableArray alloc] initWithCapacity:10];
 
-//    if (rowNumber > 0 && !imageSet)
-//    {
-//        rowNumber = rowNumber + 1;
-//    }
-    NSLog(@"Hei1: %ld", (long)rowNumber);
-    NSString *cellID = [cellIdentifiers objectAtIndex:rowNumber];
-    NSLog(@"Hei2");
-    UITableViewCell *cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:cellID];
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
-    if (cell == nil) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:self options:nil] lastObject];
-    }
-    WLISelectCountryTableViewCell *cell3 = (WLISelectCountryTableViewCell*)cell;
-    WLICategorySelectTableViewCell *cell4 = (WLICategorySelectTableViewCell*)cell;
+    UITableViewCell *cell;
     
     switch (rowNumber) {
-        case 0: // Select image button
-            addPicture = (UIButton *)[cell viewWithTag:1];
-            addVideo = (UIButton *)[cell viewWithTag:2];
-//            addAttachment = (UIButton *)[cell viewWithTag:3];
+        case 0: { // Select image button
+            cell = [tableView dequeueReusableCellWithIdentifier:AttachmentCellId];
+            addPicture = [cell viewWithTag:1];
+            addVideo = [cell viewWithTag:2];
             [addPicture addTarget:self action:@selector(buttonAddImageTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
             [addVideo addTarget:self action:@selector(buttonAddVideoTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-//            [addAttachment addTarget:self action:@selector(buttonAddAttachmentTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
             break;
-        case 2: // Image display
-            imageView = (UIImageView *)[cell viewWithTag:1];
-            if (self.image != nil)
-            {
-                WLINewPostImageCell *cell2 = (WLINewPostImageCell*)cell;
-                cell2.imgView.image = self.image;
+        }
+        case 1: { // Text View
+            cell = [tableView dequeueReusableCellWithIdentifier:TextCellId];
+            contentTextView = [cell viewWithTag:1];
+            contentTextView.text = self.textContent;
+            contentTextView.delegate = self;
+            break;
+        }
+        case 2: {// Image display
+            cell = [tableView dequeueReusableCellWithIdentifier:ImageCellId];
+            imageView = [cell viewWithTag:1];
+            if (self.image != nil) {
+                imageView.image = self.image;
             }
             break;
-        case 1: // Text View
-            contentTextView = (UITextView *)[cell viewWithTag:1];
-            [contentTextView setText:self.textContent];
-            contentTextView.delegate = self;
-
+        }
+        case 3: {
+            cell = [tableView dequeueReusableCellWithIdentifier:CountryCellId];
+            ((WLISelectCountryTableViewCell *)cell).countryDict = self.countryStates;
             break;
-        case 3:
-            cell3.countryDict = self.countryStates;
+        }
+        case 4: {
+            cell = [tableView dequeueReusableCellWithIdentifier:CategoryCellId];
+            ((WLICategorySelectTableViewCell *)cell).catDict = self.catStates;
             break;
-        case 4:
-            cell4.catDict = self.catStates;
-            break;
-            
+        }
         default:
             break;
     }
@@ -304,6 +325,7 @@
                                          (NSString *) kUTTypeQuickTimeMovie,
                                          (NSString *) kUTTypeMPEG,
                                          (NSString *) kUTTypeMPEG4];
+    videoPickerController.videoQuality = UIImagePickerControllerQualityType640x480;
     [self presentViewController:videoPickerController animated:YES completion:nil];
 }
 

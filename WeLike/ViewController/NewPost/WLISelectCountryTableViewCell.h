@@ -6,8 +6,6 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface WLISelectCountryTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UIButton *allBtn;

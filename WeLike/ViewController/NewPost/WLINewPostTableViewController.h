@@ -12,7 +12,6 @@
 @import AVFoundation;
 
 @interface WLINewPostTableViewController : UITableViewController {
-    NSArray *cellIdentifiers;
         
     IBOutlet UIButton *addPicture;
     IBOutlet UIButton *addVideo;

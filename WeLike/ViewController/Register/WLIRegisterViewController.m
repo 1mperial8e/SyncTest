@@ -154,6 +154,8 @@
 {
     if (!self.textFieldEmail.text.length) {
         [self showErrorWithMessage:@"Email is required."];
+    } else if (![self isValidEmail:self.textFieldEmail.text UseHardFilter:YES]) {
+        [self showErrorWithMessage:@"Email is not valid."];
     } else if (self.textFieldPassword.text.length < 4 || self.textFieldRepassword.text.length < 4) {
         [self showErrorWithMessage:@"Password is required. Your password should be at least 4 characters long."];
     } else if (!self.textFieldUsername.text.length) {
@@ -182,6 +184,16 @@
             }
         }];
     }
+}
+
+- (BOOL)isValidEmail:(NSString *)email UseHardFilter:(BOOL)filter
+{
+    BOOL stricterFilter = filter;
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@{1}([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:email];
 }
 
 #pragma mark - Alert

@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="600" height="430"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="postPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="xji-JI-38S">
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xji-JI-38S">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="430"/>
                         <animations/>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -35,7 +35,4 @@
             <point key="canvasLocation" x="253" y="1031.5"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="postPlaceholder" width="600" height="600"/>
-    </resources>
 </document>
