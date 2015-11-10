@@ -339,7 +339,7 @@ static WLIConnect *sharedConnect;
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
         [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", categoryID] forKey:@"categoryID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", categoryID] forKey:@"postCategory"];
         [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
         [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
         

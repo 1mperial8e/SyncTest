@@ -34,10 +34,10 @@
         _user.followingUser = _isConnected;
         _commentedThisPost = [self boolFromDictionary:postWithInfo forKey:@"isCommented"];
         
-        _categoryMarket = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] & 1;
-        _categoryCapabilities = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] & 2;
-        _categoryCustomer = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] & 4;
-        _categoryPeople = [self integerFromDictionary:postWithInfo forKey:@"postCategory"] & 8;
+        _categoryMarket = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 1;
+        _categoryCapabilities = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 2;
+        _categoryCustomer = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 4;
+        _categoryPeople = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 8;
         
 //        NSLog(@"Category %@", [NSNumber numberWithInteger:[self integerFromDictionary:postWithInfo forKey:@"postCategory"]]);
 //        NSLog(@"Category Market: %@", [NSNumber numberWithBool:_categoryMarket]);

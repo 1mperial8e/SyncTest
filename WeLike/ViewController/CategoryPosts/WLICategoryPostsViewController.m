@@ -50,7 +50,10 @@
     }
     [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:[[NSNumber numberWithInteger:_categoryID] intValue] page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         loading = NO;
-        self.posts = posts;
+        if (reloadAll) {
+            [self.posts removeAllObjects];
+        }
+        [self.posts addObjectsFromArray:posts];
         loadMore = posts.count == kDefaultPageSize;
         [self.tableViewRefresh reloadData];
         [refreshManager tableViewReloadFinishedAnimated:YES];
@@ -121,14 +124,9 @@
     if (section == 1) {
         return 1;
     } else if (section == 2) {
-        NSLog(@"Count posts: %ld", self.posts.count);
         return self.posts.count;
     } else {
-        if (loadMore) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return loadMore;
     }
 }
 
@@ -150,7 +148,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 2 && loadMore && !loading) {
+    if (indexPath.section == 3 && loadMore && !loading) {
         [self reloadData:NO];
     }
 }
