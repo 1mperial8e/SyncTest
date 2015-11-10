@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Planet 1107. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "WLILoginViewController.h"
 #import "WLIRegisterViewController.h"
 
@@ -19,10 +18,6 @@
 
 @interface WLIWelcomeViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UIImageView *imageViewLogo;
 @property (weak, nonatomic) id <WLIWelcomeViewControllerDelegate> delegate;
-
-- (IBAction)buttonLoginTouchUpInside:(id)sender;
-- (IBAction)buttonRegisterTouchUpInside:(id)sender;
 
 @end

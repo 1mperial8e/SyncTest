@@ -44,7 +44,6 @@
             </tableViewCellContentView>
             <animations/>
             <connections>
-                <outlet property="tagCount" destination="VJw-8k-XNV" id="OEI-pu-rbw"/>
                 <outlet property="tagCountLabel" destination="VJw-8k-XNV" id="H8Q-kE-4gV"/>
                 <outlet property="tagNameLabel" destination="VUM-Ue-TNA" id="C2u-9y-CBD"/>
             </connections>

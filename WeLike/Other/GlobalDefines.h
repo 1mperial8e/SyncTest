@@ -10,7 +10,7 @@
 #define WeLike_GlobalDefines_h
 
 
-#define kDefaultPageSize 20
+#define kDefaultPageSize 10
 #define DefaultAvatar [UIImage imageNamed:@"avatar-empty"]
 
 #endif

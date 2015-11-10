@@ -81,6 +81,7 @@
     } else if (indexPath.row == 1) {
         cell.textField.placeholder = @"password";
         self.passwordTextField = cell.textField;
+        self.passwordTextField.secureTextEntry = YES;
     } else {
         cell.textField.hidden = YES;
         cell.loginButton.hidden = NO;
@@ -94,7 +95,7 @@
 
 #pragma mark - Login
 
-- (IBAction)loginWithUsername:(NSString *)username andPassword:(NSString *)password
+- (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password
 {
     if (!username.length) {
         [self showErrorWithMessage:@"Username is required."];

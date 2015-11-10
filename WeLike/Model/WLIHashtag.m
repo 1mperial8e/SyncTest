@@ -14,7 +14,7 @@
     
     self = [self init];
     if (self) {
-        _tagname = [self stringFromDictionary:userWithInfo forKey:@"tag"];
+        _tagname = [self stringFromDictionary:userWithInfo forKey:@"name"];
         _tagcount = [self integerFromDictionary:userWithInfo forKey:@"tagcount"];
     }
     

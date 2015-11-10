@@ -7,111 +7,90 @@
 //
 
 #import "WLIInfoPageViewController.h"
-//#import "WLIInfoMarketViewController.h"
-//#import "WLIInfoCustomerViewController.h"
-//#import "WLIInfoCapabilityViewController.h"
-//#import "WLIInfoPeopleViewController.h"
 #import "WLIInfoWhyViewController.h"
-
 #import "WLICategoryPostsViewController.h"
 
 @interface WLIInfoPageViewController ()
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *insetView;
+@property (weak, nonatomic) IBOutlet UILabel *lastLabel;
 
 @end
 
 @implementation WLIInfoPageViewController
 
+#pragma mark - Lifecycle
 
-#pragma mark - Object lifecycle
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-//        self.title = @"Why 20 % by 2020?";
-        self.title = @"What is MyDrive?";
-    }
-    return self;
-}
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    scrollView.contentSize = CGSizeMake(375, 1116);
+    self.navigationItem.title = @"What is MyDrive?";
+    self.scrollView.contentSize = CGSizeMake(375, 1116);
 }
--(void)viewDidLayoutSubviews
+
+- (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    insetView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, CGRectGetMaxY(insetView.frame));
-    scrollView.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width, CGRectGetMaxY(insetView.frame));
+    self.insetView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, CGRectGetMaxY(self.insetView.frame));
+    self.scrollView.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width, CGRectGetMaxY(self.insetView.frame));
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-- (void)reloadData:(BOOL)reloadAll {
-
-}
+#pragma mark - Actions
 
 - (IBAction)marketButtonTouchUpInside:(id)sender
 {
-//    WLIInfoMarketViewController *myViewController = [[WLIInfoMarketViewController alloc] initWithNibName:@"WLIInfoMarketViewController" bundle:nil];
-//    [self.navigationController pushViewController:myViewController animated:YES];
-    
-    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Market"];
+    WLICategoryPostsViewController *categoryViewController = [WLICategoryPostsViewController new];
+    categoryViewController.title = @"Market";
     categoryViewController.categoryID = 1;
     [self.navigationController pushViewController:categoryViewController animated:YES];
 }
+
 - (IBAction)customerButtonTouchUpInside:(id)sender
 {
-//    WLIInfoCustomerViewController *myViewController = [[WLIInfoCustomerViewController alloc] initWithNibName:@"WLIInfoCustomerViewController" bundle:nil];
-//    [self.navigationController pushViewController:myViewController animated:YES];
-    
-    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Customer"];
+    WLICategoryPostsViewController *categoryViewController = [WLICategoryPostsViewController new];
+    categoryViewController.title = @"Customer";
     categoryViewController.categoryID = 4;
     [self.navigationController pushViewController:categoryViewController animated:YES];
 }
+
 - (IBAction)capabilityButtonTouchUpInside:(id)sender
 {
-//    WLIInfoCapabilityViewController *myViewController = [[WLIInfoCapabilityViewController alloc] initWithNibName:@"WLIInfoCapabilityViewController" bundle:nil];
-//    [self.navigationController pushViewController:myViewController animated:YES];
-    
-    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Capabilities"];
+    WLICategoryPostsViewController *categoryViewController = [WLICategoryPostsViewController new];
+    categoryViewController.title = @"Capabilities";
     categoryViewController.categoryID = 2;
     [self.navigationController pushViewController:categoryViewController animated:YES];
 }
+
 - (IBAction)peopleButtonTouchUpInside:(id)sender
 {
-//    WLIInfoPeopleViewController *myViewController = [[WLIInfoPeopleViewController alloc] initWithNibName:@"WLIInfoPeopleViewController" bundle:nil];
-//    [self.navigationController pushViewController:myViewController animated:YES];
-    
-    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"People"];
+    WLICategoryPostsViewController *categoryViewController = [WLICategoryPostsViewController new];
+    categoryViewController.title = @"People";
     categoryViewController.categoryID = 8;
     [self.navigationController pushViewController:categoryViewController animated:YES];
 }
+
 - (IBAction)whyButtonTouchUpInside:(id)sender
 {
-    WLIInfoWhyViewController *myViewController = [[WLIInfoWhyViewController alloc] initWithNibName:@"WLIInfoWhyViewController" bundle:nil];
+    WLIInfoWhyViewController *myViewController = [WLIInfoWhyViewController new];
     [self.navigationController pushViewController:myViewController animated:YES];
 }
 
-- (IBAction)buttonPlayVideoTouchUpInside:(id)sender {
+- (IBAction)buttonPlayVideoTouchUpInside:(id)sender
+{
     MPMoviePlayerViewController *movieController;
-    NSURL *movieURL = [[NSBundle mainBundle] URLForResource: @"director" withExtension:@"mov"];
+    NSURL *movieURL = [[NSBundle mainBundle] URLForResource:@"director" withExtension:@"mov"];
     movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:movieURL];
     [self presentViewController:movieController animated:YES completion:nil];
     [movieController.moviePlayer play];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - Load Data
+
+- (void)reloadData:(BOOL)reloadAll
+{
+    // dumny
 }
-*/
 
 @end
 
