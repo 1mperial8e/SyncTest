@@ -33,92 +33,152 @@
 #define kFORBIDDEN @"FORBIDDEN"
 #define kCREATED @"CREATED"
 
+// UserDefaults
+static NSString *const CurrentUserKey = @"_currentUser";
+
+// API parameters names
+static NSString *const UsernameKey = @"username";
+static NSString *const UserPasswordKey = @"password";
+
+static NSString *const AuthTokenKey = @"token";
+
+@interface WLIConnect ()
+
+@property (copy, nonatomic) NSString *authToken;
+
+@end
 
 @implementation WLIConnect
 
-static WLIConnect *sharedConnect;
+#pragma mark - Singleton
 
-+ (WLIConnect*) sharedConnect {
-    
-    if (sharedConnect != nil) {
-        return sharedConnect;
-    }
-    sharedConnect = [[WLIConnect alloc] init];
-    return sharedConnect;
++ (instancetype)sharedConnect
+{
+    static id sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    return sharedInstance;
 }
 
-- (id)init {
+#pragma mark - Init
+
+- (instancetype)init
+{
     self = [super init];
-    
-    // comment for user persistance
-    // [self removeCurrentUser];
-    
     if (self) {
-        httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseLink]];
-        [httpClient.requestSerializer setValue:kAPIKey forHTTPHeaderField:@"api_key"];
-        httpClient.responseSerializer = [AFJSONResponseSerializer serializer];
-        json = [[SBJsonParser alloc] init];
-        _dateFormatter = [[NSDateFormatter alloc] init];
-        [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        _dateOnlyFormatter = [[NSDateFormatter alloc] init];
-        [_dateOnlyFormatter setDateFormat:@"MM/dd/yyyy"];
-        [_dateOnlyFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
-        
-        NSData *archivedUser = [[NSUserDefaults standardUserDefaults] objectForKey:@"_currentUser"];
-        if (archivedUser) {
-            _currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:archivedUser];
-        }
+        [self setupDefaults];
+        [self loadUser];
     }
     return self;
 }
 
-- (void)saveCurrentUser {
-    
-    if (self.currentUser) {
-        NSData *archivedUser = [NSKeyedArchiver archivedDataWithRootObject:_currentUser];
-        [[NSUserDefaults standardUserDefaults] setObject:archivedUser forKey:@"_currentUser"];
-    }
+#pragma mark - Setup
+
+- (void)setupDefaults
+{
+    httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseLink]];
+    [httpClient.requestSerializer setValue:kAPIKey forHTTPHeaderField:@"api_key"];
+    httpClient.responseSerializer = [AFJSONResponseSerializer serializer];
+    json = [[SBJsonParser alloc] init];
+    _dateFormatter = [[NSDateFormatter alloc] init];
+    [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    _dateOnlyFormatter = [[NSDateFormatter alloc] init];
+    [_dateOnlyFormatter setDateFormat:@"MM/dd/yyyy"];
+    [_dateOnlyFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
 }
 
-- (void)removeCurrentUser {
-    
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_currentUser"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+#pragma mark - Accessors
+
+- (NSString *)authToken
+{
+    if (_authToken) {
+        return _authToken;
+    }
+    return @"";
 }
 
 #pragma mark - User
 
-- (void)loginUserWithUsername:(NSString*)username andPassword:(NSString*)password onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion {
-    
+- (void)loadUser
+{
+    NSData *archivedUser = [[NSUserDefaults standardUserDefaults] objectForKey:CurrentUserKey];
+    if (archivedUser) {
+        self.currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:archivedUser];
+    }
+}
+
+- (void)saveCurrentUser
+{
+    if (self.currentUser) {
+        NSData *archivedUser = [NSKeyedArchiver archivedDataWithRootObject:_currentUser];
+        [[NSUserDefaults standardUserDefaults] setObject:archivedUser forKey:CurrentUserKey];
+    }
+}
+
+- (void)removeCurrentUser
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:CurrentUserKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - UserAPI
+
+- (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion
+{
     if (!username.length || !password.length) {
-        completion(nil, BAD_REQUEST);
+        if (completion) {
+            completion(nil, BAD_REQUEST);
+        }
     } else {
-        NSDictionary *parameters = @{@"username": username, @"password": password};
+        NSDictionary *parameters = @{UsernameKey : username, UserPasswordKey : password, AuthTokenKey : self.authToken};
         [httpClient POST:@"api/login" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *rawUser = [responseObject objectForKey:@"item"];
             _currentUser = [[WLIUser alloc] initWithDictionary:rawUser];
-            
             [self saveCurrentUser];
-            
-            [self debugger:parameters.description methodLog:@"api/login" dataLogFormatted:responseObject];
-            completion(_currentUser, OK);
+            if (completion) {
+                completion(_currentUser, OK);
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/login" dataLog:error.description];
-            if (operation.response) {
-                completion(nil, (ServerResponse)operation.response.statusCode);
-            } else {
-                completion(nil, NO_CONNECTION);
+            [self debugger:parameters.description methodLog:@"api/login" dataLog:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion(nil, (ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(nil, NO_CONNECTION);
+                }
             }
         }];
     }
 }
 
-- (void)registerUserWithUsername:(NSString*)username password:(NSString*)password email:(NSString*)email userAvatar:(UIImage*)userAvatar userType:(int)userType userFullName:(NSString*)userFullName userInfo:(NSString*)userInfo onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion {
-    
-    if (!username.length || !password.length || !email.length) {
-        completion(nil, BAD_REQUEST);
+- (void)logout
+{
+    _currentUser = nil;
+    [self removeCurrentUser];
+}
+
+- (void)registerUserWithUsername:(NSString *)username
+                        password:(NSString *)password
+                           email:(NSString *)email
+                      userAvatar:(UIImage *)userAvatar
+                        userType:(int)userType
+                    userFullName:(NSString *)userFullName
+                        userInfo:(NSString *)userInfo
+                    onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion
+{
+    if (!username.length || !password.length || !email.length || !userFullName.length) {
+        if (completion) {
+            completion(nil, BAD_REQUEST);
+        }
     } else {
-        NSDictionary *parameters = @{@"username" : username, @"password" : password, @"email" : email, @"userFullname" : userFullName, @"userTypeID" : @(userType), @"userInfo" : userInfo};
+        NSDictionary *parameters = @{UsernameKey : username,
+                                     UserPasswordKey : password,
+                                     @"email" : email,
+                                     @"userFullname" : userFullName,
+                                     @"userTypeID" : @(userType),
+                                     @"userInfo" : userInfo ? userInfo : @""};
         [httpClient POST:@"api/register" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             if (userAvatar) {
                 NSData *imageData = UIImageJPEGRepresentation(userAvatar, kCompressionQuality);
@@ -128,27 +188,35 @@ static WLIConnect *sharedConnect;
             }
         } success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *rawUser = [responseObject objectForKey:@"item"];
+            self.authToken = [responseObject objectForKey:AuthTokenKey];
             _currentUser = [[WLIUser alloc] initWithDictionary:rawUser];
             [self saveCurrentUser];
-            [self debugger:parameters.description methodLog:@"api/register" dataLogFormatted:responseObject];
-            completion(_currentUser, OK);
+            if (completion) {
+                completion(_currentUser, OK);
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/register" dataLog:error.description];
-            if (operation.response) {
-                completion(nil, (ServerResponse)operation.response.statusCode);
-            } else {
-                completion(nil, NO_CONNECTION);
+            [self debugger:parameters.description methodLog:@"api/register" dataLog:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion(nil, (ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(nil, NO_CONNECTION);
+                }
             }
         }];
     }
 }
 
-- (void)userWithUserID:(int)userID onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion {
-    
+- (void)userWithUserID:(NSInteger)userID onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion
+{
     if (userID < 1) {
-        completion(nil, BAD_REQUEST);
+        if (completion) {
+            completion(nil, BAD_REQUEST);
+        }
     } else {
-        NSDictionary *parameters = @{@"userID": [NSString stringWithFormat:@"%d", self.currentUser.userID], @"forUserID": [NSString stringWithFormat:@"%d", userID]};
+        NSDictionary *parameters = @{@"userID": [NSString stringWithFormat:@"%zd", self.currentUser.userID],
+                                     @"forUserID": [NSString stringWithFormat:@"%zd", userID],
+                                     AuthTokenKey : self.authToken};
         [httpClient POST:@"api/getProfile" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *rawUser = [responseObject objectForKey:@"item"];
             WLIUser *user = [[WLIUser alloc] initWithDictionary:rawUser];
@@ -156,25 +224,44 @@ static WLIConnect *sharedConnect;
                 _currentUser = user;
                 [self saveCurrentUser];
             }
-            [self debugger:parameters.description methodLog:@"api/getProfile" dataLogFormatted:responseObject];
-            completion(user, OK);
+            if (completion) {
+                completion(user, OK);
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/getProfile" dataLog:error.description];
-            completion(nil, UNKNOWN_ERROR);
+            [self debugger:parameters.description methodLog:@"api/getProfile" dataLog:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion(nil, (ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(nil, NO_CONNECTION);
+                }
+            }
         }];
     }
 }
 
-- (void)updateUserWithUserID:(int)userID userType:(WLIUserType)userType userEmail:(NSString*)userEmail password:(NSString*)password userAvatar:(UIImage*)userAvatar userFullName:(NSString*)userFullName userInfo:(NSString*)userInfo latitude:(float)latitude longitude:(float)longitude companyAddress:(NSString*)companyAddress companyPhone:(NSString*)companyPhone companyWeb:(NSString*)companyWeb onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion {
-    
+- (void)updateUserWithUserID:(NSInteger)userID
+                    userType:(WLIUserType)userType
+                   userEmail:(NSString *)userEmail
+                    password:(NSString *)password
+                  userAvatar:(UIImage *)userAvatar
+                userFullName:(NSString *)userFullName
+                    userInfo:(NSString *)userInfo
+                    latitude:(float)latitude
+                   longitude:(float)longitude
+              companyAddress:(NSString *)companyAddress
+                companyPhone:(NSString *)companyPhone
+                  companyWeb:(NSString *)companyWeb
+                onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion
+{
     if (userID < 1) {
-        completion(nil, BAD_REQUEST);
+        if (completion) {
+            completion(nil, BAD_REQUEST);
+        }
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"userID"];
-        if (userType) {
-            [parameters setObject:[NSString stringWithFormat:@"%d", userType] forKey:@"userTypeID"];
-        }
+        [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"userID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", userType] forKey:@"userTypeID"];
         if (userEmail.length) {
             [parameters setObject:userEmail forKey:@"email"];
         }
@@ -198,6 +285,7 @@ static WLIConnect *sharedConnect;
         if (companyWeb.length) {
             [parameters setObject:companyWeb forKey:@"userWeb"];
         }
+        [parameters setObject:self.authToken forKey:AuthTokenKey];
         
         [httpClient POST:@"api/setProfile" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             if (userAvatar) {
@@ -211,242 +299,234 @@ static WLIConnect *sharedConnect;
             WLIUser *user = [[WLIUser alloc] initWithDictionary:rawUser];
             self.currentUser = user;
             [self saveCurrentUser];
-            
-            [self debugger:parameters.description methodLog:@"api/setProfile" dataLogFormatted:responseObject];
-            completion(user, OK);
+            if (completion) {
+                completion(user, OK);
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/setProfile" dataLog:error.description];
-            completion(nil, UNKNOWN_ERROR);
+            [self debugger:parameters.description methodLog:@"api/setProfile" dataLog:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion(nil, (ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(nil, NO_CONNECTION);
+                }
+            }
         }];
     }
 }
 
-- (void)newUsersWithPageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion {
-    
-    NSDictionary *parameters = @{@"userID": [NSString stringWithFormat:@"%d", self.currentUser.userID], @"take": [NSString stringWithFormat:@"%d", pageSize]};
+- (void)newUsersWithPageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion
+{
+    NSDictionary *parameters = @{@"userID": [NSString stringWithFormat:@"%zd", self.currentUser.userID],
+                                 @"take": [NSString stringWithFormat:@"%zd", pageSize],
+                                 AuthTokenKey : self.authToken};
     [httpClient POST:@"api/getNewUsers" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawUsers = [responseObject objectForKey:@"items"];
-        
         NSMutableArray *users = [NSMutableArray arrayWithCapacity:rawUsers.count];
         for (NSDictionary *rawUser in rawUsers) {
-            WLIUser *user = [[WLIUser alloc] initWithDictionary:rawUser];
-            [users addObject:user];
+            [users addObject:[[WLIUser alloc] initWithDictionary:rawUser]];
         }
-        
-        [self debugger:parameters.description methodLog:@"api/getNewUsers" dataLogFormatted:responseObject];
-        completion(users, OK);
+        if (completion) {
+            completion(users, OK);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/getNewUsers" dataLog:error.description];
-        completion(nil, UNKNOWN_ERROR);
+        [self debugger:parameters.description methodLog:@"api/getNewUsers" dataLog:error.localizedDescription];
+        if (completion) {
+            if (operation.response) {
+                completion(nil, (ServerResponse)operation.response.statusCode);
+            } else {
+                completion(nil, NO_CONNECTION);
+            }
+        }
     }];
 }
 
-- (void)usersForSearchString:(NSString*)searchString page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion {
-    
+- (void)usersForSearchString:(NSString *)searchString
+                        page:(NSInteger)page
+                    pageSize:(NSInteger)pageSize
+                onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion
+{
     if (!searchString.length) {
-        completion(nil, BAD_REQUEST);
+        if (completion) {
+            completion(nil, BAD_REQUEST);
+        }
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
         [parameters setObject:searchString forKey:@"searchTerm"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-        
+        [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+        [parameters setObject:self.authToken forKey:AuthTokenKey];
+
         [httpClient POST:@"api/findUsers" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawUsers = [responseObject objectForKey:@"items"];
-            
             NSMutableArray *users = [NSMutableArray arrayWithCapacity:rawUsers.count];
             for (NSDictionary *rawUser in rawUsers) {
-                WLIUser *user = [[WLIUser alloc] initWithDictionary:rawUser];
-                [users addObject:user];
+                [users addObject:[[WLIUser alloc] initWithDictionary:rawUser]];
             }
-            
-            [self debugger:parameters.description methodLog:@"api/findUsers" dataLogFormatted:responseObject];
-            completion(users, OK);
+            if (completion) {
+                completion(users, OK);
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/findUsers" dataLog:error.description];
-            completion(nil, UNKNOWN_ERROR);
+            [self debugger:parameters.description methodLog:@"api/findUsers" dataLog:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion(nil, (ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(nil, NO_CONNECTION);
+                }
+            }
         }];
     }
 }
 
-- (void)timelineForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion {
+#pragma mark - Timeline
+
+- (void)timelineForUserID:(NSInteger)userID
+                     page:(NSInteger)page
+                 pageSize:(NSInteger)pageSize
+             onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
+{
     
-    if (userID < 1) {
-        completion(nil, BAD_REQUEST);
-    } else {
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-        
-        [httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSArray *rawPosts = [responseObject objectForKey:@"items"];
-            
-            NSMutableArray *posts = [NSMutableArray arrayWithCapacity:rawPosts.count];
-            for (NSDictionary *rawPost in rawPosts) {
-                WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
-                [posts addObject:post];
-            }
-            
-            [self debugger:parameters.description methodLog:@"api/getTimeline" dataLogFormatted:responseObject];
-            completion(posts, OK);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/getTimeline" dataLog:error.description];
-            completion(nil, UNKNOWN_ERROR);
-        }];
-    }
+    [self timelineForUserID:userID withCategory:0 page:page pageSize:pageSize onCompletion:completion];
 }
-//($userID, $forUserID, $page = 1, $take = 10, $category = 0, $countryID = 0,  $searchstring = "")
-- (void)timelineForUserID:(int)userID withCategory:(int)categoryID countryID:(int)countryID searchString:(NSString*)searchString page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion {
-    
+
+- (void)timelineForUserID:(NSInteger)userID
+             withCategory:(NSInteger)categoryID
+                     page:(NSInteger)page
+                 pageSize:(NSInteger)pageSize
+             onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
+{
+    [self timelineForUserID:userID withCategory:categoryID countryID:0 searchString:@"" page:page pageSize:pageSize onCompletion:completion];
+}
+
+- (void)timelineForUserID:(NSInteger)userID
+             withCategory:(NSInteger)categoryID
+                countryID:(NSInteger)countryID
+             searchString:(NSString *)searchString
+                     page:(NSInteger)page
+                 pageSize:(NSInteger)pageSize
+             onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
+{
     if (userID < 1) {
-        completion(nil, BAD_REQUEST);
+        if (completion) {
+            completion(nil, BAD_REQUEST);
+        }
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-        
-        [parameters setObject:[NSString stringWithFormat:@"%d", categoryID] forKey:@"categoryID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", countryID] forKey:@"countryID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", categoryID] forKey:@"categoryID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", countryID] forKey:@"countryID"];
         [parameters setObject:[NSString stringWithFormat:@"%@", searchString] forKey:@"searchstring"];
-        
+        [parameters setObject:self.authToken forKey:AuthTokenKey];
+
         [httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawPosts = [responseObject objectForKey:@"items"];
-            
             NSMutableArray *posts = [NSMutableArray arrayWithCapacity:rawPosts.count];
             for (NSDictionary *rawPost in rawPosts) {
-                WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
-                [posts addObject:post];
+                [posts addObject:[[WLIPost alloc] initWithDictionary:rawPost]];
             }
-            
-            [self debugger:parameters.description methodLog:@"api/getTimeline" dataLogFormatted:responseObject];
-            completion(posts, OK);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/getTimeline" dataLog:error.description];
-            completion(nil, UNKNOWN_ERROR);
-        }];
-    }
-}
-- (void)timelineForUserID:(int)userID withCategory:(int)categoryID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion {
-    
-    if (userID < 1) {
-        completion(nil, BAD_REQUEST);
-    } else {
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", categoryID] forKey:@"postCategory"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-        
-        [httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSArray *rawPosts = [responseObject objectForKey:@"items"];
-            
-            NSMutableArray *posts = [NSMutableArray arrayWithCapacity:rawPosts.count];
-            for (NSDictionary *rawPost in rawPosts) {
-                WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
-                [posts addObject:post];
+            if (completion) {
+                completion(posts, OK);
             }
-            
-            [self debugger:parameters.description methodLog:@"api/getTimeline" dataLogFormatted:responseObject];
-            completion(posts, OK);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/getTimeline" dataLog:error.description];
-            completion(nil, UNKNOWN_ERROR);
+            [self debugger:parameters.description methodLog:@"api/getTimeline" dataLog:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion(nil, (ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(nil, NO_CONNECTION);
+                }
+            }
         }];
     }
 }
 
-- (void)connectTimelineForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion {
+- (void)connectTimelineForUserID:(NSInteger)userID
+                            page:(NSInteger)page
+                        pageSize:(NSInteger)pageSize
+                    onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
+{
     
     if (userID < 1) {
-        completion(nil, BAD_REQUEST);
+        if (completion) {
+            completion(nil, BAD_REQUEST);
+        }
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-        
+        [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+        [parameters setObject:self.authToken forKey:AuthTokenKey];
+
         [httpClient POST:@"api/getConnectTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawPosts = [responseObject objectForKey:@"items"];
-            
             NSMutableArray *posts = [NSMutableArray arrayWithCapacity:rawPosts.count];
             for (NSDictionary *rawPost in rawPosts) {
-                WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
-                [posts addObject:post];
+                [posts addObject:[[WLIPost alloc] initWithDictionary:rawPost]];
             }
-            
-            [self debugger:parameters.description methodLog:@"api/getConnectTimeline" dataLogFormatted:responseObject];
-            completion(posts, OK);
+            if (completion) {
+                completion(posts, OK);
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/getConnectTimeline" dataLog:error.description];
-            completion(nil, UNKNOWN_ERROR);
+            [self debugger:parameters.description methodLog:@"api/getConnectTimeline" dataLog:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion(nil, (ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(nil, NO_CONNECTION);
+                }
+            }
         }];
     }
 }
-- (void)mydriveTimelineForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode))completion {
+
+- (void)mydriveTimelineForUserID:(NSInteger)userID
+                            page:(NSInteger)page
+                        pageSize:(NSInteger)pageSize
+                    onCompletion:(void (^)(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode))completion
+{
     
     if (userID < 1) {
-        completion(nil, nil, BAD_REQUEST);
+        if (completion) {
+            completion(nil, nil, BAD_REQUEST);
+        }
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-            
+        [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+        [parameters setObject:self.authToken forKey:AuthTokenKey];
+
         [httpClient POST:@"api/getMydriveTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawPosts = [responseObject objectForKey:@"items"];
             WLIUser *user = [[WLIUser alloc] initWithDictionary:[responseObject objectForKey:@"user"]];
-            
             NSMutableArray *posts = [NSMutableArray arrayWithCapacity:rawPosts.count];
             for (NSDictionary *rawPost in rawPosts) {
-                WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
-                [posts addObject:post];
+                [posts addObject:[[WLIPost alloc] initWithDictionary:rawPost]];
             }
-            
-            [self debugger:parameters.description methodLog:@"api/getMydriveTimeline" dataLogFormatted:responseObject];
-            completion(posts, user, OK);
+            if (completion) {
+                completion(posts, user, OK);
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/getMydriveTimeline" dataLog:error.description];
-            completion(nil, nil, UNKNOWN_ERROR);
+            [self debugger:parameters.description methodLog:@"api/getMydriveTimeline" dataLog:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion(nil, nil, (ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(nil, nil, NO_CONNECTION);
+                }
+            }
         }];
     }
 }
-//- (void)usersAroundLatitude:(float)latitude longitude:(float)longitude distance:(float)distance page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion {
-//    
-//    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-//    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-//    [parameters setObject:[NSString stringWithFormat:@"%f", latitude] forKey:@"latitude"];
-//    [parameters setObject:[NSString stringWithFormat:@"%f", longitude] forKey:@"longitude"];
-//    [parameters setObject:[NSString stringWithFormat:@"%f", distance] forKey:@"distance"];
-//    [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-//    [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-//    
-//    [httpClient POST:@"api/getLocationsForLatLong" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSArray *rawUsers = [responseObject objectForKey:@"items"];
-//        
-//        NSMutableArray *users = [NSMutableArray arrayWithCapacity:rawUsers.count];
-//        for (NSDictionary *rawUser in rawUsers) {
-//            WLIUser *user = [[WLIUser alloc] initWithDictionary:rawUser];
-//            [users addObject:user];
-//        }
-//        
-//        [self debugger:parameters.description methodLog:@"api/getLocationsForLatLong" dataLogFormatted:responseObject];
-//        completion(users, OK);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [self debugger:parameters.description methodLog:@"api/getLocationsForLatLong" dataLog:error.description];
-//        completion(nil, UNKNOWN_ERROR);
-//    }];
-//}
 
-
-#pragma mark - posts
+#pragma mark - Posts
 
 - (void)sendPostWithCountries:(NSString *)countries
                      postText:(NSString *)postText
@@ -455,41 +535,13 @@ static WLIConnect *sharedConnect;
                     postImage:(UIImage *)postImage
                  onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion
 {
-    if (!postImage) {
-        completion(nil, BAD_REQUEST);
-    } else {
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-        if (postText != nil)
-            [parameters setObject:postText forKey:@"postText"];
-        [parameters setObject:postKeywords ? postKeywords : @[] forKey:@"postKeywords"];
-        if (postCategory != nil)
-            [parameters setObject:postCategory forKey:@"categoryID"];
-        if (countries) {
-            [parameters setObject:countries forKey:@"countries"];
-        }
-        NSLog(@"Post: %@", parameters);
-
-        [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            NSLog(@"sendPost....");
-            if (postImage) {
-                NSData *imageData = UIImageJPEGRepresentation(postImage, kCompressionQuality);
-                if (imageData) {
-                    [formData appendPartWithFileData:imageData name:@"postImage" fileName:@"image.jpg" mimeType:@"image/jpeg"];
-                }
-            }
-        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary *rawPost = [responseObject objectForKey:@"item"];
-            WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
-            
-            [self debugger:parameters.description methodLog:@"api/sendPost" dataLogFormatted:responseObject];
-            completion(post, OK);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/sendPost" dataLog:error.description];
-            completion(nil, UNKNOWN_ERROR);
-        }];
-        
-    }
+    [self sendPostWithCountries:countries
+                       postText:postText
+                   postKeywords:postKeywords
+                   postCategory:postCategory
+                      postImage:postImage
+                      postVideo:nil
+                   onCompletion:completion];
 }
 
 - (void)sendPostWithCountries:(NSString *)countries
@@ -500,23 +552,19 @@ static WLIConnect *sharedConnect;
                     postVideo:(NSData *)postVideoData
                  onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion
 {
-//    NSLog(@"Posting image with file size: %ld", postVideoData.length);
-//    NSLog(@"Posting video with file size: %ld", postVideoData.length);
-    
-    if (!postVideoData && !postImage) {
-        completion(nil, BAD_REQUEST);
+    if (!postVideoData && !postImage && !postText) {
+        if (completion) {
+            completion(nil, BAD_REQUEST);
+        }
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:postText forKey:@"postText"];
-        if (countries) {
-            [parameters setObject:countries forKey:@"countries"];
-        }
-        if (postKeywords != nil)
-            [parameters setObject:postKeywords forKey:@"postKeywords"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+        [parameters setObject:postText ? postText : @"" forKey:@"postText"];
+        [parameters setObject:countries ? countries : @"0" forKey:@"countries"];
+        [parameters setObject:postKeywords ? postKeywords : @[] forKey:@"postKeywords"];
         [parameters setObject:postCategory forKey:@"categoryID"];
-        NSLog(@"Post: %@", parameters);
-        
+        [parameters setObject:self.authToken forKey:AuthTokenKey];
+
         [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             if (postImage) {
                 NSData *imageData = UIImageJPEGRepresentation(postImage, kCompressionQuality);
@@ -530,318 +578,419 @@ static WLIConnect *sharedConnect;
         } success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *rawPost = [responseObject objectForKey:@"item"];
             WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
-            
-            [self debugger:parameters.description methodLog:@"api/sendPost" dataLogFormatted:responseObject];
-            completion(post, OK);
+            if (completion) {
+                completion(post, OK);
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/sendPost" dataLog:error.description];
-            completion(nil, UNKNOWN_ERROR);
+            [self debugger:parameters.description methodLog:@"api/sendPost" dataLog:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion(nil, (ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(nil, NO_CONNECTION);
+                }
+            }
         }];
     }
 }
 
-- (void)recentPostsWithPageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion {
-    
+- (void)recentPostsWithPageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-    
+    [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+    [parameters setObject:self.authToken forKey:AuthTokenKey];
+
     [httpClient POST:@"api/getRecentPosts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawPosts = [responseObject objectForKey:@"items"];
-        
         NSMutableArray *posts = [NSMutableArray arrayWithCapacity:rawPosts.count];
         for (NSDictionary *rawPost in rawPosts) {
-            WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
-            [posts addObject:post];
+            [posts addObject:[[WLIPost alloc] initWithDictionary:rawPost]];
         }
-        
-        [self debugger:parameters.description methodLog:@"api/getRecentPosts" dataLogFormatted:responseObject];
-        completion(posts, OK);
+        if (completion) {
+            completion(posts, OK);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/getRecentPosts" dataLog:error.description];
-        completion(nil, UNKNOWN_ERROR);
+        [self debugger:parameters.description methodLog:@"api/getRecentPosts" dataLog:error.localizedDescription];
+        if (completion) {
+            if (operation.response) {
+                completion(nil, (ServerResponse)operation.response.statusCode);
+            } else {
+                completion(nil, NO_CONNECTION);
+            }
+        }
     }];
 }
 
-- (void)popularPostsOnPage:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion {
-    
+- (void)popularPostsOnPage:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+    [parameters setObject:self.authToken forKey:AuthTokenKey];
+
     [httpClient POST:@"api/getPopularPosts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawPosts = [responseObject objectForKey:@"items"];
-        
         NSMutableArray *posts = [NSMutableArray arrayWithCapacity:rawPosts.count];
         for (NSDictionary *rawPost in rawPosts) {
-            WLIPost *post = [[WLIPost alloc] initWithDictionary:rawPost];
-            [posts addObject:post];
+            [posts addObject:[[WLIPost alloc] initWithDictionary:rawPost]];
         }
-        
-        [self debugger:parameters.description methodLog:@"api/getPopularPosts" dataLogFormatted:responseObject];
-        completion(posts, OK);
+        if (completion) {
+            completion(posts, OK);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/getPopularPosts" dataLog:error.description];
-        completion(nil, UNKNOWN_ERROR);
+        [self debugger:parameters.description methodLog:@"api/getPopularPosts" dataLog:error.localizedDescription];
+        if (completion) {
+            if (operation.response) {
+                completion(nil, (ServerResponse)operation.response.statusCode);
+            } else {
+                completion(nil, NO_CONNECTION);
+            }
+        }
     }];
 }
 
-
-#pragma mark - comments
-
-- (void)sendCommentOnPostID:(int)postID withCommentText:(NSString*)commentText onCompletion:(void (^)(WLIComment *comment, ServerResponse serverResponseCode))completion {
-    
+- (void)deletePostID:(NSInteger)postID onCompletion:(void (^)(ServerResponse serverResponseCode))completion
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", postID] forKey:@"postID"];
-    [parameters setObject:commentText forKey:@"commentText"];
-    [httpClient POST:@"api/setComment" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *rawComment = [responseObject objectForKey:@"item"];
-        WLIComment *comment = [[WLIComment alloc] initWithDictionary:rawComment];
-        
-        [self debugger:parameters.description methodLog:@"api/setComment" dataLogFormatted:responseObject];
-        completion(comment, OK);
+    [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", postID] forKey:@"postID"];
+    [parameters setObject:self.authToken forKey:AuthTokenKey];
+
+    [httpClient POST:@"api/deletePost" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (completion) {
+            completion(OK);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/setComment" dataLog:error.description];
-        completion(nil, UNKNOWN_ERROR);
+        [self debugger:parameters.description methodLog:@"api/deletePost" dataLog:error.localizedDescription];
+        if (completion) {
+            if (operation.response) {
+                completion((ServerResponse)operation.response.statusCode);
+            } else {
+                completion(NO_CONNECTION);
+            }
+        }
     }];
 }
 
-- (void)removeCommentWithCommentID:(int)commentID onCompletion:(void (^)(ServerResponse serverResponseCode))completion {
-    
+#pragma mark - Comments
+
+- (void)sendCommentOnPostID:(NSInteger)postID withCommentText:(NSString *)commentText onCompletion:(void (^)(WLIComment *comment, ServerResponse serverResponseCode))completion
+{
+    if (!commentText.length) {
+        if (completion) {
+            completion(nil, BAD_REQUEST);
+        }
+    } else {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", postID] forKey:@"postID"];
+        [parameters setObject:commentText forKey:@"commentText"];
+        [parameters setObject:self.authToken forKey:AuthTokenKey];
+
+        [httpClient POST:@"api/setComment" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *rawComment = [responseObject objectForKey:@"item"];
+            WLIComment *comment = [[WLIComment alloc] initWithDictionary:rawComment];
+            if (completion) {
+                completion(comment, OK);
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self debugger:parameters.description methodLog:@"api/setComment" dataLog:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion(nil, (ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(nil, NO_CONNECTION);
+                }
+            }
+        }];
+    }
+}
+
+- (void)removeCommentWithCommentID:(NSInteger)commentID onCompletion:(void (^)(ServerResponse serverResponseCode))completion
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", commentID] forKey:@"commentID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", commentID] forKey:@"commentID"];
+    [parameters setObject:self.authToken forKey:AuthTokenKey];
+
     [httpClient POST:@"api/removeComment" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSDictionary *rawComment = [responseObject objectForKey:@"item"];
-        //WLIComment *comment = [[WLIComment alloc] initWithDictionary:rawComment];
-        
-        [self debugger:parameters.description methodLog:@"api/removeComment" dataLogFormatted:responseObject];
-        completion(OK);
+        if (completion) {
+            completion(OK);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/removeComment" dataLog:error.description];
-        completion(UNKNOWN_ERROR);
+        [self debugger:parameters.description methodLog:@"api/removeComment" dataLog:error.localizedDescription];
+        if (completion) {
+            if (operation.response) {
+                completion((ServerResponse)operation.response.statusCode);
+            } else {
+                completion(NO_CONNECTION);
+            }
+        }
     }];
 }
 
-- (void)commentsForPostID:(int)postID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *comments, ServerResponse serverResponseCode))completion {
-    
+- (void)commentsForPostID:(NSInteger)postID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *comments, ServerResponse serverResponseCode))completion
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", postID] forKey:@"postID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", postID] forKey:@"postID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+    [parameters setObject:self.authToken forKey:AuthTokenKey];
+
     [httpClient POST:@"api/getComments" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawComments = [responseObject objectForKey:@"items"];
-        
         NSMutableArray *comments = [NSMutableArray arrayWithCapacity:rawComments.count];
         for (NSDictionary *rawComment in rawComments) {
-            WLIComment *comment = [[WLIComment alloc] initWithDictionary:rawComment];
-            [comments addObject:comment];
+            [comments addObject:[[WLIComment alloc] initWithDictionary:rawComment]];
         }
-        
-        [self debugger:parameters.description methodLog:@"api/getComments" dataLogFormatted:responseObject];
-        completion(comments, OK);
+        if (completion) {
+            completion(comments, OK);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/getComments" dataLog:error.description];
-        completion(nil, UNKNOWN_ERROR);
+        [self debugger:parameters.description methodLog:@"api/getComments" dataLog:error.localizedDescription];
+        if (completion) {
+            if (operation.response) {
+                completion(nil, (ServerResponse)operation.response.statusCode);
+            } else {
+                completion(nil, NO_CONNECTION);
+            }
+        }
     }];
 }
 
+#pragma mark - Likes
 
-#pragma mark - likes
-
-- (void)setLikeOnPostID:(int)postID onCompletion:(void (^)(WLILike *like, ServerResponse serverResponseCode))completion {
-    
+- (void)setLikeOnPostID:(NSInteger)postID onCompletion:(void (^)(WLILike *like, ServerResponse serverResponseCode))completion
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", postID] forKey:@"postID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", postID] forKey:@"postID"];
+    [parameters setObject:self.authToken forKey:AuthTokenKey];
+
     [httpClient POST:@"api/setLike" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *rawLike = [responseObject objectForKey:@"item"];
         WLILike *like = [[WLILike alloc] initWithDictionary:rawLike];
-        
-        [self debugger:parameters.description methodLog:@"api/setLike" dataLogFormatted:responseObject];
-        completion(like, OK);
+        if (completion) {
+            completion(like, OK);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/setLike" dataLog:error.description];
-        completion(nil, UNKNOWN_ERROR);
+        [self debugger:parameters.description methodLog:@"api/setLike" dataLog:error.localizedDescription];
+        if (completion) {
+            if (operation.response) {
+                completion(nil, (ServerResponse)operation.response.statusCode);
+            } else {
+                completion(nil, NO_CONNECTION);
+            }
+        }
     }];
 }
 
-- (void)removeLikeWithLikeID:(int)postID onCompletion:(void (^)(ServerResponse serverResponseCode))completion {
-    
+- (void)removeLikeWithLikeID:(NSInteger)postID onCompletion:(void (^)(ServerResponse serverResponseCode))completion
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", postID] forKey:@"postID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", postID] forKey:@"postID"];
+    [parameters setObject:self.authToken forKey:AuthTokenKey];
+
     [httpClient POST:@"api/removeLike" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self debugger:parameters.description methodLog:@"api/removeLike" dataLogFormatted:responseObject];
-        completion(OK);
+        if (completion) {
+            completion(OK);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/removeLike" dataLog:error.description];
-        completion(UNKNOWN_ERROR);
+        [self debugger:parameters.description methodLog:@"api/removeLike" dataLog:error.localizedDescription];
+        if (completion) {
+            if (operation.response) {
+                completion((ServerResponse)operation.response.statusCode);
+            } else {
+                completion(NO_CONNECTION);
+            }
+        }
     }];
 }
 
-- (void)likesForPostID:(int)postID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *likes, ServerResponse serverResponseCode))completion {
-    
+- (void)likesForPostID:(NSInteger)postID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *likes, ServerResponse serverResponseCode))completion
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", postID] forKey:@"postID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", postID] forKey:@"postID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+    [parameters setObject:self.authToken forKey:AuthTokenKey];
+
     [httpClient POST:@"api/getLikes" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawLikes = [responseObject objectForKey:@"items"];
-        
         NSMutableArray *likes = [NSMutableArray arrayWithCapacity:rawLikes.count];
         for (NSDictionary *rawLike in rawLikes) {
-            WLILike *like = [[WLILike alloc] initWithDictionary:rawLike];
-            [likes addObject:like];
+            [likes addObject:[[WLILike alloc] initWithDictionary:rawLike]];
         }
-        
-        [self debugger:parameters.description methodLog:@"api/getLikes" dataLogFormatted:responseObject];
-        completion(likes, OK);
+        if (completion) {
+            completion(likes, OK);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/getLikes" dataLog:error.description];
-        completion(nil, UNKNOWN_ERROR);
+        [self debugger:parameters.description methodLog:@"api/getLikes" dataLog:error.localizedDescription];
+        if (completion) {
+            if (operation.response) {
+                completion(nil, (ServerResponse)operation.response.statusCode);
+            } else {
+                completion(nil, NO_CONNECTION);
+            }
+        }
     }];
 }
 
-#pragma mark - delete
+#pragma mark - Follow
 
-- (void)deletePostID:(int)postID onCompletion:(void (^)(ServerResponse serverResponseCode))completion {
-    
+- (void)setFollowOnUserID:(NSInteger)userID onCompletion:(void (^)(WLIFollow *follow, ServerResponse serverResponseCode))completion
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", postID] forKey:@"postID"];
-    [httpClient POST:@"api/deletePost" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        [self debugger:parameters.description methodLog:@"api/deletePost" dataLogFormatted:responseObject];
-        completion(OK);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/deletePost" dataLog:error.description];
-        completion(UNKNOWN_ERROR);
-    }];
-}
+    [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"followingID"];
+    [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-#pragma mark - follow
-
-- (void)setFollowOnUserID:(int)userID onCompletion:(void (^)(WLIFollow *follow, ServerResponse serverResponseCode))completion {
-    
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"followingID"];
     [httpClient POST:@"api/setFollow" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *rawFollow = [responseObject objectForKey:@"item"];
         WLIFollow *follow = [[WLIFollow alloc] initWithDictionary:rawFollow];
         self.currentUser.followingCount++;
-        [self debugger:parameters.description methodLog:@"api/setFollow" dataLogFormatted:responseObject];
-        completion(follow, OK);
+        if (completion) {
+            completion(follow, OK);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/setFollow" dataLog:error.description];
-        completion(nil, UNKNOWN_ERROR);
+        [self debugger:parameters.description methodLog:@"api/setFollow" dataLog:error.localizedDescription];
+        if (completion) {
+            if (operation.response) {
+                completion(nil, (ServerResponse)operation.response.statusCode);
+            } else {
+                completion(nil, NO_CONNECTION);
+            }
+        }
     }];
 }
 
-- (void)removeFollowWithFollowID:(int)followID onCompletion:(void (^)(ServerResponse serverResponseCode))completion {
-    
+- (void)removeFollowWithFollowID:(NSInteger)followID onCompletion:(void (^)(ServerResponse serverResponseCode))completion
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", followID] forKey:@"followingID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", followID] forKey:@"followingID"];
+    [parameters setObject:self.authToken forKey:AuthTokenKey];
+
     [httpClient POST:@"api/removeFollow" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSDictionary *rawFollow = [responseObject objectForKey:@"item"];
-        //WLIFollow *follow = [[WLIFollow alloc] initWithDictionary:rawFollow];
         self.currentUser.followingCount--;
-        [self debugger:parameters.description methodLog:@"api/removeFollow" dataLogFormatted:responseObject];
-        completion(OK);
+        if (completion) {
+            completion(OK);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/removeFollow" dataLog:error.description];
-        completion(UNKNOWN_ERROR);
+        [self debugger:parameters.description methodLog:@"api/removeFollow" dataLog:error.localizedDescription];
+        if (completion) {
+            if (operation.response) {
+                completion((ServerResponse)operation.response.statusCode);
+            } else {
+                completion(NO_CONNECTION);
+            }
+        }
     }];
 }
 
-- (void)followersForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *followers, ServerResponse serverResponseCode))completion {
-    
+- (void)followersForUserID:(NSInteger)userID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *followers, ServerResponse serverResponseCode))completion
+{
     if (userID < 1) {
-        completion(nil, BAD_REQUEST);
+        if (completion) {
+            completion(nil, BAD_REQUEST);
+        }
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-//        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"userID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"userID"];
+        [parameters setObject:self.authToken forKey:AuthTokenKey];
+
         [httpClient POST:@"api/getFollowers" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawUsers = responseObject[@"items"];
-            
             NSMutableArray *users = [NSMutableArray arrayWithCapacity:rawUsers.count];
             for (NSDictionary *rawUser in rawUsers) {
-                WLIUser *user = [[WLIUser alloc] initWithDictionary:rawUser[@"user"]];
-                [users addObject:user];
+                [users addObject:[[WLIUser alloc] initWithDictionary:rawUser[@"user"]]];
             }
-            
-            [self debugger:parameters.description methodLog:@"api/getFollowers" dataLogFormatted:responseObject];
-            completion(users, OK);
+            if (completion) {
+                completion(users, OK);
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/getFollowers" dataLog:error.description];
-            completion(nil, UNKNOWN_ERROR);
+            [self debugger:parameters.description methodLog:@"api/getFollowers" dataLog:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion(nil, (ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(nil, NO_CONNECTION);
+                }
+            }
         }];
     }
 }
 
-- (void)followingForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *following, ServerResponse serverResponseCode))completion {
-    
+- (void)followingForUserID:(NSInteger)userID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *following, ServerResponse serverResponseCode))completion
+{
     if (userID < 1) {
-        completion(nil, BAD_REQUEST);
+        if (completion) {
+            completion(nil, BAD_REQUEST);
+        }
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-//        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"userID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"userID"];
+        [parameters setObject:self.authToken forKey:AuthTokenKey];
+
         [httpClient POST:@"api/getFollowing" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawUsers = responseObject[@"items"];
-            
             NSMutableArray *users = [NSMutableArray arrayWithCapacity:rawUsers.count];
             for (NSDictionary *rawUser in rawUsers) {
-                WLIUser *user = [[WLIUser alloc] initWithDictionary:rawUser[@"user"]];
-                [users addObject:user];
+                [users addObject:[[WLIUser alloc] initWithDictionary:rawUser[@"user"]]];
             }
-            
-            [self debugger:parameters.description methodLog:@"api/getFollowing" dataLogFormatted:responseObject];
-            completion(users, OK);
+            if (completion) {
+                completion(users, OK);
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/getFollowing" dataLog:error.description];
-            completion(nil, UNKNOWN_ERROR);
+            [self debugger:parameters.description methodLog:@"api/getFollowing" dataLog:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion(nil, (ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(nil, NO_CONNECTION);
+                }
+            }
         }];
     }
 }
 
+#pragma mark - Hashtags
 
-- (void)hashtagsInSearch:(NSString*)searchString pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion {
-    
+- (void)hashtagsInSearch:(NSString *)searchString pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion
+{
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%@", searchString] forKey:@"searchstring"];
-    [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
+    [parameters setObject:[NSString stringWithFormat:@"%@", searchString ? searchString : @""] forKey:@"searchstring"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+    [parameters setObject:self.authToken forKey:AuthTokenKey];
+
     [httpClient POST:@"api/getPoplularHashtags" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawHashtags = responseObject[@"items"];
-        
         NSMutableArray *hashtags = [NSMutableArray arrayWithCapacity:rawHashtags.count];
         for (NSDictionary *rawHashtag in rawHashtags) {
-            WLIHashtag *hashtag = [[WLIHashtag alloc] initWithDictionary:rawHashtag];
-            [hashtags addObject:hashtag];
+            [hashtags addObject:[[WLIHashtag alloc] initWithDictionary:rawHashtag]];
         }
-        
-        [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLogFormatted:responseObject];
-        completion(hashtags, OK);
+        if (completion) {
+            completion(hashtags, OK);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLog:error.description];
-        completion(nil, UNKNOWN_ERROR);
+        [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLog:error.localizedDescription];
+        if (completion) {
+            if (operation.response) {
+                completion(nil, (ServerResponse)operation.response.statusCode);
+            } else {
+                completion(nil, NO_CONNECTION);
+            }
+        }
     }];
-}
-
-- (void)logout
-{
-    _currentUser = nil;
-    [self removeCurrentUser];
 }
 
 #pragma mark - debugger

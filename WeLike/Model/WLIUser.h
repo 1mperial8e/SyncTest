@@ -18,7 +18,7 @@ typedef enum {
 
 @interface WLIUser : WLIObject
 
-@property (nonatomic) int userID;
+@property (assign, nonatomic) NSInteger userID;
 @property (nonatomic) WLIUserType userType;
 @property (nonatomic, strong) NSString *userPassword;
 @property (nonatomic, strong) NSString *userEmail;

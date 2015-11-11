@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Planet 1107. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "SBJson.h"
 #import "AFNetworking.h"
 
@@ -44,38 +43,82 @@ typedef enum ServerResponse ServerResponse;
 
 @property (readonly, nonatomic) NSDateFormatter *dateFormatter;
 @property (readonly, nonatomic) NSDateFormatter *dateOnlyFormatter;
+
 @property (strong, nonatomic) WLIUser *currentUser;
 
-+ (WLIConnect*) sharedConnect;
+#pragma mark - Singleton
 
-#pragma mark - user
++ (instancetype)sharedConnect;
 
-- (void)loginUserWithUsername:(NSString*)username andPassword:(NSString*)password onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
+#pragma mark - UserAPI
 
-- (void)registerUserWithUsername:(NSString*)username password:(NSString*)password email:(NSString*)email userAvatar:(UIImage*)userAvatar userType:(int)userType userFullName:(NSString*)userFullName userInfo:(NSString*)userInfo onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
+- (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
+- (void)logout;
 
-- (void)userWithUserID:(int)userID onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
+- (void)registerUserWithUsername:(NSString *)username
+                        password:(NSString *)password
+                           email:(NSString *)email
+                      userAvatar:(UIImage *)userAvatar
+                        userType:(int)userType
+                    userFullName:(NSString *)userFullName
+                        userInfo:(NSString *)userInfo
+                    onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
 
-- (void)updateUserWithUserID:(int)userID userType:(WLIUserType)userType userEmail:(NSString*)userEmail password:(NSString*)password userAvatar:(UIImage*)userAvatar userFullName:(NSString*)userFullName userInfo:(NSString*)userInfo latitude:(float)latitude longitude:(float)longitude companyAddress:(NSString*)companyAddress companyPhone:(NSString*)companyPhone companyWeb:(NSString*)companyWeb onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
+- (void)userWithUserID:(NSInteger)userID onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
 
-- (void)newUsersWithPageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion;
+- (void)updateUserWithUserID:(NSInteger)userID
+                    userType:(WLIUserType)userType
+                   userEmail:(NSString *)userEmail
+                    password:(NSString *)password
+                  userAvatar:(UIImage *)userAvatar
+                userFullName:(NSString *)userFullName
+                    userInfo:(NSString *)userInfo
+                    latitude:(float)latitude
+                   longitude:(float)longitude
+              companyAddress:(NSString *)companyAddress
+                companyPhone:(NSString *)companyPhone
+                  companyWeb:(NSString *)companyWeb
+                onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
 
-- (void)usersForSearchString:(NSString*)searchString page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion;
+- (void)newUsersWithPageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion;
 
-//- (void)usersAroundLatitude:(float)latitude longitude:(float)longitude distance:(float)distance page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion;
+- (void)usersForSearchString:(NSString *)searchString
+                        page:(NSInteger)page
+                    pageSize:(NSInteger)pageSize
+                onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion;
 
-- (void)timelineForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
+#pragma mark - Timeline
 
-- (void)timelineForUserID:(int)userID withCategory:(int)categoryID countryID:(int)countryID searchString:(NSString*)searchString page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
+- (void)timelineForUserID:(NSInteger)userID
+                     page:(NSInteger)page
+                 pageSize:(NSInteger)pageSize
+             onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 
-- (void)timelineForUserID:(int)userID withCategory:(int)categoryID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
+- (void)timelineForUserID:(NSInteger)userID
+             withCategory:(NSInteger)categoryID
+                     page:(NSInteger)page
+                 pageSize:(NSInteger)pageSize
+             onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 
-- (void)connectTimelineForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
+- (void)timelineForUserID:(NSInteger)userID
+             withCategory:(NSInteger)categoryID
+                countryID:(NSInteger)countryID
+             searchString:(NSString *)searchString
+                     page:(NSInteger)page
+                 pageSize:(NSInteger)pageSize
+             onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 
-- (void)mydriveTimelineForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode))completion;
+- (void)connectTimelineForUserID:(NSInteger)userID
+                            page:(NSInteger)page
+                        pageSize:(NSInteger)pageSize
+                    onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 
+- (void)mydriveTimelineForUserID:(NSInteger)userID
+                            page:(NSInteger)page
+                        pageSize:(NSInteger)pageSize
+                    onCompletion:(void (^)(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode))completion;
 
-#pragma mark - posts
+#pragma mark - Posts
 
 - (void)sendPostWithCountries:(NSString *)countries
                      postText:(NSString *)postText
@@ -92,43 +135,31 @@ typedef enum ServerResponse ServerResponse;
                     postVideo:(NSData *)postVideoData
                  onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion;
 
-- (void)recentPostsWithPageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
+- (void)recentPostsWithPageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
+- (void)popularPostsOnPage:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
+- (void)deletePostID:(NSInteger)postID onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
 
-- (void)popularPostsOnPage:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
+#pragma mark - Comments
 
+- (void)sendCommentOnPostID:(NSInteger)postID withCommentText:(NSString *)commentText onCompletion:(void (^)(WLIComment *comment, ServerResponse serverResponseCode))completion;
+- (void)removeCommentWithCommentID:(NSInteger)commentID onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
+- (void)commentsForPostID:(NSInteger)postID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *comments, ServerResponse serverResponseCode))completion;
 
-#pragma mark - comments
+#pragma mark - Likes
 
-- (void)sendCommentOnPostID:(int)postID withCommentText:(NSString*)commentText onCompletion:(void (^)(WLIComment *comment, ServerResponse serverResponseCode))completion;
+- (void)setLikeOnPostID:(NSInteger)postID onCompletion:(void (^)(WLILike *like, ServerResponse serverResponseCode))completion;
+- (void)removeLikeWithLikeID:(NSInteger)likeID onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
+- (void)likesForPostID:(NSInteger)postID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *likes, ServerResponse serverResponseCode))completion;
 
-- (void)removeCommentWithCommentID:(int)commentID onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
+#pragma mark - Follow
 
-- (void)commentsForPostID:(int)postID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *comments, ServerResponse serverResponseCode))completion;
+- (void)setFollowOnUserID:(NSInteger)userID onCompletion:(void (^)(WLIFollow *follow, ServerResponse serverResponseCode))completion;
+- (void)removeFollowWithFollowID:(NSInteger)followID onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
+- (void)followersForUserID:(NSInteger)userID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *followers, ServerResponse serverResponseCode))completion;
+- (void)followingForUserID:(NSInteger)userID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *following, ServerResponse serverResponseCode))completion;
 
+#pragma mark - Hashtags
 
-#pragma mark - likes
-
-- (void)setLikeOnPostID:(int)postID onCompletion:(void (^)(WLILike *like, ServerResponse serverResponseCode))completion;
-
-- (void)removeLikeWithLikeID:(int)likeID onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
-
-- (void)likesForPostID:(int)postID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *likes, ServerResponse serverResponseCode))completion;
-
-#pragma mark - delete
-- (void)deletePostID:(int)postID onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
-
-#pragma mark - follow
-
-- (void)setFollowOnUserID:(int)userID onCompletion:(void (^)(WLIFollow *follow, ServerResponse serverResponseCode))completion;
-
-- (void)removeFollowWithFollowID:(int)followID onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
-
-- (void)followersForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *followers, ServerResponse serverResponseCode))completion;
-
-- (void)followingForUserID:(int)userID page:(int)page pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *following, ServerResponse serverResponseCode))completion;
-
-- (void)hashtagsInSearch:(NSString*)searchString pageSize:(int)pageSize onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion;
-
-- (void)logout;
+- (void)hashtagsInSearch:(NSString *)searchString pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion;
 
 @end

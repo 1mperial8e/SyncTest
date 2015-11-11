@@ -9,20 +9,11 @@
 #import "WLIComment.h"
 #import "WLITableViewCell.h"
 
-@interface WLICommentCell : WLITableViewCell {
-    
-    CGRect frameDefaultLabelCommentText;
-}
-
-@property (strong, nonatomic) IBOutlet UIImageView *imageViewUser;
-@property (strong, nonatomic) IBOutlet UILabel *labelUsername;
-@property (strong, nonatomic) IBOutlet UILabel *labelTimeAgo;
-@property (strong, nonatomic) IBOutlet UILabel *labelCommentTtext;
+@interface WLICommentCell : WLITableViewCell
 
 @property (strong, nonatomic) WLIComment *comment;
 @property (weak, nonatomic) id<WLICellDelegate> delegate;
 
-- (IBAction)buttonUserTouchUpInside:(id)sender;
 + (CGSize)sizeWithComment:(WLIComment *)comment;
 
 @end

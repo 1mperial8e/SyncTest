@@ -105,7 +105,7 @@
         [self.view endEditing:YES];
         [hud show:YES];
         __weak typeof(self) weakSelf = self;
-        [sharedConnect loginUserWithUsername:username andPassword:password onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
+        [sharedConnect loginWithUsername:username andPassword:password onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode == OK) {
                 [weakSelf dismissViewControllerAnimated:YES completion:^{

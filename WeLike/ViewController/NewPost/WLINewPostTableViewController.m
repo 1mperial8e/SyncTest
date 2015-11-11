@@ -133,7 +133,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
         categoryCode = categoryCode + 8;
     NSString *countries = @"";
     if ([[self.countryStates objectForKey:@"all"] boolValue]) {
-        [countries stringByAppendingString:@"0"];
+        countries = [countries stringByAppendingString:@"0"];
     } else {
         BOOL addComa = NO;
         if ([[self.countryStates objectForKey:@"denmark"] boolValue]) {
