@@ -145,8 +145,8 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
         [hud show:YES];
         __weak typeof(self) weakSelf = self;
         [sharedConnect removeCommentWithCommentID:comment.commentID onCompletion:^(ServerResponse serverResponseCode) {
+            [hud hide:YES];
             if (serverResponseCode == OK) {
-                [hud hide:YES];
                 [weakSelf.comments removeObject:comment];
                 weakSelf.post.postCommentsCount--;
                 [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationAutomatic];

@@ -160,39 +160,30 @@
 
 #pragma mark - WLIPostCellDelegate methods
 
-- (void)toggleLikeForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell {
-    
+- (void)toggleLikeForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell
+{
     if (post.likedThisPost) {
-         [senderCell.buttonLike setSelected:NO];
-        post.postLikesCount--;
-        post.likedThisPost = NO;
-        if (post.postLikesCount == 0) {
-            senderCell.labelLikes.hidden = YES;
-        }
-        [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d", post.postLikesCount]];
-        
         [[WLIConnect sharedConnect] removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
-            if (serverResponseCode != OK) {
-                [senderCell.buttonLike setImage:[UIImage imageNamed:@"post-cell-like-h"] forState:UIControlStateNormal];
-                post.postLikesCount++;
-                post.likedThisPost = YES;
-                [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d", post.postLikesCount]];
+            if (serverResponseCode == OK) {
+                senderCell.buttonLike.selected = NO;
+                post.postLikesCount--;
+                post.likedThisPost = NO;
+                if (post.postLikesCount == 0) {
+                    senderCell.labelLikes.hidden = YES;
+                }
+                senderCell.labelLikes.text = [NSString stringWithFormat:@"%d", post.postLikesCount];
             }
         }];
     } else {
-         [senderCell.buttonLike setSelected:YES];
-        post.postLikesCount++;
-        post.likedThisPost = YES;
-        [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d", post.postLikesCount]];
-        if (post.postLikesCount > 0) {
-            senderCell.labelLikes.hidden = NO;
-        }
         [[WLIConnect sharedConnect] setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
-            if (serverResponseCode != OK) {
-                [senderCell.buttonLike setImage:[UIImage imageNamed:@"post-cell-like"] forState:UIControlStateNormal];
-                post.postLikesCount--;
-                post.likedThisPost = NO;
-                [senderCell.labelLikes setText:[NSString stringWithFormat:@"%d", post.postLikesCount]];
+            if (serverResponseCode == OK) {
+                senderCell.buttonLike.selected = YES;
+                post.postLikesCount++;
+                post.likedThisPost = YES;
+                if (post.postLikesCount > 0) {
+                    senderCell.labelLikes.hidden = NO;
+                }
+                senderCell.labelLikes.text = [NSString stringWithFormat:@"%d", post.postLikesCount];
             }
         }];
     }
