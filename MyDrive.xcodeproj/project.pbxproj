@@ -173,6 +173,8 @@
 		4F69E8E31BF0B49500A6CD5A /* WLIRegisterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8E11BF0B49500A6CD5A /* WLIRegisterTableViewCell.m */; };
 		4F69E8E41BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F69E8E21BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib */; };
 		4F69E8E81BF24B1200A6CD5A /* NSDictionary+Nonnull.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8E71BF24B1200A6CD5A /* NSDictionary+Nonnull.m */; };
+		4F69E8F01BF3415500A6CD5A /* WLICountryFilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8EE1BF3415500A6CD5A /* WLICountryFilterTableViewCell.m */; };
+		4F69E8F11BF3415500A6CD5A /* WLICountryFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F69E8EF1BF3415500A6CD5A /* WLICountryFilterTableViewCell.xib */; };
 		C7B424B5183D2507003B51D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B4183D2507003B51D0 /* CoreData.framework */; };
 		C7B424B7183D2519003B51D0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B6183D2519003B51D0 /* MessageUI.framework */; };
 		C7B424B9183D2540003B51D0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B8183D2540003B51D0 /* libsqlite3.0.dylib */; };
@@ -447,6 +449,9 @@
 		4F69E8E21BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIRegisterTableViewCell.xib; sourceTree = "<group>"; };
 		4F69E8E61BF24B1200A6CD5A /* NSDictionary+Nonnull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Nonnull.h"; sourceTree = "<group>"; };
 		4F69E8E71BF24B1200A6CD5A /* NSDictionary+Nonnull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Nonnull.m"; sourceTree = "<group>"; };
+		4F69E8ED1BF3415500A6CD5A /* WLICountryFilterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLICountryFilterTableViewCell.h; path = CategoryPosts/WLICountryFilterTableViewCell.h; sourceTree = "<group>"; };
+		4F69E8EE1BF3415500A6CD5A /* WLICountryFilterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLICountryFilterTableViewCell.m; path = CategoryPosts/WLICountryFilterTableViewCell.m; sourceTree = "<group>"; };
+		4F69E8EF1BF3415500A6CD5A /* WLICountryFilterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLICountryFilterTableViewCell.xib; path = CategoryPosts/WLICountryFilterTableViewCell.xib; sourceTree = "<group>"; };
 		C7B4244A183D0809003B51D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C7B424B4183D2507003B51D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C7B424B6183D2519003B51D0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1158,6 +1163,9 @@
 				2E666A0A1BBC2AC200392527 /* WLICategoryPostsViewController.xib */,
 				2E65F58A1BBABD740077B44B /* WLICategoryPostsViewController.h */,
 				2E65F58B1BBABD740077B44B /* WLICategoryPostsViewController.m */,
+				4F69E8ED1BF3415500A6CD5A /* WLICountryFilterTableViewCell.h */,
+				4F69E8EE1BF3415500A6CD5A /* WLICountryFilterTableViewCell.m */,
+				4F69E8EF1BF3415500A6CD5A /* WLICountryFilterTableViewCell.xib */,
 			);
 			name = CategoryPosts;
 			sourceTree = "<group>";
@@ -1349,6 +1357,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F69E8F11BF3415500A6CD5A /* WLICountryFilterTableViewCell.xib in Resources */,
 				2E4918571BCBDBD100E25255 /* WLIInfoWhyViewController.xib in Resources */,
 				4F69E8E41BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib in Resources */,
 				2E666A0C1BBC2E5300392527 /* WLICategoryCustomerCell.xib in Resources */,
@@ -1443,6 +1452,7 @@
 				2C6D27BD1896BACA00C459CB /* SBJsonStreamParserAdapter.m in Sources */,
 				2C5B5C991A1A8FAE00175A58 /* AFHTTPRequestOperationManager.m in Sources */,
 				2C5B5C801A1A8F9500175A58 /* UIButton+AFNetworking.m in Sources */,
+				4F69E8F01BF3415500A6CD5A /* WLICountryFilterTableViewCell.m in Sources */,
 				2C5B5C9F1A1A8FAE00175A58 /* AFURLResponseSerialization.m in Sources */,
 				2C6D27E31896BACA00C459CB /* WLIFollowingViewController.m in Sources */,
 				2C6D27BF1896BACA00C459CB /* SBJsonStreamTokeniser.m in Sources */,

@@ -13,9 +13,11 @@
 #import "WLICategoryPeopleCell.h"
 #import "WLIPostCell.h"
 #import "WLILoadingCell.h"
+#import "WLICountryFilterTableViewCell.h"
 
 @interface WLICategoryPostsViewController ()
 
+@property (assign, nonatomic) NSInteger selectedCountry;
 @end
 
 @implementation WLICategoryPostsViewController
@@ -29,9 +31,7 @@
     if (self)
     {
         self.title = myTitle;
-        //        UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 105, 22)];
-        //        [titleView addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-title-mydrive"]]];
-        //        self.navigationItem.titleView = titleView;
+        self.selectedCountry = 0;
     }
     return self;
 }
@@ -48,14 +48,14 @@
     } else {
         page  = (self.posts.count / kDefaultPageSize) + 1;
     }
-    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:[[NSNumber numberWithInteger:_categoryID] intValue] page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:[[NSNumber numberWithInteger:_categoryID] intValue] countryID:self.selectedCountry searchString:@"" page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         loading = NO;
         if (reloadAll) {
             [self.posts removeAllObjects];
         }
         [self.posts addObjectsFromArray:posts];
         loadMore = posts.count == kDefaultPageSize;
-        [self.tableViewRefresh reloadData];
+        [self.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 4)] withRowAnimation:UITableViewRowAnimationAutomatic];
         [refreshManager tableViewReloadFinishedAnimated:YES];
     }];
 }
@@ -63,35 +63,47 @@
 #pragma mark - UITableViewDataSource methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1){
-        id cell;
-        static NSString *CellIdentifier;
-        switch (_categoryID) {
-            case 1:
-                CellIdentifier = @"WLICategoryMarketCell";
-                break;
-                
-            case 2:
-                CellIdentifier = @"WLICategoryCapabilitiesCell";
-                break;
-                
-            case 4:
-                CellIdentifier = @"WLICategoryCustomerCell";
-                break;
-                
-            case 8:
-                CellIdentifier = @"WLICategoryPeopleCell";
-                break;
-                
-            default:
-                CellIdentifier = @"WLILoadingCell";
-                break;
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            id cell;
+            static NSString *CellIdentifier;
+            switch (_categoryID) {
+                case 1:
+                    CellIdentifier = @"WLICategoryMarketCell";
+                    break;
+                    
+                case 2:
+                    CellIdentifier = @"WLICategoryCapabilitiesCell";
+                    break;
+                    
+                case 4:
+                    CellIdentifier = @"WLICategoryCustomerCell";
+                    break;
+                    
+                case 8:
+                    CellIdentifier = @"WLICategoryPeopleCell";
+                    break;
+                    
+                default:
+                    CellIdentifier = @"WLILoadingCell";
+                    break;
+            }
+            cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil] lastObject];
+            }
+            return cell;
+
+        } else {
+            WLICountryFilterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:WLICountryFilterTableViewCell.ID forIndexPath:indexPath];
+            __weak typeof(self) weakSelf = self;
+            cell.countrySelectedHandler = ^(NSInteger country) {
+                weakSelf.selectedCountry = country;
+                [weakSelf reloadData:YES];
+            };
+            cell.segmentControl.selectedSegmentIndex = self.selectedCountry;
+            return cell;
         }
-        cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil] lastObject];
-        }
-        return cell;
         
     } else if (indexPath.section == 2){
         static NSString *CellIdentifier = @"WLIPostCell";
@@ -114,15 +126,15 @@
     }
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (section == 1) {
-        return 1;
+        return 2;
     } else if (section == 2) {
         return self.posts.count;
     } else {
@@ -136,7 +148,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 1) {
-         return 131;
+        return indexPath.row ? 50 : 125;
     } else if (indexPath.section == 2) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row]  withWidth:self.view.frame.size.width].height;
     } else if (indexPath.section == 0){
@@ -202,13 +214,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.tableViewRefresh registerNib:WLICountryFilterTableViewCell.nib forCellReuseIdentifier:WLICountryFilterTableViewCell.ID];
     [self reloadData:YES];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 
 @end
