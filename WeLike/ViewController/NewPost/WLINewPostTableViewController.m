@@ -283,7 +283,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
-    imagePickerController.allowsEditing = NO;
+    imagePickerController.allowsEditing = YES;
     imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
@@ -333,6 +333,9 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 {
     if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:(NSString *)kUTTypeImage]) {
         self.image = [info objectForKey:UIImagePickerControllerEditedImage];
+        if (!self.image) {
+            self.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        }
     } else {
         self.video = [NSData dataWithContentsOfURL:[info objectForKey:UIImagePickerControllerMediaURL]];
         AVURLAsset *videoAsset = [[AVURLAsset alloc] initWithURL:[info objectForKey:UIImagePickerControllerMediaURL] options:nil];

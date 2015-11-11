@@ -464,7 +464,7 @@ static WLIConnect *sharedConnect;
             [parameters setObject:postText forKey:@"postText"];
         [parameters setObject:postKeywords ? postKeywords : @[] forKey:@"postKeywords"];
         if (postCategory != nil)
-            [parameters setObject:postCategory forKey:@"postCategory"];
+            [parameters setObject:postCategory forKey:@"categoryID"];
         if (countries) {
             [parameters setObject:countries forKey:@"countries"];
         }
@@ -514,7 +514,7 @@ static WLIConnect *sharedConnect;
         }
         if (postKeywords != nil)
             [parameters setObject:postKeywords forKey:@"postKeywords"];
-        [parameters setObject:postCategory forKey:@"postCategory"];
+        [parameters setObject:postCategory forKey:@"categoryID"];
         NSLog(@"Post: %@", parameters);
         
         [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -765,10 +765,10 @@ static WLIConnect *sharedConnect;
         completion(nil, BAD_REQUEST);
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
+//        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
         [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
         [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"userID"];
         [httpClient POST:@"api/getFollowers" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawUsers = responseObject[@"items"];
             
@@ -793,10 +793,10 @@ static WLIConnect *sharedConnect;
         completion(nil, BAD_REQUEST);
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
+//        [parameters setObject:[NSString stringWithFormat:@"%d", self.currentUser.userID] forKey:@"userID"];
         [parameters setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
         [parameters setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"take"];
-        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%d", userID] forKey:@"userID"];
         [httpClient POST:@"api/getFollowing" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawUsers = responseObject[@"items"];
             

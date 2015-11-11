@@ -37,8 +37,8 @@
                             <segments>
                                 <segment title="All"/>
                                 <segment title="Denmark"/>
-                                <segment title="Norway"/>
                                 <segment title="Finland"/>
+                                <segment title="Norway"/>
                                 <segment title="Sweden"/>
                             </segments>
                             <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
