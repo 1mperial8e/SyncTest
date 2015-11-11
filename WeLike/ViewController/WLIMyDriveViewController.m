@@ -41,7 +41,7 @@ static NSString *const HeaderCellIdentifier = @"WLIMyDriveHeaderCell";
     [super viewWillAppear:animated];
     self.user = sharedConnect.currentUser;
     if (self.user) {
-        self.navigationItem.title = self.user.title;
+        self.navigationItem.title = self.user.userUsername;
         for (WLIPost *post in self.posts) {
             post.user.userFullName = self.user.userFullName;
             post.user.userUsername = self.user.userUsername;

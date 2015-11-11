@@ -175,14 +175,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="584" height="490"/>
                                         <animations/>
                                     </imageView>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sbr-sq-xNl">
-                                        <rect key="frame" x="263" y="216" width="58" height="58"/>
-                                        <animations/>
-                                        <state key="normal" image="btn-video"/>
-                                        <connections>
-                                            <action selector="buttonVideoTouchUpInside:" destination="NHx-lt-jXj" eventType="touchUpInside" id="Mle-Cs-WFx"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zI-Gc-7Cx">
                                         <rect key="frame" x="0.0" y="0.0" width="584" height="490"/>
                                         <animations/>
@@ -192,6 +184,14 @@
                                         </state>
                                         <connections>
                                             <action selector="buttonPostTouchUpInside:" destination="NHx-lt-jXj" eventType="touchUpInside" id="mkN-j9-haE"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sbr-sq-xNl">
+                                        <rect key="frame" x="263" y="216" width="58" height="58"/>
+                                        <animations/>
+                                        <state key="normal" image="btn-video"/>
+                                        <connections>
+                                            <action selector="buttonVideoTouchUpInside:" destination="NHx-lt-jXj" eventType="touchUpInside" id="Mle-Cs-WFx"/>
                                         </connections>
                                     </button>
                                 </subviews>
