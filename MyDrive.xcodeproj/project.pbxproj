@@ -146,8 +146,6 @@
 		2EC320441BDE5AEE0038E7B3 /* WLISelectOnOffSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC320431BDE5AEE0038E7B3 /* WLISelectOnOffSwitchCell.m */; };
 		2EC320471BDF964B0038E7B3 /* WLINewPostImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC320461BDF964B0038E7B3 /* WLINewPostImageCell.m */; };
 		2EC3204A1BE3822E0038E7B3 /* WLIHashTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC320491BE3822E0038E7B3 /* WLIHashTextView.m */; };
-		2EC3204E1BE3877C0038E7B3 /* WLICountrySelectCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC3204C1BE3877C0038E7B3 /* WLICountrySelectCellTableViewCell.m */; };
-		2EC3204F1BE3877C0038E7B3 /* WLICountrySelectCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EC3204D1BE3877C0038E7B3 /* WLICountrySelectCellTableViewCell.xib */; };
 		2EC320541BE8D9140038E7B3 /* WLISelectCountryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC320521BE8D9120038E7B3 /* WLISelectCountryTableViewCell.m */; };
 		2EC320551BE8D9140038E7B3 /* WLISelectCountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EC320531BE8D9120038E7B3 /* WLISelectCountryTableViewCell.xib */; };
 		2EC320591BE8F9160038E7B3 /* WLICategorySelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC320571BE8F9160038E7B3 /* WLICategorySelectTableViewCell.m */; };
@@ -410,9 +408,6 @@
 		2EC320461BDF964B0038E7B3 /* WLINewPostImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLINewPostImageCell.m; sourceTree = "<group>"; };
 		2EC320481BE3822E0038E7B3 /* WLIHashTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIHashTextView.h; sourceTree = "<group>"; };
 		2EC320491BE3822E0038E7B3 /* WLIHashTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIHashTextView.m; sourceTree = "<group>"; };
-		2EC3204B1BE3877C0038E7B3 /* WLICountrySelectCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLICountrySelectCellTableViewCell.h; path = PostCell/WLICountrySelectCellTableViewCell.h; sourceTree = "<group>"; };
-		2EC3204C1BE3877C0038E7B3 /* WLICountrySelectCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLICountrySelectCellTableViewCell.m; path = PostCell/WLICountrySelectCellTableViewCell.m; sourceTree = "<group>"; };
-		2EC3204D1BE3877C0038E7B3 /* WLICountrySelectCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLICountrySelectCellTableViewCell.xib; path = PostCell/WLICountrySelectCellTableViewCell.xib; sourceTree = "<group>"; };
 		2EC320511BE8D9120038E7B3 /* WLISelectCountryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLISelectCountryTableViewCell.h; sourceTree = "<group>"; };
 		2EC320521BE8D9120038E7B3 /* WLISelectCountryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLISelectCountryTableViewCell.m; sourceTree = "<group>"; };
 		2EC320531BE8D9120038E7B3 /* WLISelectCountryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLISelectCountryTableViewCell.xib; sourceTree = "<group>"; };
@@ -792,7 +787,6 @@
 				4F69E8D91BF0B46F00A6CD5A /* RegisterAvatarCell */,
 				4F69E8DA1BF0B46F00A6CD5A /* RegisterCell */,
 				4F69E8D31BF09F8800A6CD5A /* LoginCell */,
-				2EC320501BE38EAF0038E7B3 /* SelectCountryCell */,
 				2E65F58F1BBABED30077B44B /* CategoryCells */,
 				2ECF348B1BB98D070096CD11 /* MyDriveHeaderCell */,
 				2C6D26F71896BACA00C459CB /* CommentCell */,
@@ -1189,16 +1183,6 @@
 			name = CategoryCells;
 			sourceTree = "<group>";
 		};
-		2EC320501BE38EAF0038E7B3 /* SelectCountryCell */ = {
-			isa = PBXGroup;
-			children = (
-				2EC3204B1BE3877C0038E7B3 /* WLICountrySelectCellTableViewCell.h */,
-				2EC3204C1BE3877C0038E7B3 /* WLICountrySelectCellTableViewCell.m */,
-				2EC3204D1BE3877C0038E7B3 /* WLICountrySelectCellTableViewCell.xib */,
-			);
-			name = SelectCountryCell;
-			sourceTree = "<group>";
-		};
 		2ECF348B1BB98D070096CD11 /* MyDriveHeaderCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1413,7 +1397,6 @@
 				2C6D27E21896BACA00C459CB /* WLIFollowersViewController.xib in Resources */,
 				2C6D27B41896BACA00C459CB /* MNMPullToRefresh.strings in Resources */,
 				0743482A1BBABCB700EAA2AA /* Peolple2.png in Resources */,
-				2EC3204F1BE3877C0038E7B3 /* WLICountrySelectCellTableViewCell.xib in Resources */,
 				074348241BBABCB700EAA2AA /* Capability.png in Resources */,
 				2E696D7B1BD118870077381C /* WLINewPostTableViewController.xib in Resources */,
 				2C6D27FD1896BACA00C459CB /* WLIWelcomeViewController.xib in Resources */,
@@ -1533,7 +1516,6 @@
 				2C6D27CB1896BACA00C459CB /* WLIFollow.m in Sources */,
 				2C6D27C91896BACA00C459CB /* WLIComment.m in Sources */,
 				2C6D27E11896BACA00C459CB /* WLIFollowersViewController.m in Sources */,
-				2EC3204E1BE3877C0038E7B3 /* WLICountrySelectCellTableViewCell.m in Sources */,
 				4F69E8E31BF0B49500A6CD5A /* WLIRegisterTableViewCell.m in Sources */,
 				2C5B5C831A1A8F9500175A58 /* UIRefreshControl+AFNetworking.m in Sources */,
 				2C6D27DB1896BACA00C459CB /* WLIPostCollectionViewCell.m in Sources */,

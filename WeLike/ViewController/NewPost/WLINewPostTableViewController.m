@@ -162,22 +162,8 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
             countries = [countries stringByAppendingString:@"4"];
         }
     }
-
     
-    if (self.video == nil) {
-        [self.sharedConnect sendPostWithCountries:countries postText:self.textContent postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.image onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
-            NSLog(@"Server resp: %d", serverResponseCode);
-//            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
-    }
-    else
-    {
-        NSLog(@"Publishing with video");
-        [self.sharedConnect sendPostWithCountries:countries postText:self.textContent postKeywords:nil postCategory:[NSNumber numberWithInteger:categoryCode] postImage:self.image postVideo:self.video onCompletion:^(WLIPost *post, ServerResponse serverResponseCode) {
-            NSLog(@"Server resp: %d", serverResponseCode);
-//            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
-    }
+    [self.sharedConnect sendPostWithCountries:countries postText:self.textContent postKeywords:nil postCategory:@(categoryCode) postImage:self.image postVideo:self.video onCompletion:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
