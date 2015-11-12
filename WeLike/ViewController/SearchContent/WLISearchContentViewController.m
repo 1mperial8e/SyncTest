@@ -101,8 +101,7 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     WLIAppDelegate *appDelegate = (WLIAppDelegate*)[UIApplication sharedApplication].delegate;
-    appDelegate.timelineViewController.searchString = hashtag.tagname;
-    [appDelegate.timelineViewController reloadData:YES];
+    [appDelegate.timelineViewController showTimelineForSearchString:hashtag.tagname];
     appDelegate.tabBarController.selectedIndex = 1;
 }
 

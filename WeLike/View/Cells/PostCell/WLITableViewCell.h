@@ -37,7 +37,7 @@
 - (void)showCatCapabilitiesForPost:(WLIPost*)post sender:(id)senderCell;
 - (void)showCatPeopleForPost:(WLIPost*)post sender:(id)senderCell;
 
-
+- (void)showTimelineForSearchString:(NSString *)searchString;
 
 @end
 

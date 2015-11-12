@@ -21,13 +21,16 @@
 
 @implementation WLITimelineViewController
 
-#pragma mark - Object Lifecycle
+#pragma mark - Init
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.searchString = @"";
+        self.navigationItem.title = @"Timeline";
+        self.prevOffset = CGPointZero;
+        self.countryId = 0;
     }
     return self;
 }
@@ -37,20 +40,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"Timeline";
-    self.prevOffset = CGPointZero;
-    self.countryId = 0;
+    if (self.searchString.length) {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 }
 
 #pragma mark - Data loading methods
 
 - (void)reloadData:(BOOL)reloadAll
-{    
+{
     loading = YES;
     NSUInteger page;
     if (reloadAll) {
         loadMore = YES;
-        self.searchString = @"";
         page = 1;
     } else {
         page = (self.posts.count / kDefaultPageSize) + 1;
@@ -107,6 +109,15 @@
 {
     self.countryId = sender.selectedSegmentIndex;
     [self reloadData:YES];
+}
+
+#pragma mark - WLITableViewCellDelegate
+
+- (void)showTimelineForSearchString:(NSString *)searchString
+{
+    if (!self.searchString.length) {
+        [super showTimelineForSearchString:searchString];
+    }
 }
 
 @end

@@ -14,7 +14,7 @@ static WLIPostCell *sharedCell = nil;
 
 static CGFloat const StaticCellHeight = 154;
 
-@interface WLIPostCell ()
+@interface WLIPostCell () <UITextViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *topView;
 @property (strong, nonatomic) IBOutlet UIView *middleView;
@@ -23,7 +23,6 @@ static CGFloat const StaticCellHeight = 154;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewUser;
 @property (strong, nonatomic) IBOutlet UILabel *labelUserName;
 @property (strong, nonatomic) IBOutlet UILabel *labelTimeAgo;
-@property (strong, nonatomic) IBOutlet UILabel *labelPostText;
 @property (strong, nonatomic) IBOutlet UIButton *buttonFollow;
 @property (strong, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -56,7 +55,11 @@ static CGFloat const StaticCellHeight = 154;
     self.buttonDelete.layer.cornerRadius = 4;
     self.buttonDelete.layer.masksToBounds = NO;
     
-//    self.textView
+    self.textView.contentInset = UIEdgeInsetsZero;
+    self.textView.textContainerInset = UIEdgeInsetsZero;
+    if ([self.textView respondsToSelector:@selector(layoutMargins)]) {
+        self.textView.layoutMargins = UIEdgeInsetsZero;
+    }
 }
 
 - (void)prepareForReuse
@@ -88,8 +91,8 @@ static CGFloat const StaticCellHeight = 154;
     if (!sharedCell) {
         sharedCell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(WLIPostCell.class) owner:nil options:nil] lastObject];
     }
-    sharedCell.labelPostText.text = post.postText.length ? post.postText : @"A";
-    CGSize textSize = [sharedCell.labelPostText sizeThatFits:CGSizeMake(width - 32, MAXFLOAT)]; // 32 left & right spacing
+    sharedCell.textView.text = post.postText.length ? post.postText : @"A";
+    CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 32, MAXFLOAT)]; // 32 left & right spacing
     return CGSizeMake(width, textSize.height + StaticCellHeight + (width * 245) / 292);;
 }
 
@@ -102,7 +105,7 @@ static CGFloat const StaticCellHeight = 154;
         self.buttonVideo.hidden = !self.post.postVideoPath.length;
         self.labelUserName.text = self.post.user.userFullName;
         self.labelTimeAgo.text = self.post.postTimeAgo;
-        self.labelPostText.text = self.post.postText;
+        self.textView.attributedText = [self formattedStringWithHashtagsAndUsers:self.post.postText];
 
         if (self.post.postImagePath.length) {
             [self.imageViewPostImage setImageWithURL:[NSURL URLWithString:self.post.postImagePath]];
@@ -281,6 +284,55 @@ static CGFloat const StaticCellHeight = 154;
             [self.delegate followUser:self.post.user sender:self];
         }
     }
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+{
+    NSString *hashtag = [self.textView.attributedText.string substringWithRange:characterRange];
+    if ([hashtag hasPrefix:@"#"]) {
+        if ([self.delegate respondsToSelector:@selector(showTimelineForSearchString:)]) {
+            [self.delegate showTimelineForSearchString:hashtag];
+        }
+    }
+    return NO;
+}
+
+#pragma mark - Utils
+
+- (NSAttributedString *)formattedStringWithHashtagsAndUsers:(NSString *)string
+{
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string ? string : @""
+                                                                                         attributes:@{NSFontAttributeName : self.textView.font,
+                                                                                                      NSForegroundColorAttributeName : self.textView.textColor}];
+    NSSet *endHashtagCharachters = [NSSet setWithObjects:@" ", @".", @"-", @"!", @"?", @"[", @"]", @"@", @"#", @"$", @"%", @"^", @"&", @"*", @"(", @")", @"+", @"=", @"/", @"|", @"/", nil];
+    for (int i = 0; i < attributedString.length; i++) {
+        unichar charachter = [attributedString.string characterAtIndex:i];
+        if (charachter == '#' || charachter == '@') {
+            for (int j = i + 1; j < attributedString.length; j++) {
+                unichar nextCharachter = [attributedString.string characterAtIndex:j];
+                if (j == attributedString.length - 1 && ![endHashtagCharachters containsObject:[NSString stringWithFormat:@"%c", nextCharachter]]) {
+                    // end of text
+                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i + 1)];
+                    [attributedString addAttribute:NSLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i + 1)];
+                    break;
+                }
+                if ([endHashtagCharachters containsObject:[NSString stringWithFormat:@"%c", nextCharachter]]) {
+                    if (j == i + 1) { // only #
+                        break;
+                    }
+                    // end of hashtag
+                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i - 1)];
+                    [attributedString addAttribute:NSLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i)];
+                    i = j;
+                    break;
+                }
+            }
+        }
+    }
+    
+    return attributedString;
 }
 
 @end

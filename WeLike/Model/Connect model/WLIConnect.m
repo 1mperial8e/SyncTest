@@ -879,7 +879,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
         [httpClient POST:@"api/getFollowers" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSArray *rawUsers = responseObject[@"items"];
+            NSArray *rawUsers = [responseObject[@"items"] valueForKey:@"user"];
             NSArray *users = [WLIUser arrayWithDictionariesArray:rawUsers];
             if (completion) {
                 completion([users mutableCopy], OK);
@@ -911,7 +911,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
         [httpClient POST:@"api/getFollowing" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSArray *rawUsers = responseObject[@"items"];
+            NSArray *rawUsers = [responseObject[@"items"] valueForKey:@"user"];
             NSArray *users = [WLIUser arrayWithDictionariesArray:rawUsers];
             if (completion) {
                 completion([users mutableCopy], OK);

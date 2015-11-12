@@ -10,7 +10,6 @@
         <mutableArray key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
             <string>HelveticaNeue</string>
-            <string>HelveticaNeue</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -232,23 +231,20 @@
                                     <constraint firstAttribute="trailing" secondItem="YEd-LI-bXi" secondAttribute="trailing" id="v0U-ud-BDL"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ken-nU-JCT">
-                                <rect key="frame" x="8" y="572" width="568" height="17"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                                <size key="shadowOffset" width="0.0" height="0.0"/>
-                            </label>
-                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="TxT-Py-Ldk">
-                                <rect key="frame" x="8" y="572" width="568" height="17"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Tetx" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="TxT-Py-Ldk">
+                                <rect key="frame" x="8" y="572" width="568" height="33"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="NHx-lt-jXj" id="ZwH-WA-mub"/>
+                                </connections>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJm-ef-1fh" userLabel="LikeChatView">
-                                <rect key="frame" x="0.0" y="616" width="584" height="44"/>
+                                <rect key="frame" x="0.0" y="632" width="584" height="44"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Up-vd-IBR">
                                         <rect key="frame" x="0.0" y="0.0" width="584" height="1"/>
@@ -391,7 +387,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="crh-kc-mda" secondAttribute="trailing" id="4Uv-cM-Nhx"/>
-                            <constraint firstItem="ken-nU-JCT" firstAttribute="top" secondItem="Yf8-Og-rbg" secondAttribute="bottom" constant="5" id="5yk-ah-Dfj"/>
                             <constraint firstItem="crh-kc-mda" firstAttribute="leading" secondItem="7Al-Di-3fm" secondAttribute="leading" id="6N3-z0-am5"/>
                             <constraint firstItem="Yf8-Og-rbg" firstAttribute="top" secondItem="crh-kc-mda" secondAttribute="bottom" constant="1" id="6aZ-Ng-3Hz"/>
                             <constraint firstItem="TxT-Py-Ldk" firstAttribute="top" secondItem="Yf8-Og-rbg" secondAttribute="bottom" constant="5" id="8zm-Rt-w3T"/>
@@ -400,14 +395,11 @@
                             <constraint firstItem="Yf8-Og-rbg" firstAttribute="leading" secondItem="7Al-Di-3fm" secondAttribute="leading" id="K41-fb-AyI"/>
                             <constraint firstItem="eJm-ef-1fh" firstAttribute="top" secondItem="TxT-Py-Ldk" secondAttribute="bottom" constant="27" id="OOQ-aa-222"/>
                             <constraint firstItem="zt3-2d-bqe" firstAttribute="top" secondItem="7Al-Di-3fm" secondAttribute="top" id="SYo-2U-qUe"/>
-                            <constraint firstItem="eJm-ef-1fh" firstAttribute="top" secondItem="ken-nU-JCT" secondAttribute="bottom" constant="27" id="Y4w-R6-QUM"/>
                             <constraint firstAttribute="trailing" secondItem="TxT-Py-Ldk" secondAttribute="trailing" constant="8" id="bGY-WZ-jb3"/>
                             <constraint firstItem="TxT-Py-Ldk" firstAttribute="leading" secondItem="7Al-Di-3fm" secondAttribute="leading" constant="8" id="dhc-Tw-cma"/>
                             <constraint firstAttribute="trailing" secondItem="zt3-2d-bqe" secondAttribute="trailing" id="fGm-1h-Tr5"/>
                             <constraint firstItem="crh-kc-mda" firstAttribute="top" secondItem="zt3-2d-bqe" secondAttribute="bottom" id="hq5-EF-xCm"/>
-                            <constraint firstAttribute="trailing" secondItem="ken-nU-JCT" secondAttribute="trailing" constant="8" id="jgl-Do-VfW"/>
                             <constraint firstAttribute="trailing" secondItem="Yf8-Og-rbg" secondAttribute="trailing" id="lDb-9S-zD3"/>
-                            <constraint firstItem="ken-nU-JCT" firstAttribute="leading" secondItem="7Al-Di-3fm" secondAttribute="leading" constant="8" id="oLf-dn-5vI"/>
                             <constraint firstItem="zt3-2d-bqe" firstAttribute="leading" secondItem="7Al-Di-3fm" secondAttribute="leading" id="qYs-VS-ouU"/>
                         </constraints>
                     </view>
@@ -434,7 +426,6 @@
                 <outlet property="imageViewUser" destination="HG4-ga-kea" id="S5e-DU-oLD"/>
                 <outlet property="labelComments" destination="Eir-rs-qDW" id="HSH-uV-M0X"/>
                 <outlet property="labelLikes" destination="jwN-Ye-Ady" id="gfx-Vy-ukT"/>
-                <outlet property="labelPostText" destination="ken-nU-JCT" id="qUu-rT-7kq"/>
                 <outlet property="labelTimeAgo" destination="f4Q-GB-S4H" id="6IB-7C-W3I"/>
                 <outlet property="labelUserName" destination="YDK-kP-ujs" id="4Fo-Cu-71j"/>
                 <outlet property="middleView" destination="crh-kc-mda" id="EQa-cO-3eu"/>

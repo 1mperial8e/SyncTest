@@ -12,7 +12,7 @@
 #import "GlobalDefines.h"
 #import "WLISearchContentViewController.h"
 #import "WLICategoryPostsViewController.h"
-
+#import "WLITimelineViewController.h"
 
 @interface WLIPostsListViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -259,6 +259,14 @@
     categoryViewController.title = @"People";
     categoryViewController.categoryID = 8;
     [self.navigationController pushViewController:categoryViewController animated:YES];
+}
+
+- (void)showTimelineForSearchString:(NSString *)searchString
+{
+    WLITimelineViewController *timeline = [WLITimelineViewController new];
+    timeline.searchString = searchString;
+    timeline.navigationItem.title = searchString;
+    [self.navigationController pushViewController:timeline animated:YES];
 }
 
 - (void)followUser:(WLIUser *)user sender:(id)senderCell
