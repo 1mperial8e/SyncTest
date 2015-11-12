@@ -23,18 +23,18 @@ static CGFloat const StaticCellHeight = 154;
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewUser;
 @property (strong, nonatomic) IBOutlet UILabel *labelUserName;
 @property (strong, nonatomic) IBOutlet UILabel *labelTimeAgo;
-@property (strong, nonatomic) IBOutlet UILabel *labelPostTitle;
 @property (strong, nonatomic) IBOutlet UILabel *labelPostText;
 @property (strong, nonatomic) IBOutlet UIButton *buttonFollow;
 @property (strong, nonatomic) IBOutlet UIButton *buttonDelete;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonVideo;
 
 @property (strong, nonatomic) IBOutlet UIView *categoryView;
-@property (strong, nonatomic) IBOutlet UIButton *buttonCatMarket;
-@property (strong, nonatomic) IBOutlet UIButton *buttonCatCustomer;
-@property (strong, nonatomic) IBOutlet UIButton *buttonCatCapabilities;
-@property (strong, nonatomic) IBOutlet UIButton *buttonCatPeople;
+@property (strong, nonatomic) UIButton *buttonCatMarket;
+@property (strong, nonatomic) UIButton *buttonCatCustomer;
+@property (strong, nonatomic) UIButton *buttonCatCapabilities;
+@property (strong, nonatomic) UIButton *buttonCatPeople;
 
 @property (strong, nonatomic) MPMoviePlayerViewController *movieController;
 
@@ -233,28 +233,28 @@ static CGFloat const StaticCellHeight = 154;
     }
 }
 
-- (IBAction)buttonCatMarketTouchUpInside:(id)sender
+- (void)buttonCatMarketTouchUpInside:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(showCatMarketForPost:sender:)]) {
         [self.delegate showCatMarketForPost:self.post sender:self];
     }
 }
 
-- (IBAction)buttonCatCustomerTouchUpInside:(id)sender
+- (void)buttonCatCustomerTouchUpInside:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(showCatCustomersForPost:sender:)]) {
         [self.delegate showCatCustomersForPost:self.post sender:self];
     }
 }
 
-- (IBAction)buttonCatCapabilitiesTouchUpInside:(id)sender
+- (void)buttonCatCapabilitiesTouchUpInside:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(showCatCapabilitiesForPost:sender:)]) {
         [self.delegate showCatCapabilitiesForPost:self.post sender:self];
     }
 }
 
-- (IBAction)buttonCatPeopleTouchUpInside:(id)sender
+- (void)buttonCatPeopleTouchUpInside:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(showCatPeopleForPost:sender:)]) {
         [self.delegate showCatPeopleForPost:self.post sender:self];
