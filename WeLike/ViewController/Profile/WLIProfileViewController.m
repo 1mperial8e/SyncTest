@@ -103,9 +103,9 @@
     } else {
         [self.buttonFollow setTitle:@"+" forState:UIControlStateNormal];
     }
-    self.labelFollowersCount.text = [NSString stringWithFormat:@"%d", self.user.followersCount];
-    self.labelLikesCount.text = [NSString stringWithFormat:@"%d", self.user.likesCount];
-    self.labelMyPostsCount.text = [NSString stringWithFormat:@"%d", self.user.myPostsCount];
+    self.labelFollowersCount.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
+    self.labelLikesCount.text = [NSString stringWithFormat:@"%zd", self.user.likesCount];
+    self.labelMyPostsCount.text = [NSString stringWithFormat:@"%zd", self.user.myPostsCount];
 
     
     if (downloads) {
@@ -121,9 +121,9 @@
             } else {
                 [self.buttonFollow setTitle:@"+" forState:UIControlStateNormal];
             }
-            self.labelFollowersCount.text = [NSString stringWithFormat:@"%d", self.user.followersCount];
-            self.labelLikesCount.text = [NSString stringWithFormat:@"%d", self.user.likesCount];
-            self.labelMyPostsCount.text = [NSString stringWithFormat:@"%d", self.user.myPostsCount];
+            self.labelFollowersCount.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
+            self.labelLikesCount.text = [NSString stringWithFormat:@"%zd", self.user.likesCount];
+            self.labelMyPostsCount.text = [NSString stringWithFormat:@"%zd", self.user.myPostsCount];
         }];
     }
 }

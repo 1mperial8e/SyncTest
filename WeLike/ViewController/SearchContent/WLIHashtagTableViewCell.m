@@ -30,7 +30,7 @@
 - (void)updateInfo
 {
     self.tagNameLabel.text = self.hashtag.tagname;
-    self.tagCountLabel.text = [NSString stringWithFormat:@"%d", self.hashtag.tagcount];
+    self.tagCountLabel.text = [NSString stringWithFormat:@"%zd", self.hashtag.tagcount];
 }
 
 #pragma mark - Actions

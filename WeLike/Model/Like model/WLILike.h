@@ -11,9 +11,7 @@
 
 @interface WLILike : WLIObject
 
-@property (nonatomic) int likeID;
-@property (nonatomic, strong) WLIUser *user;
-
-- (id)initWithDictionary:(NSDictionary*)likeWithInfo;
+@property (assign, nonatomic) NSInteger likeID;
+@property (strong, nonatomic) WLIUser *user;
 
 @end

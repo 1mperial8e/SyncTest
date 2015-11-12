@@ -94,11 +94,11 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27 + 5; // 2 containers fo
         
         if (self.post.postLikesCount > 0) {
             self.labelLikes.hidden = NO;
-            [self.labelLikes setText:[NSString stringWithFormat:@"%d", self.post.postLikesCount]];
+            [self.labelLikes setText:[NSString stringWithFormat:@"%zd", self.post.postLikesCount]];
         }
         if (self.post.postCommentsCount) {
             self.labelComments.hidden = NO;
-            [self.labelComments setText:[NSString stringWithFormat:@"%d", self.post.postCommentsCount]];
+            [self.labelComments setText:[NSString stringWithFormat:@"%zd", self.post.postCommentsCount]];
         }
         if (self.post.user.userID == [WLIConnect sharedConnect].currentUser.userID) {
             self.buttonFollow.hidden = YES;

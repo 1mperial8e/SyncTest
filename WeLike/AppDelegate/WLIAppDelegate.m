@@ -7,90 +7,59 @@
 //
 
 #import "WLIAppDelegate.h"
-#import "WLINewPostTableViewController.h"
 
+// Controllers
+#import "WLINewPostTableViewController.h"
 #import "WLIInfoPageViewController.h"
 #import "WLIFollowingsViewController.h"
 #import "WLIMyDriveViewController.h"
 
-
+// Models
 #import "WLIConnect.h"
+
+// Frameworks
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
-
-
 @implementation WLIAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
     [Fabric with:@[[Crashlytics class]]];
-
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    
     [self createViewHierarchy];
+    [self setupAppearance];
     
-    // navigation bar appearance
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    
-    UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0f];
-    NSDictionary *attributes = @{NSFontAttributeName : font, NSForegroundColorAttributeName : [UIColor whiteColor]};
-    [[UINavigationBar appearance] setTitleTextAttributes:attributes];
-    
-    if ([UIDevice currentDevice].systemVersion.floatValue >= 7.0f) {
-        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-back64"] forBarMetrics:UIBarMetricsDefault];
-        [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-    } else {
-        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-back44"] forBarMetrics:UIBarMetricsDefault];
-    }
-    
-    // status bar appearance
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
+#pragma mark - Customisation
+
+- (void)setupAppearance
+{
+    [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0f];
+    NSDictionary *attributes = @{NSFontAttributeName : font, NSForegroundColorAttributeName : [UIColor whiteColor]};
+    [[UINavigationBar appearance] setTitleTextAttributes:attributes];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-back64"] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
+#pragma mark - UITabBarControllerDelegate
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-
-#pragma mark - UITabBarControllerDelegate methods
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
     UINavigationController *navigationViewController = (UINavigationController *)viewController;
     if ([navigationViewController.topViewController isKindOfClass:[WLINewPostTableViewController class]]) {
-        WLINewPostTableViewController *newPostViewController = [[WLINewPostTableViewController alloc] initWithNibName:@"WLINewPostTableViewController" bundle:nil];
+        WLINewPostTableViewController *newPostViewController = [WLINewPostTableViewController new];
         UINavigationController *newPostNavigationController = [[UINavigationController alloc] initWithRootViewController:newPostViewController];
         newPostNavigationController.navigationBar.translucent = NO;
         [tabBarController presentViewController:newPostNavigationController animated:YES completion:nil];
@@ -100,28 +69,27 @@
     }
 }
 
-
 #pragma mark - Other methods
 
-- (void)createViewHierarchy {
-    
-    WLIInfoPageViewController *infoPageViewController = [[WLIInfoPageViewController alloc] initWithNibName:@"WLIInfoPageViewController" bundle:nil];
+- (void)createViewHierarchy
+{
+    WLIInfoPageViewController *infoPageViewController = [WLIInfoPageViewController new];
     UINavigationController *infoPageNavigationController = [[UINavigationController alloc] initWithRootViewController:infoPageViewController];
     infoPageNavigationController.navigationBar.translucent = NO;
     
-    WLITimelineViewController *timelineViewController = [[WLITimelineViewController alloc] initWithNibName:@"WLITimelineViewController" bundle:nil];
+    WLITimelineViewController *timelineViewController = [WLITimelineViewController new];
     UINavigationController *timelineNavigationController = [[UINavigationController alloc] initWithRootViewController:timelineViewController];
     timelineNavigationController.navigationBar.translucent = NO;
     
-    WLINewPostTableViewController *newPostViewController = [[WLINewPostTableViewController alloc] initWithNibName:@"WLINewPostTableViewController" bundle:nil];
+    WLINewPostTableViewController *newPostViewController = [WLINewPostTableViewController new];
     UINavigationController *newPostNavigationController = [[UINavigationController alloc] initWithRootViewController:newPostViewController];
     newPostNavigationController.navigationBar.translucent = NO;
     
-    WLIFollowingsViewController *followingsViewController = [[WLIFollowingsViewController alloc] initWithNibName:@"WLIFollowingsViewController" bundle:nil];
+    WLIFollowingsViewController *followingsViewController = [WLIFollowingsViewController new];
     UINavigationController *followingNavigationController = [[UINavigationController alloc] initWithRootViewController:followingsViewController];
     followingNavigationController.navigationBar.translucent = NO;
     
-    WLIMyDriveViewController *myDriveViewController = [[WLIMyDriveViewController alloc] initWithNibName:@"WLIMyDriveViewController" bundle:nil];
+    WLIMyDriveViewController *myDriveViewController = [WLIMyDriveViewController new];
     UINavigationController *myDriveNavigationController = [[UINavigationController alloc] initWithRootViewController:myDriveViewController];
     myDriveNavigationController.navigationBar.translucent = NO;
     

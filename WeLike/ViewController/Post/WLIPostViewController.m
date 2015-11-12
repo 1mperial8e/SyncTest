@@ -234,7 +234,7 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
                 if (post.postLikesCount == 0) {
                     senderCell.labelLikes.hidden = YES;
                 }
-                senderCell.labelLikes.text = [NSString stringWithFormat:@"%d", post.postLikesCount];
+                senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
             }
         }];
     } else {
@@ -246,7 +246,7 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
                 if (post.postLikesCount > 0) {
                     senderCell.labelLikes.hidden = NO;
                 }
-                senderCell.labelLikes.text = [NSString stringWithFormat:@"%d", post.postLikesCount];
+                senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
             }
         }];
     }

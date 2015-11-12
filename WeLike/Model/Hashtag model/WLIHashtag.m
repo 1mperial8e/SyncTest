@@ -10,32 +10,31 @@
 
 @implementation WLIHashtag
 
-- (id)initWithDictionary:(NSDictionary*)userWithInfo {
-    
+- (instancetype)initWithDictionary:(NSDictionary*)userWithInfo
+{
     self = [self init];
     if (self) {
-        _tagname = [self stringFromDictionary:userWithInfo forKey:@"name"];
-        _tagcount = [self integerFromDictionary:userWithInfo forKey:@"tagcount"];
+        self.tagname = [self stringFromDictionary:userWithInfo forKey:@"name"];
+        self.tagcount = [self integerFromDictionary:userWithInfo forKey:@"tagcount"];
     }
     
     return self;
 }
 
-
 #pragma mark - NSCoding methods
 
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
     [encoder encodeObject:self.tagname forKey:@"tag"];
-    [encoder encodeInt:self.tagcount forKey:@"tagcount"];
+    [encoder encodeInteger:self.tagcount forKey:@"tagcount"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
-    
+- (id)initWithCoder:(NSCoder *)decoder
+{
     self = [super init];
     if (self) {
         self.tagname = [decoder decodeObjectForKey:@"tag"];
-        self.tagcount = (int)[decoder decodeIntegerForKey:@"tagcount"];
+        self.tagcount = [decoder decodeIntegerForKey:@"tagcount"];
     }
     return self;
 }

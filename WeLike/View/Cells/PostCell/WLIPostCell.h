@@ -59,7 +59,6 @@
 - (IBAction)buttonCommentTouchUpInside:(id)sender;
 
 - (IBAction)buttonDeleteTouchUpInside:(id)sender;
-- (IBAction)buttonConnectTouchUpInside:(id)sender;
 - (IBAction)buttonShareTouchUpInside:(id)sender;
 - (IBAction)buttonMoreTouchUpInside:(id)sender;
 //- (IBAction)buttonLikesTouchUpInside:(id)sender;

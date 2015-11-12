@@ -6,9 +6,7 @@
 //  Copyright (c) 2013 Planet 1107. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "WLITabBarController.h"
-
 #import "WLITimelineViewController.h"
 
 @interface WLIAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>

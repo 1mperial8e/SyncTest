@@ -105,10 +105,10 @@
         self.labelUserName.text = self.user.userFullName;
         self.labelUserEmail.text = self.user.userEmail;
         
-        self.likesCountLabel.text = [NSString stringWithFormat:@"%i", self.user.likesCount];
-        self.postsCountLabel.text = [NSString stringWithFormat:@"%i", self.user.myPostsCount];
-        self.followersCountLabel.text = [NSString stringWithFormat:@"%i", self.user.followersCount];
-        self.followingCountLabel.text = [NSString stringWithFormat:@"%i", self.user.followingCount];
+        self.likesCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.likesCount];
+        self.postsCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.myPostsCount];
+        self.followersCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
+        self.followingCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followingCount];
         NSInteger points = self.user.likesCount + self.user.myPostsCount + self.user.followersCount + self.user.followingCount;
         self.pointsCountLabel.text = [NSString stringWithFormat:@"%zd", points];
     }

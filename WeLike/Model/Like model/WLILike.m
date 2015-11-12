@@ -10,16 +10,15 @@
 
 @implementation WLILike
 
-//Initializes WLILike object from NSDictionary that was created by JSON parsing.
-- (id)initWithDictionary:(NSDictionary*)likeWithInfo {
+- (instancetype)initWithDictionary:(NSDictionary *)likeWithInfo
+{
+    likeWithInfo = likeWithInfo.nonnullDictionary;
     self = [self init];
     if (self) {
-        
-        _likeID = [self integerFromDictionary:likeWithInfo forKey:@"likeID"];
+        self.likeID = [self integerFromDictionary:likeWithInfo forKey:@"likeID"];
         NSDictionary *rawUser = [self dictionaryFromDictionary:likeWithInfo forKey:@"user"];
-        _user = [[WLIUser alloc] initWithDictionary:rawUser];
+        self.user = [WLIUser initWithDictionary:rawUser];
     }
-    
     return self;
 }
 

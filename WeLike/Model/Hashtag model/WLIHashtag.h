@@ -10,10 +10,7 @@
 
 @interface WLIHashtag : WLIObject
 
-@property (nonatomic, strong) NSString *tagname;
-@property (nonatomic) int tagcount;
-
-
-- (id)initWithDictionary:(NSDictionary*)userWithInfo;
+@property (strong, nonatomic) NSString *tagname;
+@property (assign, nonatomic) NSInteger tagcount;
 
 @end
