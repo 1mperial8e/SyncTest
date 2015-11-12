@@ -58,7 +58,7 @@
                 </textField>
             </subviews>
             <animations/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.87450980389999999" green="0.87450980389999999" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="HVH-NW-b0H" firstAttribute="leading" secondItem="TF5-37-k9P" secondAttribute="leading" constant="20" id="4od-XM-b8v"/>
                 <constraint firstAttribute="trailing" secondItem="HVH-NW-b0H" secondAttribute="trailing" constant="20" id="CRG-ym-Es4"/>
@@ -68,6 +68,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <inset key="insetFor6xAndEarlier" minX="0.0" minY="-20" maxX="0.0" maxY="20"/>
+            <point key="canvasLocation" x="712" y="174"/>
         </view>
     </objects>
 </document>

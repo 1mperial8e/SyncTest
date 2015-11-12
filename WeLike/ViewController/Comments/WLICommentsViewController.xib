@@ -58,7 +58,7 @@
                 </textField>
             </subviews>
             <animations/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.87450980389999999" green="0.87450980389999999" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="HVH-NW-b0H" firstAttribute="top" secondItem="TF5-37-k9P" secondAttribute="top" constant="10" id="A1b-7c-Stq"/>
                 <constraint firstAttribute="height" constant="50" id="DTs-Zv-6bL"/>

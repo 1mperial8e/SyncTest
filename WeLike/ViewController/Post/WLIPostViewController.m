@@ -20,7 +20,6 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
 
 @property (weak, nonatomic) IBOutlet UIView *viewEnterComment;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldEnterComment;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addCommentContainerBottomConstraint;
 
 @property (strong, nonatomic) NSMutableArray *comments;
 
@@ -209,27 +208,12 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
 - (void)keyboardWillShow:(NSNotification *)notification
 {
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    __block CGFloat height = keyboardFrame.size.height - self.tabBarController.tabBar.frame.size.height;
-    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    NSInteger animationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:duration delay:0 options:animationCurve animations:^{
-        weakSelf.addCommentContainerBottomConstraint.constant = height;
-        [weakSelf.view layoutIfNeeded];
-    } completion:nil];
-    
+    CGFloat height = keyboardFrame.size.height - self.tabBarController.tabBar.frame.size.height;
     self.tableViewRefresh.contentInset = UIEdgeInsetsMake(0, 0, height, 0);
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    NSInteger animationCurve = [notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:duration delay:0 options:animationCurve animations:^{
-        weakSelf.addCommentContainerBottomConstraint.constant = 0;
-        [weakSelf.view layoutIfNeeded];
-    } completion:nil];
     self.tableViewRefresh.contentInset = UIEdgeInsetsZero;
 }
 

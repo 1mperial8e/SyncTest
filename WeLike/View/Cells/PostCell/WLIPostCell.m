@@ -12,7 +12,33 @@
 
 static WLIPostCell *sharedCell = nil;
 
-static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27 + 5; // 2 containers for 44, 1 container for 33, 27 is text label bottom constant, 5 label top spacing. Temporary solution
+static CGFloat const StaticCellHeight = 154;
+
+@interface WLIPostCell ()
+
+@property (strong, nonatomic) IBOutlet UIView *topView;
+@property (strong, nonatomic) IBOutlet UIView *middleView;
+@property (strong, nonatomic) IBOutlet UIView *bottomView;
+
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewUser;
+@property (strong, nonatomic) IBOutlet UILabel *labelUserName;
+@property (strong, nonatomic) IBOutlet UILabel *labelTimeAgo;
+@property (strong, nonatomic) IBOutlet UILabel *labelPostTitle;
+@property (strong, nonatomic) IBOutlet UILabel *labelPostText;
+@property (strong, nonatomic) IBOutlet UIButton *buttonFollow;
+@property (strong, nonatomic) IBOutlet UIButton *buttonDelete;
+
+@property (strong, nonatomic) IBOutlet UIButton *buttonVideo;
+
+@property (strong, nonatomic) IBOutlet UIView *categoryView;
+@property (strong, nonatomic) IBOutlet UIButton *buttonCatMarket;
+@property (strong, nonatomic) IBOutlet UIButton *buttonCatCustomer;
+@property (strong, nonatomic) IBOutlet UIButton *buttonCatCapabilities;
+@property (strong, nonatomic) IBOutlet UIButton *buttonCatPeople;
+
+@property (strong, nonatomic) MPMoviePlayerViewController *movieController;
+
+@end
 
 @implementation WLIPostCell
 
@@ -31,48 +57,47 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27 + 5; // 2 containers fo
     self.buttonDelete.layer.masksToBounds = NO;
 }
 
-
-#pragma mark - Cell methods
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    [self updateFramesAndDataWithDownloads:YES];
-}
-
 - (void)prepareForReuse
 {
     [super prepareForReuse];
     [self.imageViewUser cancelImageRequestOperation];
-    self.imageViewUser.image = nil;
     [self.imageViewPostImage cancelImageRequestOperation];
+    self.imageViewUser.image = nil;
     self.imageViewPostImage.image = nil;
-    [self.buttonVideo setHidden:YES];
-    self.buttonFollow.hidden = NO;
-    [self.buttonDelete setHidden:YES];
+    
     self.showDeleteButton = NO;
     [self removeCategoryButtons];
 }
 
-+ (CGSize)sizeWithPost:(WLIPost*)post withWidth:(CGFloat)width
+#pragma mark - Accessors
+
+- (void)setPost:(WLIPost *)post
 {
-    if (!sharedCell) {
-        sharedCell = [[[NSBundle mainBundle] loadNibNamed:@"WLIPostCell" owner:nil options:nil] lastObject];
+    _post = post;
+    if (post) {
+        [self updateInfo];
     }
-    sharedCell.labelPostText.text = post.postText.length ? post.postText : @" ";
-    CGSize textSize = [sharedCell.labelPostText sizeThatFits:CGSizeMake(width - 32, MAXFLOAT)]; // 32 left & right spacing
-    
-    CGSize size = CGSizeMake(width, textSize.height + StaticCellHeight + (width * 245) / 292);
-    return size;
 }
 
-- (void)updateFramesAndDataWithDownloads:(BOOL)downloads {
-    
+#pragma mark - Static
+
++ (CGSize)sizeWithPost:(WLIPost *)post withWidth:(CGFloat)width
+{
+    if (!sharedCell) {
+        sharedCell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(WLIPostCell.class) owner:nil options:nil] lastObject];
+    }
+    sharedCell.labelPostText.text = post.postText.length ? post.postText : @"A";
+    CGSize textSize = [sharedCell.labelPostText sizeThatFits:CGSizeMake(width - 32, MAXFLOAT)]; // 32 left & right spacing
+    return CGSizeMake(width, textSize.height + StaticCellHeight + (width * 245) / 292);;
+}
+
+#pragma mark - Update
+
+- (void)updateInfo
+{
     if (self.post) {
         [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.post.user.userAvatarPath] placeholderImage:DefaultAvatar];
-        if (self.post.postVideoPath.length) {
-            [self.buttonVideo setHidden:NO];
-        }
+        self.buttonVideo.hidden = !self.post.postVideoPath.length;
         self.labelUserName.text = self.post.user.userFullName;
         self.labelTimeAgo.text = self.post.postTimeAgo;
         self.labelPostText.text = self.post.postText;
@@ -83,38 +108,31 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27 + 5; // 2 containers fo
             self.imageViewPostImage.image = [UIImage imageNamed:@"postPlaceholder"];
         }
         
-        if (self.post.likedThisPost) {
-             [self.buttonLike setSelected:YES];
-        } else {
-            [self.buttonLike setSelected:NO];
-        }
+        self.buttonLike.selected = self.post.likedThisPost;
         self.buttonFollow.selected = self.post.user.followingUser;
-
-        [self insertCategoryButtons];
         
-        if (self.post.postLikesCount > 0) {
-            self.labelLikes.hidden = NO;
-            [self.labelLikes setText:[NSString stringWithFormat:@"%zd", self.post.postLikesCount]];
-        }
-        if (self.post.postCommentsCount) {
-            self.labelComments.hidden = NO;
-            [self.labelComments setText:[NSString stringWithFormat:@"%zd", self.post.postCommentsCount]];
-        }
+        self.labelLikes.hidden = self.post.postLikesCount;
+        self.labelLikes.text = [NSString stringWithFormat:@"%zd", self.post.postLikesCount];
+        self.labelComments.hidden = self.post.postCommentsCount;
+        self.labelComments.text = [NSString stringWithFormat:@"%zd", self.post.postCommentsCount];
+
         if (self.post.user.userID == [WLIConnect sharedConnect].currentUser.userID) {
             self.buttonFollow.hidden = YES;
             if (self.showDeleteButton) {
-                [_buttonDelete setHidden:NO];
+                self.buttonDelete.hidden = NO;
             }
         } else {
             self.buttonFollow.hidden = NO;
-            [_buttonDelete setHidden:YES];
+            self.buttonDelete.hidden = YES;
         }
+        
+        [self insertCategoryButtons];
     }
 }
 
 #pragma mark - Category buttons
 
--(void)insertCategoryButtons
+- (void)insertCategoryButtons
 {
     UIFont *buttonsFont = [UIFont systemFontOfSize:12.0];
     CGFloat leftSpacing = 10;
@@ -169,7 +187,7 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27 + 5; // 2 containers fo
     return button;
 }
 
--(void)removeCategoryButtons
+- (void)removeCategoryButtons
 {
     [self.buttonCatMarket removeFromSuperview];
     [self.buttonCatCustomer removeFromSuperview];
@@ -177,88 +195,74 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27 + 5; // 2 containers fo
     [self.buttonCatPeople removeFromSuperview];
 }
 
-
 #pragma mark - Action methods
 
-- (IBAction)buttonUserTouchUpInside:(id)sender {
-    
+- (IBAction)buttonUserTouchUpInside:(id)sender
+{
     if ([self.delegate respondsToSelector:@selector(showUser:sender:)]) {
         [self.delegate showUser:self.post.user sender:self];
     }
 }
 
-- (IBAction)buttonPostTouchUpInside:(id)sender {
-    
+- (IBAction)buttonPostTouchUpInside:(id)sender
+{
     if ([self.delegate respondsToSelector:@selector(showImageForPost:sender:)] && self.post.postImagePath.length) {
         [self.delegate showImageForPost:self.post sender:self];
     }
 }
-- (IBAction)buttonVideoTouchUpInside:(id)sender {
-    NSLog(@"Trying to play: %@", self.post.postVideoPath);
-    if (self.post.postVideoPath.length)
-    {
+
+- (IBAction)buttonVideoTouchUpInside:(id)sender
+{
     NSURL *movieURL = [NSURL URLWithString:self.post.postVideoPath];
-    movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:movieURL];
-    [self.delegate presentMoviePlayerViewControllerAnimated:movieController];
-    [movieController.moviePlayer play];
-    }
-    else
-    {
-        [self buttonPostTouchUpInside:self];
-    }
+    self.movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:movieURL];
+    [self.delegate presentMoviePlayerViewControllerAnimated:self.movieController];
+    [self.movieController.moviePlayer play];
 }
 
-- (IBAction)buttonLikeTouchUpInside:(id)sender {
-    
+- (IBAction)buttonLikeTouchUpInside:(id)sender
+{
     if ([self.delegate respondsToSelector:@selector(toggleLikeForPost:sender:)]) {
         [self.delegate toggleLikeForPost:self.post sender:self];
     }
 }
 
-- (IBAction)buttonCommentTouchUpInside:(id)sender {
-    
+- (IBAction)buttonCommentTouchUpInside:(id)sender
+{
     if ([self.delegate respondsToSelector:@selector(showCommentsForPost:sender:)]) {
         [self.delegate showCommentsForPost:self.post sender:self];
     }
 }
 
-- (IBAction)buttonShareTouchUpInside:(id)sender {
-    
-    if ([self.delegate respondsToSelector:@selector(showShareForPost:sender:)]) {
-        [self.delegate showShareForPost:self.post sender:self];
-    }
-}
-
-- (IBAction)buttonCatMarketTouchUpInside:(id)sender {
-    
+- (IBAction)buttonCatMarketTouchUpInside:(id)sender
+{
     if ([self.delegate respondsToSelector:@selector(showCatMarketForPost:sender:)]) {
         [self.delegate showCatMarketForPost:self.post sender:self];
     }
 }
 
-- (IBAction)buttonCatCustomerTouchUpInside:(id)sender {
-    
+- (IBAction)buttonCatCustomerTouchUpInside:(id)sender
+{
     if ([self.delegate respondsToSelector:@selector(showCatCustomersForPost:sender:)]) {
         [self.delegate showCatCustomersForPost:self.post sender:self];
     }
 }
 
-- (IBAction)buttonCatCapabilitiesTouchUpInside:(id)sender {
-    
+- (IBAction)buttonCatCapabilitiesTouchUpInside:(id)sender
+{
     if ([self.delegate respondsToSelector:@selector(showCatCapabilitiesForPost:sender:)]) {
         [self.delegate showCatCapabilitiesForPost:self.post sender:self];
     }
 }
 
-- (IBAction)buttonCatPeopleTouchUpInside:(id)sender {
-    
+- (IBAction)buttonCatPeopleTouchUpInside:(id)sender
+{
     if ([self.delegate respondsToSelector:@selector(showCatPeopleForPost:sender:)]) {
         [self.delegate showCatPeopleForPost:self.post sender:self];
     }
 }
 
-- (IBAction)buttonDeleteTouchUpInside:(id)sender {
-    
+- (IBAction)buttonDeleteTouchUpInside:(id)sender
+{
     if ([self.delegate respondsToSelector:@selector(deletePost:sender:)]) {
         [self.delegate deletePost:self.post sender:self];
     }
@@ -276,19 +280,5 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27 + 5; // 2 containers fo
         }
     }
 }
-
-- (IBAction)buttonMoreTouchUpInside:(id)sender {
-    
-    if ([self.delegate respondsToSelector:@selector(showMoreForPost:sender:)]) {
-        [self.delegate showMoreForPost:self.post sender:self];
-    }
-}
-
-//- (IBAction)buttonLikesTouchUpInside:(id)sender {
-//    
-//    if ([self.delegate respondsToSelector:@selector(showLikesForPost:sender:)]) {
-//        [self.delegate showLikesForPost:self.post sender:self];
-//    }
-//}
 
 @end
