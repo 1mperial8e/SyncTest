@@ -450,7 +450,6 @@ static NSString *const AuthTokenKey = @"token";
                         pageSize:(NSInteger)pageSize
                     onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
 {
-    
     if (userID < 1) {
         if (completion) {
             completion(nil, BAD_REQUEST);
@@ -461,6 +460,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"forUserID"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+        [parameters setObject:@"0" forKey:@"categoryID"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
         [httpClient POST:@"api/getConnectTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

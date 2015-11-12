@@ -80,10 +80,10 @@
     }];
 }
 
-- (void)searchString:(NSString*)searchString
+- (void)searchString:(NSString *)searchString
 {
     __weak typeof(self) weakSelf = self;
-    [sharedConnect hashtagsInSearch:searchString pageSize:50 onCompletion:^(NSMutableArray *hashtags, ServerResponse serverResponseCode) {
+    [sharedConnect hashtagsInSearch:[searchString lowercaseString] pageSize:50 onCompletion:^(NSMutableArray *hashtags, ServerResponse serverResponseCode) {
         loading = NO;
         weakSelf.hashtags = hashtags;
         [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];

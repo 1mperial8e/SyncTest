@@ -12,7 +12,7 @@
 
 static WLIPostCell *sharedCell = nil;
 
-static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44, 1 container for 33, 27 is text label bottom constant. Temporary solution
+static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27 + 5; // 2 containers for 44, 1 container for 33, 27 is text label bottom constant, 5 label top spacing. Temporary solution
 
 @implementation WLIPostCell
 
@@ -21,10 +21,7 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    frameDefaultLabelPostTitle = self.labelPostTitle.frame;
-    frameDefaultLabelPostText = self.labelPostText.frame;
-    //frameDefaultImageViewPost = self.imageViewPostImage.frame;
-    
+
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height / 2;
     self.imageViewUser.layer.masksToBounds = YES;
     self.imageViewUser.layer.borderWidth = 2;
@@ -50,8 +47,6 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44
     self.imageViewUser.image = nil;
     [self.imageViewPostImage cancelImageRequestOperation];
     self.imageViewPostImage.image = nil;
-    self.labelPostTitle.frame = frameDefaultLabelPostTitle;
-    self.labelPostText.frame = frameDefaultLabelPostText;
     [self.buttonVideo setHidden:YES];
     self.buttonFollow.hidden = NO;
     [self.buttonDelete setHidden:YES];
@@ -65,7 +60,7 @@ static CGFloat const StaticCellHeight = 44 * 2 + 33 + 27; // 2 containers for 44
         sharedCell = [[[NSBundle mainBundle] loadNibNamed:@"WLIPostCell" owner:nil options:nil] lastObject];
     }
     sharedCell.labelPostText.text = post.postText.length ? post.postText : @" ";
-    CGSize textSize = [sharedCell.labelPostText sizeThatFits:CGSizeMake(width - 16, MAXFLOAT)]; // 16 left & right spacing
+    CGSize textSize = [sharedCell.labelPostText sizeThatFits:CGSizeMake(width - 32, MAXFLOAT)]; // 32 left & right spacing
     
     CGSize size = CGSizeMake(width, textSize.height + StaticCellHeight + (width * 245) / 292);
     return size;
