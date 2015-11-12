@@ -22,9 +22,7 @@
         self.postImagePath = [self stringFromDictionary:postWithInfo forKey:@"postImage"];
         self.postVideoPath = [self stringFromDictionary:postWithInfo forKey:@"postVideo"];
         self.postDate = [self dateFromDictionary:postWithInfo forKey:@"postDate"];
-        if (self.postDate) {
-            self.postTimeAgo = [self.postDate dateTimeAgo];
-        }
+        self.postTimeAgo = [self stringFromDictionary:postWithInfo forKey:@"timeAgo"];
         NSDictionary *rawUser = [self dictionaryFromDictionary:postWithInfo forKey:@"user"];
         self.user = [WLIUser initWithDictionary:rawUser];
         self.postLikesCount = [self integerFromDictionary:postWithInfo forKey:@"totalLikes"];

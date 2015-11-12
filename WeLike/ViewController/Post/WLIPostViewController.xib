@@ -12,7 +12,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLIPostViewController">
             <connections>
-                <outlet property="addCommentContainerBottomConstraint" destination="fFR-RG-qH1" id="0A4-gS-DS2"/>
                 <outlet property="tableViewRefresh" destination="F64-wK-Aao" id="SSr-Av-Quf"/>
                 <outlet property="textFieldEnterComment" destination="HVH-NW-b0H" id="VMK-W6-ZrW"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -25,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="F64-wK-Aao">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="486"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -33,50 +32,42 @@
                         <outlet property="delegate" destination="-1" id="C4v-iw-ymY"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TF5-37-k9P">
-                    <rect key="frame" x="0.0" y="486" width="600" height="50"/>
-                    <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HVH-NW-b0H">
-                            <rect key="frame" x="20" y="10" width="560" height="30"/>
-                            <animations/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="send"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="4rE-mN-Neh"/>
-                            </connections>
-                        </textField>
-                    </subviews>
-                    <animations/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="HVH-NW-b0H" firstAttribute="leading" secondItem="TF5-37-k9P" secondAttribute="leading" constant="20" id="4od-XM-b8v"/>
-                        <constraint firstAttribute="trailing" secondItem="HVH-NW-b0H" secondAttribute="trailing" constant="20" id="CRG-ym-Es4"/>
-                        <constraint firstItem="HVH-NW-b0H" firstAttribute="top" secondItem="TF5-37-k9P" secondAttribute="top" constant="10" id="cWD-pj-zx4"/>
-                        <constraint firstAttribute="bottom" secondItem="HVH-NW-b0H" secondAttribute="bottom" constant="10" id="enM-i7-IX3"/>
-                        <constraint firstAttribute="height" constant="50" id="oZU-fM-ZMm"/>
-                    </constraints>
-                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="-20" maxX="0.0" maxY="20"/>
-                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="TF5-37-k9P" firstAttribute="top" secondItem="F64-wK-Aao" secondAttribute="bottom" id="H0z-My-JeY"/>
-                <constraint firstItem="TF5-37-k9P" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="RDh-XD-WjA"/>
                 <constraint firstItem="F64-wK-Aao" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="Rsx-kb-Xsb"/>
-                <constraint firstAttribute="bottom" secondItem="F64-wK-Aao" secondAttribute="bottom" constant="50" id="cAi-jL-X7t"/>
-                <constraint firstAttribute="bottom" secondItem="TF5-37-k9P" secondAttribute="bottom" id="fFR-RG-qH1"/>
-                <constraint firstAttribute="trailing" secondItem="TF5-37-k9P" secondAttribute="trailing" id="m5v-ja-ItW"/>
+                <constraint firstAttribute="bottom" secondItem="F64-wK-Aao" secondAttribute="bottom" id="cAi-jL-X7t"/>
                 <constraint firstAttribute="trailing" secondItem="F64-wK-Aao" secondAttribute="trailing" id="vhg-3F-qx2"/>
                 <constraint firstItem="F64-wK-Aao" firstAttribute="top" secondItem="1" secondAttribute="top" id="zmD-1F-CRf"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="H0z-My-JeY"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="868" y="637"/>
+        </view>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TF5-37-k9P">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HVH-NW-b0H">
+                    <rect key="frame" x="20" y="10" width="560" height="30"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="4rE-mN-Neh"/>
+                    </connections>
+                </textField>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="HVH-NW-b0H" firstAttribute="leading" secondItem="TF5-37-k9P" secondAttribute="leading" constant="20" id="4od-XM-b8v"/>
+                <constraint firstAttribute="trailing" secondItem="HVH-NW-b0H" secondAttribute="trailing" constant="20" id="CRG-ym-Es4"/>
+                <constraint firstItem="HVH-NW-b0H" firstAttribute="top" secondItem="TF5-37-k9P" secondAttribute="top" constant="10" id="cWD-pj-zx4"/>
+                <constraint firstAttribute="bottom" secondItem="HVH-NW-b0H" secondAttribute="bottom" constant="10" id="enM-i7-IX3"/>
+                <constraint firstAttribute="height" constant="50" id="oZU-fM-ZMm"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <inset key="insetFor6xAndEarlier" minX="0.0" minY="-20" maxX="0.0" maxY="20"/>
         </view>
     </objects>
 </document>

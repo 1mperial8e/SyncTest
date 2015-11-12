@@ -38,6 +38,7 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
 
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     tapGesture.cancelsTouchesInView = NO;
+    self.tableViewRefresh.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     [self.tableViewRefresh addGestureRecognizer:tapGesture];
     [self.tableViewRefresh registerNib:[UINib nibWithNibName:NSStringFromClass(WLICommentCell.class) bundle:nil] forCellReuseIdentifier:CommentCellIdentifier];
     [self.tableViewRefresh registerNib:[UINib nibWithNibName:NSStringFromClass(WLILoadingCell.class) bundle:nil] forCellReuseIdentifier:LoadingCellIdentifier];
@@ -52,6 +53,7 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [self becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -60,6 +62,18 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
     self.textFieldEnterComment.text = @"";
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - UIResponder
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+- (UIView *)inputAccessoryView
+{
+    return self.viewEnterComment;
 }
 
 #pragma mark - Gesture
@@ -208,7 +222,6 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
         weakSelf.textInputViewBottomConstraint.constant = height;
         [weakSelf.view layoutIfNeeded];
     } completion:nil];
-    
     self.tableViewRefresh.contentInset = UIEdgeInsetsMake(0, 0, height, 0);
 }
 

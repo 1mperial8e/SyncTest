@@ -36,7 +36,6 @@ enum ServerResponse {
 typedef enum ServerResponse ServerResponse;
 
 @interface WLIConnect : NSObject {
-    
     AFHTTPRequestOperationManager *httpClient;
     SBJsonParser *json;
 }

@@ -8,10 +8,7 @@
 
 #import "WLIConnect.h"
 
-//#define kBaseLink @"http://10.0.0.84:8888/"
-
-#define kBaseLink @"http://mydrive-rails-dev.appmedia.no"
-//#define kBaseLink @"http://mydrive-dev.appmedia.no/"
+#define kBaseLink @"http://mydrive-rails-dev.appmedia.no/"
 
 #define kAPIKey @"!#wli!sdWQDScxzczFžŽYewQsq_?wdX09612627364[3072∑34260-#"
 #define kConnectionTimeout 30
@@ -35,6 +32,7 @@
 
 // UserDefaults
 static NSString *const CurrentUserKey = @"_currentUser";
+static NSString *const TokenKey = @"TokenKey";
 
 // API parameters names
 static NSString *const UsernameKey = @"username";
@@ -44,11 +42,13 @@ static NSString *const AuthTokenKey = @"token";
 
 @interface WLIConnect ()
 
-@property (copy, nonatomic) NSString *authToken;
+@property (strong, nonatomic) NSString *authToken;
 
 @end
 
 @implementation WLIConnect
+
+@synthesize authToken = _authToken;
 
 #pragma mark - Singleton
 
@@ -70,6 +70,7 @@ static NSString *const AuthTokenKey = @"token";
     if (self) {
         [self setupDefaults];
         [self loadUser];
+        self.authToken = [[NSUserDefaults standardUserDefaults] objectForKey:TokenKey];
     }
     return self;
 }
@@ -90,6 +91,15 @@ static NSString *const AuthTokenKey = @"token";
 }
 
 #pragma mark - Accessors
+
+- (void)setAuthToken:(NSString *)authToken
+{
+    _authToken = authToken;
+    if (authToken) {
+        [[NSUserDefaults standardUserDefaults] setObject:authToken forKey:AuthTokenKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
 
 - (NSString *)authToken
 {
@@ -134,6 +144,7 @@ static NSString *const AuthTokenKey = @"token";
     } else {
         NSDictionary *parameters = @{UsernameKey : username, UserPasswordKey : password, AuthTokenKey : self.authToken};
         [httpClient POST:@"api/login" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            self.authToken = [responseObject objectForKey:AuthTokenKey];
             NSDictionary *rawUser = [responseObject objectForKey:@"item"];
             _currentUser = [WLIUser initWithDictionary:rawUser];
             [self saveCurrentUser];
@@ -188,7 +199,6 @@ static NSString *const AuthTokenKey = @"token";
             }
         } success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *rawUser = [responseObject objectForKey:@"item"];
-            self.authToken = [responseObject objectForKey:AuthTokenKey];
             _currentUser = [WLIUser initWithDictionary:rawUser];
             [self saveCurrentUser];
             if (completion) {
@@ -273,17 +283,6 @@ static NSString *const AuthTokenKey = @"token";
         }
         if (userInfo.length) {
             [parameters setObject:userInfo forKey:@"userInfo"];
-        }
-        [parameters setObject:[NSString stringWithFormat:@"%f", latitude] forKey:@"userLat"];
-        [parameters setObject:[NSString stringWithFormat:@"%f", longitude] forKey:@"userLong"];
-        if (companyAddress.length) {
-            [parameters setObject:companyAddress forKey:@"userAddress"];
-        }
-        if (companyPhone.length) {
-            [parameters setObject:companyPhone forKey:@"userPhone"];
-        }
-        if (companyWeb.length) {
-            [parameters setObject:companyWeb forKey:@"userWeb"];
         }
         [parameters setObject:self.authToken forKey:AuthTokenKey];
         
@@ -547,7 +546,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:postText ? postText : @"" forKey:@"postText"];
         [parameters setObject:countries ? countries : @"0" forKey:@"countries"];
         [parameters setObject:postKeywords ? postKeywords : @[] forKey:@"postKeywords"];
-        [parameters setObject:postCategory forKey:@"categoryID"];
+        [parameters setObject:postCategory forKey:@"postCategory"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
         [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {

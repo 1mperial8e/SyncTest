@@ -62,6 +62,18 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - UIResponder
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+- (UIView *)inputAccessoryView
+{
+    return self.viewEnterComment;
+}
+
 #pragma mark - Data loading methods
 
 - (void)reloadData:(BOOL)reloadAll

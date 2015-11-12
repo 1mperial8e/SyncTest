@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -14,7 +14,6 @@
             <connections>
                 <outlet property="tableViewRefresh" destination="F64-wK-Aao" id="HVB-pD-riC"/>
                 <outlet property="textFieldEnterComment" destination="HVH-NW-b0H" id="VMK-W6-ZrW"/>
-                <outlet property="textInputViewBottomConstraint" destination="1oW-pp-CK0" id="OPY-nz-2Tm"/>
                 <outlet property="view" destination="1" id="3"/>
                 <outlet property="viewEnterComment" destination="TF5-37-k9P" id="NO4-iO-dZr"/>
             </connections>
@@ -25,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="F64-wK-Aao">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="486"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -33,44 +32,43 @@
                         <outlet property="delegate" destination="-1" id="C4v-iw-ymY"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TF5-37-k9P">
-                    <rect key="frame" x="0.0" y="486" width="600" height="50"/>
-                    <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HVH-NW-b0H">
-                            <rect key="frame" x="20" y="10" width="560" height="30"/>
-                            <animations/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="send"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="4rE-mN-Neh"/>
-                            </connections>
-                        </textField>
-                    </subviews>
-                    <animations/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="HVH-NW-b0H" firstAttribute="top" secondItem="TF5-37-k9P" secondAttribute="top" constant="10" id="A1b-7c-Stq"/>
-                        <constraint firstAttribute="height" constant="50" id="DTs-Zv-6bL"/>
-                        <constraint firstItem="HVH-NW-b0H" firstAttribute="leading" secondItem="TF5-37-k9P" secondAttribute="leading" constant="20" id="Vtl-Bc-Io0"/>
-                        <constraint firstAttribute="bottom" secondItem="HVH-NW-b0H" secondAttribute="bottom" constant="10" id="ocn-hX-hX7"/>
-                        <constraint firstAttribute="trailing" secondItem="HVH-NW-b0H" secondAttribute="trailing" constant="20" id="zlV-sH-UAM"/>
-                    </constraints>
-                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="-20" maxX="0.0" maxY="20"/>
-                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="TF5-37-k9P" secondAttribute="bottom" id="1oW-pp-CK0"/>
                 <constraint firstItem="F64-wK-Aao" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="4gX-JP-LXx"/>
-                <constraint firstItem="TF5-37-k9P" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="JK3-Nv-nl5"/>
-                <constraint firstAttribute="bottom" secondItem="F64-wK-Aao" secondAttribute="bottom" constant="50" id="K5v-Bu-uw0"/>
+                <constraint firstAttribute="bottom" secondItem="F64-wK-Aao" secondAttribute="bottom" id="K5v-Bu-uw0"/>
                 <constraint firstItem="F64-wK-Aao" firstAttribute="top" secondItem="1" secondAttribute="top" id="hLP-5q-aFp"/>
                 <constraint firstAttribute="trailing" secondItem="F64-wK-Aao" secondAttribute="trailing" id="jIC-39-YsK"/>
-                <constraint firstAttribute="trailing" secondItem="TF5-37-k9P" secondAttribute="trailing" id="tcS-Jc-bnu"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <point key="canvasLocation" x="381" y="455"/>
+        </view>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TF5-37-k9P">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HVH-NW-b0H">
+                    <rect key="frame" x="20" y="10" width="560" height="30"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="4rE-mN-Neh"/>
+                    </connections>
+                </textField>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="HVH-NW-b0H" firstAttribute="top" secondItem="TF5-37-k9P" secondAttribute="top" constant="10" id="A1b-7c-Stq"/>
+                <constraint firstAttribute="height" constant="50" id="DTs-Zv-6bL"/>
+                <constraint firstItem="HVH-NW-b0H" firstAttribute="leading" secondItem="TF5-37-k9P" secondAttribute="leading" constant="20" id="Vtl-Bc-Io0"/>
+                <constraint firstAttribute="bottom" secondItem="HVH-NW-b0H" secondAttribute="bottom" constant="10" id="ocn-hX-hX7"/>
+                <constraint firstAttribute="trailing" secondItem="HVH-NW-b0H" secondAttribute="trailing" constant="20" id="zlV-sH-UAM"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <inset key="insetFor6xAndEarlier" minX="0.0" minY="-20" maxX="0.0" maxY="20"/>
+            <point key="canvasLocation" x="381" y="833"/>
         </view>
     </objects>
 </document>
