@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Planet 1107. All rights reserved.
 //
 
+#import "NSDictionary+Nonnull.h"
+
 @interface WLIObject : NSObject
 
 #pragma mark - Init

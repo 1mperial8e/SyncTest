@@ -229,27 +229,34 @@
 }
 
 
-- (void)showCatMarketForPost:(WLIPost*)post sender:(id)senderCell
+- (void)showCatMarketForPost:(WLIPost *)post sender:(id)senderCell
 {
-    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Market"];
+    WLICategoryPostsViewController *categoryViewController = [WLICategoryPostsViewController new];
+    categoryViewController.title = @"Market";
     categoryViewController.categoryID = 1;
     [self.navigationController pushViewController:categoryViewController animated:YES];
 }
-- (void)showCatCustomersForPost:(WLIPost*)post sender:(id)senderCell
+
+- (void)showCatCustomersForPost:(WLIPost *)post sender:(id)senderCell
 {
-    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Customer"];
+    WLICategoryPostsViewController *categoryViewController = [WLICategoryPostsViewController new];
+    categoryViewController.title = @"Customer";
     categoryViewController.categoryID = 4;
     [self.navigationController pushViewController:categoryViewController animated:YES];
 }
-- (void)showCatCapabilitiesForPost:(WLIPost*)post sender:(id)senderCell
+
+- (void)showCatCapabilitiesForPost:(WLIPost *)post sender:(id)senderCell
 {
-    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"Capabilities"];
+    WLICategoryPostsViewController *categoryViewController = [WLICategoryPostsViewController new];
+    categoryViewController.title = @"Capabilities";
     categoryViewController.categoryID = 2;
     [self.navigationController pushViewController:categoryViewController animated:YES];
 }
-- (void)showCatPeopleForPost:(WLIPost*)post sender:(id)senderCell
+
+- (void)showCatPeopleForPost:(WLIPost *)post sender:(id)senderCell
 {
-    WLICategoryPostsViewController *categoryViewController = [[WLICategoryPostsViewController alloc] initWithNibName:@"WLICategoryPostsViewController" bundle:nil withTitle:@"People"];
+    WLICategoryPostsViewController *categoryViewController = [WLICategoryPostsViewController new];
+    categoryViewController.title = @"People";
     categoryViewController.categoryID = 8;
     [self.navigationController pushViewController:categoryViewController animated:YES];
 }

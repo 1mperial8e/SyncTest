@@ -8,15 +8,8 @@
 
 #import "WLIPostsListViewController.h"
 
-@interface WLICategoryPostsViewController : WLIPostsListViewController {
-    WLIPost *morePost;
-    NSInteger deleteButtonIndex;
-    
-}
+@interface WLICategoryPostsViewController : WLIPostsListViewController
 
-@property NSInteger categoryID;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil withTitle:(NSString*)myTitle;
-
+@property (assign, nonatomic) NSInteger categoryID;
 
 @end
