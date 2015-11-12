@@ -41,7 +41,7 @@
 - (void)reloadData:(BOOL)reloadAll
 {
     loading = YES;
-    NSUInteger page = reloadAll ? 2 : (self.posts.count / kDefaultPageSize) + 1;
+    NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
     [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:self.categoryID countryID:self.selectedCountry searchString:@"" page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         loading = NO;

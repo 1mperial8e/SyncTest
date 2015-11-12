@@ -55,6 +55,8 @@ static CGFloat const StaticCellHeight = 154;
     
     self.buttonDelete.layer.cornerRadius = 4;
     self.buttonDelete.layer.masksToBounds = NO;
+    
+//    self.textView
 }
 
 - (void)prepareForReuse
