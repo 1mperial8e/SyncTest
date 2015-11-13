@@ -18,7 +18,7 @@
     [super awakeFromNib];
     self.imageViewUserImage.layer.cornerRadius = self.imageViewUserImage.frame.size.height/2;
     self.imageViewUserImage.layer.masksToBounds = YES;
-    self.imageViewUserImage.layer.borderColor = [UIColor redColor].CGColor;
+    self.imageViewUserImage.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:1.0].CGColor;
     self.imageViewUserImage.layer.borderWidth = 2.f;
 }
 

@@ -41,7 +41,7 @@
     
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.width/2;
     self.imageViewUser.layer.borderWidth = 4.0f;
-    self.imageViewUser.layer.borderColor = [[UIColor redColor] CGColor];
+    self.imageViewUser.layer.borderColor = [[UIColor colorWithWhite:0.6 alpha:1.0] CGColor];
     self.imageViewUser.layer.masksToBounds = YES;
     
     self.buttonFollow.layer.cornerRadius = self.buttonFollow.frame.size.width/2;

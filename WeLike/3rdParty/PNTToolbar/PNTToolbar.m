@@ -34,12 +34,12 @@ int keyboardHeight() {
     self = [super initWithFrame:frame];
     if (self) {
         
-        previousButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Previous",nil) style:UIBarButtonItemStyleBordered target:self
+        previousButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Previous",nil) style:UIBarButtonItemStylePlain target:self
                                                          action:@selector(previousField:)];
         [previousButton setTintColor:[UIColor colorWithRed:255.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]];
         
         nextButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next",nil)
-                                                      style:UIBarButtonItemStyleBordered target:self
+                                                      style:UIBarButtonItemStylePlain target:self
                                                      action:@selector(nextField:)];
         [nextButton setTintColor:[UIColor colorWithRed:255.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]];
         

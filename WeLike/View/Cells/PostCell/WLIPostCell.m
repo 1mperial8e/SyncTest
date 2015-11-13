@@ -50,7 +50,7 @@ static CGFloat const StaticCellHeight = 154;
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height / 2;
     self.imageViewUser.layer.masksToBounds = YES;
     self.imageViewUser.layer.borderWidth = 2;
-    self.imageViewUser.layer.borderColor = [UIColor redColor].CGColor;
+    self.imageViewUser.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:1.0].CGColor;
     
     self.buttonDelete.layer.cornerRadius = 4;
     self.buttonDelete.layer.masksToBounds = NO;

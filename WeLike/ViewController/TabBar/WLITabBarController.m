@@ -44,8 +44,7 @@
 {
     self.tabBar.translucent = NO;
     self.tabBar.barTintColor = [UIColor colorWithRed:249.0f/255.0f green:249.0f/255.0f blue:249.0f/255.0f alpha:1.0f];
-    self.tabBar.tintColor = [UIColor blackColor];
-    self.tabBar.selectedImageTintColor = [UIColor redColor];
+    self.tabBar.tintColor = [UIColor redColor];
     
     UIColor *colorUnselected = [UIColor colorWithRed:176/255.0f green:162/255.0f blue:162/255.0f alpha:1.0f];
     UIFont *fontUnselected = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];

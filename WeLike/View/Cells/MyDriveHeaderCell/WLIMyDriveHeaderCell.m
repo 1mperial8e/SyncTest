@@ -48,7 +48,7 @@
 {
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height / 2;
     self.imageViewUser.layer.masksToBounds = YES;
-    self.imageViewUser.layer.borderColor = [UIColor redColor].CGColor;
+    self.imageViewUser.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:1.0].CGColor;
     self.imageViewUser.layer.borderWidth = 3;
     
     self.buttonEditProfile.layer.cornerRadius = 5;
