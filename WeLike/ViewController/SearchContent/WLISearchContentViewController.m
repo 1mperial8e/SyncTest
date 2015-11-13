@@ -74,7 +74,9 @@
     __weak typeof(self) weakSelf = self;
     [sharedConnect hashtagsInSearch:@"" pageSize:50 onCompletion:^(NSMutableArray *hashtags, ServerResponse serverResponseCode) {
         loading = NO;
-        weakSelf.hashtags = hashtags;
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"tagcount" ascending:NO];
+        NSArray *orderedHashtags = [hashtags sortedArrayUsingDescriptors:@[sortDescriptor]];
+        weakSelf.hashtags = orderedHashtags;
         [weakSelf.tableViewRefresh reloadData];
         [refreshManager tableViewReloadFinishedAnimated:YES];
     }];

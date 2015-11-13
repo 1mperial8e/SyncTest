@@ -8,7 +8,8 @@
 
 #import "WLIConnect.h"
 
-#define kBaseLink @"http://mydrive-rails-dev.appmedia.no/"
+//#define kBaseLink @"http://mydrive-rails-dev.appmedia.no/"
+#define kBaseLink @"https://mydrive-rails-prod.appmedia.no/"
 
 #define kAPIKey @"!#wli!sdWQDScxzczFžŽYewQsq_?wdX09612627364[3072∑34260-#"
 #define kConnectionTimeout 30
@@ -80,7 +81,8 @@ static NSString *const AuthTokenKey = @"token";
 - (void)setupDefaults
 {
     httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseLink]];
-    [httpClient.requestSerializer setValue:kAPIKey forHTTPHeaderField:@"api_key"];
+//    [httpClient.requestSerializer setValue:kAPIKey forHTTPHeaderField:@"api_key"];
+    httpClient.requestSerializer = [AFHTTPRequestSerializer serializer];
     httpClient.responseSerializer = [AFJSONResponseSerializer serializer];
     json = [[SBJsonParser alloc] init];
     _dateFormatter = [[NSDateFormatter alloc] init];
@@ -96,7 +98,7 @@ static NSString *const AuthTokenKey = @"token";
 {
     _authToken = authToken;
     if (authToken) {
-        [[NSUserDefaults standardUserDefaults] setObject:authToken forKey:AuthTokenKey];
+        [[NSUserDefaults standardUserDefaults] setObject:authToken forKey:TokenKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
@@ -142,7 +144,7 @@ static NSString *const AuthTokenKey = @"token";
             completion(nil, BAD_REQUEST);
         }
     } else {
-        NSDictionary *parameters = @{UsernameKey : username, UserPasswordKey : password, AuthTokenKey : self.authToken};
+        NSDictionary *parameters = @{UsernameKey : username, UserPasswordKey : password};
         [httpClient POST:@"api/login" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             self.authToken = [responseObject objectForKey:AuthTokenKey];
             NSDictionary *rawUser = [responseObject objectForKey:@"item"];
@@ -414,7 +416,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", categoryID] forKey:@"categoryID"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", countryID] forKey:@"countryID"];
-        [parameters setObject:[NSString stringWithFormat:@"%@", searchString] forKey:@"searchstring"];
+        [parameters setObject:[NSString stringWithFormat:@"%@", [searchString lowercaseString]] forKey:@"searchstring"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
         [httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
