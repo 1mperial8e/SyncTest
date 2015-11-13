@@ -198,6 +198,7 @@ static NSString *const AuthTokenKey = @"token";
                 }
             }
         } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            self.authToken = [responseObject objectForKey:AuthTokenKey];
             NSDictionary *rawUser = [responseObject objectForKey:@"item"];
             _currentUser = [WLIUser initWithDictionary:rawUser];
             [self saveCurrentUser];
