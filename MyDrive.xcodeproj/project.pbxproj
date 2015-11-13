@@ -1367,6 +1367,11 @@
 				CLASSPREFIX = WLI;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Goran Vuksic";
+				TargetAttributes = {
+					2CCE1A9417ECD32B00680126 = {
+						DevelopmentTeam = Y63VS2VG4D;
+					};
+				};
 			};
 			buildConfigurationList = 2CCE1A9017ECD32B00680126 /* Build configuration list for PBXProject "MyDrive" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1471,7 +1476,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# ./Fabric.framework/run 5ce1ef35ca4b1954a7f308b01bd80931a0071f01 de8b5c6a6955955992a62d75ffb88e2ad61f5aef090d2bca6777f4c4f9a2faee";
+			shellScript = "./Fabric.framework/run 5ce1ef35ca4b1954a7f308b01bd80931a0071f01 de8b5c6a6955955992a62d75ffb88e2ad61f5aef090d2bca6777f4c4f9a2faee";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1697,14 +1702,14 @@
 				GCC_PREFIX_HEADER = "WeLike/MyDrive-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				INFOPLIST_FILE = "WeLike/MyDrive-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.appmedia.mydrivebeta;
+				PRODUCT_BUNDLE_IDENTIFIER = no.santander.mydrive;
 				PRODUCT_NAME = MyDrive;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7s armv7";
@@ -1729,14 +1734,14 @@
 				GCC_PREFIX_HEADER = "WeLike/MyDrive-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				INFOPLIST_FILE = "WeLike/MyDrive-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.appmedia.mydrivebeta;
+				PRODUCT_BUNDLE_IDENTIFIER = no.santander.mydrive;
 				PRODUCT_NAME = MyDrive;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7s armv7";
