@@ -111,13 +111,4 @@
     [self reloadData:YES];
 }
 
-#pragma mark - WLITableViewCellDelegate
-
-- (void)showTimelineForSearchString:(NSString *)searchString
-{
-    if (!self.searchString.length) {
-        [super showTimelineForSearchString:searchString];
-    }
-}
-
 @end

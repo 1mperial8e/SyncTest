@@ -117,8 +117,7 @@
     [searchBar resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
     WLIAppDelegate *appDelegate = (WLIAppDelegate*)[UIApplication sharedApplication].delegate;
-    appDelegate.timelineViewController.searchString = searchBar.text;
-    [appDelegate.timelineViewController reloadData:YES];
+    [appDelegate.timelineViewController showTimelineForSearchString:searchBar.text];
     appDelegate.tabBarController.selectedIndex = 1;
 }
 
