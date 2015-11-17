@@ -6,12 +6,10 @@
 //  Copyright (c) 2014 Planet 1107. All rights reserved.
 //
 
-#import "WLIViewController.h"
+#import "WLIPeopleListViewController.h"
 
-@interface WLIFollowingViewController : WLIViewController
+@interface WLIFollowingViewController : WLIPeopleListViewController
 
-@property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;
 @property (strong, nonatomic) WLIUser *user;
-@property (strong, nonatomic) NSMutableArray *following;
 
 @end

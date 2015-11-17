@@ -22,7 +22,6 @@
 
 @implementation WLIPostsListViewController
 
-
 #pragma mark - Object lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -35,111 +34,143 @@
     return self;
 }
 
-
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
-    
+- (void)viewDidLoad
+{    
     [super viewDidLoad];
     
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.adjustsImageWhenHighlighted = NO;
-    backButton.frame = CGRectMake(0.0f, 0.0f, 40.0f, 30.0f);
-    [backButton setImage:[UIImage imageNamed:@"nav-btn-search"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(searchButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    [self.tableViewRefresh registerNib:WLIPostCell.nib forCellReuseIdentifier:WLIPostCell.ID];
+    [self.tableViewRefresh registerNib:WLILoadingCell.nib forCellReuseIdentifier:WLILoadingCell.ID];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-search"] style:UIBarButtonItemStylePlain target:self action:@selector(searchButtonAction:)];
 
     [self reloadData:YES];
 }
 
--(IBAction)searchButtonTouchUpInside:(id)sender
+#pragma mark - Actions
+
+- (void)searchButtonAction:(id)sender
 {
-    WLISearchContentViewController *searchViewController = [[WLISearchContentViewController alloc] initWithNibName:@"WLISearchContentViewController" bundle:nil];
+    WLISearchContentViewController *searchViewController = [WLISearchContentViewController new];
     UINavigationController *searchNavigationController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
-    //    profileNavigationController.navigationBar.translucent = NO;
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:searchNavigationController animated:YES completion:nil];
 }
 
 #pragma mark - Data loading methods
 
-- (void)reloadData:(BOOL)reloadAll {
-    
+- (void)reloadData:(BOOL)reloadAll
+{
     loading = YES;
-    NSUInteger page;
-    if (reloadAll) {
+    if (reloadAll && !loadMore) {
         loadMore = YES;
-        page = 1;
-    } else {
-        page  = (self.posts.count / kDefaultPageSize) + 1;
+        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
-        loading = NO;
-        if (reloadAll) {
-            [self.posts removeAllObjects];
-        }
-        [self.posts addObjectsFromArray:posts];
-        loadMore = posts.count == kDefaultPageSize;
-        [self.tableViewRefresh reloadData];
-        [refreshManager tableViewReloadFinishedAnimated:YES];
+    NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
+    __weak typeof(self) weakSelf = self;
+    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID page:page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+        [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
 
+#pragma mark - TableViewUpdating
+
+- (void)downloadedPosts:(NSArray *)posts serverResponse:(ServerResponse)serverResponseCode reloadAll:(BOOL)reloadAll
+{
+    if (serverResponseCode == OK) {
+        if (reloadAll && self.posts.count) {
+            [self removePosts:self.posts];
+        }
+        [self addPosts:posts];
+    }
+    loadMore = posts.count == kDefaultPageSize;
+    if (!loadMore) {
+        [self.tableViewRefresh deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    [refreshManager tableViewReloadFinishedAnimated:YES];
+    loading = NO;
+}
+
+- (void)removePosts:(NSArray *)posts
+{
+    NSMutableArray *oldIdPaths = [NSMutableArray array];
+    NSInteger index = [self.posts indexOfObject:posts.firstObject];
+    for (int i = 0; i < posts.count; i++) {
+        [oldIdPaths addObject:[NSIndexPath indexPathForItem:index inSection:self.postsSectionNumber]];
+        index++;
+    }
+    [self.posts removeObjectsInArray:posts];
+    [self.tableViewRefresh beginUpdates];
+    [self.tableViewRefresh deleteRowsAtIndexPaths:oldIdPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableViewRefresh endUpdates];
+}
+
+- (void)addPosts:(NSArray *)posts
+{
+    NSMutableArray *newIdPaths = [NSMutableArray array];
+    NSInteger index = self.posts.count;
+    for (int i = 0; i < posts.count; i++) {
+        [newIdPaths addObject:[NSIndexPath indexPathForItem:index inSection:self.postsSectionNumber]];
+        index++;
+    }
+    [self.posts addObjectsFromArray:posts];
+    [self.tableViewRefresh beginUpdates];
+    [self.tableViewRefresh insertRowsAtIndexPaths:newIdPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableViewRefresh endUpdates];
+}
 
 #pragma mark - UITableViewDataSource methods
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 1){
-        static NSString *CellIdentifier = @"WLIPostCell";
-        WLIPostCell *cell = (WLIPostCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"WLIPostCell" owner:self options:nil] lastObject];
-            cell.delegate = self;
-        }
-        cell.post = self.posts[indexPath.row];
-        return cell;
-    } else {
-        static NSString *CellIdentifier = @"WLILoadingCell";
-        WLILoadingCell *cell = (WLILoadingCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"WLILoadingCell" owner:self options:nil] lastObject];
-        }
-        [cell.refreshControl startAnimating];
-        return cell;
-    }
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return 3;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    if (section == 1) {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == self.postsSectionNumber) {
         return self.posts.count;
-    } else if (section == 2) {
+    } else {
         return loadMore;
     }
-    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    if (indexPath.section == self.postsSectionNumber) {
+        cell = [self postCellForIndexPath:indexPath];
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:WLILoadingCell.ID forIndexPath:indexPath];
+    }
+    return cell;
+}
+
+#pragma mark - Configure cells
+
+- (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
+{
+    WLIPostCell *cell = [self.tableViewRefresh dequeueReusableCellWithIdentifier:WLIPostCell.ID forIndexPath:indexPath];
+    cell.delegate = self;
+    cell.showDeleteButton = YES;
+    cell.post = self.posts[indexPath.row];
+    return cell;
 }
 
 #pragma mark - UITableViewDelegate methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1) {
+    if (indexPath.section == self.postsSectionNumber) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row] withWidth:self.view.frame.size.width].height;
-    } else if (indexPath.section == 0){
-        return 0; //44 * loading * self.posts.count == 0;
     } else {
-        return 44 * loadMore;
+        return 44;
     }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 2 && loadMore && !loading) {
+    if (indexPath.section == self.postsSectionNumber + 1 && loadMore && !loading) {
         [self reloadData:NO];
     }
 }
@@ -157,7 +188,7 @@
 - (void)toggleLikeForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell
 {
     if (post.likedThisPost) {
-        [[WLIConnect sharedConnect] removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
+        [sharedConnect removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
             if (serverResponseCode == OK) {
                 senderCell.buttonLike.selected = NO;
                 post.postLikesCount--;
@@ -169,7 +200,7 @@
             }
         }];
     } else {
-        [[WLIConnect sharedConnect] setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
+        [sharedConnect setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
             if (serverResponseCode == OK) {
                 senderCell.buttonLike.selected = YES;
                 post.postLikesCount++;
@@ -182,46 +213,6 @@
         }];
     }
 }
-
-
-
-- (void)showShareForPost:(WLIPost*)post sender:(id)senderCell
-{
-    
-}
-- (void)showDeleteForPost:(WLIPost*)post sender:(id)senderCell
-{
-    
-}
-- (void)showConnectForPost:(WLIPost*)post sender:(id)senderCell
-{
-    WLIConnect *sConnect = [WLIConnect sharedConnect];
-    UIButton *btn = (UIButton *)senderCell;
-    if ( btn.selected )
-    {
-        NSLog(@"Disconnecting");
-        [sConnect removeFollowWithFollowID:post.user.userID onCompletion:^(ServerResponse serverResponseCode) {
-            if (serverResponseCode == OK)
-            {
-                NSLog(@"Disconnected");
-                [btn setSelected:NO];
-            }
-        }];
-    }
-    else
-    {
-        NSLog(@"Connecting");
-        [sConnect setFollowOnUserID:post.user.userID onCompletion:^(WLIFollow *follow, ServerResponse serverResponseCode) {
-            if (serverResponseCode == OK)
-            {
-                NSLog(@"Connected");
-                [btn setSelected:YES];
-            }
-        }];
-    }
-    
-}
-
 
 - (void)showCatMarketForPost:(WLIPost *)post sender:(id)senderCell
 {
@@ -262,6 +253,8 @@
     timeline.navigationItem.title = searchString;
     [self.navigationController pushViewController:timeline animated:YES];
 }
+
+#pragma mark - Follow
 
 - (void)followUser:(WLIUser *)user sender:(id)senderCell
 {

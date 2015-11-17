@@ -19,25 +19,14 @@
 - (void)reloadData:(BOOL)reloadAll
 {    
     loading = YES;
-    NSUInteger page;
-    if (reloadAll) {
+    if (reloadAll && !loadMore) {
         loadMore = YES;
-        page = 1;
-    } else {
-        page = (self.posts.count / kDefaultPageSize) + 1;
+        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+    NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
     [sharedConnect connectTimelineForUserID:sharedConnect.currentUser.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
-        loading = NO;
-        if (serverResponseCode == OK) {
-            if (reloadAll) {
-                [weakSelf.posts removeAllObjects];
-            }
-            [weakSelf.posts addObjectsFromArray:posts];
-        }
-        loadMore = (posts.count == kDefaultPageSize);
-        [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [refreshManager tableViewReloadFinishedAnimated:YES];
+        [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
 
@@ -45,6 +34,8 @@
 
 - (void)viewDidLoad
 {
+    self.postsSectionNumber = 0;
+    
     [super viewDidLoad];
     self.navigationItem.title = @"Following";
 }

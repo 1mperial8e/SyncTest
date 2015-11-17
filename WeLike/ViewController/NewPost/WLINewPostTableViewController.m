@@ -243,7 +243,6 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
             break;
         case 2: // Image display
             ret = [[UIScreen mainScreen] bounds].size.width * (430.0f / 600.0f);
-            NSLog(@"Ret: %f", ret);
             return ret;
             break;
         case 1: // Text View

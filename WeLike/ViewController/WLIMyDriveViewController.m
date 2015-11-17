@@ -32,12 +32,12 @@ static CGFloat const HeaderCellHeight = 156;
 
 - (void)viewDidLoad
 {
+    self.postsSectionNumber = 1;
+    
     [super viewDidLoad];
     self.title = @"My Energy";
     self.tableViewRefresh.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tableViewRefresh registerNib:WLIMyDriveHeaderCell.nib forCellReuseIdentifier:WLIMyDriveHeaderCell.ID];
-    [self.tableViewRefresh registerNib:WLIPostCell.nib forCellReuseIdentifier:WLIPostCell.ID];
-    [self.tableViewRefresh registerNib:WLILoadingCell.nib forCellReuseIdentifier:WLILoadingCell.ID];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -60,28 +60,17 @@ static CGFloat const HeaderCellHeight = 156;
 - (void)reloadData:(BOOL)reloadAll
 {
     loading = YES;
-    NSUInteger page;
-    if (reloadAll) {
+    if (reloadAll && !loadMore) {
         loadMore = YES;
-        page = 1;
-        [self reloadUserInfo];
-        return;
-    } else {
-        page = (self.posts.count / kDefaultPageSize) + 1;
+        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-    
+    if (reloadAll) {
+        [self reloadUserInfo];
+    }
+    NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
     [sharedConnect mydriveTimelineForUserID:sharedConnect.currentUser.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode) {
-        loading = NO;
-        if (serverResponseCode == OK) {
-            if (reloadAll) {
-                [weakSelf.posts removeAllObjects];
-            }
-            [weakSelf.posts addObjectsFromArray:posts];
-        }
-        loadMore = (posts.count == kDefaultPageSize);
-        [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [refreshManager tableViewReloadFinishedAnimated:YES];
+        [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
 
@@ -92,8 +81,10 @@ static CGFloat const HeaderCellHeight = 156;
         if (serverResponseCode == OK) {
             weakSelf.user = user;
             weakSelf.navigationItem.title = user.userUsername;
+            [weakSelf.tableViewRefresh beginUpdates];
+            [weakSelf.tableViewRefresh reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [weakSelf.tableViewRefresh endUpdates];
         }
-        [weakSelf reloadData:NO];
     }];
 }
 

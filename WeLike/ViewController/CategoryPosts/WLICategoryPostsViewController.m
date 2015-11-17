@@ -29,12 +29,12 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
     self.selectedCountry = 0;
+    self.postsSectionNumber = 1;
     
+    [super viewDidLoad];
+
     [self.tableViewRefresh registerNib:WLICountryFilterTableViewCell.nib forCellReuseIdentifier:WLICountryFilterTableViewCell.ID];
-    [self.tableViewRefresh registerNib:WLIPostCell.nib forCellReuseIdentifier:WLIPostCell.ID];
-    [self.tableViewRefresh registerNib:WLILoadingCell.nib forCellReuseIdentifier:WLILoadingCell.ID];
     [self.tableViewRefresh registerNib:WLICategoryMarketCell.nib forCellReuseIdentifier:WLICategoryMarketCell.ID];
     [self.tableViewRefresh registerNib:WLICategoryCustomerCell.nib forCellReuseIdentifier:WLICategoryCustomerCell.ID];
     [self.tableViewRefresh registerNib:WLICategoryCapabilitiesCell.nib forCellReuseIdentifier:WLICategoryCapabilitiesCell.ID];
@@ -48,52 +48,13 @@
     loading = YES;
     if (reloadAll && !loadMore) {
         loadMore = YES;
-        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:2]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
     [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:self.categoryID countryID:self.selectedCountry searchString:@"" page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
-        loading = NO;
-        if (serverResponseCode == OK) {
-            if (reloadAll && weakSelf.posts.count) {
-                [weakSelf removePosts:weakSelf.posts];
-            }
-            [weakSelf addPosts:posts];
-        }
-        loadMore = posts.count == kDefaultPageSize;
-        if (!loadMore) {
-            [weakSelf.tableViewRefresh deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:2]] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }
-        [refreshManager tableViewReloadFinishedAnimated:YES];
+        [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
-}
-
-- (void)removePosts:(NSArray *)posts
-{
-    NSMutableArray *oldIdPaths = [NSMutableArray array];
-    NSInteger index = [self.posts indexOfObject:posts.firstObject];
-    for (int i = 0; i < posts.count; i++) {
-        [oldIdPaths addObject:[NSIndexPath indexPathForItem:index inSection:1]];
-        index++;
-    }
-    [self.posts removeObjectsInArray:posts];
-    [self.tableViewRefresh beginUpdates];
-    [self.tableViewRefresh deleteRowsAtIndexPaths:oldIdPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableViewRefresh endUpdates];
-}
-
-- (void)addPosts:(NSArray *)posts
-{
-    NSMutableArray *newIdPaths = [NSMutableArray array];
-    NSInteger index = self.posts.count;
-    for (int i = 0; i < posts.count; i++) {
-        [newIdPaths addObject:[NSIndexPath indexPathForItem:index inSection:1]];
-        index++;
-    }
-    [self.posts addObjectsFromArray:posts];
-    [self.tableViewRefresh beginUpdates];
-    [self.tableViewRefresh insertRowsAtIndexPaths:newIdPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableViewRefresh endUpdates];
 }
 
 #pragma mark - UITableViewDataSource

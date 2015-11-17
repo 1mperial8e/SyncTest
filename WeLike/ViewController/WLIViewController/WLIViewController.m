@@ -8,8 +8,6 @@
 
 #import "WLIViewController.h"
 #import "WLICommentsViewController.h"
-#import "WLILikesViewController.h"
-//#import "WLIProfileViewController.h"
 #import "WLIPostViewController.h"
 
 @implementation WLIViewController
@@ -103,13 +101,6 @@
     WLICommentsViewController *commentsViewController = [[WLICommentsViewController alloc] initWithNibName:@"WLICommentsViewController" bundle:nil];
     commentsViewController.post = post;
     [self.navigationController pushViewController:commentsViewController animated:YES];
-}
-
-- (void)showLikesForPost:(WLIPost *)post sender:(WLITableViewCell*)senderCell {
-    
-    WLILikesViewController *likesViewController = [[WLILikesViewController alloc] initWithNibName:@"WLILikesViewController" bundle:nil];
-    likesViewController.post = post;
-    [self.navigationController pushViewController:likesViewController animated:YES];
 }
 
 - (void)followUser:(WLIUser *)user sender:(id)senderCell {

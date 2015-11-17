@@ -13,4 +13,10 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;
 @property (strong, nonatomic) NSMutableArray *posts;
 
+@property (assign, nonatomic) NSInteger postsSectionNumber;
+
+- (void)removePosts:(NSArray *)posts;
+- (void)addPosts:(NSArray *)posts;
+- (void)downloadedPosts:(NSArray *)posts serverResponse:(ServerResponse)serverResponseCode reloadAll:(BOOL)reloadAll;
+
 @end
