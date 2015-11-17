@@ -76,7 +76,7 @@
 {
     WLILoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:WLILoginTableViewCell.ID forIndexPath:indexPath];
     if (indexPath.row == 0) {
-        cell.textField.placeholder = @"username";
+        cell.textField.placeholder = @"Email or username";
         self.usernameTextField = cell.textField;
     } else if (indexPath.row == 1) {
         cell.textField.placeholder = @"password";

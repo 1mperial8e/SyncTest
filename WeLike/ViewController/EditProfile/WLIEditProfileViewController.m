@@ -172,7 +172,7 @@
                         otherButtonTitles:@"Gallery", @"Camera", nil] showInView:self.view];
 }
 
-- (void)saveChangesAction:(UIBarButtonItem*)barButtonItemSave
+- (void)saveChangesAction:(UIBarButtonItem *)barButtonItemSave
 {
     if (!self.textFieldEmail.text.length) {
         [self showErrorWithMessage:@"Email is required."];
