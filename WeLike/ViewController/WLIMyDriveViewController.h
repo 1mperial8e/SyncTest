@@ -8,12 +8,6 @@
 
 #import "WLIPostsListViewController.h"
 
-@interface WLIMyDriveViewController : WLIPostsListViewController {
-    WLIPost *morePost;
-    NSInteger deleteButtonIndex;
-
-}
-
-@property (strong, nonatomic) WLIUser *user;
+@interface WLIMyDriveViewController : WLIPostsListViewController
 
 @end

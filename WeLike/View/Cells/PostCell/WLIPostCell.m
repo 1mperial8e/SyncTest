@@ -305,7 +305,7 @@ static CGFloat const StaticCellHeight = 154;
 {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string ? string : @""
                                                                                          attributes:@{NSFontAttributeName : self.textView.font,
-                                                                                                      NSForegroundColorAttributeName : self.textView.textColor}];
+                                                                                                      NSForegroundColorAttributeName : [UIColor colorWithWhite:0.75 alpha:1]}];
     NSSet *endHashtagCharachters = [NSSet setWithObjects:@" ", @".", @"-", @"!", @"?", @"[", @"]", @"@", @"#", @"$", @"%", @"^", @"&", @"*", @"(", @")", @"+", @"=", @"/", @"|", @"/", nil];
     for (int i = 0; i < attributedString.length; i++) {
         unichar charachter = [attributedString.string characterAtIndex:i];

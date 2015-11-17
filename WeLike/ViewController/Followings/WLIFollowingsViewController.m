@@ -34,7 +34,6 @@
                 [weakSelf.posts removeAllObjects];
             }
             [weakSelf.posts addObjectsFromArray:posts];
-            
         }
         loadMore = (posts.count == kDefaultPageSize);
         [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)] withRowAnimation:UITableViewRowAnimationAutomatic];

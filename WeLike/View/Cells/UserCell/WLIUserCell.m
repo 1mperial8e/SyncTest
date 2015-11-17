@@ -13,7 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewUserImage;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;
-@property (weak, nonatomic) IBOutlet UIButton *buttonFollowUnfollow;
 
 @end
 

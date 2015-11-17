@@ -10,4 +10,18 @@
 
 @implementation WLILoadingCell
 
+#pragma mark - Lifecycle
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self.refreshControl startAnimating];
+}
+
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    [self.refreshControl startAnimating];
+}
+
 @end

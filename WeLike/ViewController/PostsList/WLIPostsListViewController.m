@@ -6,15 +6,17 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
+// Controllers
 #import "WLIPostsListViewController.h"
-#import "WLIPostCell.h"
-#import "WLILoadingCell.h"
-#import "GlobalDefines.h"
 #import "WLISearchContentViewController.h"
 #import "WLICategoryPostsViewController.h"
 #import "WLITimelineViewController.h"
 
-@interface WLIPostsListViewController () <UITableViewDataSource, UITableViewDelegate>
+// Cells
+#import "WLIPostCell.h"
+#import "WLILoadingCell.h"
+
+@interface WLIPostsListViewController ()
 
 @end
 
@@ -27,7 +29,6 @@
     
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
         self.title = @"Timeline";
         self.posts = [NSMutableArray array];
     }
@@ -51,13 +52,6 @@
     [self reloadData:YES];
 }
 
--(IBAction)profileButtonTouchUpInside:(id)sender
-{
-//    WLIProfileViewController *profileViewController = [[WLIProfileViewController alloc] initWithNibName:@"WLIProfileViewController" bundle:nil];
-//    UINavigationController *profileNavigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
-////    profileNavigationController.navigationBar.translucent = NO;
-//    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:profileNavigationController animated:YES completion:nil];
-}
 -(IBAction)searchButtonTouchUpInside:(id)sender
 {
     WLISearchContentViewController *searchViewController = [[WLISearchContentViewController alloc] initWithNibName:@"WLISearchContentViewController" bundle:nil];
