@@ -46,6 +46,34 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-search"] style:UIBarButtonItemStylePlain target:self action:@selector(searchButtonAction:)];
 
     [self reloadData:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(followedUserNotification:) name:FollowerUserNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Notifications
+
+- (void)followedUserNotification:(NSNotification *)notification
+{
+    NSMutableArray *idPaths = [NSMutableArray array];
+    NSInteger userId = [notification.userInfo[@"userId"] integerValue];
+    BOOL followed = [notification.userInfo[@"followed"]  boolValue];
+    for (int i = 0; i < self.posts.count; i++) {
+        WLIPost *post = self.posts[i];
+        if (post.user.userID == userId) {
+            [idPaths addObject:[NSIndexPath indexPathForItem:i inSection:self.postsSectionNumber]];
+            post.user.followingUser = followed;
+        }
+    }
+    if (idPaths.count) {
+        [self.tableViewRefresh beginUpdates];
+        [self.tableViewRefresh reloadRowsAtIndexPaths:idPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableViewRefresh endUpdates];
+    }
 }
 
 #pragma mark - Actions
@@ -152,7 +180,7 @@
 {
     WLIPostCell *cell = [self.tableViewRefresh dequeueReusableCellWithIdentifier:WLIPostCell.ID forIndexPath:indexPath];
     cell.delegate = self;
-    cell.showDeleteButton = YES;
+    cell.showDeleteButton = NO;
     cell.post = self.posts[indexPath.row];
     return cell;
 }

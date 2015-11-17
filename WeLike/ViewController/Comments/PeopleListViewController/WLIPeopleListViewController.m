@@ -29,6 +29,7 @@
     [self.tableViewRefresh registerNib:WLIUserCell.nib forCellReuseIdentifier:WLIUserCell.ID];
     [self.tableViewRefresh registerNib:WLILoadingCell.nib forCellReuseIdentifier:WLILoadingCell.ID];
     [self reloadData:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(followedUserNotification:) name:FollowerUserNotification object:nil];
 }
 
 - (void)viewDidLayoutSubviews
@@ -38,6 +39,32 @@
         self.tableViewRefresh.layoutMargins = UIEdgeInsetsZero;
     }
     self.tableViewRefresh.separatorInset = UIEdgeInsetsZero;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Notifications
+
+- (void)followedUserNotification:(NSNotification *)notification
+{
+    NSMutableArray *idPaths = [NSMutableArray array];
+    NSInteger userId = [notification.userInfo[@"userId"] integerValue];
+    BOOL followed = [notification.userInfo[@"followed"]  boolValue];
+    for (int i = 0; i < self.people.count; i++) {
+        WLIUser *user = self.people[i];
+        if (user.userID == userId) {
+            [idPaths addObject:[NSIndexPath indexPathForItem:i inSection:0]];
+            user.followingUser = followed;
+        }
+    }
+    if (idPaths.count) {
+        [self.tableViewRefresh beginUpdates];
+        [self.tableViewRefresh reloadRowsAtIndexPaths:idPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableViewRefresh endUpdates];
+    }
 }
 
 #pragma mark - Data loading methods

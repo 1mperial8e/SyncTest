@@ -817,6 +817,7 @@ static NSString *const AuthTokenKey = @"token";
         if (completion) {
             completion(follow, OK);
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:FollowerUserNotification object:nil userInfo:@{@"userId" : @(userID), @"followed" : @YES}];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self debugger:parameters.description methodLog:@"api/setFollow" dataLog:error.localizedDescription];
         if (completion) {
@@ -841,6 +842,7 @@ static NSString *const AuthTokenKey = @"token";
         if (completion) {
             completion(OK);
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:FollowerUserNotification object:nil userInfo:@{@"userId" : @(followID), @"followed" : @NO}];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self debugger:parameters.description methodLog:@"api/removeFollow" dataLog:error.localizedDescription];
         if (completion) {
@@ -901,6 +903,7 @@ static NSString *const AuthTokenKey = @"token";
         [self.httpClient POST:@"api/getFollowing" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawUsers = [responseObject[@"items"] valueForKey:@"user"];
             NSArray *users = [WLIUser arrayWithDictionariesArray:rawUsers];
+            [users setValue:@YES forKey:@"followingUser"];
             if (completion) {
                 completion([users mutableCopy], OK);
             }

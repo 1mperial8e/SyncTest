@@ -51,6 +51,7 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(followedUserNotification:) name:FollowerUserNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -215,6 +216,19 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
 - (void)keyboardWillHide:(NSNotification *)notification
 {
     self.tableViewRefresh.contentInset = UIEdgeInsetsZero;
+}
+
+- (void)followedUserNotification:(NSNotification *)notification
+{
+    NSInteger userId = [notification.userInfo[@"userId"] integerValue];
+    BOOL followed = [notification.userInfo[@"followed"]  boolValue];
+
+    if (self.post.user.userID == userId) {
+        self.post.user.followingUser = followed;
+        [self.tableViewRefresh beginUpdates];
+        [self.tableViewRefresh reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableViewRefresh endUpdates];
+    }
 }
 
 #pragma mark - WLIPostCellDelegate

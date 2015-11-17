@@ -117,10 +117,6 @@
 		2ECF34931BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECF34921BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib */; };
 		2ED2F2851BA95E8C00641F54 /* WLIInfoPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */; };
 		2ED2F2861BA95E8C00641F54 /* WLIInfoPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */; };
-		2EDF59A01BD90973008A0267 /* WLIStrategySelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDF599E1BD90973008A0267 /* WLIStrategySelectTableViewController.m */; };
-		2EDF59A11BD90973008A0267 /* WLIStrategySelectTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EDF599F1BD90973008A0267 /* WLIStrategySelectTableViewController.xib */; };
-		2EDF59A61BD9098C008A0267 /* WLICountrySelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDF59A41BD9098C008A0267 /* WLICountrySelectTableViewController.m */; };
-		2EDF59A71BD9098C008A0267 /* WLICountrySelectTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EDF59A51BD9098C008A0267 /* WLICountrySelectTableViewController.xib */; };
 		2EDF59A91BD909C5008A0267 /* WLISelectOnOffSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EDF59A81BD909C5008A0267 /* WLISelectOnOffSwitchCell.xib */; };
 		2EEF2C191BD4ECBA001785C5 /* WLINewPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEF2C181BD4ECBA001785C5 /* WLINewPostTableViewController.m */; };
 		2EEF2C1C1BD64B0F001785C5 /* WLINewPostAttachmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EEF2C1B1BD64B0F001785C5 /* WLINewPostAttachmentCell.xib */; };
@@ -350,12 +346,6 @@
 		2ED2F2821BA95E8C00641F54 /* WLIInfoPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIInfoPageViewController.h; path = InfoPage/WLIInfoPageViewController.h; sourceTree = "<group>"; };
 		2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIInfoPageViewController.m; path = InfoPage/WLIInfoPageViewController.m; sourceTree = "<group>"; };
 		2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLIInfoPageViewController.xib; path = InfoPage/WLIInfoPageViewController.xib; sourceTree = "<group>"; };
-		2EDF599D1BD90973008A0267 /* WLIStrategySelectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIStrategySelectTableViewController.h; sourceTree = "<group>"; };
-		2EDF599E1BD90973008A0267 /* WLIStrategySelectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIStrategySelectTableViewController.m; sourceTree = "<group>"; };
-		2EDF599F1BD90973008A0267 /* WLIStrategySelectTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIStrategySelectTableViewController.xib; sourceTree = "<group>"; };
-		2EDF59A31BD9098C008A0267 /* WLICountrySelectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLICountrySelectTableViewController.h; sourceTree = "<group>"; };
-		2EDF59A41BD9098C008A0267 /* WLICountrySelectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLICountrySelectTableViewController.m; sourceTree = "<group>"; };
-		2EDF59A51BD9098C008A0267 /* WLICountrySelectTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLICountrySelectTableViewController.xib; sourceTree = "<group>"; };
 		2EDF59A81BD909C5008A0267 /* WLISelectOnOffSwitchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLISelectOnOffSwitchCell.xib; sourceTree = "<group>"; };
 		2EEF2C171BD4ECBA001785C5 /* WLINewPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLINewPostTableViewController.h; sourceTree = "<group>"; };
 		2EEF2C181BD4ECBA001785C5 /* WLINewPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLINewPostTableViewController.m; sourceTree = "<group>"; };
@@ -875,8 +865,6 @@
 		2C6D272E1896BACA00C459CB /* NewPost */ = {
 			isa = PBXGroup;
 			children = (
-				2EDF59A21BD90978008A0267 /* Country */,
-				2EEF2C241BD67B80001785C5 /* Stratetgy */,
 				2EEF2C1A1BD649F1001785C5 /* Cells */,
 				2EEF2C171BD4ECBA001785C5 /* WLINewPostTableViewController.h */,
 				2EEF2C181BD4ECBA001785C5 /* WLINewPostTableViewController.m */,
@@ -1084,16 +1072,6 @@
 			name = InfoPage;
 			sourceTree = "<group>";
 		};
-		2EDF59A21BD90978008A0267 /* Country */ = {
-			isa = PBXGroup;
-			children = (
-				2EDF59A31BD9098C008A0267 /* WLICountrySelectTableViewController.h */,
-				2EDF59A41BD9098C008A0267 /* WLICountrySelectTableViewController.m */,
-				2EDF59A51BD9098C008A0267 /* WLICountrySelectTableViewController.xib */,
-			);
-			name = Country;
-			sourceTree = "<group>";
-		};
 		2EEF2C1A1BD649F1001785C5 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1114,16 +1092,6 @@
 				2EC320581BE8F9160038E7B3 /* WLICategorySelectTableViewCell.xib */,
 			);
 			name = Cells;
-			sourceTree = "<group>";
-		};
-		2EEF2C241BD67B80001785C5 /* Stratetgy */ = {
-			isa = PBXGroup;
-			children = (
-				2EDF599D1BD90973008A0267 /* WLIStrategySelectTableViewController.h */,
-				2EDF599E1BD90973008A0267 /* WLIStrategySelectTableViewController.m */,
-				2EDF599F1BD90973008A0267 /* WLIStrategySelectTableViewController.xib */,
-			);
-			name = Stratetgy;
 			sourceTree = "<group>";
 		};
 		4F2C83B41BFB269700EDD64F /* Hashtag Cell */ = {
@@ -1415,12 +1383,10 @@
 				0743482F1BBABF4200EAA2AA /* MyDrivelogo2.png in Resources */,
 				074D688A1BB53C4D000167DD /* illustration2.png in Resources */,
 				2E666A091BBC2A0C00392527 /* WLIMyDriveViewController.xib in Resources */,
-				2EDF59A71BD9098C008A0267 /* WLICountrySelectTableViewController.xib in Resources */,
 				4F69E8DF1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.xib in Resources */,
 				4F2C83D71BFB27CB00EDD64F /* WLICategoryPeopleCell.xib in Resources */,
 				2C6D27B51896BACA00C459CB /* MNMPullToRefreshIcon.png in Resources */,
 				2EEF2C201BD64B69001785C5 /* WLINewPostTextCell.xib in Resources */,
-				2EDF59A11BD90973008A0267 /* WLIStrategySelectTableViewController.xib in Resources */,
 				074348291BBABCB700EAA2AA /* Market2.png in Resources */,
 				2C6D27F61896BACA00C459CB /* WLIRegisterViewController.xib in Resources */,
 				2ECF34931BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib in Resources */,
@@ -1513,7 +1479,6 @@
 				2C6D27D81896BACA00C459CB /* WLIPostCell.m in Sources */,
 				2EC320471BDF964B0038E7B3 /* WLINewPostImageCell.m in Sources */,
 				2C6D27FA1896BACA00C459CB /* WLITimelineViewController.m in Sources */,
-				2EDF59A61BD9098C008A0267 /* WLICountrySelectTableViewController.m in Sources */,
 				2E28F3631BADA43E006CF0BE /* WLIPostsListViewController.m in Sources */,
 				2C6D27EF1896BACA00C459CB /* WLIPostViewController.m in Sources */,
 				2C6D27B21896BACA00C459CB /* MBProgressHUD.m in Sources */,
@@ -1561,7 +1526,6 @@
 				2E4918561BCBDBD100E25255 /* WLIInfoWhyViewController.m in Sources */,
 				2C6D27C11896BACA00C459CB /* SBJsonStreamWriterAccumulator.m in Sources */,
 				4F2C83E01BFB7C7800EDD64F /* WLIPeopleListViewController.m in Sources */,
-				2EDF59A01BD90973008A0267 /* WLIStrategySelectTableViewController.m in Sources */,
 				2C6D27E11896BACA00C459CB /* WLIFollowersViewController.m in Sources */,
 				4F69E8E31BF0B49500A6CD5A /* WLIRegisterTableViewCell.m in Sources */,
 				2C5B5C831A1A8F9500175A58 /* UIRefreshControl+AFNetworking.m in Sources */,
