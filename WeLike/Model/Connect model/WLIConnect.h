@@ -35,10 +35,7 @@ enum ServerResponse {
 
 typedef enum ServerResponse ServerResponse;
 
-@interface WLIConnect : NSObject {
-    AFHTTPRequestOperationManager *httpClient;
-    SBJsonParser *json;
-}
+@interface WLIConnect : NSObject
 
 @property (readonly, nonatomic) NSDateFormatter *dateFormatter;
 @property (readonly, nonatomic) NSDateFormatter *dateOnlyFormatter;

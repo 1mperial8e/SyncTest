@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -17,6 +17,7 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IDJ-8l-7ag">
                         <rect key="frame" x="10" y="10" width="36" height="36"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="36" id="FzA-Al-mhn"/>
                             <constraint firstAttribute="height" constant="36" id="sjU-Fd-ecN"/>
@@ -24,6 +25,7 @@
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SoQ-b0-gfB">
                         <rect key="frame" x="10" y="10" width="36" height="36"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="36" id="JhG-Hh-gQz"/>
                             <constraint firstAttribute="height" constant="36" id="zwz-EV-8cP"/>
@@ -38,6 +40,7 @@
                     </button>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SD0-nN-cGm">
                         <rect key="frame" x="54" y="10" width="246" height="36"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="36" id="v4Y-OC-0J1"/>
                         </constraints>
@@ -47,6 +50,7 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MLE-8j-kz9">
                         <rect key="frame" x="54" y="10" width="246" height="36"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="36" id="3AL-Tv-eW5"/>
                         </constraints>
@@ -59,6 +63,7 @@
                         </connections>
                     </button>
                 </subviews>
+                <animations/>
                 <constraints>
                     <constraint firstItem="IDJ-8l-7ag" firstAttribute="top" secondItem="vCu-LE-FI2" secondAttribute="topMargin" constant="2" id="3at-D1-g5U"/>
                     <constraint firstItem="SoQ-b0-gfB" firstAttribute="top" secondItem="vCu-LE-FI2" secondAttribute="topMargin" constant="2" id="B2y-xB-jR6"/>
@@ -72,6 +77,7 @@
                     <constraint firstItem="SD0-nN-cGm" firstAttribute="top" secondItem="vCu-LE-FI2" secondAttribute="topMargin" constant="2" id="vO7-xU-eZj"/>
                 </constraints>
             </tableViewCellContentView>
+            <animations/>
             <connections>
                 <outlet property="imageViewUser" destination="IDJ-8l-7ag" id="Pr5-df-uW9"/>
                 <outlet property="labelUsername" destination="SD0-nN-cGm" id="kSR-oJ-L0G"/>

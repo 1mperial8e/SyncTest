@@ -6,12 +6,11 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-@interface WLICountryFilterTableViewCell : UITableViewCell
+#import "WLIBaseTableViewCell.h"
+
+@interface WLICountryFilterTableViewCell : WLIBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (copy, nonatomic) void (^countrySelectedHandler)(NSInteger);
-
-+ (NSString *)ID;
-+ (UINib *)nib;
 
 @end

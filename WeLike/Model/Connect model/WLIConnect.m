@@ -8,28 +8,12 @@
 
 #import "WLIConnect.h"
 
-//#define kBaseLink @"http://mydrive-rails-dev.appmedia.no/"
-#define kBaseLink @"https://mydrive-rails-prod.appmedia.no/"
+#define kBaseLinkDevelopement @"http://mydrive-rails-dev.appmedia.no/"
+#define kBaseLinkProduction @"https://mydrive-rails-prod.appmedia.no/"
 
 #define kAPIKey @"!#wli!sdWQDScxzczFžŽYewQsq_?wdX09612627364[3072∑34260-#"
 #define kConnectionTimeout 30
 #define kCompressionQuality 1.0f
-
-//Server status responses
-#define kOK @"OK"
-#define kBAD_REQUEST @"BAD_REQUEST"
-#define kNO_CONNECTION @"NO_CONNECTION"
-#define kSERVICE_UNAVAILABLE @"SERVICE_UNAVAILABLE"
-#define kPARTIAL_CONTENT @"PARTIAL_CONTENT"
-#define kCONFLICT @"CONFLICT"
-#define kUNAUTHORIZED @"UNAUTHORIZED"
-#define kNOT_FOUND @"NOT_FOUND"
-#define kUSER_CREATED @"USER_CREATED"
-#define kUSER_EXISTS @"USER_EXISTS"
-#define kLIKE_CREATED @"LIKE_CREATED"
-#define kLIKE_EXISTS @"LIKE_EXISTS"
-#define kFORBIDDEN @"FORBIDDEN"
-#define kCREATED @"CREATED"
 
 // UserDefaults
 static NSString *const CurrentUserKey = @"_currentUser";
@@ -44,6 +28,8 @@ static NSString *const AuthTokenKey = @"token";
 @interface WLIConnect ()
 
 @property (strong, nonatomic) NSString *authToken;
+@property (strong, nonatomic) AFHTTPRequestOperationManager *httpClient;
+@property (strong, nonatomic) SBJsonParser *jsonParser;
 
 @end
 
@@ -80,16 +66,15 @@ static NSString *const AuthTokenKey = @"token";
 
 - (void)setupDefaults
 {
-    httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseLink]];
-//    [httpClient.requestSerializer setValue:kAPIKey forHTTPHeaderField:@"api_key"];
-    httpClient.requestSerializer = [AFHTTPRequestSerializer serializer];
-    httpClient.responseSerializer = [AFJSONResponseSerializer serializer];
-    json = [[SBJsonParser alloc] init];
+    self.httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseLinkDevelopement]];
+    self.httpClient.requestSerializer = [AFHTTPRequestSerializer serializer];
+    self.httpClient.responseSerializer = [AFJSONResponseSerializer serializer];
+    self.jsonParser = [[SBJsonParser alloc] init];
     _dateFormatter = [[NSDateFormatter alloc] init];
-    [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [self.dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     _dateOnlyFormatter = [[NSDateFormatter alloc] init];
-    [_dateOnlyFormatter setDateFormat:@"MM/dd/yyyy"];
-    [_dateOnlyFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    [self.dateOnlyFormatter setDateFormat:@"MM/dd/yyyy"];
+    [self.dateOnlyFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
 }
 
 #pragma mark - Accessors
@@ -145,7 +130,7 @@ static NSString *const AuthTokenKey = @"token";
         }
     } else {
         NSDictionary *parameters = @{UsernameKey : username, UserPasswordKey : password};
-        [httpClient POST:@"api/login" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self.httpClient POST:@"api/login" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             self.authToken = [responseObject objectForKey:AuthTokenKey];
             NSDictionary *rawUser = [responseObject objectForKey:@"item"];
             _currentUser = [WLIUser initWithDictionary:rawUser];
@@ -154,7 +139,7 @@ static NSString *const AuthTokenKey = @"token";
                 completion(_currentUser, OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/login" dataLog:error.localizedDescription];
+            [self debugger:parameters.description methodLog:@"api/login" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {
                     completion(nil, (ServerResponse)operation.response.statusCode);
@@ -192,7 +177,7 @@ static NSString *const AuthTokenKey = @"token";
                                      @"userFullname" : userFullName,
                                      @"userTypeID" : @(userType),
                                      @"userInfo" : userInfo ? userInfo : @""};
-        [httpClient POST:@"api/register" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [self.httpClient POST:@"api/register" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             if (userAvatar) {
                 NSData *imageData = UIImageJPEGRepresentation(userAvatar, kCompressionQuality);
                 if (imageData) {
@@ -208,7 +193,7 @@ static NSString *const AuthTokenKey = @"token";
                 completion(_currentUser, OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/register" dataLog:error.localizedDescription];
+            [self debugger:parameters.description methodLog:@"api/register" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {
                     completion(nil, (ServerResponse)operation.response.statusCode);
@@ -230,7 +215,7 @@ static NSString *const AuthTokenKey = @"token";
         NSDictionary *parameters = @{@"userID": [NSString stringWithFormat:@"%zd", self.currentUser.userID],
                                      @"forUserID": [NSString stringWithFormat:@"%zd", userID],
                                      AuthTokenKey : self.authToken};
-        [httpClient POST:@"api/getProfile" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self.httpClient POST:@"api/getProfile" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *rawUser = [responseObject objectForKey:@"item"];
             WLIUser *user = [WLIUser initWithDictionary:rawUser];
             if (user.userID == _currentUser.userID) {
@@ -241,7 +226,7 @@ static NSString *const AuthTokenKey = @"token";
                 completion(user, OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/getProfile" dataLog:error.localizedDescription];
+            [self debugger:parameters.description methodLog:@"api/getProfile" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {
                     completion(nil, (ServerResponse)operation.response.statusCode);
@@ -289,7 +274,7 @@ static NSString *const AuthTokenKey = @"token";
         }
         [parameters setObject:self.authToken forKey:AuthTokenKey];
         
-        [httpClient POST:@"api/setProfile" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [self.httpClient POST:@"api/setProfile" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             if (userAvatar) {
                 NSData *imageData = UIImageJPEGRepresentation(userAvatar, kCompressionQuality);
                 if (imageData) {
@@ -322,7 +307,7 @@ static NSString *const AuthTokenKey = @"token";
     NSDictionary *parameters = @{@"userID": [NSString stringWithFormat:@"%zd", self.currentUser.userID],
                                  @"take": [NSString stringWithFormat:@"%zd", pageSize],
                                  AuthTokenKey : self.authToken};
-    [httpClient POST:@"api/getNewUsers" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/getNewUsers" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawUsers = [responseObject objectForKey:@"items"];
         NSArray *users = [WLIUser arrayWithDictionariesArray:rawUsers];
         if (completion) {
@@ -357,7 +342,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-        [httpClient POST:@"api/findUsers" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self.httpClient POST:@"api/findUsers" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawUsers = [responseObject objectForKey:@"items"];
             NSArray *users = [WLIUser arrayWithDictionariesArray:rawUsers];
             if (completion) {
@@ -419,7 +404,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%@", [searchString lowercaseString]] forKey:@"searchstring"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-        [httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self.httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawPosts = [responseObject objectForKey:@"items"];
             NSArray *posts = [WLIPost arrayWithDictionariesArray:rawPosts];
             if (completion) {
@@ -456,7 +441,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:@"0" forKey:@"categoryID"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-        [httpClient POST:@"api/getConnectTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self.httpClient POST:@"api/getConnectTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawPosts = [responseObject objectForKey:@"items"];
             NSArray *posts = [WLIPost arrayWithDictionariesArray:rawPosts];
             if (completion) {
@@ -493,7 +478,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-        [httpClient POST:@"api/getMydriveTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self.httpClient POST:@"api/getMydriveTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawPosts = [responseObject objectForKey:@"items"];
             WLIUser *user = [WLIUser initWithDictionary:[responseObject objectForKey:@"user"]];
             NSArray *posts = [WLIPost arrayWithDictionariesArray:rawPosts];
@@ -552,7 +537,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:postCategory forKey:@"postCategory"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-        [httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [self.httpClient POST:@"api/sendPost" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             if (postImage) {
                 NSData *imageData = UIImageJPEGRepresentation(postImage, kCompressionQuality);
                 if (imageData) {
@@ -588,7 +573,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [httpClient POST:@"api/getRecentPosts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/getRecentPosts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawPosts = [responseObject objectForKey:@"items"];
         NSArray *posts = [WLIPost arrayWithDictionariesArray:rawPosts];
         if (completion) {
@@ -614,7 +599,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [httpClient POST:@"api/getPopularPosts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/getPopularPosts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawPosts = [responseObject objectForKey:@"items"];
         NSArray *posts = [WLIPost arrayWithDictionariesArray:rawPosts];
         if (completion) {
@@ -639,7 +624,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:[NSString stringWithFormat:@"%zd", postID] forKey:@"postID"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [httpClient POST:@"api/deletePost" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/deletePost" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completion) {
             completion(OK);
         }
@@ -670,7 +655,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:commentText forKey:@"commentText"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-        [httpClient POST:@"api/setComment" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self.httpClient POST:@"api/setComment" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *rawComment = [responseObject objectForKey:@"item"];
             WLIComment *comment = [WLIComment initWithDictionary:rawComment];
             if (completion) {
@@ -696,7 +681,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:[NSString stringWithFormat:@"%zd", commentID] forKey:@"commentID"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [httpClient POST:@"api/removeComment" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/removeComment" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completion) {
             completion(OK);
         }
@@ -721,7 +706,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [httpClient POST:@"api/getComments" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/getComments" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawComments = [responseObject objectForKey:@"items"];
         NSArray *comments = [WLIComment arrayWithDictionariesArray:rawComments];
         if (completion) {
@@ -748,7 +733,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:[NSString stringWithFormat:@"%zd", postID] forKey:@"postID"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [httpClient POST:@"api/setLike" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/setLike" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *rawLike = [responseObject objectForKey:@"item"];
         WLILike *like = [WLILike initWithDictionary:rawLike];
         if (completion) {
@@ -773,7 +758,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:[NSString stringWithFormat:@"%zd", postID] forKey:@"postID"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [httpClient POST:@"api/removeLike" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/removeLike" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completion) {
             completion(OK);
         }
@@ -798,7 +783,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [httpClient POST:@"api/getLikes" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/getLikes" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawLikes = [responseObject objectForKey:@"items"];
         NSArray *likes = [WLILike arrayWithDictionariesArray:rawLikes];
         if (completion) {
@@ -825,7 +810,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"followingID"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [httpClient POST:@"api/setFollow" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/setFollow" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *rawFollow = [responseObject objectForKey:@"item"];
         WLIFollow *follow = [WLIFollow initWithDictionary:rawFollow];
         self.currentUser.followingCount++;
@@ -851,7 +836,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:[NSString stringWithFormat:@"%zd", followID] forKey:@"followingID"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [httpClient POST:@"api/removeFollow" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/removeFollow" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.currentUser.followingCount--;
         if (completion) {
             completion(OK);
@@ -881,7 +866,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"userID"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-        [httpClient POST:@"api/getFollowers" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self.httpClient POST:@"api/getFollowers" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawUsers = [responseObject[@"items"] valueForKey:@"user"];
             NSArray *users = [WLIUser arrayWithDictionariesArray:rawUsers];
             if (completion) {
@@ -913,7 +898,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"userID"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-        [httpClient POST:@"api/getFollowing" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self.httpClient POST:@"api/getFollowing" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawUsers = [responseObject[@"items"] valueForKey:@"user"];
             NSArray *users = [WLIUser arrayWithDictionariesArray:rawUsers];
             if (completion) {
@@ -941,7 +926,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [httpClient POST:@"api/getPoplularHashtags" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/getPoplularHashtags" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawHashtags = responseObject[@"items"];
         NSArray *hashtags = [WLIHashtag arrayWithDictionariesArray:rawHashtags];
         if (completion) {
@@ -964,13 +949,13 @@ static NSString *const AuthTokenKey = @"token";
 - (void)debugger:(NSString *)post methodLog:(NSString *)method dataLog:(NSString *)data {
     
 #ifdef DEBUG
-    NSLog(@"\n\nmethod: %@ \n\nparameters: %@ \n\nresponse: %@\n", method, post, (NSDictionary *) [json objectWithString:data]);
+    NSLog(@"\n\nmethod: %@ \n\nparameters: %@ \n\nresponse: %@\n", method, post, (NSDictionary *) [self.jsonParser objectWithString:data]);
 #else
 #endif
 }
 
-- (void)debugger:(NSString *)post methodLog:(NSString *)method dataLogFormatted:(NSString *)data {
-    
+- (void)debugger:(NSString *)post methodLog:(NSString *)method dataLogFormatted:(NSString *)data
+{
 #ifdef DEBUG
     NSLog(@"\n\nmethod: %@ \n\nparameters: %@ \n\nresponse: %@\n", method, post, data);
 #else

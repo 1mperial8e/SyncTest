@@ -6,8 +6,8 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-#import "WLITableViewCell.h"
+#import "WLIBaseTableViewCell.h"
 
-@interface WLICategoryCapabilitiesCell : WLITableViewCell
+@interface WLICategoryCapabilitiesCell : WLIBaseTableViewCell
 
 @end

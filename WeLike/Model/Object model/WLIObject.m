@@ -96,7 +96,7 @@
         id newObject = [newDictionary objectForKey:newKey];
         if (newObject && (NSNull *)newObject != [NSNull null]) {
             
-            return [[[WLIConnect sharedConnect] dateFormatter] dateFromString:newObject];
+            return [[WLIConnect sharedConnect].dateFormatter dateFromString:newObject];
         }
     }
     

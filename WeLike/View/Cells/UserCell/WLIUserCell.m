@@ -9,6 +9,14 @@
 #import "WLIUserCell.h"
 #import "UIImageView+AFNetworking.h"
 
+@interface WLIUserCell ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewUserImage;
+@property (weak, nonatomic) IBOutlet UILabel *labelUserName;
+@property (weak, nonatomic) IBOutlet UIButton *buttonFollowUnfollow;
+
+@end
+
 @implementation WLIUserCell
 
 #pragma mark - Object lifecycle
@@ -16,7 +24,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.imageViewUserImage.layer.cornerRadius = self.imageViewUserImage.frame.size.height/2;
+    self.imageViewUserImage.layer.cornerRadius = self.imageViewUserImage.frame.size.height / 2;
     self.imageViewUserImage.layer.masksToBounds = YES;
     self.imageViewUserImage.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:1.0].CGColor;
     self.imageViewUserImage.layer.borderWidth = 2.f;

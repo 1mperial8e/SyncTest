@@ -8,11 +8,6 @@
 
 #import "WLIViewController.h"
 
-@interface WLIInfoWhyViewController : WLIViewController {
-    IBOutlet UIScrollView *scrollView;
-    IBOutlet UILabel *lastLabel;
-    IBOutlet UIView *insetView;
-}
-
+@interface WLIInfoWhyViewController : WLIViewController
 
 @end

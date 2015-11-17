@@ -6,6 +6,7 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
+#import "WLIBaseTableViewCell.h"
 #import "WLIHashtag.h"
 
 @class WLIHashtagTableViewCell;
@@ -16,7 +17,7 @@
 
 @end
 
-@interface WLIHashtagTableViewCell : UITableViewCell
+@interface WLIHashtagTableViewCell : WLIBaseTableViewCell
 
 @property (strong, nonatomic) WLIHashtag *hashtag;
 @property (weak, nonatomic) id<WLIHashtagTableViewCellDelegate> delegate;

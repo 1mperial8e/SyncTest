@@ -11,70 +11,64 @@
 
 static WLILikeCell *sharedCell = nil;
 
+@interface WLILikeCell ()
+
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewUser;
+@property (strong, nonatomic) IBOutlet UILabel *labelUsername;
+
+@end
+
 @implementation WLILikeCell
 
 #pragma mark - Object lifecycle
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-- (void)awakeFromNib {
-    
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height/2;
     self.imageViewUser.layer.masksToBounds = YES;
 }
 
-
-#pragma mark - Cell methods
-
-- (void)layoutSubviews {
-    
-    [super layoutSubviews];
-    [self updateFramesAndDataWithDownloads:YES];
-}
-
-- (void)prepareForReuse {
-    
+- (void)prepareForReuse
+{
     [super prepareForReuse];
     [self.imageViewUser cancelImageRequestOperation];
 }
 
-+ (CGSize)sizeWithLike:(WLILike *)like {
-    
+#pragma mark - Accessors
+
+- (void)setLike:(WLILike *)like
+{
+    _like = like;
+    [self updateInfo];
+}
+
+#pragma mark - Static
+
++ (CGSize)sizeWithLike:(WLILike *)like
+{
     if (!sharedCell) {
         sharedCell = [[[NSBundle mainBundle] loadNibNamed:@"WLILikeCell" owner:nil options:nil] lastObject];
     }
-    [sharedCell prepareForReuse];
+    sharedCell.like = like;
     return sharedCell.frame.size;
 }
 
-- (void)updateFramesAndDataWithDownloads:(BOOL)downloads {
-    
+#pragma mark - Info
+
+- (void)updateInfo
+{
     if (self.like) {
-        if (downloads) {
-            NSURL *userImageURL = [NSURL URLWithString:self.like.user.userAvatarPath];
-            NSMutableURLRequest *userImageRequest = [NSMutableURLRequest requestWithURL:userImageURL cachePolicy:NSURLRequestReloadRevalidatingCacheData timeoutInterval:120.0];
-            __weak WLILikeCell *weakSelf = self;
-            [self.imageViewUser setImageWithURLRequest:userImageRequest placeholderImage:DefaultAvatar success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                weakSelf.imageViewUser.image = image;
-            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) { }];
-        }
+        NSURL *userImageURL = [NSURL URLWithString:self.like.user.userAvatarPath];
+        [self.imageViewUser setImageWithURL:userImageURL placeholderImage:DefaultAvatar];
         self.labelUsername.text = self.like.user.userFullName;
     }
 }
 
+#pragma mark - Actions
 
-#pragma mark - Action methods
-
-- (IBAction)buttonUserTouchUpInside:(id)sender {
-    
+- (IBAction)buttonUserTouchUpInside:(id)sender
+{
     if ([self.delegate respondsToSelector:@selector(showUser:sender:)]) {
         [self.delegate showUser:self.like.user sender:self];
     }

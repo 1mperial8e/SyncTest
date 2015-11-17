@@ -6,14 +6,13 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-@interface WLILoginTableViewCell : UITableViewCell
+#import "WLIBaseTableViewCell.h"
+
+@interface WLILoginTableViewCell : WLIBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
 @property (copy, nonatomic) void (^loginHandler)();
-
-+ (NSString *)ID;
-+ (UINib *)nib;
 
 @end

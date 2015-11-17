@@ -6,14 +6,13 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-@interface WLIRegisterTableViewCell : UITableViewCell
+#import "WLIBaseTableViewCell.h"
+
+@interface WLIRegisterTableViewCell : WLIBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
 
 @property (copy, nonatomic) void (^registerHandler)();
-
-+ (NSString *)ID;
-+ (UINib *)nib;
 
 @end

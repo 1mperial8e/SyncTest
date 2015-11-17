@@ -10,25 +10,4 @@
 
 @implementation WLICountryFilterTableViewCell
 
-#pragma mark - Static
-
-+ (NSString *)ID
-{
-    return NSStringFromClass(self.class);
-}
-
-+ (UINib *)nib
-{
-    return [UINib nibWithNibName:self.ID bundle:nil];
-}
-
-#pragma mark - Actions
-
-- (IBAction)selectedCategoryChanged:(UISegmentedControl *)sender
-{
-    if (self.countrySelectedHandler) {
-        self.countrySelectedHandler(sender.selectedSegmentIndex);
-    }
-}
-
 @end
