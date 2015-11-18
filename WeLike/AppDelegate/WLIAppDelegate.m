@@ -49,7 +49,6 @@
     [[UINavigationBar appearance] setTitleTextAttributes:attributes];
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-back64"] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 

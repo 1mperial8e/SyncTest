@@ -242,7 +242,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
             return 44;
             break;
         case 2: // Image display
-            ret = [[UIScreen mainScreen] bounds].size.width * (430.0f / 600.0f);
+            ret = [[UIScreen mainScreen] bounds].size.width * (480.0f / 640.0f);
             return ret;
             break;
         case 1: // Text View
@@ -317,10 +317,11 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:(NSString *)kUTTypeImage]) {
-        self.image = [info objectForKey:UIImagePickerControllerEditedImage];
-        if (!self.image) {
-            self.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+        if (!image) {
+            image = [info objectForKey:UIImagePickerControllerOriginalImage];
         }
+        self.image = [self scaledImage:image];
     } else {
         self.video = [NSData dataWithContentsOfURL:[info objectForKey:UIImagePickerControllerMediaURL]];
         AVURLAsset *videoAsset = [[AVURLAsset alloc] initWithURL:[info objectForKey:UIImagePickerControllerMediaURL] options:nil];
@@ -329,7 +330,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
         NSError *error = NULL;
         CMTime time = [videoAsset duration];
         time.value = 1000;
-        generator.maximumSize = CGSizeMake(640, 480);
+        generator.maximumSize = ScaledImageSize;
         
         CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:NULL error:&error];
         if (error) {
@@ -341,7 +342,8 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     }
     __weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{
-        [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
 }
 
@@ -351,7 +353,19 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
         if (![contentTextView isFirstResponder]) {
             [contentTextView becomeFirstResponder];
         }
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
+}
+
+#pragma mark - Utils
+
+- (UIImage *)scaledImage:(UIImage *)srcImage
+{
+    UIGraphicsBeginImageContext(ScaledImageSize);
+    [srcImage drawInRect:CGRectMake(0, -(srcImage.size.height - ScaledImageSize.height) / 2, srcImage.size.width, srcImage.size.height)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
 }
 
 @end
