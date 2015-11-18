@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) UITextField *textFieldEmail;
+@property (weak, nonatomic) UITextField *textFieldOldPassword;
 @property (weak, nonatomic) UITextField *textFieldPassword;
 @property (weak, nonatomic) UITextField *textFieldRepassword;
 @property (weak, nonatomic) UITextField *textFieldUsername;
@@ -66,7 +67,7 @@
     
     if (self.textFieldEmail && self.textFieldPassword && self.textFieldRepassword && self.textFieldUsername && self.textFieldFullName) {
         toolbar.mainScrollView = self.tableView;
-        toolbar.textFields = @[self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword, /*self.textFieldUsername,*/ self.textFieldFullName];
+        toolbar.textFields = @[self.textFieldEmail, self.textFieldOldPassword, self.textFieldPassword, self.textFieldRepassword, /*self.textFieldUsername,*/ self.textFieldFullName];
     }
 }
 
@@ -82,7 +83,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -129,19 +130,23 @@
         self.textFieldEmail = cell.textField;
         self.textFieldEmail.text = sharedConnect.currentUser.userEmail;
     } else if (indexPath.row == 2) {
+        cell.textField.placeholder = @"old password";
+        cell.textField.secureTextEntry = YES;
+        self.textFieldOldPassword = cell.textField;
+    } else if (indexPath.row == 3) {
         cell.textField.placeholder = @"password";
         cell.textField.secureTextEntry = YES;
         self.textFieldPassword = cell.textField;
-    } else if (indexPath.row == 3) {
+    } else if (indexPath.row == 4) {
         cell.textField.placeholder = @"retype password";
         cell.textField.secureTextEntry = YES;
         self.textFieldRepassword = cell.textField;
-    } else if (indexPath.row == 4) {
+    } else if (indexPath.row == 5) {
         cell.textField.placeholder = @"username";
         self.textFieldUsername = cell.textField;
         self.textFieldUsername.userInteractionEnabled = NO;
         self.textFieldUsername.text = sharedConnect.currentUser.userUsername;
-    } else if (indexPath.row == 5) {
+    } else if (indexPath.row == 6) {
         cell.textField.placeholder = @"full name";
         self.textFieldFullName = cell.textField;
         self.textFieldFullName.text = sharedConnect.currentUser.userFullName;
@@ -178,7 +183,11 @@
         [self showErrorWithMessage:@"Email is required."];
     } /*else if (!self.textFieldUsername.text.length) {
         [self showErrorWithMessage:@"Username is required."];
-    }*/ else if (![self.textFieldPassword.text isEqualToString:self.textFieldRepassword.text]) {
+    }*/ else if (self.textFieldPassword.text.length && self.textFieldRepassword.text.length && !self.textFieldOldPassword.text.length) {
+        [self showErrorWithMessage:@"Please enter your old password"];
+    } else if (self.textFieldOldPassword.text.length && (!self.textFieldRepassword.text.length || !self.textFieldPassword.text.length)) {
+        [self showErrorWithMessage:@"Please enter your new password"];
+    } else if (![self.textFieldPassword.text isEqualToString:self.textFieldRepassword.text]) {
         [self showErrorWithMessage:@"Password and repassword doesn't match."];
     } else if (![self isValidEmail:self.textFieldEmail.text UseHardFilter:YES]) {
         [self showErrorWithMessage:@"Email is not valid."];
@@ -196,7 +205,7 @@
         }
         [hud show:YES];
         UIImage *image = self.imageReplaced ? self.avatarImageView.image : nil;
-        [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userEmail:self.textFieldEmail.text password:password userAvatar:image userFullName:self.textFieldFullName.text userInfo:@"" latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
+        [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userEmail:self.textFieldEmail.text oldPassword:self.textFieldOldPassword.text password:password userAvatar:image userFullName:self.textFieldFullName.text userInfo:@"" latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
             [self cacelAction:nil];
         }];
