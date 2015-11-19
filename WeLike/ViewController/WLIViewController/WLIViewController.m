@@ -10,6 +10,13 @@
 #import "WLICommentsViewController.h"
 #import "WLIPostViewController.h"
 
+@interface WLIViewController ()
+
+@property (strong, nonatomic) NSIndexPath *indexPathToReload;
+@property (strong, nonatomic) UITableView *tableViewRefresh;
+
+@end
+
 @implementation WLIViewController
 
 #pragma mark - Object lifecycle
@@ -46,6 +53,15 @@
     [self.view addSubview:hud];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.indexPathToReload) {
+        [self.tableViewRefresh reloadRowsAtIndexPaths:@[self.indexPathToReload] withRowAnimation:UITableViewRowAnimationAutomatic];
+        self.indexPathToReload = nil;
+    }
+}
+
 #pragma mark - Actions methods
 
 - (void)barButtonItemBackTouchUpInside:(UIButton*)backButton
@@ -63,6 +79,7 @@
 - (void)showImageForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell
 {
     if (![self isMemberOfClass:[WLIPostViewController class]]) {
+        self.indexPathToReload = [self.tableViewRefresh indexPathForCell:senderCell];
         WLIPostViewController *postViewController = [WLIPostViewController new];
         postViewController.post = post;
         [self.navigationController pushViewController:postViewController animated:YES];
@@ -71,6 +88,7 @@
 
 - (void)showCommentsForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell
 {
+    self.indexPathToReload = [self.tableViewRefresh indexPathForCell:senderCell];
     WLICommentsViewController *commentsViewController = [WLICommentsViewController new];
     commentsViewController.post = post;
     [self.navigationController pushViewController:commentsViewController animated:YES];

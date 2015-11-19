@@ -18,8 +18,8 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
 
 @interface WLIPostViewController () <WLIViewControllerRefreshProtocol>
 
-@property (weak, nonatomic) IBOutlet UIView *viewEnterComment;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldEnterComment;
+@property (strong, nonatomic) IBOutlet UIView *viewEnterComment;
+@property (strong, nonatomic) IBOutlet UITextField *textFieldEnterComment;
 
 @property (strong, nonatomic) NSMutableArray *comments;
 
@@ -194,6 +194,8 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
         [sharedConnect sendCommentOnPostID:self.post.postID withCommentText:self.textFieldEnterComment.text onCompletion:^(WLIComment *comment, ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode == OK) {
+                weakSelf.post.commentedThisPost = YES;
+                weakSelf.post.postCommentsCount++;
                 [weakSelf.comments insertObject:comment atIndex:0];
                 [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)] withRowAnimation:UITableViewRowAnimationAutomatic];
                 weakSelf.textFieldEnterComment.text = @"";

@@ -195,6 +195,7 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
         [sharedConnect sendCommentOnPostID:self.post.postID withCommentText:self.textFieldEnterComment.text onCompletion:^(WLIComment *comment, ServerResponse serverResponseCode) {
             if (serverResponseCode == OK) {
                 [hud hide:YES];
+                weakSelf.post.commentedThisPost = YES;
                 [weakSelf.comments insertObject:comment atIndex:0];
                 weakSelf.post.postCommentsCount++;
                 [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationAutomatic];

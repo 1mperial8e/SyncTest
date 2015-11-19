@@ -115,6 +115,7 @@ static CGFloat const StaticCellHeight = 154;
         
         self.buttonLike.selected = self.post.likedThisPost;
         self.buttonFollow.selected = self.post.user.followingUser;
+        self.buttonComment.selected = self.post.commentedThisPost;
         
         self.labelLikes.hidden = !self.post.postLikesCount;
         self.labelLikes.text = [NSString stringWithFormat:@"%zd", self.post.postLikesCount];
