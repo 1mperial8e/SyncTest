@@ -42,7 +42,7 @@
 - (void)setupCell
 {
     [self.imageViewUserImage setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
-    self.labelUserName.text = self.user.userFullName;
+    self.labelUserName.text = self.user.userUsername;
     self.buttonFollowUnfollow.selected = self.user.followingUser;
 }
 
