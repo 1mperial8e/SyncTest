@@ -64,8 +64,6 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     self.videoHud.dimBackground = YES;
     self.videoHud.mode = MBProgressHUDModeIndeterminate;
     self.videoHud.labelText = @"Converting video";
-    
-    NSLog(@"%@", [[NSFileManager defaultManager] contentsOfDirectoryAtPath:NSTemporaryDirectory() error:nil]);
 }
 
 #pragma mark - Defaults
@@ -308,7 +306,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
                                          (NSString *) kUTTypeMPEG4];
     videoPickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
     videoPickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
-    videoPickerController.videoQuality = UIImagePickerControllerQualityType640x480;
+    videoPickerController.videoQuality = UIImagePickerControllerQualityTypeIFrame1280x720;
     videoPickerController.videoMaximumDuration = 60;
     [self presentViewController:videoPickerController animated:YES completion:nil];
 }
@@ -338,6 +336,8 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
         self.image = [self scaledImage:image];
         self.video = nil;
     } else {
+//        self.video = [NSData dataWithContentsOfURL:info[UIImagePickerControllerMediaURL]];
+
         NSURL *assetUrl = [info objectForKey:UIImagePickerControllerReferenceURL];
         if (assetUrl) {
             [self convertAssetAtUrl:assetUrl];
