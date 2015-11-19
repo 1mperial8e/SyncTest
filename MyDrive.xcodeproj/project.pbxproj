@@ -140,6 +140,10 @@
 		4F2C83E11BFB7C7800EDD64F /* WLIPeopleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2C83DF1BFB7C7800EDD64F /* WLIPeopleListViewController.xib */; };
 		4F2C83E61BFB884A00EDD64F /* WLIEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2C83E41BFB884A00EDD64F /* WLIEditProfileViewController.m */; };
 		4F2C83E71BFB884A00EDD64F /* WLIEditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2C83E51BFB884A00EDD64F /* WLIEditProfileViewController.xib */; };
+		4F4D46461BFE2C5B00993349 /* WLIChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4D46441BFE2C5B00993349 /* WLIChangePasswordViewController.m */; };
+		4F4D46471BFE2C5B00993349 /* WLIChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F4D46451BFE2C5B00993349 /* WLIChangePasswordViewController.xib */; };
+		4F4D464C1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4D464A1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.m */; };
+		4F4D464D1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F4D464B1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.xib */; };
 		4F69E8D71BF09FA300A6CD5A /* WLILoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8D51BF09FA300A6CD5A /* WLILoginTableViewCell.m */; };
 		4F69E8D81BF09FA300A6CD5A /* WLILoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F69E8D61BF09FA300A6CD5A /* WLILoginTableViewCell.xib */; };
 		4F69E8DE1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8DC1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.m */; };
@@ -379,6 +383,12 @@
 		4F2C83E31BFB884A00EDD64F /* WLIEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIEditProfileViewController.h; sourceTree = "<group>"; };
 		4F2C83E41BFB884A00EDD64F /* WLIEditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIEditProfileViewController.m; sourceTree = "<group>"; };
 		4F2C83E51BFB884A00EDD64F /* WLIEditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIEditProfileViewController.xib; sourceTree = "<group>"; };
+		4F4D46431BFE2C5B00993349 /* WLIChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIChangePasswordViewController.h; sourceTree = "<group>"; };
+		4F4D46441BFE2C5B00993349 /* WLIChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIChangePasswordViewController.m; sourceTree = "<group>"; };
+		4F4D46451BFE2C5B00993349 /* WLIChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIChangePasswordViewController.xib; sourceTree = "<group>"; };
+		4F4D46491BFE2D7A00993349 /* WLIChangePasswordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIChangePasswordTableViewCell.h; sourceTree = "<group>"; };
+		4F4D464A1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIChangePasswordTableViewCell.m; sourceTree = "<group>"; };
+		4F4D464B1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIChangePasswordTableViewCell.xib; sourceTree = "<group>"; };
 		4F69E8D41BF09FA300A6CD5A /* WLILoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLILoginTableViewCell.h; sourceTree = "<group>"; };
 		4F69E8D51BF09FA300A6CD5A /* WLILoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLILoginTableViewCell.m; sourceTree = "<group>"; };
 		4F69E8D61BF09FA300A6CD5A /* WLILoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLILoginTableViewCell.xib; sourceTree = "<group>"; };
@@ -1182,11 +1192,33 @@
 		4F2C83E21BFB884A00EDD64F /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
+				4F4D46481BFE2D5C00993349 /* ChangePasswordCell */,
+				4F4D46421BFE2C3D00993349 /* ChangePassword */,
 				4F2C83E31BFB884A00EDD64F /* WLIEditProfileViewController.h */,
 				4F2C83E41BFB884A00EDD64F /* WLIEditProfileViewController.m */,
 				4F2C83E51BFB884A00EDD64F /* WLIEditProfileViewController.xib */,
 			);
 			path = EditProfile;
+			sourceTree = "<group>";
+		};
+		4F4D46421BFE2C3D00993349 /* ChangePassword */ = {
+			isa = PBXGroup;
+			children = (
+				4F4D46431BFE2C5B00993349 /* WLIChangePasswordViewController.h */,
+				4F4D46441BFE2C5B00993349 /* WLIChangePasswordViewController.m */,
+				4F4D46451BFE2C5B00993349 /* WLIChangePasswordViewController.xib */,
+			);
+			path = ChangePassword;
+			sourceTree = "<group>";
+		};
+		4F4D46481BFE2D5C00993349 /* ChangePasswordCell */ = {
+			isa = PBXGroup;
+			children = (
+				4F4D46491BFE2D7A00993349 /* WLIChangePasswordTableViewCell.h */,
+				4F4D464A1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.m */,
+				4F4D464B1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.xib */,
+			);
+			path = ChangePasswordCell;
 			sourceTree = "<group>";
 		};
 		4F69E8D31BF09F8800A6CD5A /* LoginCell */ = {
@@ -1404,6 +1436,7 @@
 				4F8E2D491BF4A4C000953EC0 /* WLICategoryPostsViewController.xib in Resources */,
 				074348261BBABCB700EAA2AA /* Customer.png in Resources */,
 				4F8E2D471BF4A4C000953EC0 /* WLICountryFilterTableViewCell.xib in Resources */,
+				4F4D46471BFE2C5B00993349 /* WLIChangePasswordViewController.xib in Resources */,
 				4F2C83E71BFB884A00EDD64F /* WLIEditProfileViewController.xib in Resources */,
 				0743482B1BBABCB700EAA2AA /* People.png in Resources */,
 				2C6D27C71896BACA00C459CB /* Images.xcassets in Resources */,
@@ -1418,6 +1451,7 @@
 				074348241BBABCB700EAA2AA /* Capability.png in Resources */,
 				2E696D7B1BD118870077381C /* WLINewPostTableViewController.xib in Resources */,
 				2C6D27FD1896BACA00C459CB /* WLIWelcomeViewController.xib in Resources */,
+				4F4D464D1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.xib in Resources */,
 				2EC320551BE8D9140038E7B3 /* WLISelectCountryTableViewCell.xib in Resources */,
 				4F2C83D11BFB27CB00EDD64F /* WLICategoryCapabilitiesCell.xib in Resources */,
 				2EDF59A91BD909C5008A0267 /* WLISelectOnOffSwitchCell.xib in Resources */,
@@ -1465,8 +1499,10 @@
 				4F69E8E81BF24B1200A6CD5A /* NSDictionary+Nonnull.m in Sources */,
 				2C6D27FC1896BACA00C459CB /* WLIWelcomeViewController.m in Sources */,
 				2C5B5CA01A1A8FAE00175A58 /* AFURLSessionManager.m in Sources */,
+				4F4D464C1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.m in Sources */,
 				2EC320441BDE5AEE0038E7B3 /* WLISelectOnOffSwitchCell.m in Sources */,
 				2C6D27C21896BACA00C459CB /* SBJsonStreamWriterState.m in Sources */,
+				4F4D46461BFE2C5B00993349 /* WLIChangePasswordViewController.m in Sources */,
 				2C5B5C7E1A1A8F9500175A58 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2C5B5C7F1A1A8F9500175A58 /* UIAlertView+AFNetworking.m in Sources */,
 				2C6D27B31896BACA00C459CB /* WLIActivityIndicator.m in Sources */,

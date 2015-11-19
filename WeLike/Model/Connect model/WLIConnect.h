@@ -65,8 +65,6 @@ typedef enum ServerResponse ServerResponse;
 - (void)updateUserWithUserID:(NSInteger)userID
                     userType:(WLIUserType)userType
                    userEmail:(NSString *)userEmail
-                 oldPassword:(NSString *)oldPassword
-                    password:(NSString *)password
                   userAvatar:(UIImage *)userAvatar
                 userFullName:(NSString *)userFullName
                     userInfo:(NSString *)userInfo
@@ -76,6 +74,8 @@ typedef enum ServerResponse ServerResponse;
                 companyPhone:(NSString *)companyPhone
                   companyWeb:(NSString *)companyWeb
                 onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
+
+- (void)changePassword:(NSString *)oldPassword toNewPassword:(NSString *)newPassword withCompletion:(void (^)(ServerResponse serverResponseCode))completion;
 
 - (void)newUsersWithPageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion;
 

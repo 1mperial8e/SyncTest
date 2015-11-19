@@ -7,10 +7,12 @@
 //
 
 #import "WLIEditProfileViewController.h"
+#import "WLIChangePasswordViewController.h"
 
 // Cells
 #import "WLIRegisterAvatarTableViewCell.h"
 #import "WLIRegisterTableViewCell.h"
+#import "WLIChangePasswordTableViewCell.h"
 
 // Models
 #import "WLIAppDelegate.h"
@@ -20,9 +22,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) UITextField *textFieldEmail;
-@property (weak, nonatomic) UITextField *textFieldOldPassword;
-@property (weak, nonatomic) UITextField *textFieldPassword;
-@property (weak, nonatomic) UITextField *textFieldRepassword;
 @property (weak, nonatomic) UITextField *textFieldUsername;
 @property (weak, nonatomic) UITextField *textFieldFullName;
 
@@ -46,11 +45,13 @@
     if (self.navigationController.presentingViewController) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cacelAction:)];
     }
-
+    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    
     [self.tableView registerNib:WLIRegisterAvatarTableViewCell.nib forCellReuseIdentifier:WLIRegisterAvatarTableViewCell.ID];
     [self.tableView registerNib:WLIRegisterTableViewCell.nib forCellReuseIdentifier:WLIRegisterTableViewCell.ID];
+    [self.tableView registerNib:WLIChangePasswordTableViewCell.nib forCellReuseIdentifier:WLIChangePasswordTableViewCell.ID];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -65,9 +66,9 @@
 {
     [super viewDidAppear:animated];
     
-    if (self.textFieldEmail && self.textFieldPassword && self.textFieldRepassword && self.textFieldUsername && self.textFieldFullName) {
+    if (self.textFieldEmail && self.textFieldUsername && self.textFieldFullName) {
         toolbar.mainScrollView = self.tableView;
-        toolbar.textFields = @[self.textFieldEmail, self.textFieldOldPassword, self.textFieldPassword, self.textFieldRepassword, /*self.textFieldUsername,*/ self.textFieldFullName];
+        toolbar.textFields = @[self.textFieldEmail, /*self.textFieldUsername,*/ self.textFieldFullName];
     }
 }
 
@@ -83,7 +84,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -91,6 +92,14 @@
     UITableViewCell *cell;
     if (indexPath.row == 0) {
         cell = [self avatarCellForIndexPath:indexPath];
+    } else if (indexPath.row == 4) {
+        WLIChangePasswordTableViewCell *passCell = [tableView dequeueReusableCellWithIdentifier:WLIChangePasswordTableViewCell.ID forIndexPath:indexPath];
+        __weak typeof(self) weakSelf = self;
+        passCell.changePasswordHandler = ^{
+            WLIChangePasswordViewController *changePassController = [WLIChangePasswordViewController new];
+            [weakSelf.navigationController pushViewController:changePassController animated:YES];
+        };
+        cell = passCell;
     } else {
         cell = [self dataFieldCellForIndexPath:indexPath];
     }
@@ -130,23 +139,11 @@
         self.textFieldEmail = cell.textField;
         self.textFieldEmail.text = sharedConnect.currentUser.userEmail;
     } else if (indexPath.row == 2) {
-        cell.textField.placeholder = @"old password";
-        cell.textField.secureTextEntry = YES;
-        self.textFieldOldPassword = cell.textField;
-    } else if (indexPath.row == 3) {
-        cell.textField.placeholder = @"password";
-        cell.textField.secureTextEntry = YES;
-        self.textFieldPassword = cell.textField;
-    } else if (indexPath.row == 4) {
-        cell.textField.placeholder = @"retype password";
-        cell.textField.secureTextEntry = YES;
-        self.textFieldRepassword = cell.textField;
-    } else if (indexPath.row == 5) {
         cell.textField.placeholder = @"username";
         self.textFieldUsername = cell.textField;
         self.textFieldUsername.userInteractionEnabled = NO;
         self.textFieldUsername.text = sharedConnect.currentUser.userUsername;
-    } else if (indexPath.row == 6) {
+    } else if (indexPath.row == 3) {
         cell.textField.placeholder = @"full name";
         self.textFieldFullName = cell.textField;
         self.textFieldFullName.text = sharedConnect.currentUser.userFullName;
@@ -183,31 +180,21 @@
         [self showErrorWithMessage:@"Email is required."];
     } /*else if (!self.textFieldUsername.text.length) {
         [self showErrorWithMessage:@"Username is required."];
-    }*/ else if (self.textFieldPassword.text.length && self.textFieldRepassword.text.length && !self.textFieldOldPassword.text.length) {
-        [self showErrorWithMessage:@"Please enter your old password"];
-    } else if (self.textFieldOldPassword.text.length && (!self.textFieldRepassword.text.length || !self.textFieldPassword.text.length)) {
-        [self showErrorWithMessage:@"Please enter your new password"];
-    } else if (![self.textFieldPassword.text isEqualToString:self.textFieldRepassword.text]) {
-        [self showErrorWithMessage:@"Password and repassword doesn't match."];
-    } else if (![self isValidEmail:self.textFieldEmail.text UseHardFilter:YES]) {
+    }*/ else if (![self isValidEmail:self.textFieldEmail.text UseHardFilter:YES]) {
         [self showErrorWithMessage:@"Email is not valid."];
     } else if (!self.textFieldFullName.text.length) {
         [self showErrorWithMessage:@"Full Name is required."];
     } else {
-        NSString *password;
-        if (self.textFieldPassword.text.length) {
-            if (self.textFieldPassword.text.length < 4) {
-                [self showErrorWithMessage:@"Your password needs to be at least 4 characters long."];
-                return;
-            } else {
-                password = self.textFieldPassword.text;
-            }
-        }
         [hud show:YES];
+        __weak typeof(self) weakSelf = self;
         UIImage *image = self.imageReplaced ? self.avatarImageView.image : nil;
-        [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userEmail:self.textFieldEmail.text oldPassword:self.textFieldOldPassword.text password:password userAvatar:image userFullName:self.textFieldFullName.text userInfo:@"" latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
+        [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userEmail:self.textFieldEmail.text userAvatar:image userFullName:self.textFieldFullName.text userInfo:@"" latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
-            [self cacelAction:nil];
+            if (serverResponseCode != OK) {
+                [weakSelf showErrorWithMessage:@"Something went wrong. Please try again."];
+            } else {
+                [weakSelf cacelAction:nil];
+            }
         }];
     }
 }
