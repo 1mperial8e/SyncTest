@@ -38,6 +38,8 @@ static CGFloat const HeaderCellHeight = 156;
     self.title = @"My Energy";
     self.tableViewRefresh.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tableViewRefresh registerNib:WLIMyDriveHeaderCell.nib forCellReuseIdentifier:WLIMyDriveHeaderCell.ID];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_email"] style:UIBarButtonItemStylePlain target:self action:@selector(sendFeedBack:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated

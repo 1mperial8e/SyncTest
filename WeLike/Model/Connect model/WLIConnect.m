@@ -561,7 +561,9 @@ static NSString *const AuthTokenKey = @"token";
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:postText ? postText : @"" forKey:@"postText"];
+        if (postText.length) {
+            [parameters setObject:postText forKey:@"postText"];
+        }
         [parameters setObject:countries ? countries : @"0" forKey:@"countries"];
         [parameters setObject:postKeywords ? postKeywords : @[] forKey:@"postKeywords"];
         [parameters setObject:postCategory forKey:@"postCategory"];

@@ -10,6 +10,12 @@
 #import "WLICommentsViewController.h"
 #import "WLIPostViewController.h"
 
+#import <MessageUI/MessageUI.h>
+
+@interface WLIViewController() <MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
+
+@end
+
 @implementation WLIViewController
 
 #pragma mark - Object lifecycle
@@ -56,6 +62,37 @@
 - (void)barButtonItemCancelTouchUpInside:(UIButton*)backButton
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)sendFeedBack:(id)sender
+{
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
+        [mailController setToRecipients:@[@"santander@santanderconsumer.no"]];
+        mailController.mailComposeDelegate = self;
+        mailController.navigationBar.tintColor = [UIColor whiteColor];
+        [self presentViewController:mailController animated:YES completion:^{
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        }];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Please, setup mail account in settings." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }];
+    switch (result) {
+        case MFMailComposeResultFailed:
+            NSLog(@"%@", error);
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - WLIPostCellDelegate methods

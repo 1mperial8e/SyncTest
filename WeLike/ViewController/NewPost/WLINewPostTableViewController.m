@@ -13,6 +13,9 @@
 #import "WLISelectCountryTableViewCell.h"
 #import "WLICategorySelectTableViewCell.h"
 
+#import "ALAsset+Copy.h"
+#import "VideoConversionService.h"
+
 static NSString *const AttachmentCellId = @"WLINewPostAttachmentCell";
 static NSString *const TextCellId = @"WLINewPostTextCell";
 static NSString *const ImageCellId = @"WLINewPostImageCell";
@@ -30,6 +33,9 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 
 @property (strong, nonatomic) NSMutableDictionary *countryStates;
 @property (strong, nonatomic) NSMutableDictionary *catStates;
+
+@property (strong, nonatomic) ALAssetsLibrary *assetsLibrary;
+@property (strong, nonatomic) MBProgressHUD *videoHud;
 
 @end
 
@@ -51,6 +57,15 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
     tapGesture.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapGesture];
+    
+    self.assetsLibrary = [[ALAssetsLibrary alloc] init];
+    self.videoHud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.videoHud];
+    self.videoHud.dimBackground = YES;
+    self.videoHud.mode = MBProgressHUDModeIndeterminate;
+    self.videoHud.labelText = @"Converting video";
+    
+    NSLog(@"%@", [[NSFileManager defaultManager] contentsOfDirectoryAtPath:NSTemporaryDirectory() error:nil]);
 }
 
 #pragma mark - Defaults
@@ -308,7 +323,6 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
                                          (NSString *) kUTTypeQuickTimeMovie,
                                          (NSString *) kUTTypeMPEG,
                                          (NSString *) kUTTypeMPEG4];
-    videoPickerController.videoQuality = UIImagePickerControllerQualityType640x480;
     [self presentViewController:videoPickerController animated:YES completion:nil];
 }
 
@@ -322,23 +336,31 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
             image = [info objectForKey:UIImagePickerControllerOriginalImage];
         }
         self.image = [self scaledImage:image];
+        self.video = nil;
     } else {
-        self.video = [NSData dataWithContentsOfURL:[info objectForKey:UIImagePickerControllerMediaURL]];
-        AVURLAsset *videoAsset = [[AVURLAsset alloc] initWithURL:[info objectForKey:UIImagePickerControllerMediaURL] options:nil];
-        AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:videoAsset];
-        generator.appliesPreferredTrackTransform = YES;
-        NSError *error = NULL;
-        CMTime time = [videoAsset duration];
-        time.value = 1000;
-        generator.maximumSize = ScaledImageSize;
-        
-        CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:NULL error:&error];
-        if (error) {
-            NSLog(@"%@", error);
+        NSURL *assetUrl = [info objectForKey:UIImagePickerControllerReferenceURL];
+        if (assetUrl) {
+            [self convertAssetAtUrl:assetUrl];
         } else {
-            self.image = [UIImage imageWithCGImage:imgRef];
-            CGImageRelease(imgRef);
+            NSString *tmpFilePath = [[NSTemporaryDirectory() stringByAppendingPathComponent:[NSUUID UUID].UUIDString] stringByAppendingPathExtension:@"mp4"];
+            [self copyFileAtUrl:info[UIImagePickerControllerMediaURL] toPath:tmpFilePath];
         }
+//        self.video = [NSData dataWithContentsOfURL:[info objectForKey:UIImagePickerControllerMediaURL]];
+//        AVURLAsset *videoAsset = [[AVURLAsset alloc] initWithURL:[info objectForKey:UIImagePickerControllerMediaURL] options:nil];
+//        AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:videoAsset];
+//        generator.appliesPreferredTrackTransform = YES;
+//        NSError *error = NULL;
+//        CMTime time = [videoAsset duration];
+//        time.value = 1000;
+//        generator.maximumSize = ScaledImageSize;
+//        
+//        CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:NULL error:&error];
+//        if (error) {
+//            NSLog(@"%@", error);
+//        } else {
+//            self.image = [UIImage imageWithCGImage:imgRef];
+//            CGImageRelease(imgRef);
+//        }
     }
     __weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{
@@ -366,6 +388,85 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return scaledImage;
+}
+
+- (void)convertAssetAtUrl:(NSURL *)url
+{
+    [self.videoHud show:YES];
+    __weak typeof(self) weakSelf = self;
+    void (^copyAssetBlock)(ALAsset *) = ^(ALAsset *asset) {
+        NSString *tmpFilePath = [[NSTemporaryDirectory() stringByAppendingPathComponent:[NSUUID UUID].UUIDString] stringByAppendingPathExtension:@"mp4"];
+        [asset asyncCopyToFileWithPath:tmpFilePath completion:^(BOOL success) {
+            if (success) {
+                [weakSelf decodeVideoAtPath:tmpFilePath];
+            } else {
+                NSLog(@"Can't copy asset");
+            }
+        }];
+    };
+    
+    [self.assetsLibrary assetForURL:url resultBlock:^(ALAsset *asset) {
+        copyAssetBlock(asset);
+    } failureBlock:^(NSError *error) {
+        NSLog(@"Can't find asset");
+    }];
+}
+
+- (void)copyFileAtUrl:(NSURL *)inputUrl toPath:(NSString *)newFilePath
+{
+    NSError *error;
+    [[NSFileManager defaultManager] copyItemAtPath:inputUrl.path toPath:newFilePath error:&error];
+    if (!error) {
+        [self decodeVideoAtPath:newFilePath];
+    } else {
+        NSLog(@"error: %@", error);
+        [[NSFileManager defaultManager] removeItemAtPath:inputUrl.path error:&error];
+    }
+}
+
+- (void)decodeVideoAtPath:(NSString *)filePath
+{
+    [self.videoHud show:YES];
+    __weak typeof(self) weakSelf = self;
+    NSString *newPath = [[filePath.stringByDeletingPathExtension stringByAppendingFormat:@"_encoded"] stringByAppendingPathExtension:@"mp4"];
+    [[VideoConversionService sharedService] convertVideoToLowQuailtyWithInputURL:[NSURL fileURLWithPath:filePath] outputURL:[NSURL fileURLWithPath:newPath] fileId:[NSUUID UUID].UUIDString withCompletion:^(NSString *path) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf convertionFinished:filePath copressed:path];
+        });
+    }];
+}
+
+- (void)convertionFinished:(NSString *)srcVideoPath copressed:(NSString *)compressedVideoPath
+{
+    self.video = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:compressedVideoPath]];
+    AVURLAsset *videoAsset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:compressedVideoPath] options:nil];
+    AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:videoAsset];
+    generator.appliesPreferredTrackTransform = YES;
+    NSError *error = nil;
+    CMTime time = [videoAsset duration];
+    time.value = 1000;
+    generator.maximumSize = ScaledImageSize;
+    
+    CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:NULL error:&error];
+    if (error) {
+        NSLog(@"%@", error);
+    } else {
+        self.image = [UIImage imageWithCGImage:imgRef];
+        CGImageRelease(imgRef);
+    }
+    [self.videoHud hide:YES];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    error = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:srcVideoPath error:&error];
+    if (error) {
+        NSLog(@"%@", error);
+    }
+    error = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:compressedVideoPath error:&error];
+    if (error) {
+        NSLog(@"%@", error);
+    }
 }
 
 @end

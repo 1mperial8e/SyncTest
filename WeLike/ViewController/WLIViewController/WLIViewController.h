@@ -28,4 +28,6 @@
     __weak WLIConnect *sharedConnect;
 }
 
+- (void)sendFeedBack:(id)sender;
+
 @end

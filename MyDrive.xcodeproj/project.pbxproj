@@ -146,7 +146,9 @@
 		4F69E8DF1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F69E8DD1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.xib */; };
 		4F69E8E31BF0B49500A6CD5A /* WLIRegisterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8E11BF0B49500A6CD5A /* WLIRegisterTableViewCell.m */; };
 		4F69E8E41BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F69E8E21BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib */; };
-		4F69E8E81BF24B1200A6CD5A /* NSDictionary+Nonnull.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8E71BF24B1200A6CD5A /* NSDictionary+Nonnull.m */; };
+		4F8200411BFCC5F400B0EB57 /* VideoConversionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F82003F1BFCC5F400B0EB57 /* VideoConversionService.m */; };
+		4F8200751BFCD13900B0EB57 /* NSDictionary+Nonnull.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8200741BFCD13900B0EB57 /* NSDictionary+Nonnull.m */; };
+		4F8200781BFCD16000B0EB57 /* ALAsset+Copy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8200771BFCD16000B0EB57 /* ALAsset+Copy.m */; };
 		4F8E2D371BF4A2AF00953EC0 /* WLIComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E2D211BF4A2AF00953EC0 /* WLIComment.m */; };
 		4F8E2D381BF4A2AF00953EC0 /* WLIConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E2D241BF4A2AF00953EC0 /* WLIConnect.m */; };
 		4F8E2D391BF4A2AF00953EC0 /* WLIFollow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E2D271BF4A2AF00953EC0 /* WLIFollow.m */; };
@@ -388,8 +390,12 @@
 		4F69E8E01BF0B49500A6CD5A /* WLIRegisterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIRegisterTableViewCell.h; sourceTree = "<group>"; };
 		4F69E8E11BF0B49500A6CD5A /* WLIRegisterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIRegisterTableViewCell.m; sourceTree = "<group>"; };
 		4F69E8E21BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIRegisterTableViewCell.xib; sourceTree = "<group>"; };
-		4F69E8E61BF24B1200A6CD5A /* NSDictionary+Nonnull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Nonnull.h"; sourceTree = "<group>"; };
-		4F69E8E71BF24B1200A6CD5A /* NSDictionary+Nonnull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Nonnull.m"; sourceTree = "<group>"; };
+		4F82003F1BFCC5F400B0EB57 /* VideoConversionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoConversionService.m; sourceTree = "<group>"; };
+		4F8200401BFCC5F400B0EB57 /* VideoConversionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoConversionService.h; sourceTree = "<group>"; };
+		4F8200731BFCD13900B0EB57 /* NSDictionary+Nonnull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Nonnull.h"; sourceTree = "<group>"; };
+		4F8200741BFCD13900B0EB57 /* NSDictionary+Nonnull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Nonnull.m"; sourceTree = "<group>"; };
+		4F8200761BFCD16000B0EB57 /* ALAsset+Copy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+Copy.h"; sourceTree = "<group>"; };
+		4F8200771BFCD16000B0EB57 /* ALAsset+Copy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+Copy.m"; sourceTree = "<group>"; };
 		4F8E2D201BF4A2AF00953EC0 /* WLIComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIComment.h; sourceTree = "<group>"; };
 		4F8E2D211BF4A2AF00953EC0 /* WLIComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIComment.m; sourceTree = "<group>"; };
 		4F8E2D231BF4A2AF00953EC0 /* WLIConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIConnect.h; sourceTree = "<group>"; };
@@ -469,6 +475,7 @@
 		2C6D26741896BACA00C459CB /* WeLike */ = {
 			isa = PBXGroup;
 			children = (
+				4F82003D1BFCC5D900B0EB57 /* Services */,
 				2C6D26751896BACA00C459CB /* 3rdParty */,
 				2C6D26DC1896BACA00C459CB /* AppDelegate */,
 				2C6D26DF1896BACA00C459CB /* InfoPlist.strings */,
@@ -1222,10 +1229,45 @@
 		4F69E8E51BF24AF100A6CD5A /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				4F69E8E61BF24B1200A6CD5A /* NSDictionary+Nonnull.h */,
-				4F69E8E71BF24B1200A6CD5A /* NSDictionary+Nonnull.m */,
+				4F8200711BFCD13900B0EB57 /* ALAsset+Copy */,
+				4F8200721BFCD13900B0EB57 /* NSDictionary+Nonnull */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		4F82003D1BFCC5D900B0EB57 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4F82003E1BFCC5E700B0EB57 /* VideoConversionService */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4F82003E1BFCC5E700B0EB57 /* VideoConversionService */ = {
+			isa = PBXGroup;
+			children = (
+				4F8200401BFCC5F400B0EB57 /* VideoConversionService.h */,
+				4F82003F1BFCC5F400B0EB57 /* VideoConversionService.m */,
+			);
+			path = VideoConversionService;
+			sourceTree = "<group>";
+		};
+		4F8200711BFCD13900B0EB57 /* ALAsset+Copy */ = {
+			isa = PBXGroup;
+			children = (
+				4F8200761BFCD16000B0EB57 /* ALAsset+Copy.h */,
+				4F8200771BFCD16000B0EB57 /* ALAsset+Copy.m */,
+			);
+			path = "ALAsset+Copy";
+			sourceTree = "<group>";
+		};
+		4F8200721BFCD13900B0EB57 /* NSDictionary+Nonnull */ = {
+			isa = PBXGroup;
+			children = (
+				4F8200731BFCD13900B0EB57 /* NSDictionary+Nonnull.h */,
+				4F8200741BFCD13900B0EB57 /* NSDictionary+Nonnull.m */,
+			);
+			path = "NSDictionary+Nonnull";
 			sourceTree = "<group>";
 		};
 		4F8E2D1F1BF4A2AF00953EC0 /* Comment model */ = {
@@ -1341,11 +1383,6 @@
 				CLASSPREFIX = WLI;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Goran Vuksic";
-				TargetAttributes = {
-					2CCE1A9417ECD32B00680126 = {
-						DevelopmentTeam = Y63VS2VG4D;
-					};
-				};
 			};
 			buildConfigurationList = 2CCE1A9017ECD32B00680126 /* Build configuration list for PBXProject "MyDrive" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1465,9 +1502,9 @@
 				2C6D27E31896BACA00C459CB /* WLIFollowingViewController.m in Sources */,
 				4F2C83D61BFB27CB00EDD64F /* WLICategoryPeopleCell.m in Sources */,
 				2C6D27BF1896BACA00C459CB /* SBJsonStreamTokeniser.m in Sources */,
+				4F8200411BFCC5F400B0EB57 /* VideoConversionService.m in Sources */,
 				2C6D27BC1896BACA00C459CB /* SBJsonStreamParserAccumulator.m in Sources */,
 				2C6D27E71896BACA00C459CB /* WLILoginViewController.m in Sources */,
-				4F69E8E81BF24B1200A6CD5A /* NSDictionary+Nonnull.m in Sources */,
 				2C6D27FC1896BACA00C459CB /* WLIWelcomeViewController.m in Sources */,
 				2C5B5CA01A1A8FAE00175A58 /* AFURLSessionManager.m in Sources */,
 				2EC320441BDE5AEE0038E7B3 /* WLISelectOnOffSwitchCell.m in Sources */,
@@ -1521,6 +1558,7 @@
 				2C5B5C7D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				4F8E2D371BF4A2AF00953EC0 /* WLIComment.m in Sources */,
 				2C5B5C9D1A1A8FAE00175A58 /* AFURLConnectionOperation.m in Sources */,
+				4F8200781BFCD16000B0EB57 /* ALAsset+Copy.m in Sources */,
 				2C6D27B81896BACA00C459CB /* MNMPullToRefreshView.m in Sources */,
 				4F2C83D41BFB27CB00EDD64F /* WLICategoryMarketCell.m in Sources */,
 				2C6D27C31896BACA00C459CB /* SBJsonWriter.m in Sources */,
@@ -1532,6 +1570,7 @@
 				2C6D27C11896BACA00C459CB /* SBJsonStreamWriterAccumulator.m in Sources */,
 				4F2C83E01BFB7C7800EDD64F /* WLIPeopleListViewController.m in Sources */,
 				2C6D27E11896BACA00C459CB /* WLIFollowersViewController.m in Sources */,
+				4F8200751BFCD13900B0EB57 /* NSDictionary+Nonnull.m in Sources */,
 				4F69E8E31BF0B49500A6CD5A /* WLIRegisterTableViewCell.m in Sources */,
 				2C5B5C831A1A8F9500175A58 /* UIRefreshControl+AFNetworking.m in Sources */,
 				2C6D27DD1896BACA00C459CB /* WLIUserCell.m in Sources */,
