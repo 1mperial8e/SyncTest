@@ -42,7 +42,6 @@
     return self;
 }
 
-
 #pragma mark - NSCoding methods
 
 - (void)encodeWithCoder:(NSCoder *)encoder
@@ -80,6 +79,5 @@
     }
     return self;
 }
-
 
 @end

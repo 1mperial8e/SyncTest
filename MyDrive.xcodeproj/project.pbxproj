@@ -163,6 +163,10 @@
 		4F8E2D471BF4A4C000953EC0 /* WLICountryFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F8E2D421BF4A4C000953EC0 /* WLICountryFilterTableViewCell.xib */; };
 		4F8E2D481BF4A4C000953EC0 /* WLICategoryPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E2D441BF4A4C000953EC0 /* WLICategoryPostsViewController.m */; };
 		4F8E2D491BF4A4C000953EC0 /* WLICategoryPostsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F8E2D451BF4A4C000953EC0 /* WLICategoryPostsViewController.xib */; };
+		4FE75D221BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE75D201BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.m */; };
+		4FE75D231BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FE75D211BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.xib */; };
+		4FE75D291BFF25770063F3D8 /* WLIForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE75D271BFF25770063F3D8 /* WLIForgotPasswordViewController.m */; };
+		4FE75D2A1BFF25770063F3D8 /* WLIForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FE75D281BFF25770063F3D8 /* WLIForgotPasswordViewController.xib */; };
 		C7B424B5183D2507003B51D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B4183D2507003B51D0 /* CoreData.framework */; };
 		C7B424B7183D2519003B51D0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B6183D2519003B51D0 /* MessageUI.framework */; };
 		C7B424B9183D2540003B51D0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B8183D2540003B51D0 /* libsqlite3.0.dylib */; };
@@ -422,6 +426,12 @@
 		4F8E2D431BF4A4C000953EC0 /* WLICategoryPostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLICategoryPostsViewController.h; path = CategoryPosts/WLICategoryPostsViewController.h; sourceTree = "<group>"; };
 		4F8E2D441BF4A4C000953EC0 /* WLICategoryPostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLICategoryPostsViewController.m; path = CategoryPosts/WLICategoryPostsViewController.m; sourceTree = "<group>"; };
 		4F8E2D451BF4A4C000953EC0 /* WLICategoryPostsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLICategoryPostsViewController.xib; path = CategoryPosts/WLICategoryPostsViewController.xib; sourceTree = "<group>"; };
+		4FE75D1F1BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIForgotPasswordTableViewCell.h; sourceTree = "<group>"; };
+		4FE75D201BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIForgotPasswordTableViewCell.m; sourceTree = "<group>"; };
+		4FE75D211BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIForgotPasswordTableViewCell.xib; sourceTree = "<group>"; };
+		4FE75D261BFF25770063F3D8 /* WLIForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIForgotPasswordViewController.h; sourceTree = "<group>"; };
+		4FE75D271BFF25770063F3D8 /* WLIForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIForgotPasswordViewController.m; sourceTree = "<group>"; };
+		4FE75D281BFF25770063F3D8 /* WLIForgotPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIForgotPasswordViewController.xib; sourceTree = "<group>"; };
 		C7B4244A183D0809003B51D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C7B424B4183D2507003B51D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C7B424B6183D2519003B51D0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -818,6 +828,7 @@
 				2C6D27161896BACA00C459CB /* Comments */,
 				2C6D271A1896BACA00C459CB /* Followers */,
 				4F2C83E21BFB884A00EDD64F /* EditProfile */,
+				4FE75D251BFF255B0063F3D8 /* ForgotPassword */,
 				2C6D271E1896BACA00C459CB /* Following */,
 				2C6D27261896BACA00C459CB /* Login */,
 				2C6D272E1896BACA00C459CB /* NewPost */,
@@ -865,6 +876,7 @@
 		2C6D27261896BACA00C459CB /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				4FE75D1E1BFF1D6D0063F3D8 /* ForgotPasswordCell */,
 				2C6D27271896BACA00C459CB /* WLILoginViewController.h */,
 				2C6D27281896BACA00C459CB /* WLILoginViewController.m */,
 				2C6D27291896BACA00C459CB /* WLILoginViewController.xib */,
@@ -1343,6 +1355,26 @@
 			path = CategoryPosts/CountryFilterTableViewCell;
 			sourceTree = "<group>";
 		};
+		4FE75D1E1BFF1D6D0063F3D8 /* ForgotPasswordCell */ = {
+			isa = PBXGroup;
+			children = (
+				4FE75D1F1BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.h */,
+				4FE75D201BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.m */,
+				4FE75D211BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.xib */,
+			);
+			path = ForgotPasswordCell;
+			sourceTree = "<group>";
+		};
+		4FE75D251BFF255B0063F3D8 /* ForgotPassword */ = {
+			isa = PBXGroup;
+			children = (
+				4FE75D261BFF25770063F3D8 /* WLIForgotPasswordViewController.h */,
+				4FE75D271BFF25770063F3D8 /* WLIForgotPasswordViewController.m */,
+				4FE75D281BFF25770063F3D8 /* WLIForgotPasswordViewController.xib */,
+			);
+			path = ForgotPassword;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1404,6 +1436,7 @@
 				0743482D1BBABD6D00EAA2AA /* infobutton.png in Resources */,
 				2C6D27FB1896BACA00C459CB /* WLITimelineViewController.xib in Resources */,
 				2C6D27E01896BACA00C459CB /* WLICommentsViewController.xib in Resources */,
+				4FE75D231BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.xib in Resources */,
 				2E28F3921BADE8BA006CF0BE /* WLIFollowingsViewController.xib in Resources */,
 				4F2C83B91BFB269700EDD64F /* WLIHashtagTableViewCell.xib in Resources */,
 				2EEF2C1C1BD64B0F001785C5 /* WLINewPostAttachmentCell.xib in Resources */,
@@ -1436,6 +1469,7 @@
 				4F8E2D491BF4A4C000953EC0 /* WLICategoryPostsViewController.xib in Resources */,
 				074348261BBABCB700EAA2AA /* Customer.png in Resources */,
 				4F8E2D471BF4A4C000953EC0 /* WLICountryFilterTableViewCell.xib in Resources */,
+				4FE75D2A1BFF25770063F3D8 /* WLIForgotPasswordViewController.xib in Resources */,
 				4F4D46471BFE2C5B00993349 /* WLIChangePasswordViewController.xib in Resources */,
 				4F2C83E71BFB884A00EDD64F /* WLIEditProfileViewController.xib in Resources */,
 				0743482B1BBABCB700EAA2AA /* People.png in Resources */,
@@ -1505,6 +1539,7 @@
 				4F4D46461BFE2C5B00993349 /* WLIChangePasswordViewController.m in Sources */,
 				2C5B5C7E1A1A8F9500175A58 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2C5B5C7F1A1A8F9500175A58 /* UIAlertView+AFNetworking.m in Sources */,
+				4FE75D291BFF25770063F3D8 /* WLIForgotPasswordViewController.m in Sources */,
 				2C6D27B31896BACA00C459CB /* WLIActivityIndicator.m in Sources */,
 				4F8E2D481BF4A4C000953EC0 /* WLICategoryPostsViewController.m in Sources */,
 				2C6D27F91896BACA00C459CB /* WLITabBarController.m in Sources */,
@@ -1535,6 +1570,7 @@
 				2C5B5C9A1A1A8FAE00175A58 /* AFHTTPSessionManager.m in Sources */,
 				2C6D27BE1896BACA00C459CB /* SBJsonStreamParserState.m in Sources */,
 				2C6D27DF1896BACA00C459CB /* WLICommentsViewController.m in Sources */,
+				4FE75D221BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.m in Sources */,
 				2C6D27B91896BACA00C459CB /* PNTToolbar.m in Sources */,
 				4F8E2D3C1BF4A2AF00953EC0 /* WLIObject.m in Sources */,
 				2CF096DD1ACAE1F7004FB868 /* NSDate+TimeAgo.m in Sources */,

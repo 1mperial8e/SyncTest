@@ -381,6 +381,32 @@ static NSString *const AuthTokenKey = @"token";
     }
 }
 
+- (void)forgotPasswordWithEmail:(NSString *)email onCompletion:(void (^)(ServerResponse serverResponseCode))completion
+{
+    if (!email.length) {
+        if (completion) {
+            completion(BAD_REQUEST);
+        }
+    } else {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:email forKey:@"email"];
+        [self.httpClient POST:@"api/forgotPassword" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if (completion) {
+                completion(OK);
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self debugger:parameters.description methodLog:@"api/forgotPassword" dataLogFormatted:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion((ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(NO_CONNECTION);
+                }
+            }
+        }];
+    }
+}
+
 #pragma mark - Timeline
 
 - (void)timelineForUserID:(NSInteger)userID

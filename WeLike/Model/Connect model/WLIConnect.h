@@ -84,6 +84,8 @@ typedef enum ServerResponse ServerResponse;
                     pageSize:(NSInteger)pageSize
                 onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion;
 
+- (void)forgotPasswordWithEmail:(NSString *)email onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
+
 #pragma mark - Timeline
 
 - (void)timelineForUserID:(NSInteger)userID
