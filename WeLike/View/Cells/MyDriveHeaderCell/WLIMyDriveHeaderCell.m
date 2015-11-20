@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserEmail;
 @property (weak, nonatomic) IBOutlet UIButton *buttonEditProfile;
+@property (weak, nonatomic) IBOutlet UIButton *followButton;
 
 // MARK: Bottom container outlets
 @property (weak, nonatomic) IBOutlet UILabel *likesCountLabel;
@@ -101,6 +102,11 @@
 - (void)updateInfo
 {
     if (self.user) {
+        BOOL isMe = (self.user.userID == [WLIConnect sharedConnect].currentUser.userID);
+        self.followButton.hidden = isMe;
+        self.buttonEditProfile.hidden = !isMe;
+        self.followButton.selected = self.user.followingUser;
+        
         [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
         self.labelUserName.text = self.user.userFullName;
         self.labelUserEmail.text = self.user.userEmail;
@@ -124,6 +130,13 @@
     
     UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
     [rootVC presentViewController:navController animated:YES completion:nil];
+}
+
+- (IBAction)followButtonAction:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(follow:user:)]) {
+        [self.delegate follow:!self.user.followingUser user:self.user];
+    }
 }
 
 @end

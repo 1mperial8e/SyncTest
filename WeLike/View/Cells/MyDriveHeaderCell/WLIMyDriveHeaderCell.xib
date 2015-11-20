@@ -42,7 +42,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="giF-U7-rl4">
-                        <rect key="frame" x="82" y="61" width="263" height="30"/>
+                        <rect key="frame" x="82" y="61" width="263" height="34"/>
                         <animations/>
                         <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                         <state key="normal" title="Edit profile">
@@ -52,8 +52,21 @@
                             <action selector="editProficeAction:" destination="aFi-HA-ReS" eventType="touchUpInside" id="tXF-sD-HZN"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gva-0k-a3M">
+                        <rect key="frame" x="82" y="61" width="263" height="34"/>
+                        <animations/>
+                        <state key="normal" title="Follow">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="selected" title="Following">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="followButtonAction:" destination="aFi-HA-ReS" eventType="touchUpInside" id="nxc-HV-7D2"/>
+                        </connections>
+                    </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5sO-7z-GOB" userLabel="BottomContainer">
-                        <rect key="frame" x="0.0" y="106" width="375" height="40"/>
+                        <rect key="frame" x="0.0" y="110" width="375" height="40"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ief-i2-9Bc">
                                 <rect key="frame" x="0.0" y="0.0" width="75" height="40"/>
@@ -245,21 +258,26 @@
                     <constraint firstItem="tPn-tz-ZMs" firstAttribute="top" secondItem="WDa-Dm-yrf" secondAttribute="top" constant="13" id="C6t-B8-2pJ"/>
                     <constraint firstItem="giF-U7-rl4" firstAttribute="top" secondItem="tJj-hw-rcu" secondAttribute="bottom" constant="8" id="DFE-TJ-gCJ"/>
                     <constraint firstAttribute="trailingMargin" secondItem="tJj-hw-rcu" secondAttribute="trailing" constant="8" id="NBK-ui-60M"/>
+                    <constraint firstItem="Gva-0k-a3M" firstAttribute="centerY" secondItem="giF-U7-rl4" secondAttribute="centerY" id="OPq-dZ-fAT"/>
                     <constraint firstItem="tJj-hw-rcu" firstAttribute="leading" secondItem="7Xc-6Q-Wef" secondAttribute="trailing" constant="16" id="QoF-bk-maO"/>
                     <constraint firstItem="5sO-7z-GOB" firstAttribute="top" secondItem="giF-U7-rl4" secondAttribute="bottom" constant="15" id="UYw-4z-3Ng"/>
                     <constraint firstItem="7Xc-6Q-Wef" firstAttribute="leading" secondItem="WDa-Dm-yrf" secondAttribute="leading" constant="12" id="XQG-AL-jDZ"/>
+                    <constraint firstItem="Gva-0k-a3M" firstAttribute="width" secondItem="giF-U7-rl4" secondAttribute="width" id="Zjp-t8-qOz"/>
                     <constraint firstItem="7Xc-6Q-Wef" firstAttribute="top" secondItem="WDa-Dm-yrf" secondAttribute="top" constant="8" id="d8B-5U-bDs"/>
                     <constraint firstAttribute="trailing" secondItem="5sO-7z-GOB" secondAttribute="trailing" id="dLZ-YC-SEx"/>
                     <constraint firstItem="giF-U7-rl4" firstAttribute="leading" secondItem="WDa-Dm-yrf" secondAttribute="leading" constant="82" id="dtk-g4-fO1"/>
                     <constraint firstAttribute="trailing" secondItem="giF-U7-rl4" secondAttribute="trailing" constant="30" id="eZJ-9n-5Mt"/>
+                    <constraint firstItem="Gva-0k-a3M" firstAttribute="centerX" secondItem="giF-U7-rl4" secondAttribute="centerX" id="fXh-c6-RNT"/>
                     <constraint firstItem="tJj-hw-rcu" firstAttribute="top" secondItem="tPn-tz-ZMs" secondAttribute="bottom" constant="4" id="h7Z-IU-Bql"/>
                     <constraint firstAttribute="trailing" secondItem="tPn-tz-ZMs" secondAttribute="trailing" constant="8" id="hLH-7X-6qY"/>
+                    <constraint firstItem="Gva-0k-a3M" firstAttribute="height" secondItem="giF-U7-rl4" secondAttribute="height" id="nL0-RW-r6b"/>
                     <constraint firstItem="5sO-7z-GOB" firstAttribute="leading" secondItem="WDa-Dm-yrf" secondAttribute="leading" id="wMn-NR-GBY"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>
             <connections>
                 <outlet property="buttonEditProfile" destination="giF-U7-rl4" id="wAb-Rd-jVe"/>
+                <outlet property="followButton" destination="Gva-0k-a3M" id="pvk-db-tiI"/>
                 <outlet property="followersCountLabel" destination="Xw7-h5-2Kh" id="GfT-kS-4XM"/>
                 <outlet property="followersLabel" destination="tr9-fL-V81" id="ZJt-Al-hUE"/>
                 <outlet property="followingCountLabel" destination="9Eq-np-y1R" id="Z6R-iV-Jms"/>

@@ -6,8 +6,8 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-#import "WLIPostsListViewController.h"
+#import "WLIUserDriveViewController.h"
 
-@interface WLIMyDriveViewController : WLIPostsListViewController
+@interface WLIMyDriveViewController : WLIUserDriveViewController
 
 @end

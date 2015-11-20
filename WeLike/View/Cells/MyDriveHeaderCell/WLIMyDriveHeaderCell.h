@@ -16,6 +16,7 @@
 @optional
 - (void)showFollowingsList;
 - (void)showFollowersList;
+- (void)follow:(BOOL)follow user:(WLIUser *)user;
 
 @end
 

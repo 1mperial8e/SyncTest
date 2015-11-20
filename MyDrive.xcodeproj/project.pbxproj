@@ -167,6 +167,8 @@
 		4FE75D231BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FE75D211BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.xib */; };
 		4FE75D291BFF25770063F3D8 /* WLIForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE75D271BFF25770063F3D8 /* WLIForgotPasswordViewController.m */; };
 		4FE75D2A1BFF25770063F3D8 /* WLIForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FE75D281BFF25770063F3D8 /* WLIForgotPasswordViewController.xib */; };
+		4FE75D2F1BFF36E20063F3D8 /* WLIUserDriveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE75D2D1BFF36E20063F3D8 /* WLIUserDriveViewController.m */; };
+		4FE75D301BFF36E20063F3D8 /* WLIUserDriveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FE75D2E1BFF36E20063F3D8 /* WLIUserDriveViewController.xib */; };
 		C7B424B5183D2507003B51D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B4183D2507003B51D0 /* CoreData.framework */; };
 		C7B424B7183D2519003B51D0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B6183D2519003B51D0 /* MessageUI.framework */; };
 		C7B424B9183D2540003B51D0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B424B8183D2540003B51D0 /* libsqlite3.0.dylib */; };
@@ -432,6 +434,9 @@
 		4FE75D261BFF25770063F3D8 /* WLIForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIForgotPasswordViewController.h; sourceTree = "<group>"; };
 		4FE75D271BFF25770063F3D8 /* WLIForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIForgotPasswordViewController.m; sourceTree = "<group>"; };
 		4FE75D281BFF25770063F3D8 /* WLIForgotPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIForgotPasswordViewController.xib; sourceTree = "<group>"; };
+		4FE75D2C1BFF36E20063F3D8 /* WLIUserDriveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIUserDriveViewController.h; sourceTree = "<group>"; };
+		4FE75D2D1BFF36E20063F3D8 /* WLIUserDriveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIUserDriveViewController.m; sourceTree = "<group>"; };
+		4FE75D2E1BFF36E20063F3D8 /* WLIUserDriveViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIUserDriveViewController.xib; sourceTree = "<group>"; };
 		C7B4244A183D0809003B51D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C7B424B4183D2507003B51D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C7B424B6183D2519003B51D0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -821,6 +826,7 @@
 				2E65F5891BBABD200077B44B /* CategoryPosts */,
 				2E28F3931BADECE3006CF0BE /* SearchContent */,
 				2E28F3651BADE14C006CF0BE /* Followings */,
+				4FE75D2B1BFF36A70063F3D8 /* UserDrive */,
 				2E28F3641BADE143006CF0BE /* MyDrive */,
 				2E28F3601BAC9BD8006CF0BE /* PostsList */,
 				2ED2F2811BA95E5500641F54 /* InfoPage */,
@@ -1375,6 +1381,16 @@
 			path = ForgotPassword;
 			sourceTree = "<group>";
 		};
+		4FE75D2B1BFF36A70063F3D8 /* UserDrive */ = {
+			isa = PBXGroup;
+			children = (
+				4FE75D2C1BFF36E20063F3D8 /* WLIUserDriveViewController.h */,
+				4FE75D2D1BFF36E20063F3D8 /* WLIUserDriveViewController.m */,
+				4FE75D2E1BFF36E20063F3D8 /* WLIUserDriveViewController.xib */,
+			);
+			path = UserDrive;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1473,6 +1489,7 @@
 				4F4D46471BFE2C5B00993349 /* WLIChangePasswordViewController.xib in Resources */,
 				4F2C83E71BFB884A00EDD64F /* WLIEditProfileViewController.xib in Resources */,
 				0743482B1BBABCB700EAA2AA /* People.png in Resources */,
+				4FE75D301BFF36E20063F3D8 /* WLIUserDriveViewController.xib in Resources */,
 				2C6D27C71896BACA00C459CB /* Images.xcassets in Resources */,
 				2C6D27DE1896BACA00C459CB /* WLIUserCell.xib in Resources */,
 				2C6D27E41896BACA00C459CB /* WLIFollowingViewController.xib in Resources */,
@@ -1604,6 +1621,7 @@
 				2C6D27DD1896BACA00C459CB /* WLIUserCell.m in Sources */,
 				4F8E2D3B1BF4A2AF00953EC0 /* WLILike.m in Sources */,
 				2C5B5C821A1A8F9500175A58 /* UIProgressView+AFNetworking.m in Sources */,
+				4FE75D2F1BFF36E20063F3D8 /* WLIUserDriveViewController.m in Sources */,
 				4F2C83BE1BFB26D900EDD64F /* WLIBaseTableViewCell.m in Sources */,
 				2ED2F2851BA95E8C00641F54 /* WLIInfoPageViewController.m in Sources */,
 			);

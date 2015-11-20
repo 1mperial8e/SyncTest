@@ -6,21 +6,10 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-// Controllers
 #import "WLIMyDriveViewController.h"
-#import "WLIFollowersViewController.h"
-#import "WLIFollowingViewController.h"
 
-// Cells
-#import "WLIMyDriveHeaderCell.h"
-#import "WLIPostCell.h"
-#import "WLILoadingCell.h"
+@interface WLIMyDriveViewController ()
 
-static CGFloat const HeaderCellHeight = 156;
-
-@interface WLIMyDriveViewController () <MyDriveHeaderCellDelegate, UIAlertViewDelegate>
-
-@property (strong, nonatomic) WLIUser *user;
 @property (strong, nonatomic) WLIPost *morePost;
 @property (assign, nonatomic) NSInteger deleteButtonIndex;
 
@@ -32,12 +21,10 @@ static CGFloat const HeaderCellHeight = 156;
 
 - (void)viewDidLoad
 {
-    self.postsSectionNumber = 1;
+    self.user = sharedConnect.currentUser;
     
     [super viewDidLoad];
     self.title = @"My Energy";
-    self.tableViewRefresh.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self.tableViewRefresh registerNib:WLIMyDriveHeaderCell.nib forCellReuseIdentifier:WLIMyDriveHeaderCell.ID];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -55,96 +42,20 @@ static CGFloat const HeaderCellHeight = 156;
     }
 }
 
-#pragma mark - Data loading methods
-
-- (void)reloadData:(BOOL)reloadAll
-{
-    loading = YES;
-    if (reloadAll && !loadMore) {
-        loadMore = YES;
-        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    if (reloadAll) {
-        [self reloadUserInfo];
-    }
-    NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
-    __weak typeof(self) weakSelf = self;
-    [sharedConnect mydriveTimelineForUserID:sharedConnect.currentUser.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode) {
-        [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
-    }];
-}
-
-- (void)reloadUserInfo
-{
-    __weak typeof(self) weakSelf = self;
-    [sharedConnect userWithUserID:sharedConnect.currentUser.userID onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
-        if (serverResponseCode == OK) {
-            weakSelf.user = user;
-            weakSelf.navigationItem.title = user.userUsername;
-            [weakSelf.tableViewRefresh beginUpdates];
-            [weakSelf.tableViewRefresh reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [weakSelf.tableViewRefresh endUpdates];
-        }
-    }];
-}
-
-#pragma mark - MyDriveHeaderCellDelegate
-
-- (void)showFollowersList
-{
-    WLIFollowersViewController *followersViewController = [WLIFollowersViewController new];
-    followersViewController.user = self.user;
-    [self.navigationController pushViewController:followersViewController animated:YES];
-}
-
-- (void)showFollowingsList
-{
-    WLIFollowingViewController *followingsViewController = [WLIFollowingViewController new];
-    followingsViewController.user = self.user;
-    [self.navigationController pushViewController:followingsViewController animated:YES];
-}
-
-#pragma mark - UITableViewDataSource methods
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 3;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (section == 0) {
-        return 1;
-    } else if (section == 1) {
-        return self.posts.count;
-    } else {
-        return loadMore;
-    }
-}
+#pragma mark - UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    if (indexPath.section == 0) {
-        cell = [self headerCellForIndexPath:indexPath];
-    } else if (indexPath.section == 1) {
+    if (indexPath.section == 1) {
         cell = [self postCellForIndexPath:indexPath];
     } else {
-        cell = [tableView dequeueReusableCellWithIdentifier:WLILoadingCell.ID forIndexPath:indexPath];
+        cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     }
     return cell;
 }
 
 #pragma mark - Configure cells
-
-- (UITableViewCell *)headerCellForIndexPath:(NSIndexPath *)indexPath
-{
-    WLIMyDriveHeaderCell *cell = [self.tableViewRefresh dequeueReusableCellWithIdentifier:WLIMyDriveHeaderCell.ID forIndexPath:indexPath];
-    cell.delegate = self;
-    cell.user = self.user;
-    return cell;
-}
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
 {
@@ -153,26 +64,6 @@ static CGFloat const HeaderCellHeight = 156;
     cell.showDeleteButton = YES;
     cell.post = self.posts[indexPath.row];
     return cell;
-}
-
-#pragma mark - UITableViewDelegate methods
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0) {
-        return HeaderCellHeight;
-    } else if (indexPath.section == 1) {
-        return [WLIPostCell sizeWithPost:self.posts[indexPath.row] withWidth:self.view.frame.size.width].height;
-    } else {
-        return 44;
-    }
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 2 && loadMore && !loading) {
-        [self reloadData:NO];
-    }
 }
 
 #pragma mark - WLITableViewCellDelegate
