@@ -1367,6 +1367,11 @@
 				CLASSPREFIX = WLI;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Goran Vuksic";
+				TargetAttributes = {
+					2CCE1A9417ECD32B00680126 = {
+						DevelopmentTeam = Y63VS2VG4D;
+					};
+				};
 			};
 			buildConfigurationList = 2CCE1A9017ECD32B00680126 /* Build configuration list for PBXProject "MyDrive" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1704,7 +1709,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = no.santander.mydrive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.santander.mydrive;
 				PRODUCT_NAME = MyDrive;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7s armv7";
@@ -1736,7 +1741,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = no.santander.mydrive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.santander.mydrive;
 				PRODUCT_NAME = MyDrive;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7s armv7";
