@@ -241,8 +241,6 @@ static NSString *const AuthTokenKey = @"token";
 - (void)updateUserWithUserID:(NSInteger)userID
                     userType:(WLIUserType)userType
                    userEmail:(NSString *)userEmail
-                 oldPassword:(NSString *)oldPassword
-                    password:(NSString *)password
                   userAvatar:(UIImage *)userAvatar
                 userFullName:(NSString *)userFullName
                     userInfo:(NSString *)userInfo
@@ -264,12 +262,6 @@ static NSString *const AuthTokenKey = @"token";
         if (userEmail.length) {
             [parameters setObject:userEmail forKey:@"email"];
         }
-        if (oldPassword.length) {
-            [parameters setObject:oldPassword forKey:@"oldPassword"];
-        }
-        if (password.length) {
-            [parameters setObject:password forKey:@"password"];
-        }
         if (userFullName.length) {
             [parameters setObject:userFullName forKey:@"userFullname"];
         }
@@ -290,9 +282,7 @@ static NSString *const AuthTokenKey = @"token";
             WLIUser *user = [WLIUser initWithDictionary:rawUser];
             self.currentUser = user;
             [self saveCurrentUser];
-            if (oldPassword.length && password.length) {
-                [self changePassword:oldPassword toNewPassword:password withCompletion:completion];
-            } else if (completion) {
+            if (completion) {
                 completion(user, OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -308,7 +298,7 @@ static NSString *const AuthTokenKey = @"token";
     }
 }
 
-- (void)changePassword:(NSString *)oldPassword toNewPassword:(NSString *)newPassword withCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion
+- (void)changePassword:(NSString *)oldPassword toNewPassword:(NSString *)newPassword withCompletion:(void (^)(ServerResponse serverResponseCode))completion
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
@@ -318,15 +308,15 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:self.authToken forKey:AuthTokenKey];
     [self.httpClient POST:@"api/changePassword" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completion) {
-            completion(self.currentUser, OK);
+            completion(OK);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self debugger:parameters.description methodLog:@"api/changePassword" dataLogFormatted:error.localizedDescription];
         if (completion) {
             if (operation.response) {
-                completion(nil, (ServerResponse)operation.response.statusCode);
+                completion((ServerResponse)operation.response.statusCode);
             } else {
-                completion(nil, NO_CONNECTION);
+                completion(NO_CONNECTION);
             }
         }
     }];
