@@ -212,8 +212,8 @@ static NSString *const AuthTokenKey = @"token";
             completion(nil, BAD_REQUEST);
         }
     } else {
-        NSDictionary *parameters = @{@"userID": [NSString stringWithFormat:@"%zd", self.currentUser.userID],
-                                     @"forUserID": [NSString stringWithFormat:@"%zd", userID],
+        NSDictionary *parameters = @{@"userID": [NSString stringWithFormat:@"%zd", userID],
+                                     @"forUserID": [NSString stringWithFormat:@"%zd", self.currentUser.userID],
                                      AuthTokenKey : self.authToken};
         [self.httpClient POST:@"api/getProfile" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *rawUser = [responseObject objectForKey:@"item"];

@@ -52,6 +52,7 @@ static CGFloat const HeaderCellHeight = 156;
     __weak typeof(self) weakSelf = self;
     [sharedConnect userWithUserID:self.user.userID onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
         if (serverResponseCode == OK) {
+            user.followingUser = weakSelf.user.followingUser;
             weakSelf.user = user;
             weakSelf.navigationItem.title = user.userUsername;
             [weakSelf.tableViewRefresh beginUpdates];
@@ -158,6 +159,21 @@ static CGFloat const HeaderCellHeight = 156;
     if (indexPath.section == 2 && loadMore && !loading) {
         [self reloadData:NO];
     }
+}
+
+#pragma mark - Notifications
+
+- (void)followedUserNotification:(NSNotification *)notification
+{
+    NSInteger userId = [notification.userInfo[@"userId"] integerValue];
+    BOOL followed = [notification.userInfo[@"followed"]  boolValue];
+    if (self.user.userID == userId) {
+        self.user.followingUser = followed;
+        [self.tableViewRefresh beginUpdates];
+        [self.tableViewRefresh reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableViewRefresh endUpdates];
+    }
+    [super followedUserNotification:notification];
 }
 
 @end

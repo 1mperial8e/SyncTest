@@ -18,5 +18,6 @@
 - (void)removePosts:(NSArray *)posts;
 - (void)addPosts:(NSArray *)posts;
 - (void)downloadedPosts:(NSArray *)posts serverResponse:(ServerResponse)serverResponseCode reloadAll:(BOOL)reloadAll;
+- (void)followedUserNotification:(NSNotification *)notification;
 
 @end

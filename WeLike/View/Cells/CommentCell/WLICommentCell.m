@@ -67,8 +67,8 @@ static WLICommentCell *sharedCell = nil;
 
 - (IBAction)buttonUserTouchUpInside:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(showUser:sender:)]) {
-        [self.delegate showUser:self.comment.user sender:self];
+    if ([self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+        [self.delegate showUser:self.comment.user userID:self.comment.user.userID sender:self];
     }
 }
 

@@ -8,6 +8,7 @@
 
 #import "WLIUserCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "WLIConnect.h"
 
 @interface WLIUserCell ()
 
@@ -44,14 +45,15 @@
     [self.imageViewUserImage setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
     self.labelUserName.text = self.user.userUsername;
     self.buttonFollowUnfollow.selected = self.user.followingUser;
+    self.buttonFollowUnfollow.hidden = (self.user.userID == [WLIConnect sharedConnect].currentUser.userID);
 }
 
 #pragma mark - Action methods
 
 - (IBAction)buttonUserTouchUpInside:(id)sender
 {    
-    if ([self.delegate respondsToSelector:@selector(showUser:sender:)]) {
-        [self.delegate showUser:self.user sender:self];
+    if ([self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+        [self.delegate showUser:self.user userID:self.user.userID sender:self];
     }
 }
 

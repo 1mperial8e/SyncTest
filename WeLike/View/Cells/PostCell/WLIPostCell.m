@@ -205,8 +205,8 @@ static CGFloat const StaticCellHeight = 154;
 
 - (IBAction)buttonUserTouchUpInside:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(showUser:sender:)]) {
-        [self.delegate showUser:self.post.user sender:self];
+    if ([self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+        [self.delegate showUser:self.post.user userID:self.post.user.userID sender:self];
     }
 }
 
@@ -310,7 +310,7 @@ static CGFloat const StaticCellHeight = 154;
     NSSet *endHashtagCharachters = [NSSet setWithObjects:@" ", @".", @"-", @"!", @"?", @"[", @"]", @"@", @"#", @"$", @"%", @"^", @"&", @"*", @"(", @")", @"+", @"=", @"/", @"|", @"/", nil];
     for (int i = 0; i < attributedString.length; i++) {
         unichar charachter = [attributedString.string characterAtIndex:i];
-        if (charachter == '#' || charachter == '@') {
+        if (charachter == '#'/* || charachter == '@'*/) {
             for (int j = i + 1; j < attributedString.length; j++) {
                 unichar nextCharachter = [attributedString.string characterAtIndex:j];
                 if (j == attributedString.length - 1 && ![endHashtagCharachters containsObject:[NSString stringWithFormat:@"%c", nextCharachter]]) {

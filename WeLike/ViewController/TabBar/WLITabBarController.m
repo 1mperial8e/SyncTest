@@ -31,11 +31,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (![WLIConnect sharedConnect].currentUser) {
-        self.welcomeViewController.view.alpha = 1.0f;
-    } else {
-        self.welcomeViewController.view.alpha = 0.0f;
-    }
+    [self showUI];
 }
 
 #pragma mark - UI
@@ -65,6 +61,15 @@
     self.welcomeViewController.view.frame = [UIScreen mainScreen].bounds;
     [self.view addSubview:self.welcomeViewController.view];
     self.welcomeViewController.view.frame = self.view.frame;
+}
+
+- (void)showUI
+{
+    if (![WLIConnect sharedConnect].currentUser) {
+        self.welcomeViewController.view.alpha = 1.0f;
+    } else {
+        self.welcomeViewController.view.alpha = 0.0f;
+    }
 }
 
 #pragma mark - WLIWelcomeViewControllerDelegate

@@ -8,4 +8,6 @@
 
 @interface WLITabBarController : UITabBarController
 
+- (void)showUI;
+
 @end

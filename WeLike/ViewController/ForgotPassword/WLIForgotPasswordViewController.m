@@ -84,6 +84,7 @@
     } else if (![self isValidEmail:self.emailTextField.text UseHardFilter:YES]) {
         [self showErrorWithMessage:@"Email is not valid."];
     } else {
+        [self.tableView endEditing:YES];
         [hud show:YES];
         __weak typeof(self) weakSelf = self;
         [sharedConnect forgotPasswordWithEmail:self.emailTextField.text onCompletion:^(ServerResponse serverResponseCode) {

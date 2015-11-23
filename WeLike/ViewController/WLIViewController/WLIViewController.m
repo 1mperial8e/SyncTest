@@ -9,8 +9,9 @@
 #import "WLIViewController.h"
 #import "WLICommentsViewController.h"
 #import "WLIPostViewController.h"
+#import "WLIUserDriveViewController.h"
 
-@interface WLIViewController ()
+@interface WLIViewController () <UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSIndexPath *indexPathToReload;
 @property (strong, nonatomic) UITableView *tableViewRefresh;
@@ -51,6 +52,7 @@
     
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,19 +66,19 @@
 
 #pragma mark - Actions methods
 
-- (void)barButtonItemBackTouchUpInside:(UIButton*)backButton
+- (void)barButtonItemBackTouchUpInside:(UIButton *)backButton
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)barButtonItemCancelTouchUpInside:(UIButton*)backButton
+- (void)barButtonItemCancelTouchUpInside:(UIButton *)backButton
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - WLIPostCellDelegate methods
 
-- (void)showImageForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell
+- (void)showImageForPost:(WLIPost*)post sender:(WLIPostCell *)senderCell
 {
     if (![self isMemberOfClass:[WLIPostViewController class]]) {
         self.indexPathToReload = [self.tableViewRefresh indexPathForCell:senderCell];
@@ -86,12 +88,21 @@
     }
 }
 
-- (void)showCommentsForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell
+- (void)showCommentsForPost:(WLIPost*)post sender:(WLIPostCell *)senderCell
 {
     self.indexPathToReload = [self.tableViewRefresh indexPathForCell:senderCell];
     WLICommentsViewController *commentsViewController = [WLICommentsViewController new];
     commentsViewController.post = post;
     [self.navigationController pushViewController:commentsViewController animated:YES];
+}
+
+- (void)showUser:(WLIUser *)user userID:(NSInteger)userID sender:(WLIPostCell *)senderCell
+{
+    if (user && ![self isKindOfClass:WLIUserDriveViewController.class]) {
+        WLIUserDriveViewController *userDrive = [WLIUserDriveViewController new];
+        userDrive.user = user;
+        [self.navigationController pushViewController:userDrive animated:YES];
+    }
 }
 
 #pragma mark - MNMPullToRefreshClient methods
@@ -114,6 +125,16 @@
     } else {
         [refreshManager tableViewReloadFinishedAnimated:YES];
     }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return [gestureRecognizer isKindOfClass:UIScreenEdgePanGestureRecognizer.class];
 }
 
 @end

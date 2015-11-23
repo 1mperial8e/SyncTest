@@ -17,7 +17,7 @@
 @protocol WLICellDelegate <NSObject>
 
 @optional
-- (void)showUser:(WLIUser *)user sender:(id)senderCell;
+- (void)showUser:(WLIUser *)user userID:(NSInteger)userID sender:(id)senderCell;
 - (void)showImageForPost:(WLIPost *)post sender:(id)senderCell;
 - (void)toggleLikeForPost:(WLIPost *)post sender:(id)senderCell;
 - (void)showCommentsForPost:(WLIPost *)post sender:(id)senderCell;
