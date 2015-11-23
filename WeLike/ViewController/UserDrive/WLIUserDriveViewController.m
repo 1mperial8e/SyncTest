@@ -136,7 +136,8 @@ static CGFloat const HeaderCellHeight = 156;
 {
     WLIPostCell *cell = [self.tableViewRefresh dequeueReusableCellWithIdentifier:WLIPostCell.ID forIndexPath:indexPath];
     cell.delegate = self;
-    cell.showDeleteButton = NO;
+    cell.showDeleteButton = YES;
+    cell.showFollowButton = NO;
     cell.post = self.posts[indexPath.row];
     return cell;
 }

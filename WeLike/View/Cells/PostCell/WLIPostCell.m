@@ -46,7 +46,9 @@ static CGFloat const StaticCellHeight = 154;
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-
+    
+    self.showFollowButton = YES;
+    
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height / 2;
     self.imageViewUser.layer.masksToBounds = YES;
     self.imageViewUser.layer.borderWidth = 2;
@@ -128,10 +130,9 @@ static CGFloat const StaticCellHeight = 154;
                 self.buttonDelete.hidden = NO;
             }
         } else {
-            self.buttonFollow.hidden = NO;
+            self.buttonFollow.hidden = !self.showFollowButton;
             self.buttonDelete.hidden = YES;
         }
-        
         [self insertCategoryButtons];
     }
 }

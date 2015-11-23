@@ -42,30 +42,6 @@
     }
 }
 
-#pragma mark - UITableViewDataSource
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell;
-    if (indexPath.section == 1) {
-        cell = [self postCellForIndexPath:indexPath];
-    } else {
-        cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    }
-    return cell;
-}
-
-#pragma mark - Configure cells
-
-- (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
-{
-    WLIPostCell *cell = [self.tableViewRefresh dequeueReusableCellWithIdentifier:WLIPostCell.ID forIndexPath:indexPath];
-    cell.delegate = self;
-    cell.showDeleteButton = YES;
-    cell.post = self.posts[indexPath.row];
-    return cell;
-}
-
 #pragma mark - WLITableViewCellDelegate
 
 - (void)deletePost:(WLIPost *)post sender:(id)senderCell

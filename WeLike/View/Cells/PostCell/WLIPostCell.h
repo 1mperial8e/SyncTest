@@ -24,7 +24,8 @@
 @property (strong, nonatomic) WLIPost *post;
 @property (weak, nonatomic) id<WLICellDelegate> delegate;
 
-@property BOOL showDeleteButton;
+@property (assign, nonatomic) BOOL showDeleteButton;
+@property (assign, nonatomic) BOOL showFollowButton;
 
 + (CGSize)sizeWithPost:(WLIPost *)post withWidth:(CGFloat)width;
 
