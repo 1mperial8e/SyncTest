@@ -27,6 +27,8 @@
     [super viewDidLoad];
     self.navigationItem.title = @"What is MyDrive?";
     self.scrollView.contentSize = CGSizeMake(375, 1116);
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_email"] style:UIBarButtonItemStylePlain target:self action:@selector(sendFeedBack:)];
 }
 
 - (void)viewDidLayoutSubviews
