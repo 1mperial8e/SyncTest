@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -203,11 +202,11 @@
                                     <constraint firstItem="sbr-sq-xNl" firstAttribute="centerY" secondItem="crh-kc-mda" secondAttribute="centerY" id="B93-AF-rmO"/>
                                     <constraint firstItem="s1E-Ff-GQr" firstAttribute="top" secondItem="crh-kc-mda" secondAttribute="top" id="BPB-Uo-5md"/>
                                     <constraint firstItem="4zI-Gc-7Cx" firstAttribute="top" secondItem="crh-kc-mda" secondAttribute="top" id="FHG-Vg-xjU"/>
+                                    <constraint firstAttribute="height" constant="490" id="IGR-Kx-MR5"/>
                                     <constraint firstItem="sbr-sq-xNl" firstAttribute="centerX" secondItem="crh-kc-mda" secondAttribute="centerX" id="bCD-uO-ean"/>
                                     <constraint firstItem="s1E-Ff-GQr" firstAttribute="leading" secondItem="crh-kc-mda" secondAttribute="leading" id="k8g-At-xSC"/>
                                     <constraint firstAttribute="trailing" secondItem="s1E-Ff-GQr" secondAttribute="trailing" id="s6e-KX-ion"/>
                                     <constraint firstItem="4zI-Gc-7Cx" firstAttribute="leading" secondItem="crh-kc-mda" secondAttribute="leading" id="sFN-sb-J1k"/>
-                                    <constraint firstAttribute="width" secondItem="crh-kc-mda" secondAttribute="height" multiplier="292:245" id="yXn-nd-L2D"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="584" placeholderIntrinsicHeight="26" translatesAutoresizingMaskIntoConstraints="NO" id="Yf8-Og-rbg" userLabel="CatBar">
@@ -423,6 +422,7 @@
                 <outlet property="buttonLike" destination="wTq-IS-nCN" id="ZaT-kW-tX6"/>
                 <outlet property="buttonVideo" destination="sbr-sq-xNl" id="H63-Ct-QxR"/>
                 <outlet property="categoryView" destination="Yf8-Og-rbg" id="Tah-Tl-sa1"/>
+                <outlet property="imageViewHeightConstraint" destination="IGR-Kx-MR5" id="sNa-4a-cqP"/>
                 <outlet property="imageViewPostImage" destination="s1E-Ff-GQr" id="yDD-pp-7cL"/>
                 <outlet property="imageViewUser" destination="HG4-ga-kea" id="S5e-DU-oLD"/>
                 <outlet property="labelComments" destination="Eir-rs-qDW" id="HSH-uV-M0X"/>

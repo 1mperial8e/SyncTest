@@ -21,12 +21,14 @@
                     </activityIndicatorView>
                 </subviews>
                 <animations/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="aSe-d5-Uqx" firstAttribute="centerY" secondItem="zb7-46-ZgI" secondAttribute="centerY" id="cEY-Zg-Wo3"/>
                     <constraint firstItem="aSe-d5-Uqx" firstAttribute="centerX" secondItem="zb7-46-ZgI" secondAttribute="centerX" id="dnZ-ZA-U7G"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="refreshControl" destination="aSe-d5-Uqx" id="b5b-If-EHP"/>
             </connections>

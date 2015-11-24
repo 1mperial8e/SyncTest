@@ -26,10 +26,12 @@ static CGFloat const StaticCellHeight = 154;
 @property (strong, nonatomic) IBOutlet UIButton *buttonFollow;
 @property (strong, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonVideo;
 
 @property (strong, nonatomic) IBOutlet UIView *categoryView;
+
 @property (strong, nonatomic) UIButton *buttonCatMarket;
 @property (strong, nonatomic) UIButton *buttonCatCustomer;
 @property (strong, nonatomic) UIButton *buttonCatCapabilities;
@@ -48,7 +50,8 @@ static CGFloat const StaticCellHeight = 154;
     [super awakeFromNib];
     
     self.showFollowButton = YES;
-    
+    self.imageViewHeightConstraint.constant = 0;
+
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height / 2;
     self.imageViewUser.layer.masksToBounds = YES;
     self.imageViewUser.layer.borderWidth = 2;
@@ -71,7 +74,8 @@ static CGFloat const StaticCellHeight = 154;
     [self.imageViewPostImage cancelImageRequestOperation];
     self.imageViewUser.image = nil;
     self.imageViewPostImage.image = nil;
-    
+    self.imageViewHeightConstraint.constant = 0;
+
     self.showDeleteButton = NO;
     [self removeCategoryButtons];
 }
@@ -95,7 +99,8 @@ static CGFloat const StaticCellHeight = 154;
     }
     sharedCell.textView.text = post.postText.length ? post.postText : @"A";
     CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 32, MAXFLOAT)]; // 32 left & right spacing
-    return CGSizeMake(width, textSize.height + StaticCellHeight + (width * 245) / 292);;
+    CGFloat imageViewHeight = post.postImagePath.length ? ((width - 8) * 245) / 292 : 5;
+    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight);
 }
 
 #pragma mark - Update
@@ -110,9 +115,8 @@ static CGFloat const StaticCellHeight = 154;
         self.textView.attributedText = [self formattedStringWithHashtagsAndUsers:self.post.postText];
 
         if (self.post.postImagePath.length) {
+            self.imageViewHeightConstraint.constant = (([UIScreen mainScreen].bounds.size.width - 8) * 245) / 292;
             [self.imageViewPostImage setImageWithURL:[NSURL URLWithString:self.post.postImagePath]];
-        } else {
-            self.imageViewPostImage.image = [UIImage imageNamed:@"postPlaceholder"];
         }
         
         self.buttonLike.selected = self.post.likedThisPost;
