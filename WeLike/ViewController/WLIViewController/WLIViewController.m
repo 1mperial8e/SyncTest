@@ -10,17 +10,12 @@
 #import "WLICommentsViewController.h"
 #import "WLIPostViewController.h"
 #import "WLIUserDriveViewController.h"
+#import <MessageUI/MessageUI.h>
 
-@interface WLIViewController () <UIGestureRecognizerDelegate>
+@interface WLIViewController () <UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) NSIndexPath *indexPathToReload;
 @property (strong, nonatomic) UITableView *tableViewRefresh;
-
-@end
-
-#import <MessageUI/MessageUI.h>
-
-@interface WLIViewController() <MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
 
 @end
 

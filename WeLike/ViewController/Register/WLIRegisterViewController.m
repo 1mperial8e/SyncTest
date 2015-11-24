@@ -12,7 +12,7 @@
 #import "WLIRegisterAvatarTableViewCell.h"
 #import "WLIRegisterTableViewCell.h"
 
-@interface WLIRegisterViewController () <UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface WLIRegisterViewController () <UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -179,6 +179,8 @@
                 [weakSelf showErrorWithMessage:@"No connection. Please try again."];
             } else if (serverResponseCode == CONFLICT) {
                 [weakSelf showErrorWithMessage:@"User already exists. Please try again."];
+            } else if (serverResponseCode == FORBIDDEN) {
+                [weakSelf showAlertWithSupport];
             } else {
                 [weakSelf showErrorWithMessage:@"Something went wrong. Please try again."];
             }
@@ -201,6 +203,20 @@
 - (void)showErrorWithMessage:(NSString *)message
 {
     [[[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+}
+
+- (void)showAlertWithSupport
+{
+    [[[UIAlertView alloc] initWithTitle:@"Error" message:@"We were not able to create an account. Please contact support." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Support", nil] show];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        [self sendFeedBack:nil];
+    }
 }
 
 #pragma mark - UIImagePickerControllerDelegate methods
