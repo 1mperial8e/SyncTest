@@ -7,6 +7,7 @@
 //
 
 #import "WLIPostCell.h"
+#import "WLILoadingCell.h"
 #import "MNMPullToRefreshManager.h"
 #import "WLIConnect.h"
 #import "MBProgressHUD.h"

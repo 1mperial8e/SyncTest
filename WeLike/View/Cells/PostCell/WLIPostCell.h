@@ -27,6 +27,8 @@
 @property (assign, nonatomic) BOOL showDeleteButton;
 @property (assign, nonatomic) BOOL showFollowButton;
 
+@property (strong, nonatomic) UIImage *originalImage;
+
 + (CGSize)sizeWithPost:(WLIPost *)post withWidth:(CGFloat)width;
 
 @end

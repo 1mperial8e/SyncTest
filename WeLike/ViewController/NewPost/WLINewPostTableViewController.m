@@ -132,8 +132,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 
 - (void)publishButtonAction:(id)sender
 {
-//    WLIConnect *sharedConnect;
-    
+    [self.tableView endEditing:YES];
     NSInteger categoryCode = 0;
 
     if ([[self.catStates objectForKey:@"market"] boolValue])
@@ -225,7 +224,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
             cell = [tableView dequeueReusableCellWithIdentifier:ImageCellId];
             imageView = [cell viewWithTag:1];
             if (self.image != nil) {
-                imageView.image = self.image;
+                imageView.image = [self croppedImageForPreview:self.image];
             }
             break;
         }
@@ -255,7 +254,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
             return 44;
             break;
         case 2: // Image display
-            ret = [[UIScreen mainScreen] bounds].size.width * (480.0f / 640.0f);
+            ret = [[UIScreen mainScreen] bounds].size.width * (245 / 292.f);
             return ret;
             break;
         case 1: // Text View
@@ -281,7 +280,6 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
-    imagePickerController.allowsEditing = YES;
     imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
@@ -290,7 +288,6 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
-    imagePickerController.allowsEditing = YES;
     imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
@@ -381,10 +378,36 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 
 #pragma mark - Utils
 
+- (UIImage *)croppedImageForPreview:(UIImage *)srcImage
+{
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    CGFloat viewWidth = screenSize.width - 8;
+    CGFloat viewHeight = (viewWidth * 245) / 292;
+    CGFloat coef = 1;
+    CGRect drawRect = CGRectZero;
+    if (srcImage.size.height >= srcImage.size.width) {
+        coef = srcImage.size.width / viewWidth;
+        drawRect.origin.x = 0;
+        drawRect.origin.y = -(srcImage.size.height - ((srcImage.size.width * 245) / 292)) / 2;
+    } else {
+        coef = srcImage.size.height / viewHeight;
+        drawRect.origin.y = 0;
+        drawRect.origin.x = -(srcImage.size.width - ((srcImage.size.height * 292) / 245)) / 2;
+    }
+    drawRect.size = srcImage.size;
+    UIGraphicsBeginImageContext(CGSizeMake(viewWidth * coef, viewHeight * coef));
+    [srcImage drawInRect:drawRect];
+    UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return croppedImage;
+}
+
 - (UIImage *)scaledImage:(UIImage *)srcImage
 {
-    UIGraphicsBeginImageContext(ScaledImageSize);
-    [srcImage drawInRect:CGRectMake(0, -(srcImage.size.height - ScaledImageSize.height) / 2, srcImage.size.width, srcImage.size.height)];
+    CGFloat coef = ScaledImageSize.width / MAX(srcImage.size.width, srcImage.size.width);
+    CGSize drawSize = CGSizeMake(srcImage.size.width * coef, srcImage.size.height * coef);
+    UIGraphicsBeginImageContext(drawSize);
+    [srcImage drawInRect:CGRectMake(0, 0, drawSize.width, drawSize.height)];
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return scaledImage;

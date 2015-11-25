@@ -140,6 +140,8 @@
 		4F2C83E11BFB7C7800EDD64F /* WLIPeopleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2C83DF1BFB7C7800EDD64F /* WLIPeopleListViewController.xib */; };
 		4F2C83E61BFB884A00EDD64F /* WLIEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2C83E41BFB884A00EDD64F /* WLIEditProfileViewController.m */; };
 		4F2C83E71BFB884A00EDD64F /* WLIEditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2C83E51BFB884A00EDD64F /* WLIEditProfileViewController.xib */; };
+		4F4CCD0A1C05A29700EC7166 /* WLIFullScreenPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4CCD081C05A29700EC7166 /* WLIFullScreenPhotoViewController.m */; };
+		4F4CCD0B1C05A29700EC7166 /* WLIFullScreenPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F4CCD091C05A29700EC7166 /* WLIFullScreenPhotoViewController.xib */; };
 		4F4D46461BFE2C5B00993349 /* WLIChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4D46441BFE2C5B00993349 /* WLIChangePasswordViewController.m */; };
 		4F4D46471BFE2C5B00993349 /* WLIChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F4D46451BFE2C5B00993349 /* WLIChangePasswordViewController.xib */; };
 		4F4D464C1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4D464A1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.m */; };
@@ -150,6 +152,7 @@
 		4F69E8DF1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F69E8DD1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.xib */; };
 		4F69E8E31BF0B49500A6CD5A /* WLIRegisterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8E11BF0B49500A6CD5A /* WLIRegisterTableViewCell.m */; };
 		4F69E8E41BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F69E8E21BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib */; };
+		4F70AAF01C05E0B6005033D2 /* WLIHitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F70AAEF1C05E0B6005033D2 /* WLIHitView.m */; };
 		4F8200411BFCC5F400B0EB57 /* VideoConversionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F82003F1BFCC5F400B0EB57 /* VideoConversionService.m */; };
 		4F8200751BFCD13900B0EB57 /* NSDictionary+Nonnull.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8200741BFCD13900B0EB57 /* NSDictionary+Nonnull.m */; };
 		4F8200781BFCD16000B0EB57 /* ALAsset+Copy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8200771BFCD16000B0EB57 /* ALAsset+Copy.m */; };
@@ -391,6 +394,9 @@
 		4F2C83E31BFB884A00EDD64F /* WLIEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIEditProfileViewController.h; sourceTree = "<group>"; };
 		4F2C83E41BFB884A00EDD64F /* WLIEditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIEditProfileViewController.m; sourceTree = "<group>"; };
 		4F2C83E51BFB884A00EDD64F /* WLIEditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIEditProfileViewController.xib; sourceTree = "<group>"; };
+		4F4CCD071C05A29700EC7166 /* WLIFullScreenPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIFullScreenPhotoViewController.h; sourceTree = "<group>"; };
+		4F4CCD081C05A29700EC7166 /* WLIFullScreenPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIFullScreenPhotoViewController.m; sourceTree = "<group>"; };
+		4F4CCD091C05A29700EC7166 /* WLIFullScreenPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIFullScreenPhotoViewController.xib; sourceTree = "<group>"; };
 		4F4D46431BFE2C5B00993349 /* WLIChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIChangePasswordViewController.h; sourceTree = "<group>"; };
 		4F4D46441BFE2C5B00993349 /* WLIChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIChangePasswordViewController.m; sourceTree = "<group>"; };
 		4F4D46451BFE2C5B00993349 /* WLIChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIChangePasswordViewController.xib; sourceTree = "<group>"; };
@@ -406,6 +412,8 @@
 		4F69E8E01BF0B49500A6CD5A /* WLIRegisterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIRegisterTableViewCell.h; sourceTree = "<group>"; };
 		4F69E8E11BF0B49500A6CD5A /* WLIRegisterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIRegisterTableViewCell.m; sourceTree = "<group>"; };
 		4F69E8E21BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIRegisterTableViewCell.xib; sourceTree = "<group>"; };
+		4F70AAEE1C05E0B6005033D2 /* WLIHitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIHitView.h; sourceTree = "<group>"; };
+		4F70AAEF1C05E0B6005033D2 /* WLIHitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIHitView.m; sourceTree = "<group>"; };
 		4F82003F1BFCC5F400B0EB57 /* VideoConversionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoConversionService.m; sourceTree = "<group>"; };
 		4F8200401BFCC5F400B0EB57 /* VideoConversionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoConversionService.h; sourceTree = "<group>"; };
 		4F8200731BFCD13900B0EB57 /* NSDictionary+Nonnull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Nonnull.h"; sourceTree = "<group>"; };
@@ -764,6 +772,7 @@
 		2C6D26F41896BACA00C459CB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4F70AAED1C05E0A3005033D2 /* HitView */,
 				2C6D26F61896BACA00C459CB /* Cells */,
 			);
 			path = View;
@@ -846,11 +855,11 @@
 				2C6D27261896BACA00C459CB /* Login */,
 				2C6D272E1896BACA00C459CB /* NewPost */,
 				2C6D27361896BACA00C459CB /* Post */,
+				4F4CCD031C05A23200EC7166 /* FullScreenPhoto */,
 				2C6D27421896BACA00C459CB /* Register */,
 				2C6D274A1896BACA00C459CB /* TabBar */,
 				2C6D274D1896BACA00C459CB /* Timeline */,
 				2C6D27511896BACA00C459CB /* Welcome */,
-				2C6D27551896BACA00C459CB /* WLIViewController */,
 			);
 			name = ViewControllers;
 			path = ViewController;
@@ -940,6 +949,7 @@
 		2C6D274D1896BACA00C459CB /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
+				2C6D27551896BACA00C459CB /* WLIViewController */,
 				2C6D274E1896BACA00C459CB /* WLITimelineViewController.h */,
 				2C6D274F1896BACA00C459CB /* WLITimelineViewController.m */,
 				2C6D27501896BACA00C459CB /* WLITimelineViewController.xib */,
@@ -963,7 +973,8 @@
 				2C6D27561896BACA00C459CB /* WLIViewController.h */,
 				2C6D27571896BACA00C459CB /* WLIViewController.m */,
 			);
-			path = WLIViewController;
+			name = WLIViewController;
+			path = ../WLIViewController;
 			sourceTree = "<group>";
 		};
 		2CCE1A8C17ECD32B00680126 = {
@@ -1226,6 +1237,16 @@
 			path = EditProfile;
 			sourceTree = "<group>";
 		};
+		4F4CCD031C05A23200EC7166 /* FullScreenPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				4F4CCD071C05A29700EC7166 /* WLIFullScreenPhotoViewController.h */,
+				4F4CCD081C05A29700EC7166 /* WLIFullScreenPhotoViewController.m */,
+				4F4CCD091C05A29700EC7166 /* WLIFullScreenPhotoViewController.xib */,
+			);
+			path = FullScreenPhoto;
+			sourceTree = "<group>";
+		};
 		4F4D46421BFE2C3D00993349 /* ChangePassword */ = {
 			isa = PBXGroup;
 			children = (
@@ -1283,6 +1304,15 @@
 				4F8200721BFCD13900B0EB57 /* NSDictionary+Nonnull */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		4F70AAED1C05E0A3005033D2 /* HitView */ = {
+			isa = PBXGroup;
+			children = (
+				4F70AAEE1C05E0B6005033D2 /* WLIHitView.h */,
+				4F70AAEF1C05E0B6005033D2 /* WLIHitView.m */,
+			);
+			path = HitView;
 			sourceTree = "<group>";
 		};
 		4F82003D1BFCC5D900B0EB57 /* Services */ = {
@@ -1513,6 +1543,7 @@
 				074348291BBABCB700EAA2AA /* Market2.png in Resources */,
 				2C6D27F61896BACA00C459CB /* WLIRegisterViewController.xib in Resources */,
 				2ECF34931BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib in Resources */,
+				4F4CCD0B1C05A29700EC7166 /* WLIFullScreenPhotoViewController.xib in Resources */,
 				2C6D27D51896BACA00C459CB /* WLILoadingCell.xib in Resources */,
 				4F2C83D31BFB27CB00EDD64F /* WLICategoryCustomerCell.xib in Resources */,
 				4F2C83BF1BFB26D900EDD64F /* WLIBaseTableViewCell.xib in Resources */,
@@ -1599,6 +1630,7 @@
 				2C5B5C7E1A1A8F9500175A58 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2C5B5C7F1A1A8F9500175A58 /* UIAlertView+AFNetworking.m in Sources */,
 				4FE75D291BFF25770063F3D8 /* WLIForgotPasswordViewController.m in Sources */,
+				4F70AAF01C05E0B6005033D2 /* WLIHitView.m in Sources */,
 				2C6D27B31896BACA00C459CB /* WLIActivityIndicator.m in Sources */,
 				4F8E2D481BF4A4C000953EC0 /* WLICategoryPostsViewController.m in Sources */,
 				2C6D27F91896BACA00C459CB /* WLITabBarController.m in Sources */,
@@ -1658,6 +1690,7 @@
 				2E4918561BCBDBD100E25255 /* WLIInfoWhyViewController.m in Sources */,
 				2C6D27C11896BACA00C459CB /* SBJsonStreamWriterAccumulator.m in Sources */,
 				4F2C83E01BFB7C7800EDD64F /* WLIPeopleListViewController.m in Sources */,
+				4F4CCD0A1C05A29700EC7166 /* WLIFullScreenPhotoViewController.m in Sources */,
 				2C6D27E11896BACA00C459CB /* WLIFollowersViewController.m in Sources */,
 				4F8200751BFCD13900B0EB57 /* NSDictionary+Nonnull.m in Sources */,
 				4F69E8E31BF0B49500A6CD5A /* WLIRegisterTableViewCell.m in Sources */,
