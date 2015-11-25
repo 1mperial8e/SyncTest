@@ -25,6 +25,7 @@
     
     [super viewDidLoad];
     self.title = @"My Energy";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_email"] style:UIBarButtonItemStylePlain target:self action:@selector(sendFeedBack:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated

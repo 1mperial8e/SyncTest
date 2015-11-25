@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewUser;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserEmail;
+@property (weak, nonatomic) IBOutlet UILabel *rankLabel;
 @property (weak, nonatomic) IBOutlet UIButton *buttonEditProfile;
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 
@@ -85,6 +86,17 @@
 #endif
 }
 
+#pragma mark - Public
+
+- (void)updateRank:(NSInteger)rank
+{
+    self.rankLabel.text = [NSString stringWithFormat:@"Rank: %zd", rank];
+}
+
+- (void)updatePoints:(NSInteger)points
+{
+    self.pointsCountLabel.text = [NSString stringWithFormat:@"%zd", points];
+}
 
 #pragma mark - Gestures
 
@@ -141,8 +153,8 @@
         self.postsCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.myPostsCount];
         self.followersCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
         self.followingCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followingCount];
-        NSInteger points = self.user.likesCount + self.user.myPostsCount + self.user.followersCount + self.user.followingCount;
-        self.pointsCountLabel.text = [NSString stringWithFormat:@"%zd", points];
+        [self updatePoints:self.user.points];
+        [self updateRank:self.user.rank];
     }
 }
 

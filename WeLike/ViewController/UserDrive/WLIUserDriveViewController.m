@@ -12,6 +12,8 @@ static CGFloat const HeaderCellHeight = 156;
 
 @interface WLIUserDriveViewController ()
 
+@property (weak, nonatomic) WLIMyDriveHeaderCell *headerCell;
+
 @end
 
 @implementation WLIUserDriveViewController
@@ -42,7 +44,17 @@ static CGFloat const HeaderCellHeight = 156;
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
-    [sharedConnect mydriveTimelineForUserID:self.user.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode) {
+    [sharedConnect mydriveTimelineForUserID:self.user.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, NSDictionary *rankInfo, ServerResponse serverResponseCode) {
+        NSInteger rank = [rankInfo[@"stored"][@"rank"] integerValue];
+        NSInteger points = [rankInfo[@"live"][@"points"] integerValue];
+        weakSelf.user.rank = rank;
+        weakSelf.user.points = points;
+        if (weakSelf.user.userID == sharedConnect.currentUser.userID) {
+            sharedConnect.currentUser = weakSelf.user;
+            [sharedConnect saveCurrentUser];
+        }
+        [weakSelf.headerCell updateRank:rank];
+        [weakSelf.headerCell updatePoints:points];
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -114,6 +126,7 @@ static CGFloat const HeaderCellHeight = 156;
     UITableViewCell *cell;
     if (indexPath.section == 0) {
         cell = [self headerCellForIndexPath:indexPath];
+        self.headerCell = (WLIMyDriveHeaderCell *)cell;
     } else if (indexPath.section == 1) {
         cell = [self postCellForIndexPath:indexPath];
     } else {

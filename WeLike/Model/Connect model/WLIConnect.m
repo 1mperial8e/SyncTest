@@ -509,7 +509,7 @@ static NSString *const AuthTokenKey = @"token";
 - (void)mydriveTimelineForUserID:(NSInteger)userID
                             page:(NSInteger)page
                         pageSize:(NSInteger)pageSize
-                    onCompletion:(void (^)(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode))completion
+                    onCompletion:(void (^)(NSMutableArray *posts, id rankInfo, ServerResponse serverResponseCode))completion
 {
     
     if (userID < 1) {
@@ -526,10 +526,11 @@ static NSString *const AuthTokenKey = @"token";
 
         [self.httpClient POST:@"api/getMydriveTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawPosts = [responseObject objectForKey:@"items"];
-            WLIUser *user = [WLIUser initWithDictionary:[responseObject objectForKey:@"user"]];
             NSArray *posts = [WLIPost arrayWithDictionariesArray:rawPosts];
+            NSDictionary *rankInfo = [responseObject objectForKey:@"scoreboard"];
+            
             if (completion) {
-                completion([posts mutableCopy], user, OK);
+                completion([posts mutableCopy], rankInfo, OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [self debugger:parameters.description methodLog:@"api/getMydriveTimeline" dataLogFormatted:error.localizedDescription];

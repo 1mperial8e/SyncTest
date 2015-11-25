@@ -29,6 +29,9 @@ typedef NS_ENUM(NSInteger, WLIUserType) {
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *subtitle;
 
+@property (assign, nonatomic) NSInteger rank;
+@property (assign, nonatomic) NSInteger points;
+
 @property (assign, nonatomic) NSInteger followersCount;
 @property (assign, nonatomic) NSInteger followingCount;
 

@@ -58,6 +58,8 @@
     [encoder encodeInteger:self.myPostsCount forKey:@"myPostsCount"];
     [encoder encodeInteger:self.followersCount forKey:@"followersCount"];
     [encoder encodeInteger:self.followingCount forKey:@"followingCount"];
+    [encoder encodeInteger:self.rank forKey:@"rank"];
+    [encoder encodeInteger:self.points forKey:@"points"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -76,6 +78,8 @@
         self.followingCount = [decoder decodeIntegerForKey:@"followingCount"];
         self.likesCount = [decoder decodeIntegerForKey:@"likesCount"];
         self.myPostsCount = [decoder decodeIntegerForKey:@"myPostsCount"];
+        self.rank = [decoder decodeIntegerForKey:@"rank"];
+        self.points = [decoder decodeIntegerForKey:@"points"];
     }
     return self;
 }

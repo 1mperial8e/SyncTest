@@ -47,6 +47,7 @@ typedef enum ServerResponse ServerResponse;
 + (instancetype)sharedConnect;
 
 #pragma mark - UserAPI
+- (void)saveCurrentUser;
 
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
 - (void)logout;
@@ -115,7 +116,7 @@ typedef enum ServerResponse ServerResponse;
 - (void)mydriveTimelineForUserID:(NSInteger)userID
                             page:(NSInteger)page
                         pageSize:(NSInteger)pageSize
-                    onCompletion:(void (^)(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode))completion;
+                    onCompletion:(void (^)(NSMutableArray *posts, id rankInfo, ServerResponse serverResponseCode))completion;
 
 #pragma mark - Posts
 
