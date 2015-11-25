@@ -153,6 +153,7 @@
 		4F69E8E31BF0B49500A6CD5A /* WLIRegisterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8E11BF0B49500A6CD5A /* WLIRegisterTableViewCell.m */; };
 		4F69E8E41BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F69E8E21BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib */; };
 		4F70AAF01C05E0B6005033D2 /* WLIHitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F70AAEF1C05E0B6005033D2 /* WLIHitView.m */; };
+		4F70AAF41C05E52C005033D2 /* lsansuni.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F70AAF31C05E52C005033D2 /* lsansuni.ttf */; };
 		4F8200411BFCC5F400B0EB57 /* VideoConversionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F82003F1BFCC5F400B0EB57 /* VideoConversionService.m */; };
 		4F8200751BFCD13900B0EB57 /* NSDictionary+Nonnull.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8200741BFCD13900B0EB57 /* NSDictionary+Nonnull.m */; };
 		4F8200781BFCD16000B0EB57 /* ALAsset+Copy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8200771BFCD16000B0EB57 /* ALAsset+Copy.m */; };
@@ -414,6 +415,7 @@
 		4F69E8E21BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIRegisterTableViewCell.xib; sourceTree = "<group>"; };
 		4F70AAEE1C05E0B6005033D2 /* WLIHitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIHitView.h; sourceTree = "<group>"; };
 		4F70AAEF1C05E0B6005033D2 /* WLIHitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIHitView.m; sourceTree = "<group>"; };
+		4F70AAF31C05E52C005033D2 /* lsansuni.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lsansuni.ttf; sourceTree = "<group>"; };
 		4F82003F1BFCC5F400B0EB57 /* VideoConversionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoConversionService.m; sourceTree = "<group>"; };
 		4F8200401BFCC5F400B0EB57 /* VideoConversionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoConversionService.h; sourceTree = "<group>"; };
 		4F8200731BFCD13900B0EB57 /* NSDictionary+Nonnull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Nonnull.h"; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 		2C6D26741896BACA00C459CB /* WeLike */ = {
 			isa = PBXGroup;
 			children = (
+				4F70AAF11C05E514005033D2 /* Resources */,
 				4F82003D1BFCC5D900B0EB57 /* Services */,
 				2C6D26751896BACA00C459CB /* 3rdParty */,
 				2C6D26DC1896BACA00C459CB /* AppDelegate */,
@@ -1315,6 +1318,22 @@
 			path = HitView;
 			sourceTree = "<group>";
 		};
+		4F70AAF11C05E514005033D2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4F70AAF21C05E521005033D2 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4F70AAF21C05E521005033D2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4F70AAF31C05E52C005033D2 /* lsansuni.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		4F82003D1BFCC5D900B0EB57 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -1571,6 +1590,7 @@
 				074D68881BB53B40000167DD /* Graph1.png in Resources */,
 				2C6D27E21896BACA00C459CB /* WLIFollowersViewController.xib in Resources */,
 				2C6D27B41896BACA00C459CB /* MNMPullToRefresh.strings in Resources */,
+				4F70AAF41C05E52C005033D2 /* lsansuni.ttf in Resources */,
 				0743482A1BBABCB700EAA2AA /* Peolple2.png in Resources */,
 				074348241BBABCB700EAA2AA /* Capability.png in Resources */,
 				2E696D7B1BD118870077381C /* WLINewPostTableViewController.xib in Resources */,
