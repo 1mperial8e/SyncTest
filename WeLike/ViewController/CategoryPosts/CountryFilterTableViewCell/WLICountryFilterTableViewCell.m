@@ -10,4 +10,13 @@
 
 @implementation WLICountryFilterTableViewCell
 
+#pragma mark - Actions
+
+- (IBAction)selectedCategoryChanged:(UISegmentedControl *)sender
+{
+    if (self.countrySelectedHandler) {
+        self.countrySelectedHandler(sender.selectedSegmentIndex);
+    }
+}
+
 @end
