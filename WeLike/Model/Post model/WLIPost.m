@@ -36,6 +36,8 @@
         self.categoryCapabilities = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 2;
         self.categoryCustomer = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 4;
         self.categoryPeople = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 8;
+        
+        self.taggedUsers = [self arrayFromDictionary:postWithInfo forKey:@"tagged_users"];
     }
         
     return self;

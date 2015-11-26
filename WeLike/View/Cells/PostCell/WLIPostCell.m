@@ -308,8 +308,16 @@ static CGFloat const StaticCellHeight = 154;
         if ([self.delegate respondsToSelector:@selector(showTimelineForSearchString:)]) {
             [self.delegate showTimelineForSearchString:hashtag];
         }
+        return NO;
+    } else if ([hashtag hasPrefix:@"@"]) {
+        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", [hashtag substringFromIndex:1]];
+        NSDictionary *userInfo = [self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].firstObject;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+            [self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];
+        }
+        return NO;
     }
-    return NO;
+    return YES;
 }
 
 #pragma mark - Utils
@@ -322,21 +330,37 @@ static CGFloat const StaticCellHeight = 154;
     NSSet *endHashtagCharachters = [NSSet setWithObjects:@" ", @".", @"-", @"!", @"?", @"[", @"]", @"@", @"#", @"$", @"%", @"^", @"&", @"*", @"(", @")", @"+", @"=", @"/", @"|", @"/", nil];
     for (int i = 0; i < attributedString.length; i++) {
         unichar charachter = [attributedString.string characterAtIndex:i];
-        if (charachter == '#'/* || charachter == '@'*/) {
+        if (charachter == '#' || charachter == '@') {
+            BOOL isUserTag = charachter == '@';
             for (int j = i + 1; j < attributedString.length; j++) {
                 unichar nextCharachter = [attributedString.string characterAtIndex:j];
                 if (j == attributedString.length - 1 && ![endHashtagCharachters containsObject:[NSString stringWithFormat:@"%c", nextCharachter]]) {
                     // end of text
+                    if (isUserTag) {
+                        NSString *user = [string substringWithRange:NSMakeRange(i + 1, j - i)];
+                        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", user];
+                        if (![self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].count) {
+                            break;
+                        }
+                    }
                     [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i + 1)];
                     [attributedString addAttribute:NSLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i + 1)];
                     break;
                 }
                 if ([endHashtagCharachters containsObject:[NSString stringWithFormat:@"%c", nextCharachter]]) {
-                    if (j == i + 1) { // only #
+                    if (j == i + 1) { // only #, @
                         break;
                     }
+                    if (isUserTag) {
+                        NSString *user = [string substringWithRange:NSMakeRange(i + 1, j - i - 1)];
+                        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", user];
+                        if (![self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].count) {
+                            break;
+                        }
+                    }
+
                     // end of hashtag
-                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i - 1)];
+                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i)];
                     [attributedString addAttribute:NSLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i)];
                     i = j;
                     break;

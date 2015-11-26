@@ -130,11 +130,15 @@
 
 - (void)showUser:(WLIUser *)user userID:(NSInteger)userID sender:(WLIPostCell *)senderCell
 {
-    if (user && ![self isKindOfClass:WLIUserDriveViewController.class]) {
-        WLIUserDriveViewController *userDrive = [WLIUserDriveViewController new];
+    WLIUserDriveViewController *userDrive = [WLIUserDriveViewController new];
+    if (user) {
         userDrive.user = user;
-        [self.navigationController pushViewController:userDrive animated:YES];
+    } else {
+        WLIUser *tmpUser = [WLIUser new];
+        tmpUser.userID = userID;
+        userDrive.user = tmpUser;
     }
+    [self.navigationController pushViewController:userDrive animated:YES];
 }
 
 #pragma mark - MNMPullToRefreshClient methods

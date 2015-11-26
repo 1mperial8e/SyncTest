@@ -22,6 +22,8 @@
 @property (strong, nonatomic) WLIUser *user;
 @property (assign, nonatomic) NSInteger postLikesCount;
 @property (assign, nonatomic) NSInteger postCommentsCount;
+@property (strong, nonatomic) NSArray *taggedUsers;
+
 @property (assign, nonatomic) BOOL likedThisPost;
 @property (assign, nonatomic) BOOL isConnected;
 @property (assign, nonatomic) BOOL commentedThisPost;

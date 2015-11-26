@@ -25,7 +25,7 @@
 @property (strong, nonatomic) WLIUser *user;
 @property (weak, nonatomic) id<MyDriveHeaderCellDelegate> delegate;
 
-- (void)updateRank:(NSInteger)rank;
+- (void)updateRank:(NSInteger)rank forUsers:(NSInteger)users;
 - (void)updatePoints:(NSInteger)points;
 
 @end

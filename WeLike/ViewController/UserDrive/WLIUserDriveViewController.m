@@ -46,6 +46,7 @@ static CGFloat const HeaderCellHeight = 156;
     __weak typeof(self) weakSelf = self;
     [sharedConnect mydriveTimelineForUserID:self.user.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, NSDictionary *rankInfo, ServerResponse serverResponseCode) {
         NSInteger rank = [rankInfo[@"stored"][@"rank"] integerValue];
+        NSInteger users = [rankInfo[@"stored"][@"number_of_users"] integerValue];
         NSInteger points = [rankInfo[@"live"][@"points"] integerValue];
         weakSelf.user.rank = rank;
         weakSelf.user.points = points;
@@ -53,7 +54,7 @@ static CGFloat const HeaderCellHeight = 156;
             sharedConnect.currentUser = weakSelf.user;
             [sharedConnect saveCurrentUser];
         }
-        [weakSelf.headerCell updateRank:rank];
+        [weakSelf.headerCell updateRank:rank forUsers:users];
         [weakSelf.headerCell updatePoints:points];
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];

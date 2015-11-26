@@ -88,9 +88,9 @@
 
 #pragma mark - Public
 
-- (void)updateRank:(NSInteger)rank
+- (void)updateRank:(NSInteger)rank forUsers:(NSInteger)users
 {
-    self.rankLabel.text = [NSString stringWithFormat:@"Rank: %zd", rank];
+    self.rankLabel.text = [NSString stringWithFormat:@"Rank: %zd/%zd", rank, users];
 }
 
 - (void)updatePoints:(NSInteger)points
@@ -154,7 +154,6 @@
         self.followersCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
         self.followingCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followingCount];
         [self updatePoints:self.user.points];
-        [self updateRank:self.user.rank];
     }
 }
 
