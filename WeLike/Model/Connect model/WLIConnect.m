@@ -952,7 +952,6 @@ static NSString *const AuthTokenKey = @"token";
         [self.httpClient POST:@"api/getFollowing" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawUsers = [responseObject[@"items"] valueForKey:@"user"];
             NSArray *users = [WLIUser arrayWithDictionariesArray:rawUsers];
-            [users setValue:@YES forKey:@"followingUser"];
             if (completion) {
                 completion([users mutableCopy], OK);
             }
