@@ -9,6 +9,8 @@
 #import "WLIPostCell.h"
 #import "WLIConnect.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "WLIAppDelegate.h"
+#import "WLIWebViewController.h"
 
 static WLIPostCell *sharedCell = nil;
 
@@ -302,6 +304,17 @@ static NSString *const CustomLinkAttributeName = @"CustomLinkAttributeName";
             [self.delegate followUser:self.post.user sender:self];
         }
     }
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+{
+    WLIWebViewController *webViewController = [[WLIWebViewController alloc] initWithUrl:URL];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:webViewController];
+    WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate.tabBarController presentViewController:navController animated:YES completion:nil];
+    return NO;
 }
 
 #pragma mark - Gesture

@@ -169,6 +169,8 @@
 		4F8E2D471BF4A4C000953EC0 /* WLICountryFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F8E2D421BF4A4C000953EC0 /* WLICountryFilterTableViewCell.xib */; };
 		4F8E2D481BF4A4C000953EC0 /* WLICategoryPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E2D441BF4A4C000953EC0 /* WLICategoryPostsViewController.m */; };
 		4F8E2D491BF4A4C000953EC0 /* WLICategoryPostsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F8E2D451BF4A4C000953EC0 /* WLICategoryPostsViewController.xib */; };
+		4FC33E971C0CB58A005F29D3 /* WLIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC33E951C0CB58A005F29D3 /* WLIWebViewController.m */; };
+		4FC33E981C0CB58A005F29D3 /* WLIWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FC33E961C0CB58A005F29D3 /* WLIWebViewController.xib */; };
 		4FE75D221BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE75D201BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.m */; };
 		4FE75D231BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FE75D211BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.xib */; };
 		4FE75D291BFF25770063F3D8 /* WLIForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE75D271BFF25770063F3D8 /* WLIForgotPasswordViewController.m */; };
@@ -444,6 +446,9 @@
 		4F8E2D431BF4A4C000953EC0 /* WLICategoryPostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLICategoryPostsViewController.h; path = CategoryPosts/WLICategoryPostsViewController.h; sourceTree = "<group>"; };
 		4F8E2D441BF4A4C000953EC0 /* WLICategoryPostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLICategoryPostsViewController.m; path = CategoryPosts/WLICategoryPostsViewController.m; sourceTree = "<group>"; };
 		4F8E2D451BF4A4C000953EC0 /* WLICategoryPostsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLICategoryPostsViewController.xib; path = CategoryPosts/WLICategoryPostsViewController.xib; sourceTree = "<group>"; };
+		4FC33E941C0CB58A005F29D3 /* WLIWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIWebViewController.h; sourceTree = "<group>"; };
+		4FC33E951C0CB58A005F29D3 /* WLIWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIWebViewController.m; sourceTree = "<group>"; };
+		4FC33E961C0CB58A005F29D3 /* WLIWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIWebViewController.xib; sourceTree = "<group>"; };
 		4FE75D1F1BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIForgotPasswordTableViewCell.h; sourceTree = "<group>"; };
 		4FE75D201BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIForgotPasswordTableViewCell.m; sourceTree = "<group>"; };
 		4FE75D211BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIForgotPasswordTableViewCell.xib; sourceTree = "<group>"; };
@@ -842,6 +847,7 @@
 		2C6D27151896BACA00C459CB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4FC33E931C0CB56C005F29D3 /* WebViewController */,
 				2E65F5891BBABD200077B44B /* CategoryPosts */,
 				2E28F3931BADECE3006CF0BE /* SearchContent */,
 				2E28F3651BADE14C006CF0BE /* Followings */,
@@ -1452,6 +1458,16 @@
 			path = CategoryPosts/CountryFilterTableViewCell;
 			sourceTree = "<group>";
 		};
+		4FC33E931C0CB56C005F29D3 /* WebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4FC33E941C0CB58A005F29D3 /* WLIWebViewController.h */,
+				4FC33E951C0CB58A005F29D3 /* WLIWebViewController.m */,
+				4FC33E961C0CB58A005F29D3 /* WLIWebViewController.xib */,
+			);
+			path = WebViewController;
+			sourceTree = "<group>";
+		};
 		4FE75D1E1BFF1D6D0063F3D8 /* ForgotPasswordCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1537,6 +1553,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FC33E981C0CB58A005F29D3 /* WLIWebViewController.xib in Resources */,
 				2E4918571BCBDBD100E25255 /* WLIInfoWhyViewController.xib in Resources */,
 				4F69E8E41BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib in Resources */,
 				2C6D27D11896BACA00C459CB /* WLICommentCell.xib in Resources */,
@@ -1711,6 +1728,7 @@
 				2C6D27C11896BACA00C459CB /* SBJsonStreamWriterAccumulator.m in Sources */,
 				4F2C83E01BFB7C7800EDD64F /* WLIPeopleListViewController.m in Sources */,
 				4F4CCD0A1C05A29700EC7166 /* WLIFullScreenPhotoViewController.m in Sources */,
+				4FC33E971C0CB58A005F29D3 /* WLIWebViewController.m in Sources */,
 				2C6D27E11896BACA00C459CB /* WLIFollowersViewController.m in Sources */,
 				4F8200751BFCD13900B0EB57 /* NSDictionary+Nonnull.m in Sources */,
 				4F69E8E31BF0B49500A6CD5A /* WLIRegisterTableViewCell.m in Sources */,
