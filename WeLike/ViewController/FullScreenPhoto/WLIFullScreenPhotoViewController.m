@@ -256,13 +256,12 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
     }
   } else {
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-       
     __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
        weakSelf.successMessageViewTopConstraint.constant = 0;
       [weakSelf.view layoutIfNeeded];
     } completion:^(BOOL finished) {
-      [UIView animateWithDuration:0.5 delay:2 options:UIViewAnimationOptionCurveEaseOut   animations:^{
+      [UIView animateWithDuration:0.3 delay:1.0 options:UIViewAnimationOptionCurveEaseOut   animations:^{
         weakSelf.successMessageViewTopConstraint.constant = -20;
         [weakSelf.view layoutIfNeeded];
       } completion:^(BOOL finished) {
