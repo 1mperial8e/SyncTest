@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -36,6 +36,7 @@
                     <connections>
                         <outlet property="delegate" destination="-1" id="1sl-38-tEe"/>
                         <outletCollection property="gestureRecognizers" destination="72A-tS-8xL" appends="YES" id="tJK-e7-tcN"/>
+                        <outletCollection property="gestureRecognizers" destination="D2f-Au-riw" appends="YES" id="Am7-bI-agQ"/>
                     </connections>
                 </scrollView>
             </subviews>
@@ -67,5 +68,10 @@
                 <action selector="doubleTapGesture:" destination="-1" id="uhp-5i-muV"/>
             </connections>
         </tapGestureRecognizer>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="2" id="D2f-Au-riw">
+            <connections>
+                <action selector="longPressGesture:" destination="-1" id="NYa-V0-tuk"/>
+            </connections>
+        </pongPressGestureRecognizer>
     </objects>
 </document>

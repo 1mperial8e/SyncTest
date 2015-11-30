@@ -59,6 +59,15 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
     [self.scrollView setZoomScale:newScale animated:YES];
 }
 
+- (IBAction)longPressGesture:(UILongPressGestureRecognizer *)sender
+{
+  if (sender.state == UIGestureRecognizerStateBegan) {
+    UIAlertView *saveImageAlert = [[UIAlertView alloc] initWithTitle:@"Save image" message:@"Are you sure you want to save image?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+    saveImageAlert.tag = 1;
+    [saveImageAlert show];
+  }
+}
+
 #pragma mark - UI
 
 - (void)buildImageView
@@ -218,5 +227,38 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
         }
     }
 }
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+  if (alertView.tag == 1) {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+      UIImageWriteToSavedPhotosAlbum(self.image, self, @selector(thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:), nil);
+    }
+  } else if (alertView.tag == 2) {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        [[UIApplication sharedApplication] openURL:url];
+    }
+  }
+}
+
+#pragma mark - utils
+
+- (void)thisImage:(UIImage *)image hasBeenSavedInPhotoAlbumWithError:(NSError *)error usingContextInfo:(void*)ctxInfo {
+  if (error) {
+    if (error.code ==(long) -3310) {
+      UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Image library access error" message:@"Open settings?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+      accessAlert.tag=2;
+      [accessAlert show];
+    }
+  } else {
+    UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Image saved" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+   // messageAlert.tag = 0;
+    [successAlert show];
+  }
+}
+
 
 @end
