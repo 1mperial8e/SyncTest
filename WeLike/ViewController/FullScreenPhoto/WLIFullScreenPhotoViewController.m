@@ -22,6 +22,7 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
 @property (strong, nonatomic) UIImageView *imageView;
 
 @property (assign, nonatomic) BOOL isShown;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *successMessageViewTopConstraint;
 
 @end
 
@@ -36,7 +37,7 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.scrollView.minimumZoomScale = DefaultScrollViewZoomScale;
     self.backgroundView.viewForTouches = self.scrollView;
-    [self buildImageView];
+    [self buildImageView]; 
 }
 
 - (void)viewDidLayoutSubviews
@@ -254,9 +255,19 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
       [accessAlert show];
     }
   } else {
-    UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Image saved" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-   // messageAlert.tag = 0;
-    [successAlert show];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+       
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
+       weakSelf.successMessageViewTopConstraint.constant = 0;
+      [weakSelf.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+      [UIView animateWithDuration:0.5 delay:2 options:UIViewAnimationOptionCurveEaseOut   animations:^{
+        weakSelf.successMessageViewTopConstraint.constant = -20;
+        [weakSelf.view layoutIfNeeded];
+      } completion:^(BOOL finished) {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade]; }];
+    }];
   }
 }
 
