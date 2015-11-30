@@ -35,10 +35,7 @@ enum ServerResponse {
 
 typedef enum ServerResponse ServerResponse;
 
-@interface WLIConnect : NSObject {
-    AFHTTPRequestOperationManager *httpClient;
-    SBJsonParser *json;
-}
+@interface WLIConnect : NSObject
 
 @property (readonly, nonatomic) NSDateFormatter *dateFormatter;
 @property (readonly, nonatomic) NSDateFormatter *dateOnlyFormatter;
@@ -50,6 +47,7 @@ typedef enum ServerResponse ServerResponse;
 + (instancetype)sharedConnect;
 
 #pragma mark - UserAPI
+- (void)saveCurrentUser;
 
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
 - (void)logout;
@@ -68,7 +66,6 @@ typedef enum ServerResponse ServerResponse;
 - (void)updateUserWithUserID:(NSInteger)userID
                     userType:(WLIUserType)userType
                    userEmail:(NSString *)userEmail
-                    password:(NSString *)password
                   userAvatar:(UIImage *)userAvatar
                 userFullName:(NSString *)userFullName
                     userInfo:(NSString *)userInfo
@@ -79,12 +76,16 @@ typedef enum ServerResponse ServerResponse;
                   companyWeb:(NSString *)companyWeb
                 onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
 
+- (void)changePassword:(NSString *)oldPassword toNewPassword:(NSString *)newPassword withCompletion:(void (^)(ServerResponse serverResponseCode))completion;
+
 - (void)newUsersWithPageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion;
 
 - (void)usersForSearchString:(NSString *)searchString
                         page:(NSInteger)page
                     pageSize:(NSInteger)pageSize
                 onCompletion:(void (^)(NSMutableArray *users, ServerResponse serverResponseCode))completion;
+
+- (void)forgotPasswordWithEmail:(NSString *)email onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
 
 #pragma mark - Timeline
 
@@ -115,7 +116,7 @@ typedef enum ServerResponse ServerResponse;
 - (void)mydriveTimelineForUserID:(NSInteger)userID
                             page:(NSInteger)page
                         pageSize:(NSInteger)pageSize
-                    onCompletion:(void (^)(NSMutableArray *posts, WLIUser *user, ServerResponse serverResponseCode))completion;
+                    onCompletion:(void (^)(NSMutableArray *posts, id rankInfo, ServerResponse serverResponseCode))completion;
 
 #pragma mark - Posts
 

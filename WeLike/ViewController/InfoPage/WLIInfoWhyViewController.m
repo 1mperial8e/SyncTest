@@ -10,57 +10,26 @@
 
 @interface WLIInfoWhyViewController ()
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UILabel *lastLabel;
+@property (weak, nonatomic) IBOutlet UIView *insetView;
+
 @end
 
 @implementation WLIInfoWhyViewController
 
 #pragma mark - Object lifecycle
 
-//-(id)initWithCoder:(NSCoder*)coder
-//{
-//    self = [super init];
-//    if (self) {
-//        // Custom initialization
-//        self.title = @"Why 20 % by 2020?";
-//    }
-//    return self;
-//}
-
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        self.title = @"Why 20 % by 2020?";
-    }
-    return self;
-}
-
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-//    scrollView.contentSize = CGSizeMake(320, 1116);
+    self.navigationItem.title = @"Why 20 % by 2020?";
 }
+
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    scrollView.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width, CGRectGetMaxY(insetView.frame));
+    self.scrollView.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width, CGRectGetMaxY(self.insetView.frame));
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

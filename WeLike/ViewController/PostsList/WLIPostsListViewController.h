@@ -6,15 +6,18 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "WLIViewController.h"
 
-@interface WLIPostsListViewController : WLIViewController <WLIViewControllerRefreshProtocol, UIActionSheetDelegate>
-
+@interface WLIPostsListViewController : WLIViewController <WLIViewControllerRefreshProtocol, UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;
 @property (strong, nonatomic) NSMutableArray *posts;
 
--(IBAction)profileButtonTouchUpInside:(id)sender;
+@property (assign, nonatomic) NSInteger postsSectionNumber;
+
+- (void)removePosts:(NSArray *)posts;
+- (void)addPosts:(NSArray *)posts;
+- (void)downloadedPosts:(NSArray *)posts serverResponse:(ServerResponse)serverResponseCode reloadAll:(BOOL)reloadAll;
+- (void)followedUserNotification:(NSNotification *)notification;
 
 @end

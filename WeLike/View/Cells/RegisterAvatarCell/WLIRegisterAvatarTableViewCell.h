@@ -6,12 +6,11 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-@interface WLIRegisterAvatarTableViewCell : UITableViewCell
+#import "WLIBaseTableViewCell.h"
+
+@interface WLIRegisterAvatarTableViewCell : WLIBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UIButton *chooseAvatarButton;
-
-+ (NSString *)ID;
-+ (UINib *)nib;
 
 @end

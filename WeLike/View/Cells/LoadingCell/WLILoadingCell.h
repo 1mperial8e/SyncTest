@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 Planet 1107. All rights reserved.
 //
 
-@interface WLILoadingCell : UITableViewCell
+#import "WLIBaseTableViewCell.h"
+
+@interface WLILoadingCell : WLIBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *refreshControl;
 

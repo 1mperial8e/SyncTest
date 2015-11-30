@@ -11,13 +11,9 @@
 
 @interface WLIUserCell : WLITableViewCell
 
-@property (strong, nonatomic) IBOutlet UIImageView *imageViewUserImage;
-@property (strong, nonatomic) IBOutlet UILabel *labelUserName;
-@property (strong, nonatomic) IBOutlet UIButton *buttonFollowUnfollow;
+@property (weak, nonatomic) IBOutlet UIButton *buttonFollowUnfollow;
 
 @property (strong, nonatomic) WLIUser *user;
 @property (weak, nonatomic) id<WLICellDelegate> delegate;
-
-- (IBAction)buttonFollowUnfollowTouchUpInside:(UIButton *)sender;
 
 @end

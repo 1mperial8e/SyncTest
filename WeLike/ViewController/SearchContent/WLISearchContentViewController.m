@@ -20,7 +20,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;
 
-@property (strong, nonatomic) NSArray *hashtags;
+@property (strong, nonatomic) NSMutableArray *hashtags;
 
 @end
 
@@ -31,6 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.hashtags = [NSMutableArray array];
     [self.tableViewRefresh registerNib:WLIHashtagTableViewCell.nib forCellReuseIdentifier:WLIHashtagTableViewCell.ID];
     
     self.navigationItem.title = @"Search";
@@ -72,11 +73,15 @@
 - (void)reloadData:(BOOL)reloadAll
 {
     __weak typeof(self) weakSelf = self;
-    [sharedConnect hashtagsInSearch:@"" pageSize:50 onCompletion:^(NSMutableArray *hashtags, ServerResponse serverResponseCode) {
+    [sharedConnect hashtagsInSearch:@"" pageSize:100 onCompletion:^(NSMutableArray *hashtags, ServerResponse serverResponseCode) {
         loading = NO;
+        if (reloadAll) {
+            [weakSelf.hashtags removeAllObjects];
+        }
+        [weakSelf.hashtags addObjectsFromArray:hashtags];
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"tagcount" ascending:NO];
-        NSArray *orderedHashtags = [hashtags sortedArrayUsingDescriptors:@[sortDescriptor]];
-        weakSelf.hashtags = orderedHashtags;
+        NSArray *orderedHashtags = [weakSelf.hashtags sortedArrayUsingDescriptors:@[sortDescriptor]];
+        weakSelf.hashtags = [orderedHashtags mutableCopy];
         [weakSelf.tableViewRefresh reloadData];
         [refreshManager tableViewReloadFinishedAnimated:YES];
     }];

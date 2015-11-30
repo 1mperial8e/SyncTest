@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Planet 1107. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "MBProgressHUD.h"
-#import "PNTToolbar.h"
 #import "WLIPostCell.h"
+#import "WLILoadingCell.h"
 #import "MNMPullToRefreshManager.h"
 #import "WLIConnect.h"
+#import "MBProgressHUD.h"
+#import "PNTToolbar.h"
 
 @protocol WLIViewControllerRefreshProtocol <NSObject>
 
@@ -21,7 +21,6 @@
 @end
 
 @interface WLIViewController : UIViewController <WLICellDelegate, MNMPullToRefreshManagerClient> {
-    
     PNTToolbar *toolbar;
     MNMPullToRefreshManager *refreshManager;
     MBProgressHUD *hud;
@@ -29,5 +28,7 @@
     BOOL loading;
     __weak WLIConnect *sharedConnect;
 }
+
+- (void)sendFeedBack:(id)sender;
 
 @end

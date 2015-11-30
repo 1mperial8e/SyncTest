@@ -9,8 +9,11 @@
 #ifndef WeLike_GlobalDefines_h
 #define WeLike_GlobalDefines_h
 
-
 #define kDefaultPageSize 10
 #define DefaultAvatar [UIImage imageNamed:@"avatar-empty"]
 
+#define ScaledImageSize CGSizeMake(640, 480)
+
 #endif
+
+static NSString *const FollowerUserNotification = @"FollowerUserNotification";

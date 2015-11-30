@@ -6,7 +6,7 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-#import "WLITableViewCell.h"
+#import "WLIBaseTableViewCell.h"
 #import "UIImageView+AFNetworking.h"
 
 #import "WLIUser.h"
@@ -16,12 +16,16 @@
 @optional
 - (void)showFollowingsList;
 - (void)showFollowersList;
+- (void)follow:(BOOL)follow user:(WLIUser *)user;
 
 @end
 
-@interface WLIMyDriveHeaderCell : WLITableViewCell
+@interface WLIMyDriveHeaderCell : WLIBaseTableViewCell
 
 @property (strong, nonatomic) WLIUser *user;
 @property (weak, nonatomic) id<MyDriveHeaderCellDelegate> delegate;
+
+- (void)updateRank:(NSInteger)rank forUsers:(NSInteger)users;
+- (void)updatePoints:(NSInteger)points;
 
 @end

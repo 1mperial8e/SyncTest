@@ -8,6 +8,14 @@
 
 #import "WLIUserCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "WLIConnect.h"
+
+@interface WLIUserCell ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewUserImage;
+@property (weak, nonatomic) IBOutlet UILabel *labelUserName;
+
+@end
 
 @implementation WLIUserCell
 
@@ -16,7 +24,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.imageViewUserImage.layer.cornerRadius = self.imageViewUserImage.frame.size.height/2;
+    self.imageViewUserImage.layer.cornerRadius = self.imageViewUserImage.frame.size.height / 2;
     self.imageViewUserImage.layer.masksToBounds = YES;
     self.imageViewUserImage.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:1.0].CGColor;
     self.imageViewUserImage.layer.borderWidth = 2.f;
@@ -35,16 +43,17 @@
 - (void)setupCell
 {
     [self.imageViewUserImage setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
-    self.labelUserName.text = self.user.userFullName;
+    self.labelUserName.text = self.user.userUsername;
     self.buttonFollowUnfollow.selected = self.user.followingUser;
+    self.buttonFollowUnfollow.hidden = (self.user.userID == [WLIConnect sharedConnect].currentUser.userID);
 }
 
 #pragma mark - Action methods
 
 - (IBAction)buttonUserTouchUpInside:(id)sender
 {    
-    if ([self.delegate respondsToSelector:@selector(showUser:sender:)]) {
-        [self.delegate showUser:self.user sender:self];
+    if ([self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+        [self.delegate showUser:self.user userID:self.user.userID sender:self];
     }
 }
 

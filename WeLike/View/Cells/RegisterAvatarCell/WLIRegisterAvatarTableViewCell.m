@@ -10,16 +10,4 @@
 
 @implementation WLIRegisterAvatarTableViewCell
 
-#pragma mark - Static
-
-+ (NSString *)ID
-{
-    return NSStringFromClass(self.class);
-}
-
-+ (UINib *)nib
-{
-    return [UINib nibWithNibName:self.ID bundle:nil];
-}
-
 @end

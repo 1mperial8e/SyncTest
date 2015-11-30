@@ -9,9 +9,11 @@
 // Controllers
 #import "WLILoginViewController.h"
 #import "WLITimelineViewController.h"
+#import "WLIForgotPasswordViewController.h"
 
 // Cells
 #import "WLILoginTableViewCell.h"
+#import "WLIForgotPasswordTableViewCell.h"
 
 // Models
 #import "WLIAppDelegate.h"
@@ -37,6 +39,7 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     [self.tableView registerNib:WLILoginTableViewCell.nib forCellReuseIdentifier:WLILoginTableViewCell.ID];
+    [self.tableView registerNib:WLIForgotPasswordTableViewCell.nib forCellReuseIdentifier:WLIForgotPasswordTableViewCell.ID];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -69,14 +72,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row == 2) {
+        return [tableView dequeueReusableCellWithIdentifier:WLIForgotPasswordTableViewCell.ID forIndexPath:indexPath];
+    }
     WLILoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:WLILoginTableViewCell.ID forIndexPath:indexPath];
     if (indexPath.row == 0) {
-        cell.textField.placeholder = @"username";
+        cell.textField.placeholder = @"Email or username";
         self.usernameTextField = cell.textField;
     } else if (indexPath.row == 1) {
         cell.textField.placeholder = @"password";
@@ -91,6 +97,17 @@
         };
     }
     return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 2) {
+        WLIForgotPasswordViewController *forgotPasswordController = [WLIForgotPasswordViewController new];
+        [self.navigationController pushViewController:forgotPasswordController animated:YES];
+    }
 }
 
 #pragma mark - Login

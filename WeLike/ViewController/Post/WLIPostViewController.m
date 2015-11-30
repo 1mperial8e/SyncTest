@@ -7,19 +7,15 @@
 //
 
 #import "WLIPostViewController.h"
+#import "WLIFullScreenPhotoViewController.h"
 
 // Cells
 #import "WLICommentCell.h"
-#import "WLILoadingCell.h"
-
-static NSString *const PostCellIdentifier = @"WLIPostCell";
-static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
-static NSString *const CommentCellIdentifier = @"WLICommentCell";
 
 @interface WLIPostViewController () <WLIViewControllerRefreshProtocol>
 
-@property (weak, nonatomic) IBOutlet UIView *viewEnterComment;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldEnterComment;
+@property (strong, nonatomic) IBOutlet UIView *viewEnterComment;
+@property (strong, nonatomic) IBOutlet UITextField *textFieldEnterComment;
 
 @property (strong, nonatomic) NSMutableArray *comments;
 
@@ -36,9 +32,10 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
     [super viewDidLoad];
     self.title = @"Post";
     
-    [self.tableViewRefresh registerNib:[UINib nibWithNibName:PostCellIdentifier bundle:nil] forCellReuseIdentifier:PostCellIdentifier];
-    [self.tableViewRefresh registerNib:[UINib nibWithNibName:CommentCellIdentifier bundle:nil] forCellReuseIdentifier:CommentCellIdentifier];
-    [self.tableViewRefresh registerNib:[UINib nibWithNibName:LoadingCellIdentifier bundle:nil] forCellReuseIdentifier:LoadingCellIdentifier];
+    [self.tableViewRefresh registerNib:WLICommentCell.nib forCellReuseIdentifier:WLICommentCell.ID];
+    [self.tableViewRefresh registerNib:WLIPostCell.nib forCellReuseIdentifier:WLIPostCell.ID];
+    [self.tableViewRefresh registerNib:WLILoadingCell.nib forCellReuseIdentifier:WLILoadingCell.ID];
+
     self.tableViewRefresh.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
     self.comments = [NSMutableArray array];
@@ -51,6 +48,7 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(followedUserNotification:) name:FollowerUserNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -113,18 +111,18 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
 {
     UITableViewCell *cell;
     if (indexPath.section == 0) {
-        WLIPostCell *postCell = [tableView dequeueReusableCellWithIdentifier:PostCellIdentifier forIndexPath:indexPath];
+        WLIPostCell *postCell = [tableView dequeueReusableCellWithIdentifier:WLIPostCell.ID forIndexPath:indexPath];
         postCell.delegate = self;
         postCell.post = self.post;
         cell = postCell;
     } else if (indexPath.section == 1) {
-        WLICommentCell *commentCell = [tableView dequeueReusableCellWithIdentifier:CommentCellIdentifier forIndexPath:indexPath];
+        WLICommentCell *commentCell = [tableView dequeueReusableCellWithIdentifier:WLICommentCell.ID forIndexPath:indexPath];
         commentCell.delegate = self;
         commentCell.comment = self.comments[indexPath.row];
         cell = commentCell;
         return cell;
     } else {
-        cell = [tableView dequeueReusableCellWithIdentifier:LoadingCellIdentifier forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:WLILoadingCell.ID forIndexPath:indexPath];
     }
     return cell;
 }
@@ -193,6 +191,8 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
         [sharedConnect sendCommentOnPostID:self.post.postID withCommentText:self.textFieldEnterComment.text onCompletion:^(WLIComment *comment, ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode == OK) {
+                weakSelf.post.commentedThisPost = YES;
+                weakSelf.post.postCommentsCount++;
                 [weakSelf.comments insertObject:comment atIndex:0];
                 [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)] withRowAnimation:UITableViewRowAnimationAutomatic];
                 weakSelf.textFieldEnterComment.text = @"";
@@ -215,6 +215,19 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
 - (void)keyboardWillHide:(NSNotification *)notification
 {
     self.tableViewRefresh.contentInset = UIEdgeInsetsZero;
+}
+
+- (void)followedUserNotification:(NSNotification *)notification
+{
+    NSInteger userId = [notification.userInfo[@"userId"] integerValue];
+    BOOL followed = [notification.userInfo[@"followed"]  boolValue];
+
+    if (self.post.user.userID == userId) {
+        self.post.user.followingUser = followed;
+        [self.tableViewRefresh beginUpdates];
+        [self.tableViewRefresh reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableViewRefresh endUpdates];
+    }
 }
 
 #pragma mark - WLIPostCellDelegate
@@ -245,6 +258,15 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
                 senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
             }
         }];
+    }
+}
+
+- (void)showImageForPost:(WLIPost *)post sender:(id)senderCell
+{
+    if (!self.post.postVideoPath.length) {
+        [self showFullImageForCell:senderCell];
+    } else {
+        [super showImageForPost:post sender:senderCell];
     }
 }
 
@@ -288,6 +310,22 @@ static NSString *const CommentCellIdentifier = @"WLICommentCell";
         [sharedConnect removeFollowWithFollowID:user.userID onCompletion:^(ServerResponse serverResponseCode) {
             followUserCompletion(nil, serverResponseCode);
         }];
+    }
+}
+
+#pragma mark - FullImage
+
+- (void)showFullImageForCell:(WLIPostCell *)cell
+{
+    if (cell.originalImage) {
+        CGRect imageViewRect = cell.imageViewPostImage.superview.frame;
+        imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
+        imageViewRect.origin.y += -self.tableViewRefresh.contentOffset.y + imageViewRect.origin.x;
+        WLIFullScreenPhotoViewController *imageController = [WLIFullScreenPhotoViewController new];
+        imageController.image = cell.originalImage;
+        imageController.presentationRect = imageViewRect;
+        imageController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        [self.tabBarController presentViewController:imageController animated:NO completion:nil];
     }
 }
 

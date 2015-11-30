@@ -16,20 +16,22 @@ static CGFloat const StaticCellHeight = 154;
 
 @interface WLIPostCell () <UITextViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UIView *topView;
-@property (strong, nonatomic) IBOutlet UIView *middleView;
-@property (strong, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIView *middleView;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 
-@property (strong, nonatomic) IBOutlet UIImageView *imageViewUser;
-@property (strong, nonatomic) IBOutlet UILabel *labelUserName;
-@property (strong, nonatomic) IBOutlet UILabel *labelTimeAgo;
-@property (strong, nonatomic) IBOutlet UIButton *buttonFollow;
-@property (strong, nonatomic) IBOutlet UIButton *buttonDelete;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewUser;
+@property (weak, nonatomic) IBOutlet UILabel *labelUserName;
+@property (weak, nonatomic) IBOutlet UILabel *labelTimeAgo;
+@property (weak, nonatomic) IBOutlet UIButton *buttonFollow;
+@property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
 
-@property (strong, nonatomic) IBOutlet UIButton *buttonVideo;
+@property (weak, nonatomic) IBOutlet UIButton *buttonVideo;
 
-@property (strong, nonatomic) IBOutlet UIView *categoryView;
+@property (weak, nonatomic) IBOutlet UIView *categoryView;
+
 @property (strong, nonatomic) UIButton *buttonCatMarket;
 @property (strong, nonatomic) UIButton *buttonCatCustomer;
 @property (strong, nonatomic) UIButton *buttonCatCapabilities;
@@ -46,6 +48,9 @@ static CGFloat const StaticCellHeight = 154;
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    
+    self.showFollowButton = YES;
+    self.imageViewHeightConstraint.constant = 0;
 
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height / 2;
     self.imageViewUser.layer.masksToBounds = YES;
@@ -69,7 +74,8 @@ static CGFloat const StaticCellHeight = 154;
     [self.imageViewPostImage cancelImageRequestOperation];
     self.imageViewUser.image = nil;
     self.imageViewPostImage.image = nil;
-    
+    self.imageViewHeightConstraint.constant = 0;
+    self.originalImage = nil;
     self.showDeleteButton = NO;
     [self removeCategoryButtons];
 }
@@ -93,7 +99,8 @@ static CGFloat const StaticCellHeight = 154;
     }
     sharedCell.textView.text = post.postText.length ? post.postText : @"A";
     CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 32, MAXFLOAT)]; // 32 left & right spacing
-    return CGSizeMake(width, textSize.height + StaticCellHeight + (width * 245) / 292);;
+    CGFloat imageViewHeight = post.postImagePath.length ? (width * 245) / 292 : 5;
+    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight);
 }
 
 #pragma mark - Update
@@ -103,18 +110,25 @@ static CGFloat const StaticCellHeight = 154;
     if (self.post) {
         [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.post.user.userAvatarPath] placeholderImage:DefaultAvatar];
         self.buttonVideo.hidden = !self.post.postVideoPath.length;
-        self.labelUserName.text = self.post.user.userFullName;
+        self.labelUserName.text = self.post.user.userUsername;
         self.labelTimeAgo.text = self.post.postTimeAgo;
         self.textView.attributedText = [self formattedStringWithHashtagsAndUsers:self.post.postText];
 
         if (self.post.postImagePath.length) {
-            [self.imageViewPostImage setImageWithURL:[NSURL URLWithString:self.post.postImagePath]];
-        } else {
-            self.imageViewPostImage.image = [UIImage imageNamed:@"postPlaceholder"];
+            self.imageViewHeightConstraint.constant = (([UIScreen mainScreen].bounds.size.width - 8) * 245) / 292;
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.post.postImagePath]];
+            __weak typeof(self) weakSelf = self;
+            [self.imageViewPostImage setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.originalImage = image;
+                    weakSelf.imageViewPostImage.image = [weakSelf croppedImageForPreview:image];
+                });
+            } failure:nil];
         }
         
         self.buttonLike.selected = self.post.likedThisPost;
         self.buttonFollow.selected = self.post.user.followingUser;
+        self.buttonComment.selected = self.post.commentedThisPost;
         
         self.labelLikes.hidden = !self.post.postLikesCount;
         self.labelLikes.text = [NSString stringWithFormat:@"%zd", self.post.postLikesCount];
@@ -127,10 +141,9 @@ static CGFloat const StaticCellHeight = 154;
                 self.buttonDelete.hidden = NO;
             }
         } else {
-            self.buttonFollow.hidden = NO;
+            self.buttonFollow.hidden = !self.showFollowButton;
             self.buttonDelete.hidden = YES;
         }
-        
         [self insertCategoryButtons];
     }
 }
@@ -204,8 +217,8 @@ static CGFloat const StaticCellHeight = 154;
 
 - (IBAction)buttonUserTouchUpInside:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(showUser:sender:)]) {
-        [self.delegate showUser:self.post.user sender:self];
+    if ([self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+        [self.delegate showUser:self.post.user userID:self.post.user.userID sender:self];
     }
 }
 
@@ -295,8 +308,16 @@ static CGFloat const StaticCellHeight = 154;
         if ([self.delegate respondsToSelector:@selector(showTimelineForSearchString:)]) {
             [self.delegate showTimelineForSearchString:hashtag];
         }
+        return NO;
+    } else if ([hashtag hasPrefix:@"@"]) {
+        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", [hashtag substringFromIndex:1]];
+        NSDictionary *userInfo = [self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].firstObject;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+            [self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];
+        }
+        return NO;
     }
-    return NO;
+    return YES;
 }
 
 #pragma mark - Utils
@@ -305,25 +326,41 @@ static CGFloat const StaticCellHeight = 154;
 {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string ? string : @""
                                                                                          attributes:@{NSFontAttributeName : self.textView.font,
-                                                                                                      NSForegroundColorAttributeName : self.textView.textColor}];
+                                                                                                      NSForegroundColorAttributeName : [UIColor colorWithWhite:0.75 alpha:1]}];
     NSSet *endHashtagCharachters = [NSSet setWithObjects:@" ", @".", @"-", @"!", @"?", @"[", @"]", @"@", @"#", @"$", @"%", @"^", @"&", @"*", @"(", @")", @"+", @"=", @"/", @"|", @"/", nil];
     for (int i = 0; i < attributedString.length; i++) {
         unichar charachter = [attributedString.string characterAtIndex:i];
         if (charachter == '#' || charachter == '@') {
+            BOOL isUserTag = charachter == '@';
             for (int j = i + 1; j < attributedString.length; j++) {
                 unichar nextCharachter = [attributedString.string characterAtIndex:j];
                 if (j == attributedString.length - 1 && ![endHashtagCharachters containsObject:[NSString stringWithFormat:@"%c", nextCharachter]]) {
                     // end of text
+                    if (isUserTag) {
+                        NSString *user = [string substringWithRange:NSMakeRange(i + 1, j - i)];
+                        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", user];
+                        if (![self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].count) {
+                            break;
+                        }
+                    }
                     [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i + 1)];
                     [attributedString addAttribute:NSLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i + 1)];
                     break;
                 }
                 if ([endHashtagCharachters containsObject:[NSString stringWithFormat:@"%c", nextCharachter]]) {
-                    if (j == i + 1) { // only #
+                    if (j == i + 1) { // only #, @
                         break;
                     }
+                    if (isUserTag) {
+                        NSString *user = [string substringWithRange:NSMakeRange(i + 1, j - i - 1)];
+                        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", user];
+                        if (![self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].count) {
+                            break;
+                        }
+                    }
+
                     // end of hashtag
-                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i - 1)];
+                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i)];
                     [attributedString addAttribute:NSLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i)];
                     i = j;
                     break;
@@ -333,6 +370,30 @@ static CGFloat const StaticCellHeight = 154;
     }
     
     return attributedString;
+}
+
+- (UIImage *)croppedImageForPreview:(UIImage *)srcImage
+{
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    CGFloat viewWidth = screenSize.width - 8;
+    CGFloat viewHeight = (viewWidth * 245) / 292;
+    CGFloat coef = 1;
+    CGRect drawRect = CGRectZero;
+    if (srcImage.size.height >= srcImage.size.width) {
+        coef = srcImage.size.width / viewWidth;
+        drawRect.origin.x = 0;
+        drawRect.origin.y = -(srcImage.size.height - ((srcImage.size.width * 245) / 292)) / 2;
+    } else {
+        coef = srcImage.size.height / viewHeight;
+        drawRect.origin.y = 0;
+        drawRect.origin.x = -(srcImage.size.width - ((srcImage.size.height * 292) / 245)) / 2;
+    }
+    drawRect.size = srcImage.size;
+    UIGraphicsBeginImageContext(CGSizeMake(viewWidth * coef, viewHeight * coef));
+    [srcImage drawInRect:drawRect];
+    UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return croppedImage;
 }
 
 @end

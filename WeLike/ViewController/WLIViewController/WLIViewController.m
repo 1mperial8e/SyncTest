@@ -8,32 +8,37 @@
 
 #import "WLIViewController.h"
 #import "WLICommentsViewController.h"
-#import "WLILikesViewController.h"
-//#import "WLIProfileViewController.h"
 #import "WLIPostViewController.h"
+#import "WLIUserDriveViewController.h"
+#import <MessageUI/MessageUI.h>
+
+@interface WLIViewController () <UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
+
+@property (strong, nonatomic) NSIndexPath *indexPathToReload;
+@property (strong, nonatomic) UITableView *tableViewRefresh;
+
+@end
 
 @implementation WLIViewController
 
 #pragma mark - Object lifecycle
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
         sharedConnect = [WLIConnect sharedConnect];
+        toolbar = [PNTToolbar defaultToolbar];
     }
     return self;
 }
 
-
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
-    
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
-    toolbar = [PNTToolbar defaultToolbar];
     if ([self conformsToProtocol:@protocol(WLIViewControllerRefreshProtocol)]) {
         id<WLIViewControllerRefreshProtocol> objectConformsToProtocol = (id<WLIViewControllerRefreshProtocol>)self;
         refreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60.0f tableView:objectConformsToProtocol.tableViewRefresh withClient:self];
@@ -41,113 +46,131 @@
     loadMore = YES;
     
     if (self.navigationController.viewControllers.count > 1) {
-        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        backButton.adjustsImageWhenHighlighted = NO;
-        backButton.frame = CGRectMake(0.0f, 0.0f, 40.0f, 30.0f);
-        [backButton setImage:[UIImage imageNamed:@"nav-btn-back"] forState:UIControlStateNormal];
-        [backButton addTarget:self action:@selector(barButtonItemBackTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-back"] style:UIBarButtonItemStylePlain target:self action:@selector(barButtonItemBackTouchUpInside:)];
     } else if (self.presentingViewController) {
-        UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        cancelButton.adjustsImageWhenHighlighted = NO;
-        cancelButton.frame = CGRectMake(0.0f, 0.0f, 40.0f, 30.0f);
-        [cancelButton setImage:[UIImage imageNamed:@"nav-btn-close"] forState:UIControlStateNormal];
-        [cancelButton addTarget:self action:@selector(barButtonItemCancelTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-close"] style:UIBarButtonItemStylePlain target:self action:@selector(barButtonItemCancelTouchUpInside:)];
     }
     
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
-- (void)didReceiveMemoryWarning {
-    
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.indexPathToReload) {
+        [self.tableViewRefresh reloadRowsAtIndexPaths:@[self.indexPathToReload] withRowAnimation:UITableViewRowAnimationAutomatic];
+        self.indexPathToReload = nil;
+    }
 }
-
 
 #pragma mark - Actions methods
 
-- (void)barButtonItemBackTouchUpInside:(UIButton*)backButton {
-    
+- (void)barButtonItemBackTouchUpInside:(UIButton *)backButton
+{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)barButtonItemCancelTouchUpInside:(UIButton*)backButton {
-    
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
+- (void)barButtonItemCancelTouchUpInside:(UIButton *)backButton
+{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)sendFeedBack:(id)sender
+{
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
+        [mailController setToRecipients:@[@"santander@santanderconsumer.no"]];
+        mailController.mailComposeDelegate = self;
+        mailController.navigationBar.tintColor = [UIColor whiteColor];
+        [self presentViewController:mailController animated:YES completion:^{
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        }];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Please, setup mail account in settings." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }];
+    switch (result) {
+        case MFMailComposeResultFailed:
+            NSLog(@"%@", error);
+            break;
+        default:
+            break;
+    }
+}
 
 #pragma mark - WLIPostCellDelegate methods
 
-- (void)showUser:(WLIUser*)user sender:(WLIPostCell*)senderCell {
-    
-//    WLIProfileViewController *profileViewController = [[WLIProfileViewController alloc] initWithNibName:@"WLIProfileViewController" bundle:nil];
-//    profileViewController.user = user;
-//    [self.navigationController pushViewController:profileViewController animated:YES];
-}
-
-- (void)showImageForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell {
-    
+- (void)showImageForPost:(WLIPost*)post sender:(WLIPostCell *)senderCell
+{
     if (![self isMemberOfClass:[WLIPostViewController class]]) {
-        WLIPostViewController *postViewController = [[WLIPostViewController alloc] initWithNibName:@"WLIPostViewController" bundle:nil];
+        self.indexPathToReload = [self.tableViewRefresh indexPathForCell:senderCell];
+        WLIPostViewController *postViewController = [WLIPostViewController new];
         postViewController.post = post;
         [self.navigationController pushViewController:postViewController animated:YES];
     }
 }
 
-- (void)showCommentsForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell {
-    
-    WLICommentsViewController *commentsViewController = [[WLICommentsViewController alloc] initWithNibName:@"WLICommentsViewController" bundle:nil];
+- (void)showCommentsForPost:(WLIPost*)post sender:(WLIPostCell *)senderCell
+{
+    self.indexPathToReload = [self.tableViewRefresh indexPathForCell:senderCell];
+    WLICommentsViewController *commentsViewController = [WLICommentsViewController new];
     commentsViewController.post = post;
     [self.navigationController pushViewController:commentsViewController animated:YES];
 }
 
-- (void)showLikesForPost:(WLIPost *)post sender:(WLITableViewCell*)senderCell {
-    
-    WLILikesViewController *likesViewController = [[WLILikesViewController alloc] initWithNibName:@"WLILikesViewController" bundle:nil];
-    likesViewController.post = post;
-    [self.navigationController pushViewController:likesViewController animated:YES];
+- (void)showUser:(WLIUser *)user userID:(NSInteger)userID sender:(WLIPostCell *)senderCell
+{
+    WLIUserDriveViewController *userDrive = [WLIUserDriveViewController new];
+    if (user) {
+        userDrive.user = user;
+    } else {
+        WLIUser *tmpUser = [WLIUser new];
+        tmpUser.userID = userID;
+        userDrive.user = tmpUser;
+    }
+    [self.navigationController pushViewController:userDrive animated:YES];
 }
-
-- (void)followUser:(WLIUser *)user sender:(id)senderCell {
-    
-    [sharedConnect setFollowOnUserID:user.userID onCompletion:^(WLIFollow *follow, ServerResponse serverResponseCode) {
-        
-    }];
-}
-
-- (void)unfollowUser:(WLIUser *)user sender:(id)senderCell {
-    
-    [sharedConnect removeFollowWithFollowID:user.userID onCompletion:^(ServerResponse serverResponseCode) {
-        
-    }];
-}
-
 
 #pragma mark - MNMPullToRefreshClient methods
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     [refreshManager tableViewScrolled];
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
     [refreshManager tableViewReleased];
-    
 }
 
-- (void)pullToRefreshTriggered:(MNMPullToRefreshManager *)manager {
-    
+- (void)pullToRefreshTriggered:(MNMPullToRefreshManager *)manager
+{
     if (!loading) {
         id<WLIViewControllerRefreshProtocol> objectConformsToProtocol = (id<WLIViewControllerRefreshProtocol>)self;
         [objectConformsToProtocol reloadData:YES];
     } else {
         [refreshManager tableViewReloadFinishedAnimated:YES];
     }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return [gestureRecognizer isKindOfClass:UIScreenEdgePanGestureRecognizer.class];
 }
 
 @end

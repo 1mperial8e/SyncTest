@@ -73,7 +73,7 @@ int keyboardHeight() {
         return textField.isFirstResponder;
         
     }];
-    if (indexOfActiveTextFiled > 0) {
+    if (indexOfActiveTextFiled > 0 && indexOfActiveTextFiled != NSNotFound) {
         [self.textFields[indexOfActiveTextFiled-1] becomeFirstResponder];
     }
     
@@ -140,6 +140,12 @@ int keyboardHeight() {
         [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.mainScrollView.contentOffset.y + offsetDown+10) animated:YES];
     } else if (offsetUp < 0) {
         [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.mainScrollView.contentOffset.y + offsetUp-10) animated:YES];
+    } else if (offsetDown < 0) {
+        if (self.mainScrollView.contentOffset.y + offsetDown > 0) {
+            [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.mainScrollView.contentOffset.y + offsetDown + 10) animated:YES];
+        } else {
+            [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, 0) animated:YES];
+        }
     }
     
     NSUInteger index = [self.textFields indexOfObject:textField];

@@ -9,13 +9,16 @@
 #import "WLIMyDriveHeaderCell.h"
 #import "WLIEditProfileViewController.h"
 #import "WLIConnect.h"
+#import "WLIAppDelegate.h"
 
 @interface WLIMyDriveHeaderCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewUser;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserEmail;
+@property (weak, nonatomic) IBOutlet UILabel *rankLabel;
 @property (weak, nonatomic) IBOutlet UIButton *buttonEditProfile;
+@property (weak, nonatomic) IBOutlet UIButton *followButton;
 
 // MARK: Bottom container outlets
 @property (weak, nonatomic) IBOutlet UILabel *likesCountLabel;
@@ -55,6 +58,9 @@
     self.buttonEditProfile.layer.masksToBounds = YES;
     self.buttonEditProfile.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.buttonEditProfile.layer.borderWidth = 1;
+    
+    self.followButton.layer.cornerRadius = 5;
+    self.followButton.layer.borderWidth = 1;
 }
 
 - (void)addGestures
@@ -63,6 +69,33 @@
     UITapGestureRecognizer *followersTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followersTap:)];
     [self.followersLabel.superview addGestureRecognizer:followersTap];
     [self.followingLabel.superview addGestureRecognizer:followingTap];
+ 
+#warning clean
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
+    longPress.minimumPressDuration = 4.0f;
+    [self.imageViewUser addGestureRecognizer:longPress];
+}
+
+- (void)logout:(id)sender
+{
+#if DEBUG
+    [[WLIConnect sharedConnect] logout];
+    WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
+    appDelegate.tabBarController.selectedIndex = 0;
+    [appDelegate.tabBarController showUI];
+#endif
+}
+
+#pragma mark - Public
+
+- (void)updateRank:(NSInteger)rank forUsers:(NSInteger)users
+{
+    self.rankLabel.text = [NSString stringWithFormat:@"Rank: %zd/%zd", rank, users];
+}
+
+- (void)updatePoints:(NSInteger)points
+{
+    self.pointsCountLabel.text = [NSString stringWithFormat:@"%zd", points];
 }
 
 #pragma mark - Gestures
@@ -101,6 +134,17 @@
 - (void)updateInfo
 {
     if (self.user) {
+        BOOL isMe = (self.user.userID == [WLIConnect sharedConnect].currentUser.userID);
+        self.followButton.hidden = isMe;
+        self.buttonEditProfile.hidden = !isMe;
+        self.followButton.selected = self.user.followingUser;
+        if (self.followButton.selected) {
+            self.followButton.backgroundColor = [UIColor colorWithRed:126/255.0 green:211/255.0 blue:33/255.0 alpha:1];
+            self.followButton.layer.borderColor = [UIColor clearColor].CGColor;
+        } else {
+            self.followButton.backgroundColor = [UIColor whiteColor];
+            self.followButton.layer.borderColor = [UIColor redColor].CGColor;
+        }
         [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
         self.labelUserName.text = self.user.userFullName;
         self.labelUserEmail.text = self.user.userEmail;
@@ -109,8 +153,7 @@
         self.postsCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.myPostsCount];
         self.followersCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
         self.followingCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followingCount];
-        NSInteger points = self.user.likesCount + self.user.myPostsCount + self.user.followersCount + self.user.followingCount;
-        self.pointsCountLabel.text = [NSString stringWithFormat:@"%zd", points];
+        [self updatePoints:self.user.points];
     }
 }
 
@@ -124,6 +167,13 @@
     
     UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
     [rootVC presentViewController:navController animated:YES completion:nil];
+}
+
+- (IBAction)followButtonAction:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(follow:user:)]) {
+        [self.delegate follow:!self.user.followingUser user:self.user];
+    }
 }
 
 @end

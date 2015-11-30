@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *insetView;
 @property (weak, nonatomic) IBOutlet UILabel *lastLabel;
+@property (weak, nonatomic) IBOutlet UIButton *why20by2020button;
 
 @end
 
@@ -27,6 +28,13 @@
     [super viewDidLoad];
     self.navigationItem.title = @"What is MyDrive?";
     self.scrollView.contentSize = CGSizeMake(375, 1116);
+    
+    
+    self.why20by2020button.layer.borderColor = [UIColor colorWithRed:253/255.0 green:171/255.0 blue:173/255.0 alpha:1].CGColor;
+    self.why20by2020button.layer.borderWidth = 1;
+    self.why20by2020button.layer.cornerRadius = 4;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_email"] style:UIBarButtonItemStylePlain target:self action:@selector(sendFeedBack:)];
 }
 
 - (void)viewDidLayoutSubviews

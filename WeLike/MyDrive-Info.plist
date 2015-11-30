@@ -51,6 +51,10 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow location updates so that we can place your posts on map.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>lsansuni.ttf</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

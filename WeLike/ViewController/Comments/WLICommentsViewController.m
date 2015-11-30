@@ -19,7 +19,6 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
 
 @property (weak, nonatomic) IBOutlet UIView *viewEnterComment;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldEnterComment;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textInputViewBottomConstraint;
 
 @property (strong, nonatomic) NSMutableArray *comments;
 
@@ -174,10 +173,8 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
 {
     if (indexPath.section == 0) {
         return [WLICommentCell sizeWithComment:self.comments[indexPath.row]].height;
-    } else if (indexPath.section == 0){
-        return 44 * loadMore * self.comments.count == 0;
     } else {
-        return 44 * loadMore;
+        return 44;
     }
 }
 
@@ -198,6 +195,7 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
         [sharedConnect sendCommentOnPostID:self.post.postID withCommentText:self.textFieldEnterComment.text onCompletion:^(WLIComment *comment, ServerResponse serverResponseCode) {
             if (serverResponseCode == OK) {
                 [hud hide:YES];
+                weakSelf.post.commentedThisPost = YES;
                 [weakSelf.comments insertObject:comment atIndex:0];
                 weakSelf.post.postCommentsCount++;
                 [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationAutomatic];
