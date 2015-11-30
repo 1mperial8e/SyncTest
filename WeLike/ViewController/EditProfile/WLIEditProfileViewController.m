@@ -68,7 +68,7 @@
     
     if (self.textFieldEmail && self.textFieldUsername && self.textFieldFullName) {
         toolbar.mainScrollView = self.tableView;
-        toolbar.textFields = @[self.textFieldEmail, /*self.textFieldUsername,*/ self.textFieldFullName];
+        toolbar.textFields = @[/*self.textFieldEmail,*/ self.textFieldUsername,  self.textFieldFullName ];
     }
 }
 
@@ -137,11 +137,12 @@
         cell.textField.placeholder = @"email address";
         cell.textField.keyboardType = UIKeyboardTypeEmailAddress;
         self.textFieldEmail = cell.textField;
+        self.textFieldEmail.userInteractionEnabled =NO;
         self.textFieldEmail.text = sharedConnect.currentUser.userEmail;
     } else if (indexPath.row == 2) {
         cell.textField.placeholder = @"username";
         self.textFieldUsername = cell.textField;
-        self.textFieldUsername.userInteractionEnabled = NO;
+        self.textFieldUsername.userInteractionEnabled =YES;
         self.textFieldUsername.text = sharedConnect.currentUser.userUsername;
     } else if (indexPath.row == 3) {
         cell.textField.placeholder = @"full name";
@@ -178,17 +179,17 @@
 {
     if (!self.textFieldEmail.text.length) {
         [self showErrorWithMessage:@"Email is required."];
-    } /*else if (!self.textFieldUsername.text.length) {
+    } else if (!self.textFieldUsername.text.length) {
         [self showErrorWithMessage:@"Username is required."];
-    }*/ else if (![self isValidEmail:self.textFieldEmail.text UseHardFilter:YES]) {
-        [self showErrorWithMessage:@"Email is not valid."];
+    } else if (![self isValidUserName:self.textFieldUsername.text]) {
+       [self showErrorWithMessage:@"Username isn't valid."];
     } else if (!self.textFieldFullName.text.length) {
         [self showErrorWithMessage:@"Full Name is required."];
     } else {
         [hud show:YES];
         __weak typeof(self) weakSelf = self;
         UIImage *image = self.imageReplaced ? self.avatarImageView.image : nil;
-        [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userEmail:self.textFieldEmail.text userAvatar:image userFullName:self.textFieldFullName.text userInfo:@"" latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
+      [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userUsername:self.textFieldUsername.text userAvatar:image userFullName:self.textFieldFullName.text userInfo:@"" latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode != OK) {
                 [weakSelf showErrorWithMessage:@"Something went wrong. Please try again."];
@@ -197,16 +198,6 @@
             }
         }];
     }
-}
-
-- (BOOL)isValidEmail:(NSString *)email UseHardFilter:(BOOL)filter
-{
-    BOOL stricterFilter = filter;
-    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@{1}([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
-    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
-    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    return [emailTest evaluateWithObject:email];
 }
 
 #pragma mark - Alert
@@ -261,6 +252,15 @@
 - (void)keyboardWillHide:(NSNotification *)notification
 {
     self.tableView.contentInset = UIEdgeInsetsZero;
+}
+
+#pragma mark - utils
+
+- (BOOL)isValidUserName:(NSString *)userName
+{
+  NSString *allowedSymbols = @"[A-Za-z0-9-]+";
+  NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", allowedSymbols];
+  return [test evaluateWithObject:userName];
 }
 
 @end

@@ -240,7 +240,7 @@ static NSString *const AuthTokenKey = @"token";
 
 - (void)updateUserWithUserID:(NSInteger)userID
                     userType:(WLIUserType)userType
-                   userEmail:(NSString *)userEmail
+                   userUsername:(NSString *)userUsername
                   userAvatar:(UIImage *)userAvatar
                 userFullName:(NSString *)userFullName
                     userInfo:(NSString *)userInfo
@@ -259,8 +259,9 @@ static NSString *const AuthTokenKey = @"token";
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"userID"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", userType] forKey:@"userTypeID"];
-        if (userEmail.length) {
-            [parameters setObject:userEmail forKey:@"email"];
+        if (userUsername.length) {
+            [parameters setObject:userUsername forKey:@"username"];
+            //[parameters setObject:@"stas.test@test.com" forKey:@"email"];
         }
         if (userFullName.length) {
             [parameters setObject:userFullName forKey:@"userFullname"];

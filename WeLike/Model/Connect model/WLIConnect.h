@@ -65,7 +65,7 @@ typedef enum ServerResponse ServerResponse;
 
 - (void)updateUserWithUserID:(NSInteger)userID
                     userType:(WLIUserType)userType
-                   userEmail:(NSString *)userEmail
+                   userUsername:(NSString *)userUsername
                   userAvatar:(UIImage *)userAvatar
                 userFullName:(NSString *)userFullName
                     userInfo:(NSString *)userInfo
