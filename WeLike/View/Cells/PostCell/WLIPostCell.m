@@ -14,6 +14,8 @@ static WLIPostCell *sharedCell = nil;
 
 static CGFloat const StaticCellHeight = 154;
 
+static NSString *const CustomLinkAttributeName = @"CustomLinkAttributeName";
+
 @interface WLIPostCell () <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -65,6 +67,9 @@ static CGFloat const StaticCellHeight = 154;
     if ([self.textView respondsToSelector:@selector(layoutMargins)]) {
         self.textView.layoutMargins = UIEdgeInsetsZero;
     }
+    
+    UITapGestureRecognizer *textViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnTextView:)];
+    [self.textView addGestureRecognizer:textViewTap];
 }
 
 - (void)prepareForReuse
@@ -299,25 +304,37 @@ static CGFloat const StaticCellHeight = 154;
     }
 }
 
-#pragma mark - UITextViewDelegate
+#pragma mark - Gesture
 
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+- (void)tappedOnTextView:(UITapGestureRecognizer *)gesture
 {
-    NSString *hashtag = [self.textView.attributedText.string substringWithRange:characterRange];
-    if ([hashtag hasPrefix:@"#"]) {
-        if ([self.delegate respondsToSelector:@selector(showTimelineForSearchString:)]) {
-            [self.delegate showTimelineForSearchString:hashtag];
+    UITextView *textView = (UITextView *)gesture.view;
+    NSLayoutManager *layoutManager = textView.layoutManager;
+    CGPoint location = [gesture locationInView:textView];
+    location.x -= textView.textContainerInset.left;
+    location.y -= textView.textContainerInset.top;
+    
+    NSUInteger characterIndex = [layoutManager characterIndexForPoint:location inTextContainer:textView.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
+    
+    if (characterIndex < textView.textStorage.length) {
+        NSRange range;
+        NSDictionary *attributes = [textView.textStorage attributesAtIndex:characterIndex effectiveRange:&range];
+        if ([attributes valueForKey:CustomLinkAttributeName]) {
+            NSString *hashtag = [textView.attributedText.string substringWithRange:range];
+            if ([hashtag hasPrefix:@"#"]) {
+                if ([self.delegate respondsToSelector:@selector(showTimelineForSearchString:)]) {
+                    [self.delegate showTimelineForSearchString:hashtag];
+                }
+            } else if ([hashtag hasPrefix:@"@"]) {
+                NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", [hashtag substringFromIndex:1]];
+                NSDictionary *userInfo = [self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].firstObject;
+                if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+                    [self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];
+                }
+            }
+
         }
-        return NO;
-    } else if ([hashtag hasPrefix:@"@"]) {
-        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", [hashtag substringFromIndex:1]];
-        NSDictionary *userInfo = [self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].firstObject;
-        if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
-            [self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];
-        }
-        return NO;
     }
-    return YES;
 }
 
 #pragma mark - Utils
@@ -343,8 +360,8 @@ static CGFloat const StaticCellHeight = 154;
                             break;
                         }
                     }
+                    [attributedString addAttribute:CustomLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i + 1)];
                     [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i + 1)];
-                    [attributedString addAttribute:NSLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i + 1)];
                     break;
                 }
                 if ([endHashtagCharachters containsObject:[NSString stringWithFormat:@"%c", nextCharachter]]) {
@@ -360,8 +377,8 @@ static CGFloat const StaticCellHeight = 154;
                     }
 
                     // end of hashtag
+                    [attributedString addAttribute:CustomLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i)];
                     [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i)];
-                    [attributedString addAttribute:NSLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i)];
                     i = j;
                     break;
                 }
