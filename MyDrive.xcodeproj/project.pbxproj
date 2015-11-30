@@ -1855,7 +1855,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.appmedia.mydrivebeta;
+				PRODUCT_BUNDLE_IDENTIFIER = com.santander.mydrive;
 				PRODUCT_NAME = MyDrive;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7s armv7";
@@ -1887,7 +1887,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.appmedia.mydrivebeta;
+				PRODUCT_BUNDLE_IDENTIFIER = com.santander.mydrive;
 				PRODUCT_NAME = MyDrive;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7s armv7";
