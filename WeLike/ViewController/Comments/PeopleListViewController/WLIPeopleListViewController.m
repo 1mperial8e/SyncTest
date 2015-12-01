@@ -185,8 +185,10 @@
 {
     __block NSIndexPath *indexPath = [self.tableViewRefresh indexPathForCell:cell];
     __weak typeof(self) weakSelf = self;
+	cell.buttonFollowUnfollow.userInteractionEnabled = NO;
     void (^followUserCompletion)(WLIFollow *, ServerResponse) = ^(WLIFollow *wliFollow, ServerResponse serverResponseCode) {
-        if (serverResponseCode == OK) {
+		cell.buttonFollowUnfollow.userInteractionEnabled = YES;
+		if (serverResponseCode == OK) {
             user.followingUser = follow;
             cell.user = user;
             if (indexPath) {
