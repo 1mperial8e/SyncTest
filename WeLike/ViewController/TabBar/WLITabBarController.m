@@ -10,7 +10,9 @@
 #import "WLIWelcomeViewController.h"
 #import "WLIConnect.h"
 
-@interface WLITabBarController () <WLIWelcomeViewControllerDelegate>
+#import <SafariServices/SafariServices.h>
+
+@interface WLITabBarController () <WLIWelcomeViewControllerDelegate, SFSafariViewControllerDelegate>
 
 @property (strong, nonatomic) WLIWelcomeViewController *welcomeViewController;
 
@@ -88,6 +90,13 @@
     UINavigationController *registerNavigationViewController = [[UINavigationController alloc] initWithRootViewController:registerViewController];
     registerNavigationViewController.navigationBar.translucent = NO;
     [self presentViewController:registerNavigationViewController animated:YES completion:nil];
+}
+
+#pragma mark - SFSafariViewControllerDelegate
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
 @end

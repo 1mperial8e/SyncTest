@@ -10,6 +10,7 @@
 #import "WLIWebViewController.h"
 #import "WLIAppDelegate.h"
 #import <MessageUI/MessageUI.h>
+#import <SafariServices/SafariServices.h>
 
 @implementation WLIUtils
 
@@ -85,9 +86,16 @@
 
 + (void)showWebViewControllerWithUrl:(NSURL *)url
 {
-    WLIWebViewController *webViewController = [[WLIWebViewController alloc] initWithUrl:url];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:webViewController];
-    [self.rootController presentViewController:navController animated:YES completion:nil];
+    if ([UIDevice currentDevice].systemVersion.floatValue >= 9.0f) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
+        safariVC.delegate = (id<SFSafariViewControllerDelegate>)self.rootController;
+        [self.rootController presentViewController:safariVC animated:YES completion:nil];
+    } else {
+        WLIWebViewController *webViewController = [[WLIWebViewController alloc] initWithUrl:url];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:webViewController];
+        [self.rootController presentViewController:navController animated:YES completion:nil];
+    }
 }
 
 + (UIViewController *)rootController
