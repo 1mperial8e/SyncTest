@@ -79,9 +79,6 @@
             [weakSelf.hashtags removeAllObjects];
         }
         [weakSelf.hashtags addObjectsFromArray:hashtags];
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"tagcount" ascending:NO];
-        NSArray *orderedHashtags = [weakSelf.hashtags sortedArrayUsingDescriptors:@[sortDescriptor]];
-        weakSelf.hashtags = [orderedHashtags mutableCopy];
         [weakSelf.tableViewRefresh reloadData];
         [refreshManager tableViewReloadFinishedAnimated:YES];
     }];

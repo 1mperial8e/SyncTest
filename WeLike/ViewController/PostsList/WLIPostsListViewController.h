@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSMutableArray *posts;
 
 @property (assign, nonatomic) NSInteger postsSectionNumber;
+@property (strong, nonatomic) AFHTTPRequestOperation *loadTimelineOperation;
 
 - (void)removePosts:(NSArray *)posts;
 - (void)addPosts:(NSArray *)posts;

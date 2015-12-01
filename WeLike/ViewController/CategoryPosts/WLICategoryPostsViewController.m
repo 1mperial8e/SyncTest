@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad
 {
-    self.selectedCountry = 0;
+    self.selectedCountry = 5;
     self.postsSectionNumber = 1;
     
     [super viewDidLoad];
@@ -45,6 +45,9 @@
 
 - (void)reloadData:(BOOL)reloadAll
 {
+    if (reloadAll) {
+        [self.loadTimelineOperation cancel];
+    }
     loading = YES;
     if (reloadAll && !loadMore) {
         loadMore = YES;
@@ -52,7 +55,7 @@
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
-    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:self.categoryID countryID:self.selectedCountry searchString:@"" page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:self.categoryID countryID:self.selectedCountry searchString:@"" page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -103,7 +106,7 @@
         weakSelf.selectedCountry = country;
         [weakSelf reloadData:YES];
     };
-    countryCell.segmentControl.selectedSegmentIndex = self.selectedCountry;
+    countryCell.segmentControl.selectedSegmentIndex = self.selectedCountry - 1;
     return countryCell;
 }
 

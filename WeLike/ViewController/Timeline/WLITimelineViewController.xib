@@ -31,15 +31,15 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x6A-GH-ALi">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                     <subviews>
-                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fJP-K1-qng">
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="4" translatesAutoresizingMaskIntoConstraints="NO" id="fJP-K1-qng">
                             <rect key="frame" x="8" y="8" width="584" height="29"/>
                             <animations/>
                             <segments>
-                                <segment title="Nordic"/>
                                 <segment title="Denmark"/>
                                 <segment title="Finland"/>
                                 <segment title="Norway"/>
                                 <segment title="Sweden"/>
+                                <segment title="Nordic"/>
                             </segments>
                             <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>

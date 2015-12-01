@@ -89,6 +89,9 @@
 
 - (void)reloadData:(BOOL)reloadAll
 {
+    if (reloadAll) {
+        [self.loadTimelineOperation cancel];
+    }
     loading = YES;
     if (reloadAll && !loadMore) {
         loadMore = YES;
@@ -96,7 +99,7 @@
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
-    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID page:page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID page:page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -112,8 +115,10 @@
         [self addPosts:posts];
     }
     loadMore = posts.count == kDefaultPageSize;
-    if (!loadMore) {
+    if (!loadMore && [self.tableViewRefresh numberOfRowsInSection:self.postsSectionNumber + 1]) {
+        [self.tableViewRefresh beginUpdates];
         [self.tableViewRefresh deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableViewRefresh endUpdates];
     }
     [refreshManager tableViewReloadFinishedAnimated:YES];
     loading = NO;
@@ -128,9 +133,7 @@
         index++;
     }
     [self.posts removeObjectsInArray:posts];
-    [self.tableViewRefresh beginUpdates];
-    [self.tableViewRefresh deleteRowsAtIndexPaths:oldIdPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableViewRefresh endUpdates];
+    [self.tableViewRefresh reloadData];
 }
 
 - (void)addPosts:(NSArray *)posts

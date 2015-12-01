@@ -89,18 +89,18 @@ typedef enum ServerResponse ServerResponse;
 
 #pragma mark - Timeline
 
-- (void)timelineForUserID:(NSInteger)userID
+- (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
                      page:(NSInteger)page
                  pageSize:(NSInteger)pageSize
              onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 
-- (void)timelineForUserID:(NSInteger)userID
+- (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
              withCategory:(NSInteger)categoryID
                      page:(NSInteger)page
                  pageSize:(NSInteger)pageSize
              onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 
-- (void)timelineForUserID:(NSInteger)userID
+- (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
              withCategory:(NSInteger)categoryID
                 countryID:(NSInteger)countryID
              searchString:(NSString *)searchString

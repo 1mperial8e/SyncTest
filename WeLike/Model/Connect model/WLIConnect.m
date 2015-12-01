@@ -410,25 +410,25 @@ static NSString *const AuthTokenKey = @"token";
 
 #pragma mark - Timeline
 
-- (void)timelineForUserID:(NSInteger)userID
+- (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
                      page:(NSInteger)page
                  pageSize:(NSInteger)pageSize
              onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 {
     
-    [self timelineForUserID:userID withCategory:0 page:page pageSize:pageSize onCompletion:completion];
+   return [self timelineForUserID:userID withCategory:0 page:page pageSize:pageSize onCompletion:completion];
 }
 
-- (void)timelineForUserID:(NSInteger)userID
+- (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
              withCategory:(NSInteger)categoryID
                      page:(NSInteger)page
                  pageSize:(NSInteger)pageSize
              onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
 {
-    [self timelineForUserID:userID withCategory:categoryID countryID:0 searchString:@"" page:page pageSize:pageSize onCompletion:completion];
+   return [self timelineForUserID:userID withCategory:categoryID countryID:0 searchString:@"" page:page pageSize:pageSize onCompletion:completion];
 }
 
-- (void)timelineForUserID:(NSInteger)userID
+- (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
              withCategory:(NSInteger)categoryID
                 countryID:(NSInteger)countryID
              searchString:(NSString *)searchString
@@ -451,7 +451,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%@", [searchString lowercaseString]] forKey:@"searchstring"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-        [self.httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        AFHTTPRequestOperation *operation = [self.httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawPosts = [responseObject objectForKey:@"items"];
             NSArray *posts = [WLIPost arrayWithDictionariesArray:rawPosts];
             if (completion) {
@@ -467,7 +467,9 @@ static NSString *const AuthTokenKey = @"token";
                 }
             }
         }];
+        return operation;
     }
+    return nil;
 }
 
 - (void)connectTimelineForUserID:(NSInteger)userID
