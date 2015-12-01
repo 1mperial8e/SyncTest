@@ -15,7 +15,7 @@
 @interface WLIPostCell : WLITableViewCell
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewPostImage;
-
+@property (weak, nonatomic) IBOutlet UIButton *buttonFollow;
 @property (strong, nonatomic) IBOutlet UIButton *buttonLike;
 @property (strong, nonatomic) IBOutlet UIButton *buttonComment;
 @property (strong, nonatomic) IBOutlet UILabel *labelComments;

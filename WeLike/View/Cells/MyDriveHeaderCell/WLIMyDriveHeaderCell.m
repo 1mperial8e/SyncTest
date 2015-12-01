@@ -169,11 +169,18 @@
     [rootVC presentViewController:navController animated:YES completion:nil];
 }
 
-- (IBAction)followButtonAction:(id)sender
+- (IBAction)followButtonAction:(UIButton *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(follow:user:)]) {
-        [self.delegate follow:!self.user.followingUser user:self.user];
-    }
+	sender.userInteractionEnabled = NO;
+	if (self.user.followingUser) {
+		[[WLIConnect sharedConnect] removeFollowWithFollowID:self.user.userID onCompletion:^(ServerResponse serverResponseCode) {
+			sender.userInteractionEnabled = YES;
+		}];
+	} else {
+		[[WLIConnect sharedConnect] setFollowOnUserID:self.user.userID onCompletion:^(WLIFollow *follow, ServerResponse serverResponseCode) {
+			sender.userInteractionEnabled = YES;
+		}];
+	}
 }
 
 @end
