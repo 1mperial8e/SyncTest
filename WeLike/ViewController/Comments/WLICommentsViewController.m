@@ -197,7 +197,7 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
             if (serverResponseCode == OK) {
                 [hud hide:YES];
                 weakSelf.post.commentedThisPost = YES;
-                [weakSelf.comments insertObject:comment atIndex:0];
+                [weakSelf.comments addObject:comment];
                 weakSelf.post.postCommentsCount++;
                 [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationAutomatic];
                 weakSelf.textFieldEnterComment.text = @"";
@@ -217,7 +217,6 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
     timeline.navigationItem.title = searchString;
     [self.navigationController pushViewController:timeline animated:YES];
 }
-
 
 #pragma mark - NSNotification
 

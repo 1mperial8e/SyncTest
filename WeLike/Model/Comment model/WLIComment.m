@@ -19,10 +19,7 @@
     if (self) {
         self.commentID = [self integerFromDictionary:commentWithInfo forKey:@"commentID"];
         self.commentText = [self stringFromDictionary:commentWithInfo forKey:@"commentText"];
-        self.commentDate = [self dateFromDictionary:commentWithInfo forKey:@"commentDate"];
-        if (self.commentDate) {
-            self.commentTimeAgo = [self.commentDate dateTimeAgo];
-        }
+        self.commentTimeAgo = [self stringFromDictionary:commentWithInfo forKey:@"timeAgo"];
         NSDictionary *rawUser = [self dictionaryFromDictionary:commentWithInfo forKey:@"user"];
         self.user = [WLIUser initWithDictionary:rawUser];
         self.taggedUsers = [self arrayFromDictionary:commentWithInfo forKey:@"tagged_users"];

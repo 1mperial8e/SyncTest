@@ -8,6 +8,7 @@
 
 #import "WLIPostViewController.h"
 #import "WLIFullScreenPhotoViewController.h"
+#import "WLITimelineViewController.h"
 
 // Cells
 #import "WLICommentCell.h"
@@ -193,7 +194,7 @@
             if (serverResponseCode == OK) {
                 weakSelf.post.commentedThisPost = YES;
                 weakSelf.post.postCommentsCount++;
-                [weakSelf.comments insertObject:comment atIndex:0];
+                [weakSelf.comments addObject:comment];
                 [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)] withRowAnimation:UITableViewRowAnimationAutomatic];
                 weakSelf.textFieldEnterComment.text = @"";
             }
@@ -311,6 +312,14 @@
             followUserCompletion(nil, serverResponseCode);
         }];
     }
+}
+
+- (void)showTimelineForSearchString:(NSString *)searchString
+{
+    WLITimelineViewController *timeline = [WLITimelineViewController new];
+    timeline.searchString = searchString;
+    timeline.navigationItem.title = searchString;
+    [self.navigationController pushViewController:timeline animated:YES];
 }
 
 #pragma mark - FullImage
