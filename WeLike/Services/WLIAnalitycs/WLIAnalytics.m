@@ -10,7 +10,8 @@
 
 @implementation WLIAnalytics
 
-+ (void) trackEvent:(NSString *)eventName withParameters:(NSDictionary *)eventParametersDictionary {
++ (void)trackEvent:(NSString *)eventName withParameters:(NSDictionary *)eventParametersDictionary
+{
 	NSParameterAssert(eventName);
 	if (eventParametersDictionary) {
 		[Flurry logEvent:eventName withParameters:eventParametersDictionary];
@@ -19,12 +20,14 @@
 	}
 }
 
-+ (void) setUserID:(NSString *) userID {
++ (void)setUserID:(NSString *) userID
+{
 	NSParameterAssert(userID);
 	[Flurry setUserID:userID];
 }
 
-+ (void) startSession {
++ (void)startSession
+{
 	[Flurry startSession:@"S92RNX9Y32HKPQ8S7JV3"];	
 }
 
