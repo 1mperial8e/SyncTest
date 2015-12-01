@@ -62,11 +62,11 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
 
 - (IBAction)longPressGesture:(UILongPressGestureRecognizer *)sender
 {
-  if (sender.state == UIGestureRecognizerStateBegan) {
-    UIAlertView *saveImageAlert = [[UIAlertView alloc] initWithTitle:@"Save image" message:@"Are you sure you want to save image?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
-    saveImageAlert.tag = 1;
-    [saveImageAlert show];
-  }
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        UIAlertView *saveImageAlert = [[UIAlertView alloc] initWithTitle:@"Save image" message:@"Do you want to save this image?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        saveImageAlert.tag = 1;
+        [saveImageAlert show];
+    }
 }
 
 #pragma mark - UI
@@ -233,42 +233,43 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-  if (alertView.tag == 1) {
-    if (buttonIndex != alertView.cancelButtonIndex) {
-      UIImageWriteToSavedPhotosAlbum(self.image, self, @selector(thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:), nil);
+    if (alertView.tag == 1) {
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            UIImageWriteToSavedPhotosAlbum(self.image, self, @selector(image:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:), nil);
+        }
+    } else if (alertView.tag == 2) {
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            [[UIApplication sharedApplication] openURL:url];
+        }
     }
-  } else if (alertView.tag == 2) {
-    if (buttonIndex != alertView.cancelButtonIndex) {
-        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-        [[UIApplication sharedApplication] openURL:url];
-    }
-  }
 }
 
-#pragma mark - utils
+#pragma mark - Utils
 
-- (void)thisImage:(UIImage *)image hasBeenSavedInPhotoAlbumWithError:(NSError *)error usingContextInfo:(void*)ctxInfo {
-  if (error) {
-    if (error.code ==(long) -3310) {
-      UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Image library access error" message:@"Open settings?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
-      accessAlert.tag=2;
-      [accessAlert show];
+- (void)image:(UIImage *)image hasBeenSavedInPhotoAlbumWithError:(NSError *)error usingContextInfo:(void *)ctxInfo
+{
+    if (error) {
+        if (error.code == -3310) {
+            UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please provide access to you photos in settings" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
+            accessAlert.tag = 2;
+            [accessAlert show];
+        }
+    } else {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+        __weak typeof(self) weakSelf = self;
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            weakSelf.successMessageViewTopConstraint.constant = 0;
+            [weakSelf.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.3 delay:1.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                weakSelf.successMessageViewTopConstraint.constant = -20;
+                [weakSelf.view layoutIfNeeded];
+            } completion:^(BOOL finished) {
+                [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+            }];
+        }];
     }
-  } else {
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
-       weakSelf.successMessageViewTopConstraint.constant = 0;
-      [weakSelf.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-      [UIView animateWithDuration:0.3 delay:1.0 options:UIViewAnimationOptionCurveEaseOut   animations:^{
-        weakSelf.successMessageViewTopConstraint.constant = -20;
-        [weakSelf.view layoutIfNeeded];
-      } completion:^(BOOL finished) {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade]; }];
-    }];
-  }
 }
-
 
 @end
