@@ -171,10 +171,10 @@
 
 - (IBAction)followButtonAction:(UIButton *)sender
 {
-	sender.userInteractionEnabled=NO;
+	sender.userInteractionEnabled = NO;
 	if (self.user.followingUser) {
 		[[WLIConnect sharedConnect] removeFollowWithFollowID:self.user.userID onCompletion:^(ServerResponse serverResponseCode) {
-			sender.userInteractionEnabled = NO;
+			sender.userInteractionEnabled = YES;
 		}];
 	} else {
 		[[WLIConnect sharedConnect] setFollowOnUserID:self.user.userID onCompletion:^(WLIFollow *follow, ServerResponse serverResponseCode) {
