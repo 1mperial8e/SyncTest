@@ -25,8 +25,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	[WLIAnalytics startSession];
+	if ([WLIConnect sharedConnect].currentUser) {
+		[WLIAnalytics setUserID:[NSString stringWithFormat:@"%li",(long)[WLIConnect sharedConnect].currentUser.userID]];
+	}
+	
     [Fabric with:@[[Crashlytics class]]];
-    
+	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self createViewHierarchy];
     [self setupAppearance];
@@ -55,7 +60,7 @@
 #pragma mark - UITabBarControllerDelegate
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
-{
+{	
     UINavigationController *navigationViewController = (UINavigationController *)viewController;
     if ([navigationViewController.topViewController isKindOfClass:[WLINewPostTableViewController class]]) {
         WLINewPostTableViewController *newPostViewController = [WLINewPostTableViewController new];
