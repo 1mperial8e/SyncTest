@@ -16,6 +16,7 @@
 @property (strong, nonatomic) WLITimelineViewController *timelineViewController;
 @property (strong, nonatomic) NSTimer *timer;
 
+
 - (void)createViewHierarchy;
 
 @end

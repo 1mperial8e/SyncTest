@@ -20,13 +20,20 @@
 // Frameworks
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import "Flurry.h"
 
 @implementation WLIAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	[Flurry startSession:@"S92RNX9Y32HKPQ8S7JV3"];
+	
+	if ([WLIConnect sharedConnect].currentUser) {
+		[Flurry setUserID:[NSString stringWithFormat:@"%li",(long)[WLIConnect sharedConnect].currentUser.userID]];
+	}
+	
     [Fabric with:@[[Crashlytics class]]];
-    
+	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self createViewHierarchy];
     [self setupAppearance];

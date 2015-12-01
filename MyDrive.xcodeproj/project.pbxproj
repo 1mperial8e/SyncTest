@@ -123,6 +123,9 @@
 		2EEF2C1E1BD64B39001785C5 /* WLINewPostImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EEF2C1D1BD64B39001785C5 /* WLINewPostImageCell.xib */; };
 		2EEF2C201BD64B69001785C5 /* WLINewPostTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EEF2C1F1BD64B69001785C5 /* WLINewPostTextCell.xib */; };
 		2EEF2C221BD64B8F001785C5 /* WLINewPostCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EEF2C211BD64B8F001785C5 /* WLINewPostCategoryCell.xib */; };
+		309236A81C0D9FDC0073A78A /* libFlurry_7.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 309236A71C0D9FDC0073A78A /* libFlurry_7.3.0.a */; };
+		309236AA1C0DA0690073A78A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309236A91C0DA0690073A78A /* Security.framework */; };
+		309236AC1C0DA0730073A78A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309236AB1C0DA0730073A78A /* SystemConfiguration.framework */; };
 		4F2C83B81BFB269700EDD64F /* WLIHashtagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2C83B61BFB269700EDD64F /* WLIHashtagTableViewCell.m */; };
 		4F2C83B91BFB269700EDD64F /* WLIHashtagTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2C83B71BFB269700EDD64F /* WLIHashtagTableViewCell.xib */; };
 		4F2C83BE1BFB26D900EDD64F /* WLIBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2C83BC1BFB26D900EDD64F /* WLIBaseTableViewCell.m */; };
@@ -372,6 +375,11 @@
 		2EEF2C1D1BD64B39001785C5 /* WLINewPostImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLINewPostImageCell.xib; sourceTree = "<group>"; };
 		2EEF2C1F1BD64B69001785C5 /* WLINewPostTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLINewPostTextCell.xib; sourceTree = "<group>"; };
 		2EEF2C211BD64B8F001785C5 /* WLINewPostCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLINewPostCategoryCell.xib; sourceTree = "<group>"; };
+		309236A51C0D9FDC0073A78A /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		309236A61C0D9FDC0073A78A /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
+		309236A71C0D9FDC0073A78A /* libFlurry_7.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.3.0.a; sourceTree = "<group>"; };
+		309236A91C0DA0690073A78A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		309236AB1C0DA0730073A78A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4F2C83B51BFB269700EDD64F /* WLIHashtagTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIHashtagTableViewCell.h; sourceTree = "<group>"; };
 		4F2C83B61BFB269700EDD64F /* WLIHashtagTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIHashtagTableViewCell.m; sourceTree = "<group>"; };
 		4F2C83B71BFB269700EDD64F /* WLIHashtagTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIHashtagTableViewCell.xib; sourceTree = "<group>"; };
@@ -474,6 +482,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				309236AC1C0DA0730073A78A /* SystemConfiguration.framework in Frameworks */,
+				309236AA1C0DA0690073A78A /* Security.framework in Frameworks */,
+				309236A81C0D9FDC0073A78A /* libFlurry_7.3.0.a in Frameworks */,
 				2E4851771B9F8C27002216B7 /* AVFoundation.framework in Frameworks */,
 				2CA087021AC941C7002696D9 /* MediaPlayer.framework in Frameworks */,
 				2CCE1A9B17ECD32B00680126 /* CoreGraphics.framework in Frameworks */,
@@ -538,6 +549,7 @@
 		2C6D26751896BACA00C459CB /* 3rdParty */ = {
 			isa = PBXGroup;
 			children = (
+				309236A41C0D9FDC0073A78A /* Flurry */,
 				07A349101B9D902700C7EBBD /* Fabric.framework */,
 				07A349111B9D902700C7EBBD /* Crashlytics.framework */,
 				2CF096DA1ACAE1F7004FB868 /* NSDate-TimeAgo */,
@@ -1011,6 +1023,8 @@
 		2CCE1A9717ECD32B00680126 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				309236AB1C0DA0730073A78A /* SystemConfiguration.framework */,
+				309236A91C0DA0690073A78A /* Security.framework */,
 				2E4851761B9F8C27002216B7 /* AVFoundation.framework */,
 				2CA087011AC941C7002696D9 /* MediaPlayer.framework */,
 				2C8AF27F1A1B772F0003B22E /* QuartzCore.framework */,
@@ -1152,6 +1166,16 @@
 				2EC320581BE8F9160038E7B3 /* WLICategorySelectTableViewCell.xib */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		309236A41C0D9FDC0073A78A /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				309236A51C0D9FDC0073A78A /* Flurry.h */,
+				309236A61C0D9FDC0073A78A /* FlurryWatch.h */,
+				309236A71C0D9FDC0073A78A /* libFlurry_7.3.0.a */,
+			);
+			path = Flurry;
 			sourceTree = "<group>";
 		};
 		4F2C83B41BFB269700EDD64F /* Hashtag Cell */ = {
@@ -1873,7 +1897,10 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				INFOPLIST_FILE = "WeLike/MyDrive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/WeLike/3rdParty/Flurry",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1905,7 +1932,10 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				INFOPLIST_FILE = "WeLike/MyDrive-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/WeLike/3rdParty/Flurry",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-all_load",
