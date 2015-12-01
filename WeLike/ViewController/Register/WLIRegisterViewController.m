@@ -12,8 +12,6 @@
 #import "WLIRegisterAvatarTableViewCell.h"
 #import "WLIRegisterTableViewCell.h"
 
-// Frameworks
-#import "Flurry.h"
 
 @interface WLIRegisterViewController () <UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
@@ -179,7 +177,7 @@
         [sharedConnect registerUserWithUsername:self.textFieldUsername.text password:self.textFieldPassword.text email:self.textFieldEmail.text userAvatar:self.avatarImageView.image userType:WLIUserTypePerson userFullName:self.textFieldFullName.text userInfo:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode == OK) {
-				[Flurry setUserID:[NSString stringWithFormat:@"%li",(long)[WLIConnect sharedConnect].currentUser.userID]];				
+				[WLIAnalytics setUserID:[NSString stringWithFormat:@"%li",(long)[WLIConnect sharedConnect].currentUser.userID]];
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             } else if (serverResponseCode == NO_CONNECTION) {
                 [weakSelf showErrorWithMessage:@"No connection. Please try again."];

@@ -15,4 +15,5 @@
     #import <Foundation/Foundation.h>
     #import "GlobalDefines.h"
     #import "WLIUtils.h"
+	#import "WLIAnalytics.h"
 #endif

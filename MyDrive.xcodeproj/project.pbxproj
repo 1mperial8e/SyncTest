@@ -126,6 +126,7 @@
 		309236A81C0D9FDC0073A78A /* libFlurry_7.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 309236A71C0D9FDC0073A78A /* libFlurry_7.3.0.a */; };
 		309236AA1C0DA0690073A78A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309236A91C0DA0690073A78A /* Security.framework */; };
 		309236AC1C0DA0730073A78A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309236AB1C0DA0730073A78A /* SystemConfiguration.framework */; };
+		309236B01C0DB5580073A78A /* WLIAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 309236AF1C0DB5580073A78A /* WLIAnalytics.m */; };
 		4F2C83B81BFB269700EDD64F /* WLIHashtagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2C83B61BFB269700EDD64F /* WLIHashtagTableViewCell.m */; };
 		4F2C83B91BFB269700EDD64F /* WLIHashtagTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2C83B71BFB269700EDD64F /* WLIHashtagTableViewCell.xib */; };
 		4F2C83BE1BFB26D900EDD64F /* WLIBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2C83BC1BFB26D900EDD64F /* WLIBaseTableViewCell.m */; };
@@ -380,6 +381,8 @@
 		309236A71C0D9FDC0073A78A /* libFlurry_7.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.3.0.a; sourceTree = "<group>"; };
 		309236A91C0DA0690073A78A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		309236AB1C0DA0730073A78A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		309236AE1C0DB5580073A78A /* WLIAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIAnalytics.h; sourceTree = "<group>"; };
+		309236AF1C0DB5580073A78A /* WLIAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIAnalytics.m; sourceTree = "<group>"; };
 		4F2C83B51BFB269700EDD64F /* WLIHashtagTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIHashtagTableViewCell.h; sourceTree = "<group>"; };
 		4F2C83B61BFB269700EDD64F /* WLIHashtagTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIHashtagTableViewCell.m; sourceTree = "<group>"; };
 		4F2C83B71BFB269700EDD64F /* WLIHashtagTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIHashtagTableViewCell.xib; sourceTree = "<group>"; };
@@ -1178,6 +1181,15 @@
 			path = Flurry;
 			sourceTree = "<group>";
 		};
+		309236AD1C0DB5400073A78A /* WLIAnalitycs */ = {
+			isa = PBXGroup;
+			children = (
+				309236AE1C0DB5580073A78A /* WLIAnalytics.h */,
+				309236AF1C0DB5580073A78A /* WLIAnalytics.m */,
+			);
+			path = WLIAnalitycs;
+			sourceTree = "<group>";
+		};
 		4F2C83B41BFB269700EDD64F /* Hashtag Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1372,6 +1384,7 @@
 		4F82003D1BFCC5D900B0EB57 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				309236AD1C0DB5400073A78A /* WLIAnalitycs */,
 				4F82003E1BFCC5E700B0EB57 /* VideoConversionService */,
 			);
 			path = Services;
@@ -1735,6 +1748,7 @@
 				4F2C83DB1BFB2B8200EDD64F /* WLITableViewCell.m in Sources */,
 				2E28F3731BADE286006CF0BE /* WLIMyDriveViewController.m in Sources */,
 				4F69E8DE1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.m in Sources */,
+				309236B01C0DB5580073A78A /* WLIAnalytics.m in Sources */,
 				2EC320591BE8F9160038E7B3 /* WLICategorySelectTableViewCell.m in Sources */,
 				4F8E2D3A1BF4A2AF00953EC0 /* WLIHashtag.m in Sources */,
 				2C5B5C811A1A8F9500175A58 /* UIImageView+AFNetworking.m in Sources */,

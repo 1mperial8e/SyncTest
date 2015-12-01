@@ -20,16 +20,14 @@
 // Frameworks
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import "Flurry.h"
 
 @implementation WLIAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	[Flurry startSession:@"S92RNX9Y32HKPQ8S7JV3"];
-	
+	[WLIAnalytics startSession];
 	if ([WLIConnect sharedConnect].currentUser) {
-		[Flurry setUserID:[NSString stringWithFormat:@"%li",(long)[WLIConnect sharedConnect].currentUser.userID]];
+		[WLIAnalytics setUserID:[NSString stringWithFormat:@"%li",(long)[WLIConnect sharedConnect].currentUser.userID]];
 	}
 	
     [Fabric with:@[[Crashlytics class]]];
@@ -62,7 +60,7 @@
 #pragma mark - UITabBarControllerDelegate
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
-{
+{	
     UINavigationController *navigationViewController = (UINavigationController *)viewController;
     if ([navigationViewController.topViewController isKindOfClass:[WLINewPostTableViewController class]]) {
         WLINewPostTableViewController *newPostViewController = [WLINewPostTableViewController new];
