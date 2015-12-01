@@ -181,7 +181,7 @@
         [self showErrorWithMessage:@"Email is required."];
     } else if (!self.textFieldUsername.text.length) {
         [self showErrorWithMessage:@"Username is required."];
-    } else if (![self isValidUserName:self.textFieldUsername.text]) {
+    } else if (![WLIUtils isValidUserName:self.textFieldUsername.text]) {
        [self showErrorWithMessage:@"Username isn't valid."];
     } else if (!self.textFieldFullName.text.length) {
         [self showErrorWithMessage:@"Full Name is required."];
@@ -252,15 +252,6 @@
 - (void)keyboardWillHide:(NSNotification *)notification
 {
     self.tableView.contentInset = UIEdgeInsetsZero;
-}
-
-#pragma mark - utils
-
-- (BOOL)isValidUserName:(NSString *)userName
-{
-  NSString *allowedSymbols = @"[A-Za-z0-9-]+";
-  NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", allowedSymbols];
-  return [test evaluateWithObject:userName];
 }
 
 @end

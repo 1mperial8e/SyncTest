@@ -25,6 +25,7 @@
         }
         NSDictionary *rawUser = [self dictionaryFromDictionary:commentWithInfo forKey:@"user"];
         self.user = [WLIUser initWithDictionary:rawUser];
+        self.taggedUsers = [self arrayFromDictionary:commentWithInfo forKey:@"tagged_users"];
     }
     return self;
 }

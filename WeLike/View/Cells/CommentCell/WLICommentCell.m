@@ -11,12 +11,12 @@
 
 static WLICommentCell *sharedCell = nil;
 
-@interface WLICommentCell ()
+@interface WLICommentCell () <UITextViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UIImageView *imageViewUser;
-@property (strong, nonatomic) IBOutlet UILabel *labelUsername;
-@property (strong, nonatomic) IBOutlet UILabel *labelTimeAgo;
-@property (strong, nonatomic) IBOutlet UILabel *labelCommentText;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewUser;
+@property (weak, nonatomic) IBOutlet UILabel *labelUsername;
+@property (weak, nonatomic) IBOutlet UILabel *labelTimeAgo;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @end
 
@@ -29,6 +29,16 @@ static WLICommentCell *sharedCell = nil;
     [super awakeFromNib];
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height / 2;
     self.imageViewUser.layer.masksToBounds = YES;
+    
+    self.textView.delegate = self;
+    self.textView.contentInset = UIEdgeInsetsZero;
+    self.textView.textContainerInset = UIEdgeInsetsZero;
+    if ([self.textView respondsToSelector:@selector(layoutMargins)]) {
+        self.textView.layoutMargins = UIEdgeInsetsZero;
+    }
+    
+    UITapGestureRecognizer *textViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnTextView:)];
+    [self.textView addGestureRecognizer:textViewTap];
 }
 
 - (void)prepareForReuse
@@ -54,12 +64,50 @@ static WLICommentCell *sharedCell = nil;
         
         self.labelUsername.text = self.comment.user.userFullName;
         self.labelTimeAgo.text = self.comment.commentTimeAgo;
-        
-        self.labelCommentText.text = self.comment.commentText;
-        CGSize labelSize = [self.labelCommentText sizeThatFits:CGSizeMake([UIScreen mainScreen].bounds.size.width - 56, MAXFLOAT)];
-        CGRect frame = self.labelCommentText.frame;
-        frame.size = labelSize;
-        self.labelCommentText.frame = frame;
+        NSMutableAttributedString *attrString = [WLIUtils formattedString:self.comment.commentText WithHashtagsAndUsers:self.comment.taggedUsers].mutableCopy;
+        [attrString addAttributes:@{NSFontAttributeName : self.textView.font} range:NSMakeRange(0, attrString.string.length)];
+        self.textView.attributedText = attrString;
+    }
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+{
+    [WLIUtils showWebViewControllerWithUrl:URL];
+    return NO;
+}
+
+#pragma mark - Gesture
+
+- (void)tappedOnTextView:(UITapGestureRecognizer *)gesture
+{
+    UITextView *textView = (UITextView *)gesture.view;
+    NSLayoutManager *layoutManager = textView.layoutManager;
+    CGPoint location = [gesture locationInView:textView];
+    location.x -= textView.textContainerInset.left;
+    location.y -= textView.textContainerInset.top;
+    
+    NSUInteger characterIndex = [layoutManager characterIndexForPoint:location inTextContainer:textView.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
+    
+    if (characterIndex < textView.textStorage.length) {
+        NSRange range;
+        NSDictionary *attributes = [textView.textStorage attributesAtIndex:characterIndex effectiveRange:&range];
+        if ([attributes valueForKey:CustomLinkAttributeName]) {
+            NSString *hashtag = [textView.attributedText.string substringWithRange:range];
+            if ([hashtag hasPrefix:@"#"]) {
+                if ([self.delegate respondsToSelector:@selector(showTimelineForSearchString:)]) {
+                    [self.delegate showTimelineForSearchString:hashtag];
+                }
+            } else if ([hashtag hasPrefix:@"@"]) {
+                NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", [hashtag substringFromIndex:1]];
+                NSDictionary *userInfo = [self.comment.taggedUsers filteredArrayUsingPredicate:namePredicate].firstObject;
+                if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+                    [self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];
+                }
+            }
+            
+        }
     }
 }
 
@@ -79,9 +127,11 @@ static WLICommentCell *sharedCell = nil;
     if (!sharedCell) {
         sharedCell = [[[NSBundle mainBundle] loadNibNamed:@"WLICommentCell" owner:nil options:nil] lastObject];
     }
-    sharedCell.comment = comment;
-    [sharedCell updateInfo];
-    return CGSizeMake([UIScreen mainScreen].bounds.size.width, CGRectGetMaxY(sharedCell.labelCommentText.frame) + 10.0f);
+    sharedCell.textView.text = comment.commentText.length ? comment.commentText : @"A";
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 50, MAXFLOAT)]; // 54 left & right spacing
+
+    return CGSizeMake(width, textSize.height + 40.0f);
 }
 
 @end

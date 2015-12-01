@@ -16,8 +16,6 @@ static WLIPostCell *sharedCell = nil;
 
 static CGFloat const StaticCellHeight = 154;
 
-static NSString *const CustomLinkAttributeName = @"CustomLinkAttributeName";
-
 @interface WLIPostCell () <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -119,7 +117,9 @@ static NSString *const CustomLinkAttributeName = @"CustomLinkAttributeName";
         self.buttonVideo.hidden = !self.post.postVideoPath.length;
         self.labelUserName.text = self.post.user.userUsername;
         self.labelTimeAgo.text = self.post.postTimeAgo;
-        self.textView.attributedText = [self formattedStringWithHashtagsAndUsers:self.post.postText];
+        NSMutableAttributedString *attrString = [[WLIUtils formattedString:self.post.postText WithHashtagsAndUsers:self.post.taggedUsers] mutableCopy];
+        [attrString addAttributes:@{NSFontAttributeName : self.textView.font} range:NSMakeRange(0, attrString.string.length)];
+        self.textView.attributedText = attrString;
 
         if (self.post.postImagePath.length) {
             self.imageViewHeightConstraint.constant = (([UIScreen mainScreen].bounds.size.width - 8) * 245) / 292;
@@ -310,10 +310,7 @@ static NSString *const CustomLinkAttributeName = @"CustomLinkAttributeName";
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
-    WLIWebViewController *webViewController = [[WLIWebViewController alloc] initWithUrl:URL];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:webViewController];
-    WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate.tabBarController presentViewController:navController animated:YES completion:nil];
+    [WLIUtils showWebViewControllerWithUrl:URL];
     return NO;
 }
 
@@ -351,56 +348,6 @@ static NSString *const CustomLinkAttributeName = @"CustomLinkAttributeName";
 }
 
 #pragma mark - Utils
-
-- (NSAttributedString *)formattedStringWithHashtagsAndUsers:(NSString *)string
-{
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string ? string : @""
-                                                                                         attributes:@{NSFontAttributeName : self.textView.font,
-                                                                                                      NSForegroundColorAttributeName : [UIColor colorWithWhite:0.75 alpha:1]}];
-    NSSet *endHashtagCharachters = [NSSet setWithObjects:@" ", @".", @"-", @"!", @"?", @"[", @"]", @"@", @"#", @"$", @"%", @"^", @"&", @"*", @"(", @")", @"+", @"=", @"/", @"|", @"/", nil];
-    for (int i = 0; i < attributedString.length; i++) {
-        unichar charachter = [attributedString.string characterAtIndex:i];
-        if (charachter == '#' || charachter == '@') {
-            BOOL isUserTag = charachter == '@';
-            for (int j = i + 1; j < attributedString.length; j++) {
-                unichar nextCharachter = [attributedString.string characterAtIndex:j];
-                if (j == attributedString.length - 1 && ![endHashtagCharachters containsObject:[NSString stringWithFormat:@"%c", nextCharachter]]) {
-                    // end of text
-                    if (isUserTag) {
-                        NSString *user = [string substringWithRange:NSMakeRange(i + 1, j - i)];
-                        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", user];
-                        if (![self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].count) {
-                            break;
-                        }
-                    }
-                    [attributedString addAttribute:CustomLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i + 1)];
-                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i + 1)];
-                    break;
-                }
-                if ([endHashtagCharachters containsObject:[NSString stringWithFormat:@"%c", nextCharachter]]) {
-                    if (j == i + 1) { // only #, @
-                        break;
-                    }
-                    if (isUserTag) {
-                        NSString *user = [string substringWithRange:NSMakeRange(i + 1, j - i - 1)];
-                        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", user];
-                        if (![self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].count) {
-                            break;
-                        }
-                    }
-
-                    // end of hashtag
-                    [attributedString addAttribute:CustomLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i)];
-                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i)];
-                    i = j;
-                    break;
-                }
-            }
-        }
-    }
-    
-    return attributedString;
-}
 
 - (UIImage *)croppedImageForPreview:(UIImage *)srcImage
 {

@@ -7,6 +7,7 @@
 //
 
 #import "WLICommentsViewController.h"
+#import "WLITimelineViewController.h"
 
 // Cells
 #import "WLICommentCell.h"
@@ -206,6 +207,17 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
     [textField resignFirstResponder];
     return YES;
 }
+
+#pragma mark - WLICellDelegate
+
+- (void)showTimelineForSearchString:(NSString *)searchString
+{
+    WLITimelineViewController *timeline = [WLITimelineViewController new];
+    timeline.searchString = searchString;
+    timeline.navigationItem.title = searchString;
+    [self.navigationController pushViewController:timeline animated:YES];
+}
+
 
 #pragma mark - NSNotification
 
