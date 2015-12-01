@@ -91,18 +91,18 @@ static CGFloat const HeaderCellHeight = 156;
     [self.navigationController pushViewController:followingsViewController animated:YES];
 }
 
-- (void)follow:(BOOL)follow user:(WLIUser *)user
-{
-    if (follow) {
-        [sharedConnect setFollowOnUserID:user.userID onCompletion:^(WLIFollow *follow, ServerResponse serverResponseCode) {
-            
-        }];
-    } else {
-        [sharedConnect removeFollowWithFollowID:user.userID onCompletion:^(ServerResponse serverResponseCode) {
-            
-        }];
-    }
-}
+//- (void)follow:(BOOL)follow user:(WLIUser *)user
+//{
+//    if (follow) {
+//        [sharedConnect setFollowOnUserID:user.userID onCompletion:^(WLIFollow *follow, ServerResponse serverResponseCode) {
+//            
+//        }];
+//    } else {
+//        [sharedConnect removeFollowWithFollowID:user.userID onCompletion:^(ServerResponse serverResponseCode) {
+//            
+//        }];
+//    }
+//}
 
 #pragma mark - UITableViewDataSource methods
 
