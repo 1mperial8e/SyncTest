@@ -299,17 +299,14 @@
 
 - (void)follow:(BOOL)follow user:(WLIUser *)user cellToReload:(WLIPostCell *)cell
 {
-    __block NSIndexPath *indexPath = [self.tableViewRefresh indexPathForCell:cell];
-    __weak typeof(self) weakSelf = self;
+    __weak typeof(cell) weakCell = cell;
 	cell.buttonFollow.userInteractionEnabled = NO;
     void (^followUserCompletion)(WLIFollow *, ServerResponse) = ^(WLIFollow *wliFollow, ServerResponse serverResponseCode) {
-		cell.buttonFollow.userInteractionEnabled = YES;
+		weakCell.buttonFollow.userInteractionEnabled = YES;
         if (serverResponseCode == OK) {
             user.followingUser = follow;
-            cell.post.user = user;
-            if (indexPath) {
-                [weakSelf.tableViewRefresh reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
+            weakCell.post.user = user;
+            weakCell.buttonFollow.selected = user.followingUser;
         } else {
             NSString *message = @"An error occured, user was not followed.";
             if (!follow) {
