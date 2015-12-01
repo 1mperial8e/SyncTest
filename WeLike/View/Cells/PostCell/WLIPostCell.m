@@ -8,15 +8,17 @@
 
 #import "WLIPostCell.h"
 #import "WLIConnect.h"
-#import <MediaPlayer/MediaPlayer.h>
 #import "WLIAppDelegate.h"
 #import "WLIWebViewController.h"
+
+#import <MessageUI/MessageUI.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 static WLIPostCell *sharedCell = nil;
 
 static CGFloat const StaticCellHeight = 154;
 
-@interface WLIPostCell () <UITextViewDelegate>
+@interface WLIPostCell () <UITextViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *middleView;
@@ -310,7 +312,11 @@ static CGFloat const StaticCellHeight = 154;
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
-    [WLIUtils showWebViewControllerWithUrl:URL];
+    if ([URL.absoluteString hasPrefix:@"mailto:"]) {
+        [WLIUtils showEmailControllerWithToRecepient:@[[URL.absoluteString substringFromIndex:7]] delegate:self];
+    } else {
+        [WLIUtils showWebViewControllerWithUrl:URL];
+    }
     return NO;
 }
 
@@ -371,6 +377,22 @@ static CGFloat const StaticCellHeight = 154;
     UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return croppedImage;
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error
+{
+    [[WLIUtils rootController] dismissViewControllerAnimated:YES completion:^{
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }];
+    switch (result) {
+        case MFMailComposeResultFailed:
+            NSLog(@"%@", error);
+            break;
+        default:
+            break;
+    }
 }
 
 @end

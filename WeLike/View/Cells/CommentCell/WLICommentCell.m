@@ -8,10 +8,11 @@
 
 #import "WLICommentCell.h"
 #import "UIImageView+AFNetworking.h"
+#import <MessageUI/MessageUI.h>
 
 static WLICommentCell *sharedCell = nil;
 
-@interface WLICommentCell () <UITextViewDelegate>
+@interface WLICommentCell () <UITextViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewUser;
 @property (weak, nonatomic) IBOutlet UILabel *labelUsername;
@@ -74,7 +75,13 @@ static WLICommentCell *sharedCell = nil;
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
-    [WLIUtils showWebViewControllerWithUrl:URL];
+    if ([URL.absoluteString hasPrefix:@"mailto:"]) {
+        [WLIUtils showEmailControllerWithToRecepient:@[[URL.absoluteString substringFromIndex:7]] delegate:self];
+    } else {
+        [WLIUtils showWebViewControllerWithUrl:URL];
+    }
+    return NO;
+
     return NO;
 }
 
@@ -132,6 +139,23 @@ static WLICommentCell *sharedCell = nil;
     CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 50, MAXFLOAT)]; // 54 left & right spacing
 
     return CGSizeMake(width, textSize.height + 40.0f);
+}
+
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error
+{
+    [[WLIUtils rootController] dismissViewControllerAnimated:YES completion:^{
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }];
+    switch (result) {
+        case MFMailComposeResultFailed:
+            NSLog(@"%@", error);
+            break;
+        default:
+            break;
+    }
 }
 
 @end

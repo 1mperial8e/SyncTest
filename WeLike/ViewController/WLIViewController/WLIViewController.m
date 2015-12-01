@@ -79,17 +79,7 @@
 
 - (void)sendFeedBack:(id)sender
 {
-    if ([MFMailComposeViewController canSendMail]) {
-        MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
-        [mailController setToRecipients:@[@"santander@santanderconsumer.no"]];
-        mailController.mailComposeDelegate = self;
-        mailController.navigationBar.tintColor = [UIColor whiteColor];
-        [self presentViewController:mailController animated:YES completion:^{
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        }];
-    } else {
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Please, setup mail account in settings." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
+    [WLIUtils showEmailControllerWithToRecepient:@[@"santander@santanderconsumer.no"] delegate:self];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate

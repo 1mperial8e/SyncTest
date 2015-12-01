@@ -9,6 +9,7 @@
 #import "WLIUtils.h"
 #import "WLIWebViewController.h"
 #import "WLIAppDelegate.h"
+#import <MessageUI/MessageUI.h>
 
 @implementation WLIUtils
 
@@ -17,7 +18,7 @@
 + (NSAttributedString *)formattedString:(NSString *)string WithHashtagsAndUsers:(NSArray *)taggedUsers
 {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string ? string : @""
-                                                                                         attributes:@{NSForegroundColorAttributeName : [UIColor colorWithWhite:0.75 alpha:1]}];
+                                                                                         attributes:@{NSForegroundColorAttributeName : [UIColor colorWithWhite:76/255.0 alpha:1]}];
     NSSet *endHashtagCharachters = [NSSet setWithObjects:@" ", @".", @"-", @"!", @"?", @"[", @"]", @"@", @"#", @"$", @"%", @"^", @"&", @"*", @"(", @")", @"+", @"=", @"/", @"|", @"/", nil];
     for (int i = 0; i < attributedString.length; i++) {
         unichar charachter = [attributedString.string characterAtIndex:i];
@@ -93,6 +94,21 @@
 {
     WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
     return appDelegate.tabBarController;
+}
+
++ (void)showEmailControllerWithToRecepient:(NSArray *)toRecepients delegate:(id<MFMailComposeViewControllerDelegate>)delegate
+{
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
+        [mailController setToRecipients:toRecepients];
+        mailController.mailComposeDelegate = delegate;
+        mailController.navigationBar.tintColor = [UIColor whiteColor];
+        [self.rootController presentViewController:mailController animated:YES completion:^{
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        }];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Please, setup mail account in settings." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
 }
 
 @end

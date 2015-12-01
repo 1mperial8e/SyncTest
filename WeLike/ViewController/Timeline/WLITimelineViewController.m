@@ -64,6 +64,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    [super scrollViewDidScroll:scrollView];
     if (scrollView.contentOffset.y >= 0) {
         if (self.prevOffset.y + 10 < scrollView.contentOffset.y) {
             [self showSegmentView:NO];

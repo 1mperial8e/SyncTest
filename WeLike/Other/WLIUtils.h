@@ -8,6 +8,8 @@
 
 static NSString *const CustomLinkAttributeName = @"CustomLinkAttributeName";
 
+@protocol MFMailComposeViewControllerDelegate;
+
 @interface WLIUtils : NSObject
 
 #pragma mark - String
@@ -18,5 +20,6 @@ static NSString *const CustomLinkAttributeName = @"CustomLinkAttributeName";
 #pragma mark - Controllers
 + (void)showWebViewControllerWithUrl:(NSURL *)url;
 + (UIViewController *)rootController;
++ (void)showEmailControllerWithToRecepient:(NSArray *)toRecepients delegate:(id<MFMailComposeViewControllerDelegate>)delegate;
 
 @end
