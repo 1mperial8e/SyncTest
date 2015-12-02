@@ -237,6 +237,7 @@
 {
     if (post.likedThisPost) {
         [[WLIConnect sharedConnect] removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
+			senderCell.buttonLike.userInteractionEnabled = YES;
             if (serverResponseCode == OK) {
                 senderCell.buttonLike.selected = NO;
                 post.postLikesCount--;
@@ -249,6 +250,7 @@
         }];
     } else {
         [[WLIConnect sharedConnect] setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
+			senderCell.buttonLike.userInteractionEnabled = YES;
             if (serverResponseCode == OK) {
                 senderCell.buttonLike.selected = YES;
                 post.postLikesCount++;
