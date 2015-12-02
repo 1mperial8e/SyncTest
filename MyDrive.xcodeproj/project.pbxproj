@@ -127,6 +127,8 @@
 		309236AA1C0DA0690073A78A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309236A91C0DA0690073A78A /* Security.framework */; };
 		309236AC1C0DA0730073A78A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309236AB1C0DA0730073A78A /* SystemConfiguration.framework */; };
 		309236B01C0DB5580073A78A /* WLIAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 309236AF1C0DB5580073A78A /* WLIAnalytics.m */; };
+		309FF0BF1C0F03F0009C9344 /* WLILikersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */; };
+		309FF0C01C0F03F0009C9344 /* WLILikersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */; };
 		4F2C83B81BFB269700EDD64F /* WLIHashtagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2C83B61BFB269700EDD64F /* WLIHashtagTableViewCell.m */; };
 		4F2C83B91BFB269700EDD64F /* WLIHashtagTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2C83B71BFB269700EDD64F /* WLIHashtagTableViewCell.xib */; };
 		4F2C83BE1BFB26D900EDD64F /* WLIBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2C83BC1BFB26D900EDD64F /* WLIBaseTableViewCell.m */; };
@@ -383,6 +385,9 @@
 		309236AB1C0DA0730073A78A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		309236AE1C0DB5580073A78A /* WLIAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIAnalytics.h; sourceTree = "<group>"; };
 		309236AF1C0DB5580073A78A /* WLIAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIAnalytics.m; sourceTree = "<group>"; };
+		309FF0BC1C0F03F0009C9344 /* WLILikersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLILikersViewController.h; sourceTree = "<group>"; };
+		309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLILikersViewController.m; sourceTree = "<group>"; };
+		309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLILikersViewController.xib; sourceTree = "<group>"; };
 		4F2C83B51BFB269700EDD64F /* WLIHashtagTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIHashtagTableViewCell.h; sourceTree = "<group>"; };
 		4F2C83B61BFB269700EDD64F /* WLIHashtagTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIHashtagTableViewCell.m; sourceTree = "<group>"; };
 		4F2C83B71BFB269700EDD64F /* WLIHashtagTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIHashtagTableViewCell.xib; sourceTree = "<group>"; };
@@ -867,6 +872,7 @@
 		2C6D27151896BACA00C459CB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				309FF0BB1C0F033D009C9344 /* Likers */,
 				2C6D27551896BACA00C459CB /* WLIViewController */,
 				4FC33E931C0CB56C005F29D3 /* WebViewController */,
 				2E65F5891BBABD200077B44B /* CategoryPosts */,
@@ -1187,6 +1193,16 @@
 				309236AF1C0DB5580073A78A /* WLIAnalytics.m */,
 			);
 			path = WLIAnalitycs;
+			sourceTree = "<group>";
+		};
+		309FF0BB1C0F033D009C9344 /* Likers */ = {
+			isa = PBXGroup;
+			children = (
+				309FF0BC1C0F03F0009C9344 /* WLILikersViewController.h */,
+				309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */,
+				309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */,
+			);
+			path = Likers;
 			sourceTree = "<group>";
 		};
 		4F2C83B41BFB269700EDD64F /* Hashtag Cell */ = {
@@ -1633,6 +1649,7 @@
 				074348271BBABCB700EAA2AA /* Customer2.png in Resources */,
 				2E28F3981BADEEFF006CF0BE /* WLISearchContentViewController.xib in Resources */,
 				4F8E2D491BF4A4C000953EC0 /* WLICategoryPostsViewController.xib in Resources */,
+				309FF0C01C0F03F0009C9344 /* WLILikersViewController.xib in Resources */,
 				074348261BBABCB700EAA2AA /* Customer.png in Resources */,
 				4F8E2D471BF4A4C000953EC0 /* WLICountryFilterTableViewCell.xib in Resources */,
 				4FE75D2A1BFF25770063F3D8 /* WLIForgotPasswordViewController.xib in Resources */,
@@ -1782,6 +1799,7 @@
 				4FE75D2F1BFF36E20063F3D8 /* WLIUserDriveViewController.m in Sources */,
 				4F2C83BE1BFB26D900EDD64F /* WLIBaseTableViewCell.m in Sources */,
 				2ED2F2851BA95E8C00641F54 /* WLIInfoPageViewController.m in Sources */,
+				309FF0BF1C0F03F0009C9344 /* WLILikersViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
