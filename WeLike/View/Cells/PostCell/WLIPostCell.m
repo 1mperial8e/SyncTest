@@ -72,6 +72,9 @@ static CGFloat const StaticCellHeight = 154;
     
     UITapGestureRecognizer *textViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnTextView:)];
     [self.textView addGestureRecognizer:textViewTap];
+    
+    UITapGestureRecognizer *commentLabelTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonCommentTouchUpInside:)];
+    [self.labelComments addGestureRecognizer:commentLabelTap];
 }
 
 - (void)prepareForReuse
@@ -138,11 +141,20 @@ static CGFloat const StaticCellHeight = 154;
         self.buttonLike.selected = self.post.likedThisPost;
         self.buttonFollow.selected = self.post.user.followingUser;
         self.buttonComment.selected = self.post.commentedThisPost;
-        
+        if (self.post.likedThisPost) {
+            self.labelLikes.textColor = [UIColor redColor];
+        } else {
+            self.labelLikes.textColor = [UIColor colorWithWhite:76 / 255.0 alpha:1];
+        }
+        if (self.post.commentedThisPost) {
+            self.labelComments.textColor = [UIColor redColor];
+        } else {
+            self.labelComments.textColor = [UIColor colorWithWhite:76 / 255.0 alpha:1];
+        }
         self.labelLikes.hidden = !self.post.postLikesCount;
-        self.labelLikes.text = [NSString stringWithFormat:@"%zd", self.post.postLikesCount];
+        self.labelLikes.text = [NSString stringWithFormat:@"%zd %@", self.post.postLikesCount, (self.post.postLikesCount > 1) ? @"likes" : @"like"];
         self.labelComments.hidden = !self.post.postCommentsCount;
-        self.labelComments.text = [NSString stringWithFormat:@"%zd", self.post.postCommentsCount];
+        self.labelComments.text = [NSString stringWithFormat:@"%zd %@", self.post.postCommentsCount, (self.post.postCommentsCount > 1) ? @"comments" : @"comment"];
 
         if (self.post.user.userID == [WLIConnect sharedConnect].currentUser.userID) {
             self.buttonFollow.hidden = YES;
