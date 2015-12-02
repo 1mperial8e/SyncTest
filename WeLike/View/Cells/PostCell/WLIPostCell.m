@@ -252,35 +252,6 @@ static CGFloat const StaticCellHeight = 154;
 		self.buttonLike.userInteractionEnabled = NO;
         [self.delegate toggleLikeForPost:self.post sender:self];
     }
-
-//	if (self.post.likedThisPost) {
-//		[[WLIConnect sharedConnect] removeLikeWithLikeID:self.post.postID onCompletion:^(ServerResponse serverResponseCode) {
-//			self.buttonLike.userInteractionEnabled = YES;
-//			if (serverResponseCode == OK) {
-//				self.buttonLike.selected = NO;
-//				self.post.postLikesCount--;
-//				self.post.likedThisPost = NO;
-//				if (self.post.postLikesCount == 0) {
-//					self.labelLikes.hidden = YES;
-//				}
-//				self.labelLikes.text = [NSString stringWithFormat:@"%zd", self.post.postLikesCount];
-//			}
-//		}];
-//	} else {
-//		[[WLIConnect sharedConnect] setLikeOnPostID:self.post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
-//			self.buttonLike.userInteractionEnabled = YES;
-//			if (serverResponseCode == OK) {
-//				self.buttonLike.selected = YES;
-//				self.post.postLikesCount++;
-//				self.post.likedThisPost = YES;
-//				if (self.post.postLikesCount > 0) {
-//					self.labelLikes.hidden = NO;
-//				}
-//				self.labelLikes.text = [NSString stringWithFormat:@"%zd", self.post.postLikesCount];
-//			}
-//		}];
-//	}
-
 }
 
 - (IBAction)buttonCommentTouchUpInside:(id)sender
