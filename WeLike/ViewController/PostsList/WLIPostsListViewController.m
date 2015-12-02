@@ -216,37 +216,6 @@
 
 #pragma mark - WLIPostCellDelegate methods
 
-- (void)toggleLikeForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell
-{
-    if (post.likedThisPost) {
-        [sharedConnect removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
-			senderCell.buttonLike.userInteractionEnabled = YES;
-            if (serverResponseCode == OK) {
-                senderCell.buttonLike.selected = NO;
-                post.postLikesCount--;
-                post.likedThisPost = NO;
-                if (post.postLikesCount == 0) {
-                    senderCell.labelLikes.hidden = YES;
-                }
-                senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
-            }
-        }];
-    } else {
-        [sharedConnect setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
-			senderCell.buttonLike.userInteractionEnabled = YES;
-            if (serverResponseCode == OK) {
-                senderCell.buttonLike.selected = YES;
-                post.postLikesCount++;
-                post.likedThisPost = YES;
-                if (post.postLikesCount > 0) {
-                    senderCell.labelLikes.hidden = NO;
-                }
-                senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
-            }
-        }];
-    }
-}
-
 - (void)showCatMarketForPost:(WLIPost *)post sender:(id)senderCell
 {
     WLICategoryPostsViewController *categoryViewController = [WLICategoryPostsViewController new];
@@ -285,53 +254,6 @@
     timeline.searchString = searchString;
     timeline.navigationItem.title = searchString;
     [self.navigationController pushViewController:timeline animated:YES];
-}
-
-#pragma mark - Follow
-
-- (void)followUser:(WLIUser *)user sender:(id)senderCell
-{
-    [self follow:YES user:user cellToReload:senderCell];
-}
-
-- (void)unfollowUser:(WLIUser *)user sender:(id)senderCell
-{
-    [self follow:NO user:user cellToReload:senderCell];
-}
-
-- (void)follow:(BOOL)follow user:(WLIUser *)user cellToReload:(WLIPostCell *)cell
-{
-    __block NSIndexPath *indexPath = [self.tableViewRefresh indexPathForCell:cell];
-    __weak typeof(self) weakSelf = self;
-	cell.buttonFollow.userInteractionEnabled = NO;
-    void (^followUserCompletion)(WLIFollow *, ServerResponse) = ^(WLIFollow *wliFollow, ServerResponse serverResponseCode) {
-		cell.buttonFollow.userInteractionEnabled = YES;
-        if (serverResponseCode == OK) {
-            user.followingUser = follow;
-            cell.post.user = user;
-            if (indexPath) {
-                [weakSelf.tableViewRefresh reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        } else {
-            NSString *message = @"An error occured, user was not followed.";
-            if (!follow) {
-                message = @"An error occured, user was not unfollowed.";
-            }
-            [[[UIAlertView alloc] initWithTitle:@"Error"
-                                        message:message
-                                       delegate:nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil]
-             performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
-        }
-    };
-    if (follow) {
-        [sharedConnect setFollowOnUserID:user.userID onCompletion:followUserCompletion];
-    } else {
-        [sharedConnect removeFollowWithFollowID:user.userID onCompletion:^(ServerResponse serverResponseCode) {
-            followUserCompletion(nil, serverResponseCode);
-        }];
-    }
 }
 
 @end
