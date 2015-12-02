@@ -150,6 +150,7 @@ typedef enum ServerResponse ServerResponse;
 - (void)setLikeOnPostID:(NSInteger)postID onCompletion:(void (^)(WLILike *like, ServerResponse serverResponseCode))completion;
 - (void)removeLikeWithLikeID:(NSInteger)likeID onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
 - (void)likesForPostID:(NSInteger)postID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *likes, ServerResponse serverResponseCode))completion;
+- (void)likersForPostID:(NSInteger)postID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *likers, ServerResponse serverResponseCode))completion;
 
 #pragma mark - Follow
 

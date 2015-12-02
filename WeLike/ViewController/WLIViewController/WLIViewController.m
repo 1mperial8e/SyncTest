@@ -11,7 +11,7 @@
 #import "WLIPostViewController.h"
 #import "WLIUserDriveViewController.h"
 #import <MessageUI/MessageUI.h>
-
+#import "WLILikersViewController.h"
 @interface WLIViewController () <UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) NSIndexPath *indexPathToReload;
@@ -239,6 +239,13 @@
 			followUserCompletion(nil, serverResponseCode);
 		}];
 	}
+}
+
+- (void)showLikersListForPost:(WLIPost *)post
+{
+	WLILikersViewController *likersViewController = [WLILikersViewController new];
+	likersViewController.post = post;
+	[self.navigationController pushViewController:likersViewController animated:YES];
 }
 
 

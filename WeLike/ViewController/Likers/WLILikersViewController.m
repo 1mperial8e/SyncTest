@@ -33,10 +33,9 @@
 	}
 	NSUInteger page = reloadAll ? 1 : (self.people.count / kDefaultPageSize) + 1;
 	__weak typeof(self) weakSelf = self;
-	[sharedConnect followersForUserID:self.user.userID page:page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *followers, ServerResponse serverResponseCode) {
-		[weakSelf downloadedPeople:followers serverResponse:serverResponseCode reloadAll:reloadAll];
-	}];
-	
+	[sharedConnect likersForPostID:self.post.postID page:page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *likers, ServerResponse serverResponseCode) {
+		[weakSelf downloadedPeople:likers serverResponse:serverResponseCode reloadAll:reloadAll];
+	}];	
 }
 
 

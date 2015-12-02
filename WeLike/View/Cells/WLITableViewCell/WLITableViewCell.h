@@ -20,6 +20,7 @@
 - (void)showUser:(WLIUser *)user userID:(NSInteger)userID sender:(id)senderCell;
 - (void)showImageForPost:(WLIPost *)post sender:(id)senderCell;
 - (void)toggleLikeForPost:(WLIPost *)post sender:(id)senderCell;
+- (void)showLikersListForPost:(WLIPost *)post;
 - (void)showCommentsForPost:(WLIPost *)post sender:(id)senderCell;
 - (void)showLikesForPost:(WLIPost *)post sender:(id)senderCell;
 - (void)followUser:(WLIUser *)user sender:(id)senderCell;

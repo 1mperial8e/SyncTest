@@ -853,6 +853,33 @@ static NSString *const AuthTokenKey = @"token";
     }];
 }
 
+- (void)likersForPostID:(NSInteger)postID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *likers, ServerResponse serverResponseCode))completion
+{	
+		NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+		[parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
+		[parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+		[parameters setObject:[NSString stringWithFormat:@"%zd", postID] forKey:@"postID"];
+		[parameters setObject:self.authToken forKey:AuthTokenKey];
+		
+		[self.httpClient POST:@"api/getLikes" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+			NSArray *rawLikers = [responseObject objectForKey:@"items"];
+			NSArray *likers = [WLIUser arrayWithDictionariesArray:rawLikers];
+			if (completion) {
+				completion([likers mutableCopy], OK);
+			}
+		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			[self debugger:parameters.description methodLog:@"api/getLikes" dataLogFormatted:error.localizedDescription];
+			if (completion) {
+				if (operation.response) {
+					completion(nil, (ServerResponse)operation.response.statusCode);
+				} else {
+					completion(nil, NO_CONNECTION);
+				}
+			}
+		}];
+}
+
+
 #pragma mark - Follow
 
 - (void)setFollowOnUserID:(NSInteger)userID onCompletion:(void (^)(WLIFollow *follow, ServerResponse serverResponseCode))completion

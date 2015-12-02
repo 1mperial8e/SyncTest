@@ -72,7 +72,11 @@ static CGFloat const StaticCellHeight = 154;
     
     UITapGestureRecognizer *textViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnTextView:)];
     [self.textView addGestureRecognizer:textViewTap];
+	
+	UITapGestureRecognizer *labelLikesTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(getLikersForPost:)];
+	[self.labelLikes addGestureRecognizer:labelLikesTap];
 }
+
 
 - (void)prepareForReuse
 {
@@ -349,9 +353,15 @@ static CGFloat const StaticCellHeight = 154;
                     [self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];
                 }
             }
-
         }
     }
+}
+
+- (void)getLikersForPost:(UILabel *)sender
+{
+	if (self.delegate && [self.delegate respondsToSelector:@selector(showLikersListForPost:)]) {
+		[self.delegate showLikersListForPost:self.post];
+	}
 }
 
 #pragma mark - Utils

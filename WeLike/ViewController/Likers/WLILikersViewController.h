@@ -10,6 +10,6 @@
 
 @interface WLILikersViewController : WLIPeopleListViewController
 
-@property (strong, nonatomic) WLIUser *user;
+@property (strong, nonatomic) WLIPost *post;
 
 @end
