@@ -63,7 +63,7 @@ static WLICommentCell *sharedCell = nil;
     if (self.comment && ![self.comment isEqual:[NSNull null]]) {
         [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.comment.user.userAvatarPath] placeholderImage:DefaultAvatar];
         
-        self.labelUsername.text = self.comment.user.userFullName;
+        self.labelUsername.text = self.comment.user.userUsername;
         self.labelTimeAgo.text = self.comment.commentTimeAgo;
         NSMutableAttributedString *attrString = [WLIUtils formattedString:self.comment.commentText WithHashtagsAndUsers:self.comment.taggedUsers].mutableCopy;
         [attrString addAttributes:@{NSFontAttributeName : self.textView.font} range:NSMakeRange(0, attrString.string.length)];
@@ -80,8 +80,6 @@ static WLICommentCell *sharedCell = nil;
     } else {
         [WLIUtils showWebViewControllerWithUrl:URL];
     }
-    return NO;
-
     return NO;
 }
 
@@ -113,7 +111,6 @@ static WLICommentCell *sharedCell = nil;
                     [self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];
                 }
             }
-            
         }
     }
 }
