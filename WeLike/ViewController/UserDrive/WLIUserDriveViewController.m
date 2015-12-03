@@ -47,8 +47,7 @@ static CGFloat const HeaderCellHeight = 156;
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
-    [sharedConnect mydriveTimelineForUserID:self.user.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, NSDictionary *rankInfo, ServerResponse serverResponseCode) {
-		NSLog(@"updated");
+    [sharedConnect mydriveTimelineForUserID:self.user.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, NSDictionary *rankInfo, ServerResponse serverResponseCode) {		
          self.rank = [rankInfo[@"stored"][@"rank"] integerValue];
          self.users = [rankInfo[@"stored"][@"number_of_users"] integerValue];
          self.points = [rankInfo[@"live"][@"points"] integerValue];
