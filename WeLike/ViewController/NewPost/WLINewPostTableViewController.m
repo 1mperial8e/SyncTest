@@ -97,34 +97,53 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 
 - (IBAction)buttonAddImageTouchUpInside:(id)sender
 {
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         // Cancel button tappped do nothing.
     }]];
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Shoot photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self takePhoto];
+		if([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized) {
+			[self takePhoto];
+		} else {
+			UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please provide access to your camera in settings" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
+			[accessAlert show];
+		}
     }]];
     
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self selectPhoto];
-    }]];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) { if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
+		[self selectPhoto];
+		} else {
+			UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please provide access to your photos in settings" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];		 
+			[accessAlert show];
+		}
+	}]];
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 - (IBAction)buttonAddVideoTouchUpInside:(id)sender
 {
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         // Cancel button tappped do nothing.
     }]];
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Shoot video" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self takeVideo];
+		if([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized) {
+			[self takeVideo];
+		} else {
+			UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please provide access to your camera in settings" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
+			[accessAlert show];
+		}
     }]];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select video" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self selectVideo];
+		if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
+			[self selectVideo];
+		} else {
+			UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please provide access to your photos in settings" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
+			[accessAlert show];
+		}
     }]];
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
@@ -495,6 +514,16 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     if (error) {
         NSLog(@"%@", error);
     }
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex != alertView.cancelButtonIndex) {
+		NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+		[[UIApplication sharedApplication] openURL:url];
+	}
 }
 
 @end
