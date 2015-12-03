@@ -998,20 +998,24 @@ static NSString *const AuthTokenKey = @"token";
     }
 }
 
-#pragma mark - Hashtags
+#pragma mark - Search
 
-- (void)hashtagsInSearch:(NSString *)searchString pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion
+- (AFHTTPRequestOperation *)search:(NSString *)searchString pageNumber:(NSInteger)pageNumber onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:[NSString stringWithFormat:@"%@", searchString ? searchString : @""] forKey:@"searchstring"];
-    [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", pageNumber] forKey:@"page"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", kDefaultPageSize] forKey:@"take"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [self.httpClient POST:@"api/getPoplularHashtags" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *rawHashtags = responseObject[@"items"];
+    AFHTTPRequestOperation *operation = [self.httpClient POST:@"api/search" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *rawHashtags = responseObject[@"hashtags"];
         NSArray *hashtags = [WLIHashtag arrayWithDictionariesArray:rawHashtags];
+        NSArray *rawUsers = responseObject[@"users"];
+        NSArray *users = [WLIUser arrayWithDictionariesArray:rawUsers];
+        NSArray *result = [hashtags arrayByAddingObjectsFromArray:users];
         if (completion) {
-            completion([hashtags mutableCopy], OK);
+            completion(result.mutableCopy, OK);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLogFormatted:error.localizedDescription];
@@ -1023,6 +1027,7 @@ static NSString *const AuthTokenKey = @"token";
             }
         }
     }];
+    return operation;
 }
 
 #pragma mark - debugger

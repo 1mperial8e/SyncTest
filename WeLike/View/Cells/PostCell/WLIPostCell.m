@@ -172,8 +172,8 @@ static CGFloat const StaticCellHeight = 154;
     } else {
         self.labelLikes.textColor = [UIColor colorWithWhite:76 / 255.0 alpha:1];
     }
-    self.labelLikes.hidden = !self.post.postLikesCount;
-    self.labelLikes.text = [NSString stringWithFormat:@"%zd %@", self.post.postLikesCount, (self.post.postLikesCount > 1) ? @"likes" : @"like"];
+    self.labelLikes.userInteractionEnabled = self.post.postLikesCount;
+    self.labelLikes.text = [NSString stringWithFormat:@"%zd %@", self.post.postLikesCount, (self.post.postLikesCount == 1) ? @"like" : @"likes"];
 }
 
 - (void)updateCommentsInfo
@@ -184,8 +184,7 @@ static CGFloat const StaticCellHeight = 154;
     } else {
         self.labelComments.textColor = [UIColor colorWithWhite:76 / 255.0 alpha:1];
     }
-    self.labelComments.hidden = !self.post.postCommentsCount;
-    self.labelComments.text = [NSString stringWithFormat:@"%zd %@", self.post.postCommentsCount, (self.post.postCommentsCount > 1) ? @"comments" : @"comment"];
+    self.labelComments.text = [NSString stringWithFormat:@"%zd %@", self.post.postCommentsCount, (self.post.postCommentsCount == 1) ? @"comment" : @"comments"];
 }
 
 #pragma mark - Category buttons
