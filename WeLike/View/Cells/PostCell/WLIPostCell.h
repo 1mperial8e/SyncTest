@@ -30,5 +30,6 @@
 
 - (void)updateLikesInfo;
 - (void)updateCommentsInfo;
+- (void)blockUserInteraction;
 
 @end

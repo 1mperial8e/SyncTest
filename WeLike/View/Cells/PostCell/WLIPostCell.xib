@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -94,7 +94,7 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="YDK-kP-ujs">
+                                    <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="YDK-kP-ujs">
                                         <rect key="frame" x="51" y="6" width="443" height="19"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
@@ -420,6 +420,7 @@
                 <outlet property="buttonDelete" destination="02X-vI-UEj" id="NdC-DO-qUn"/>
                 <outlet property="buttonFollow" destination="p6d-M9-6XM" id="Lyc-YS-D4l"/>
                 <outlet property="buttonLike" destination="wTq-IS-nCN" id="ZaT-kW-tX6"/>
+                <outlet property="buttonUser" destination="mpX-Sc-2Oc" id="4QF-9r-MaZ"/>
                 <outlet property="buttonVideo" destination="sbr-sq-xNl" id="H63-Ct-QxR"/>
                 <outlet property="categoryView" destination="Yf8-Og-rbg" id="Tah-Tl-sa1"/>
                 <outlet property="imageViewHeightConstraint" destination="IGR-Kx-MR5" id="sNa-4a-cqP"/>

@@ -42,6 +42,14 @@
     return YES;
 }
 
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+	[WLIAnalytics startSession];
+	if ([WLIConnect sharedConnect].currentUser) {
+		[WLIAnalytics setUserID:[NSString stringWithFormat:@"%li",(long)[WLIConnect sharedConnect].currentUser.userID]];
+	}
+}
+
 #pragma mark - Customisation
 
 - (void)setupAppearance

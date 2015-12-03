@@ -13,6 +13,9 @@ static CGFloat const HeaderCellHeight = 156;
 @interface WLIUserDriveViewController ()
 
 @property (weak, nonatomic) WLIMyDriveHeaderCell *headerCell;
+@property (assign, nonatomic) NSInteger rank;
+@property (assign, nonatomic) NSInteger users;
+@property (assign, nonatomic) NSInteger points;
 
 @end
 
@@ -44,18 +47,16 @@ static CGFloat const HeaderCellHeight = 156;
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
-    [sharedConnect mydriveTimelineForUserID:self.user.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, NSDictionary *rankInfo, ServerResponse serverResponseCode) {
-        NSInteger rank = [rankInfo[@"stored"][@"rank"] integerValue];
-        NSInteger users = [rankInfo[@"stored"][@"number_of_users"] integerValue];
-        NSInteger points = [rankInfo[@"live"][@"points"] integerValue];
-        weakSelf.user.rank = rank;
-        weakSelf.user.points = points;
+    [sharedConnect mydriveTimelineForUserID:self.user.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, NSDictionary *rankInfo, ServerResponse serverResponseCode) {		
+        weakSelf.rank = [rankInfo[@"stored"][@"rank"] integerValue];
+        weakSelf.users = [rankInfo[@"stored"][@"number_of_users"] integerValue];
+        weakSelf.points = [rankInfo[@"live"][@"points"] integerValue];
         if (weakSelf.user.userID == sharedConnect.currentUser.userID) {
             sharedConnect.currentUser = weakSelf.user;
             [sharedConnect saveCurrentUser];
         }
-        [weakSelf.headerCell updateRank:rank forUsers:users];
-        [weakSelf.headerCell updatePoints:points];
+		[weakSelf.headerCell updateRank:self.rank forUsers:self.users];
+		[weakSelf.headerCell updatePoints:self.points];
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -130,6 +131,8 @@ static CGFloat const HeaderCellHeight = 156;
     WLIMyDriveHeaderCell *cell = [self.tableViewRefresh dequeueReusableCellWithIdentifier:WLIMyDriveHeaderCell.ID forIndexPath:indexPath];
     cell.delegate = self;
     cell.user = self.user;
+	[cell updateRank:self.rank forUsers:self.users];
+	[cell updatePoints:self.points];
     return cell;
 }
 
@@ -140,6 +143,7 @@ static CGFloat const HeaderCellHeight = 156;
     cell.showDeleteButton = YES;
     cell.showFollowButton = NO;
     cell.post = self.posts[indexPath.row];
+	[cell blockUserInteraction];
     return cell;
 }
 
