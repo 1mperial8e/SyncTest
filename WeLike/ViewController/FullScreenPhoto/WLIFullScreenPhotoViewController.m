@@ -251,7 +251,7 @@ static CGFloat const DefaultScrollViewZoomScale = 1.01f;
 {
     if (error) {
         if (error.code == -3310) {
-            UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please provide access to you photos in settings" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
+            UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please provide access to your photos in settings" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
             accessAlert.tag = 2;
             [accessAlert show];
         }
