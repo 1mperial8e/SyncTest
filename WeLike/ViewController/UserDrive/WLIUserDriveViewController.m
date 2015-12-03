@@ -13,9 +13,9 @@ static CGFloat const HeaderCellHeight = 156;
 @interface WLIUserDriveViewController ()
 
 @property (weak, nonatomic) WLIMyDriveHeaderCell *headerCell;
-@property (nonatomic) NSInteger rank;
-@property (nonatomic) NSInteger users;
-@property (nonatomic) NSInteger points;
+@property (assign, nonatomic) NSInteger rank;
+@property (assign, nonatomic) NSInteger users;
+@property (assign, nonatomic) NSInteger points;
 
 @end
 
@@ -48,9 +48,9 @@ static CGFloat const HeaderCellHeight = 156;
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
     [sharedConnect mydriveTimelineForUserID:self.user.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, NSDictionary *rankInfo, ServerResponse serverResponseCode) {		
-         self.rank = [rankInfo[@"stored"][@"rank"] integerValue];
-         self.users = [rankInfo[@"stored"][@"number_of_users"] integerValue];
-         self.points = [rankInfo[@"live"][@"points"] integerValue];
+        weakSelf.rank = [rankInfo[@"stored"][@"rank"] integerValue];
+        weakSelf.users = [rankInfo[@"stored"][@"number_of_users"] integerValue];
+        weakSelf.points = [rankInfo[@"live"][@"points"] integerValue];
         if (weakSelf.user.userID == sharedConnect.currentUser.userID) {
             sharedConnect.currentUser = weakSelf.user;
             [sharedConnect saveCurrentUser];
