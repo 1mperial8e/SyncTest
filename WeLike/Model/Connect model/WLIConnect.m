@@ -602,7 +602,6 @@ static NSString *const AuthTokenKey = @"token";
         } success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *rawPost = [responseObject objectForKey:@"item"];
             WLIPost *post = [WLIPost initWithDictionary:rawPost];
-#warning add Notification here
 			[[NSNotificationCenter defaultCenter] postNotificationName:@"NewPostAdded" object:self userInfo:@{@"newPost" : post}];
             if (completion) {
                 completion(post, OK);
