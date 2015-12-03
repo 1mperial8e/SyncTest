@@ -143,6 +143,7 @@ static CGFloat const HeaderCellHeight = 156;
     cell.showDeleteButton = YES;
     cell.showFollowButton = NO;
     cell.post = self.posts[indexPath.row];
+	[cell blockUserInteraction];
     return cell;
 }
 

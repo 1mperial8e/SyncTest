@@ -27,6 +27,7 @@ static CGFloat const StaticCellHeight = 154;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewUser;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;
 @property (weak, nonatomic) IBOutlet UILabel *labelTimeAgo;
+@property (weak, nonatomic) IBOutlet UIButton *buttonUser;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -418,6 +419,12 @@ static CGFloat const StaticCellHeight = 154;
     UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return croppedImage;
+}
+
+- (void)blockUserInteraction
+{
+	self.labelUserName.userInteractionEnabled = NO;
+	self.buttonUser.userInteractionEnabled=NO;
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate

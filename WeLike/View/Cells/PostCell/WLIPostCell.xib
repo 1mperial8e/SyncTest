@@ -420,6 +420,7 @@
                 <outlet property="buttonDelete" destination="02X-vI-UEj" id="NdC-DO-qUn"/>
                 <outlet property="buttonFollow" destination="p6d-M9-6XM" id="Lyc-YS-D4l"/>
                 <outlet property="buttonLike" destination="wTq-IS-nCN" id="ZaT-kW-tX6"/>
+                <outlet property="buttonUser" destination="mpX-Sc-2Oc" id="4QF-9r-MaZ"/>
                 <outlet property="buttonVideo" destination="sbr-sq-xNl" id="H63-Ct-QxR"/>
                 <outlet property="categoryView" destination="Yf8-Og-rbg" id="Tah-Tl-sa1"/>
                 <outlet property="imageViewHeightConstraint" destination="IGR-Kx-MR5" id="sNa-4a-cqP"/>
