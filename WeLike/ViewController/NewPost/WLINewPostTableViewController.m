@@ -495,7 +495,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 
 - (void) showMediaAccessAlert:(NSString *)alertMessage
 {
-	UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:alertMessage delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
+	UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:nil message:alertMessage delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
 	[accessAlert show];
 }
 
