@@ -99,21 +99,21 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 {
 	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        // Cancel button tappped do nothing.
-    }]];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    __weak typeof(self) weakSelf = self;
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Shoot photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		if([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized) {
-			[self takePhoto];
+			[weakSelf takePhoto];
 		} else {
-			[self showMediaAccessAlert:@"Please provide access to your camera in settings" ];
+			[weakSelf showMediaAccessAlert:@"Please provide access to your camera in settings" ];
 		}
     }]];
     
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) { if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
-		[self selectPhoto];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
+            [weakSelf selectPhoto];
 		} else {
-			[self showMediaAccessAlert:@"Please provide access to your photos in settings"];
+			[weakSelf showMediaAccessAlert:@"Please provide access to your photos in settings"];
 		}
 	}]];
     [self presentViewController:actionSheet animated:YES completion:nil];
@@ -123,22 +123,21 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 {
 	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        // Cancel button tappped do nothing.
-    }]];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    __weak typeof(self) weakSelf = self;
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Shoot video" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		if([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized) {
-			[self takeVideo];
+			[weakSelf takeVideo];
 		} else {
-			[self showMediaAccessAlert:@"Please provide access to your camera in settings" ];
+			[weakSelf showMediaAccessAlert:@"Please provide access to your camera in settings" ];
 		}
     }]];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select video" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
-			[self selectVideo];
+			[weakSelf selectVideo];
 		} else {
-			[self showMediaAccessAlert:@"Please provide access to your videos in settings"];
+			[weakSelf showMediaAccessAlert:@"Please provide access to your videos in settings"];
 		}
     }]];
     [self presentViewController:actionSheet animated:YES completion:nil];
@@ -353,8 +352,6 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
         self.image = [self scaledImage:image];
         self.video = nil;
     } else {
-//        self.video = [NSData dataWithContentsOfURL:info[UIImagePickerControllerMediaURL]];
-
         NSURL *assetUrl = [info objectForKey:UIImagePickerControllerReferenceURL];
         if (assetUrl) {
             [self convertAssetAtUrl:assetUrl];
@@ -362,22 +359,6 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
             NSString *tmpFilePath = [[NSTemporaryDirectory() stringByAppendingPathComponent:[NSUUID UUID].UUIDString] stringByAppendingPathExtension:@"mp4"];
             [self copyFileAtUrl:info[UIImagePickerControllerMediaURL] toPath:tmpFilePath];
         }
-//        self.video = [NSData dataWithContentsOfURL:[info objectForKey:UIImagePickerControllerMediaURL]];
-//        AVURLAsset *videoAsset = [[AVURLAsset alloc] initWithURL:[info objectForKey:UIImagePickerControllerMediaURL] options:nil];
-//        AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:videoAsset];
-//        generator.appliesPreferredTrackTransform = YES;
-//        NSError *error = NULL;
-//        CMTime time = [videoAsset duration];
-//        time.value = 1000;
-//        generator.maximumSize = ScaledImageSize;
-//        
-//        CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:NULL error:&error];
-//        if (error) {
-//            NSLog(@"%@", error);
-//        } else {
-//            self.image = [UIImage imageWithCGImage:imgRef];
-//            CGImageRelease(imgRef);
-//        }
     }
     __weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{
