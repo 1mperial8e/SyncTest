@@ -82,6 +82,9 @@ static CGFloat const StaticCellHeight = 154;
 	
 	UITapGestureRecognizer *labelLikesTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(getLikersForPost:)];
 	[self.labelLikes addGestureRecognizer:labelLikesTap];
+	
+	UITapGestureRecognizer *labelUserNameTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonUserTouchUpInside:)];
+	[self.labelUserName addGestureRecognizer:labelUserNameTap];
 }
 
 

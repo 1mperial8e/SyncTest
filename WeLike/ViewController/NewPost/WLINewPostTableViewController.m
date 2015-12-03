@@ -175,13 +175,13 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
         }
     }
 	
-	if ((self.textContent.length != 0) || (self.image) || (self.video) ) {
+	if (self.textContent.length != 0 || self.image || self.video) {
 		[self.sharedConnect sendPostWithCountries:countries postText:self.textContent postKeywords:nil postCategory:@(categoryCode) postImage:self.image postVideo:self.video onCompletion:nil];
 		[self dismissViewControllerAnimated:YES completion:nil];
 	} else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please add some content"	 delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
-	}	
+	}
 }
 
 - (void)cancelButtonAction:(id)sender
