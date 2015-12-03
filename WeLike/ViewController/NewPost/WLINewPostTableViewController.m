@@ -106,16 +106,14 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 		if([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized) {
 			[self takePhoto];
 		} else {
-			UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please provide access to your camera in settings" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
-			[accessAlert show];
+			[self showMediaAccessAlert:@"Please provide access to your camera in settings" ];
 		}
     }]];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) { if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
 		[self selectPhoto];
 		} else {
-			UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please provide access to your photos in settings" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];		 
-			[accessAlert show];
+			[self showMediaAccessAlert:@"Please provide access to your photos in settings"];
 		}
 	}]];
     [self presentViewController:actionSheet animated:YES completion:nil];
@@ -132,8 +130,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 		if([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized) {
 			[self takeVideo];
 		} else {
-			UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please provide access to your camera in settings" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
-			[accessAlert show];
+			[self showMediaAccessAlert:@"Please provide access to your camera in settings" ];
 		}
     }]];
     
@@ -141,8 +138,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 		if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
 			[self selectVideo];
 		} else {
-			UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please provide access to your photos in settings" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
-			[accessAlert show];
+			[self showMediaAccessAlert:@"Please provide access to your videos in settings"];
 		}
     }]];
     [self presentViewController:actionSheet animated:YES completion:nil];
@@ -514,6 +510,12 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     if (error) {
         NSLog(@"%@", error);
     }
+}
+
+- (void) showMediaAccessAlert:(NSString *)alertMessage
+{
+	UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:alertMessage delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
+	[accessAlert show];
 }
 
 #pragma mark - UIAlertViewDelegate

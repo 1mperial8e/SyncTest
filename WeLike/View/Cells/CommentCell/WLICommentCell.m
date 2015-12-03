@@ -81,8 +81,6 @@ static WLICommentCell *sharedCell = nil;
         [WLIUtils showWebViewControllerWithUrl:URL];
     }
     return NO;
-
-    return NO;
 }
 
 #pragma mark - Gesture
@@ -113,7 +111,6 @@ static WLICommentCell *sharedCell = nil;
                     [self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];
                 }
             }
-            
         }
     }
 }
