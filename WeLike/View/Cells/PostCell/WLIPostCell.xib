@@ -277,7 +277,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwN-Ye-Ady">
-                                                <rect key="frame" x="39" y="21" width="0.0" height="0.0"/>
+                                                <rect key="frame" x="39" y="0.0" width="0.0" height="42"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -289,8 +289,10 @@
                                         <constraints>
                                             <constraint firstItem="jwN-Ye-Ady" firstAttribute="leading" secondItem="wTq-IS-nCN" secondAttribute="trailing" constant="8" id="9lP-Nd-Spf"/>
                                             <constraint firstItem="jwN-Ye-Ady" firstAttribute="centerY" secondItem="dVR-cH-Hns" secondAttribute="centerY" id="LXy-cf-fd1"/>
+                                            <constraint firstItem="jwN-Ye-Ady" firstAttribute="top" secondItem="dVR-cH-Hns" secondAttribute="top" id="S4z-pZ-PsK"/>
                                             <constraint firstItem="wTq-IS-nCN" firstAttribute="leading" secondItem="dVR-cH-Hns" secondAttribute="leading" constant="5" id="n4L-zo-6ub"/>
                                             <constraint firstItem="wTq-IS-nCN" firstAttribute="centerY" secondItem="dVR-cH-Hns" secondAttribute="centerY" id="qhb-Fi-kcv"/>
+                                            <constraint firstAttribute="bottom" secondItem="jwN-Ye-Ady" secondAttribute="bottom" id="tl4-xe-Vax"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xEQ-qX-4lv">
@@ -316,7 +318,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eir-rs-qDW">
-                                                <rect key="frame" x="59" y="21" width="0.0" height="0.0"/>
+                                                <rect key="frame" x="59" y="0.0" width="0.0" height="42"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -328,6 +330,7 @@
                                         <constraints>
                                             <constraint firstItem="HgY-d5-XKh" firstAttribute="centerY" secondItem="Di0-Ne-c3x" secondAttribute="centerY" id="EUf-gi-gRa"/>
                                             <constraint firstItem="Eir-rs-qDW" firstAttribute="centerY" secondItem="Di0-Ne-c3x" secondAttribute="centerY" id="ZrN-re-ggB"/>
+                                            <constraint firstItem="Eir-rs-qDW" firstAttribute="top" secondItem="Di0-Ne-c3x" secondAttribute="top" id="gmf-IX-lQs"/>
                                             <constraint firstItem="HgY-d5-XKh" firstAttribute="centerX" secondItem="Di0-Ne-c3x" secondAttribute="centerX" constant="-20" id="puO-GI-cyM"/>
                                             <constraint firstItem="Eir-rs-qDW" firstAttribute="leading" secondItem="HgY-d5-XKh" secondAttribute="trailing" constant="8" id="sht-jf-Bky"/>
                                         </constraints>

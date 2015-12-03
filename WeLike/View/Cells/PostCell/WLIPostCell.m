@@ -32,6 +32,10 @@ static CGFloat const StaticCellHeight = 154;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
 
+@property (strong, nonatomic) IBOutlet UIButton *buttonComment;
+@property (strong, nonatomic) IBOutlet UILabel *labelComments;
+@property (strong, nonatomic) IBOutlet UILabel *labelLikes;
+
 @property (weak, nonatomic) IBOutlet UIButton *buttonVideo;
 
 @property (weak, nonatomic) IBOutlet UIView *categoryView;
@@ -75,6 +79,9 @@ static CGFloat const StaticCellHeight = 154;
     
     UITapGestureRecognizer *commentLabelTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonCommentTouchUpInside:)];
     [self.labelComments addGestureRecognizer:commentLabelTap];
+	
+	UITapGestureRecognizer *labelLikesTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(getLikersForPost:)];
+	[self.labelLikes addGestureRecognizer:labelLikesTap];
 }
 
 
@@ -139,24 +146,11 @@ static CGFloat const StaticCellHeight = 154;
             } failure:nil];
         }
         
-        self.buttonLike.selected = self.post.likedThisPost;
         self.buttonFollow.selected = self.post.user.followingUser;
-        self.buttonComment.selected = self.post.commentedThisPost;
-        if (self.post.likedThisPost) {
-            self.labelLikes.textColor = [UIColor redColor];
-        } else {
-            self.labelLikes.textColor = [UIColor colorWithWhite:76 / 255.0 alpha:1];
-        }
-        if (self.post.commentedThisPost) {
-            self.labelComments.textColor = [UIColor redColor];
-        } else {
-            self.labelComments.textColor = [UIColor colorWithWhite:76 / 255.0 alpha:1];
-        }
-        self.labelLikes.hidden = !self.post.postLikesCount;
-        self.labelLikes.text = [NSString stringWithFormat:@"%zd %@", self.post.postLikesCount, (self.post.postLikesCount > 1) ? @"likes" : @"like"];
-        self.labelComments.hidden = !self.post.postCommentsCount;
-        self.labelComments.text = [NSString stringWithFormat:@"%zd %@", self.post.postCommentsCount, (self.post.postCommentsCount > 1) ? @"comments" : @"comment"];
-
+        
+        [self updateLikesInfo];
+        [self updateCommentsInfo];
+        
         if (self.post.user.userID == [WLIConnect sharedConnect].currentUser.userID) {
             self.buttonFollow.hidden = YES;
             if (self.showDeleteButton) {
@@ -168,6 +162,30 @@ static CGFloat const StaticCellHeight = 154;
         }
         [self insertCategoryButtons];
     }
+}
+
+- (void)updateLikesInfo
+{
+    self.buttonLike.selected = self.post.likedThisPost;
+    if (self.post.likedThisPost) {
+        self.labelLikes.textColor = [UIColor redColor];
+    } else {
+        self.labelLikes.textColor = [UIColor colorWithWhite:76 / 255.0 alpha:1];
+    }
+    self.labelLikes.hidden = !self.post.postLikesCount;
+    self.labelLikes.text = [NSString stringWithFormat:@"%zd %@", self.post.postLikesCount, (self.post.postLikesCount > 1) ? @"likes" : @"like"];
+}
+
+- (void)updateCommentsInfo
+{
+    self.buttonComment.selected = self.post.commentedThisPost;
+    if (self.post.commentedThisPost) {
+        self.labelComments.textColor = [UIColor redColor];
+    } else {
+        self.labelComments.textColor = [UIColor colorWithWhite:76 / 255.0 alpha:1];
+    }
+    self.labelComments.hidden = !self.post.postCommentsCount;
+    self.labelComments.text = [NSString stringWithFormat:@"%zd %@", self.post.postCommentsCount, (self.post.postCommentsCount > 1) ? @"comments" : @"comment"];
 }
 
 #pragma mark - Category buttons

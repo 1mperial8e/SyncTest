@@ -16,10 +16,7 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewPostImage;
 @property (weak, nonatomic) IBOutlet UIButton *buttonFollow;
-@property (strong, nonatomic) IBOutlet UIButton *buttonLike;
-@property (strong, nonatomic) IBOutlet UIButton *buttonComment;
-@property (strong, nonatomic) IBOutlet UILabel *labelComments;
-@property (strong, nonatomic) IBOutlet UILabel *labelLikes;
+@property (weak, nonatomic) IBOutlet UIButton *buttonLike;
 
 @property (strong, nonatomic) WLIPost *post;
 @property (weak, nonatomic) id<WLICellDelegate> delegate;
@@ -30,5 +27,8 @@
 @property (strong, nonatomic) UIImage *originalImage;
 
 + (CGSize)sizeWithPost:(WLIPost *)post withWidth:(CGFloat)width;
+
+- (void)updateLikesInfo;
+- (void)updateCommentsInfo;
 
 @end

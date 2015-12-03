@@ -168,32 +168,29 @@
 - (void)toggleLikeForPost:(WLIPost *)post sender:(WLIPostCell *)senderCell
 {
     if (post.likedThisPost) {
+        post.likedThisPost = NO;
+        post.postLikesCount--;
         [[WLIConnect sharedConnect] removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
 			senderCell.buttonLike.userInteractionEnabled = YES;
-            if (serverResponseCode == OK) {
-                senderCell.buttonLike.selected = NO;
-                post.postLikesCount--;
-                post.likedThisPost = NO;
-                if (post.postLikesCount == 0) {
-                    senderCell.labelLikes.hidden = YES;
-                }
-                senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
+            if (serverResponseCode != OK) {
+                post.postLikesCount++;
+                post.likedThisPost = YES;
+                [senderCell updateLikesInfo];
             }
         }];
     } else {
+        post.postLikesCount++;
+        post.likedThisPost = YES;
         [[WLIConnect sharedConnect] setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
 			senderCell.buttonLike.userInteractionEnabled = YES;
-            if (serverResponseCode == OK) {
-                senderCell.buttonLike.selected = YES;
-                post.postLikesCount++;
-                post.likedThisPost = YES;
-                if (post.postLikesCount > 0) {
-                    senderCell.labelLikes.hidden = NO;
-                }
-                senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
+            if (serverResponseCode != OK) {
+                post.likedThisPost = NO;
+                post.postLikesCount--;
+                [senderCell updateLikesInfo];
             }
         }];
     }
+    [senderCell updateLikesInfo];
 }
 
 - (void)followUser:(WLIUser *)user sender:(id)senderCell
