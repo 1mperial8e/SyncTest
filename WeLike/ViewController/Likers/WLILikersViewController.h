@@ -2,7 +2,7 @@
 //  WLILikersViewController.h
 //  MyDrive
 //
-//  Created by Roman R on 02.12.15.
+//  Created by Stas Volskyi on 02.12.15.
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 

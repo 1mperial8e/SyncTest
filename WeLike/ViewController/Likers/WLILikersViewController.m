@@ -2,7 +2,7 @@
 //  WLILikersViewController.m
 //  MyDrive
 //
-//  Created by Roman R on 02.12.15.
+//  Created by Stas Volskyi on 02.12.15.
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
@@ -37,6 +37,5 @@
 		[weakSelf downloadedPeople:likers serverResponse:serverResponseCode reloadAll:reloadAll];
 	}];	
 }
-
 
 @end
