@@ -13,6 +13,9 @@ static CGFloat const HeaderCellHeight = 156;
 @interface WLIUserDriveViewController ()
 
 @property (weak, nonatomic) WLIMyDriveHeaderCell *headerCell;
+@property (nonatomic) NSInteger rank;
+@property (nonatomic) NSInteger users;
+@property (nonatomic) NSInteger points;
 
 @end
 
@@ -45,17 +48,16 @@ static CGFloat const HeaderCellHeight = 156;
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
     [sharedConnect mydriveTimelineForUserID:self.user.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, NSDictionary *rankInfo, ServerResponse serverResponseCode) {
-        NSInteger rank = [rankInfo[@"stored"][@"rank"] integerValue];
-        NSInteger users = [rankInfo[@"stored"][@"number_of_users"] integerValue];
-        NSInteger points = [rankInfo[@"live"][@"points"] integerValue];
-        weakSelf.user.rank = rank;
-        weakSelf.user.points = points;
+		NSLog(@"updated");
+         self.rank = [rankInfo[@"stored"][@"rank"] integerValue];
+         self.users = [rankInfo[@"stored"][@"number_of_users"] integerValue];
+         self.points = [rankInfo[@"live"][@"points"] integerValue];
         if (weakSelf.user.userID == sharedConnect.currentUser.userID) {
             sharedConnect.currentUser = weakSelf.user;
             [sharedConnect saveCurrentUser];
         }
-        [weakSelf.headerCell updateRank:rank forUsers:users];
-        [weakSelf.headerCell updatePoints:points];
+		[weakSelf.headerCell updateRank:self.rank forUsers:self.users];
+		[weakSelf.headerCell updatePoints:self.points];
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -130,6 +132,8 @@ static CGFloat const HeaderCellHeight = 156;
     WLIMyDriveHeaderCell *cell = [self.tableViewRefresh dequeueReusableCellWithIdentifier:WLIMyDriveHeaderCell.ID forIndexPath:indexPath];
     cell.delegate = self;
     cell.user = self.user;
+	[cell updateRank:self.rank forUsers:self.users];
+	[cell updatePoints:self.points];
     return cell;
 }
 
