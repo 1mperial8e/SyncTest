@@ -22,10 +22,11 @@
 - (void)viewDidLoad
 {
     self.user = sharedConnect.currentUser;
-    
     [super viewDidLoad];
     self.title = @"My Energy";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_email"] style:UIBarButtonItemStylePlain target:self action:@selector(sendFeedBack:)];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newPostNotificationRecieved:) name:@"NewPostAdded" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -41,6 +42,11 @@
         }
         [self.tableViewRefresh reloadData];
     }
+}
+
+- (void) dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"NewPostAdded" object:nil];
 }
 
 #pragma mark - WLITableViewCellDelegate
@@ -73,6 +79,17 @@
             }
         }];
     }
+}
+
+#pragma mark - Notifications handle
+
+- (void)newPostNotificationRecieved:(NSNotification *) notification
+{
+	WLIPost * post = [[notification userInfo] objectForKey:@"newPost"];
+	[self.posts insertObject:post atIndex:0];
+	[self.tableViewRefresh beginUpdates];
+	[self.tableViewRefresh insertRowsAtIndexPaths:[NSMutableArray arrayWithObjects: [NSIndexPath indexPathForItem:0 inSection:1], nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self.tableViewRefresh endUpdates];
 }
 
 @end
