@@ -11,7 +11,7 @@
 
 @interface WLIUserCell : WLITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIButton *buttonFollowUnfollow;
+@property (weak, nonatomic) IBOutlet UIButton *buttonFollow;
 
 @property (strong, nonatomic) WLIUser *user;
 @property (weak, nonatomic) id<WLICellDelegate> delegate;

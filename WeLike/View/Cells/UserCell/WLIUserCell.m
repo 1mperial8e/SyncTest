@@ -44,8 +44,8 @@
 {
     [self.imageViewUserImage setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
     self.labelUserName.text = self.user.userUsername;
-    self.buttonFollowUnfollow.selected = self.user.followingUser;
-    self.buttonFollowUnfollow.hidden = (self.user.userID == [WLIConnect sharedConnect].currentUser.userID);
+    self.buttonFollow.selected = self.user.followingUser;
+    self.buttonFollow.hidden = (self.user.userID == [WLIConnect sharedConnect].currentUser.userID);
 }
 
 #pragma mark - Action methods
@@ -57,7 +57,7 @@
     }
 }
 
-- (IBAction)buttonFollowUnfollowTouchUpInside:(UIButton *)sender
+- (IBAction)buttonFollowTouchUpInside:(UIButton *)sender
 {
     if (self.user.followingUser) {
         if ([self.delegate respondsToSelector:@selector(unfollowUser:sender:)]) {

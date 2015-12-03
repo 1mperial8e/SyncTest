@@ -171,23 +171,13 @@
 
 #pragma mark - WLIUserCellDelegate
 
-- (void)followUser:(WLIUser *)user sender:(id)senderCell
-{
-    [self follow:YES user:user cellToReload:senderCell];
-}
-
-- (void)unfollowUser:(WLIUser *)user sender:(id)senderCell
-{
-    [self follow:NO user:user cellToReload:senderCell];
-}
-
 - (void)follow:(BOOL)follow user:(WLIUser *)user cellToReload:(WLIUserCell *)cell
 {
     __block NSIndexPath *indexPath = [self.tableViewRefresh indexPathForCell:cell];
     __weak typeof(self) weakSelf = self;
-	cell.buttonFollowUnfollow.userInteractionEnabled = NO;
+	cell.buttonFollow.userInteractionEnabled = NO;
     void (^followUserCompletion)(WLIFollow *, ServerResponse) = ^(WLIFollow *wliFollow, ServerResponse serverResponseCode) {
-		cell.buttonFollowUnfollow.userInteractionEnabled = YES;
+		cell.buttonFollow.userInteractionEnabled = YES;
 		if (serverResponseCode == OK) {
             user.followingUser = follow;
             cell.user = user;

@@ -118,6 +118,7 @@ static WLICommentCell *sharedCell = nil;
     }
 }
 
+
 #pragma mark - Actions
 
 - (IBAction)buttonUserTouchUpInside:(id)sender

@@ -216,35 +216,6 @@
 
 #pragma mark - WLIPostCellDelegate methods
 
-- (void)toggleLikeForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell
-{
-    if (post.likedThisPost) {
-        [sharedConnect removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
-            if (serverResponseCode == OK) {
-                senderCell.buttonLike.selected = NO;
-                post.postLikesCount--;
-                post.likedThisPost = NO;
-                if (post.postLikesCount == 0) {
-                    senderCell.labelLikes.hidden = YES;
-                }
-                senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
-            }
-        }];
-    } else {
-        [sharedConnect setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
-            if (serverResponseCode == OK) {
-                senderCell.buttonLike.selected = YES;
-                post.postLikesCount++;
-                post.likedThisPost = YES;
-                if (post.postLikesCount > 0) {
-                    senderCell.labelLikes.hidden = NO;
-                }
-                senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
-            }
-        }];
-    }
-}
-
 - (void)showCatMarketForPost:(WLIPost *)post sender:(id)senderCell
 {
     WLICategoryPostsViewController *categoryViewController = [WLICategoryPostsViewController new];

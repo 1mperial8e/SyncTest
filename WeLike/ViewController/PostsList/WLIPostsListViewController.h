@@ -8,7 +8,7 @@
 
 #import "WLIViewController.h"
 
-@interface WLIPostsListViewController : WLIViewController <WLIViewControllerRefreshProtocol, UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface WLIPostsListViewController : WLIViewController <WLIViewControllerRefreshProtocol, UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate, WLICellDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;
 @property (strong, nonatomic) NSMutableArray *posts;
