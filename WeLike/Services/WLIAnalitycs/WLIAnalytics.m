@@ -28,7 +28,9 @@
 
 + (void)startSession
 {
-	[Flurry startSession:@"S92RNX9Y32HKPQ8S7JV3"];	
+	if (![Flurry activeSessionExists]) {
+		[Flurry startSession:@"S92RNX9Y32HKPQ8S7JV3"];
+	}	
 }
 
 @end
