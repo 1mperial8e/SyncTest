@@ -63,6 +63,7 @@
     self.fullNameLabel.hidden = isHashtag;
     self.tagNameLabel.hidden = !isHashtag;
     self.sharpLabel.hidden = !isHashtag;
+    self.tagCountLabel.hidden = !isHashtag;
     if (isHashtag) {
         self.userImageView.image = nil;
         self.tagNameLabel.text = self.hashtag.tagname;
