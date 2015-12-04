@@ -46,7 +46,7 @@
 
 - (void) dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"NewPostAdded" object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - WLITableViewCellDelegate
@@ -83,12 +83,12 @@
 
 #pragma mark - Notifications handle
 
-- (void)newPostNotificationRecieved:(NSNotification *) notification
+- (void)newPostNotificationRecieved:(NSNotification *)notification
 {
-	WLIPost * post = [[notification userInfo] objectForKey:@"newPost"];
+	WLIPost *post = [[notification userInfo] objectForKey:@"newPost"];
 	[self.posts insertObject:post atIndex:0];
 	[self.tableViewRefresh beginUpdates];
-	[self.tableViewRefresh insertRowsAtIndexPaths:[NSMutableArray arrayWithObjects: [NSIndexPath indexPathForItem:0 inSection:1], nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self.tableViewRefresh endUpdates];
 }
 
