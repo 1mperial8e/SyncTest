@@ -51,7 +51,6 @@
     loading = YES;
     if (reloadAll && !loadMore) {
         loadMore = YES;
-        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
@@ -74,7 +73,7 @@
     } else if (section == 1) {
         return self.posts.count;
     } else {
-        return loadMore;
+        return 1;
     }
 }
 
@@ -128,7 +127,7 @@
     } else if (indexPath.section == 1) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row]  withWidth:self.view.frame.size.width].height;
     } else {
-        return 44;
+        return loadMore ? 44 : 0;
     }
 }
 

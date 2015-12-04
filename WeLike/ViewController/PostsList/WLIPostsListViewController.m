@@ -69,6 +69,7 @@
             post.user.followingUser = followed;
         }
     }
+    
     if (idPaths.count) {
         [self.tableViewRefresh beginUpdates];
         [self.tableViewRefresh reloadRowsAtIndexPaths:idPaths withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -93,10 +94,6 @@
         [self.loadTimelineOperation cancel];
     }
     loading = YES;
-    if (reloadAll && !loadMore) {
-        loadMore = YES;
-        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
     self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID page:page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
@@ -115,11 +112,6 @@
         [self addPosts:posts];
     }
     loadMore = posts.count == kDefaultPageSize;
-    if (!loadMore && [self.tableViewRefresh numberOfRowsInSection:self.postsSectionNumber + 1]) {
-        [self.tableViewRefresh beginUpdates];
-        [self.tableViewRefresh deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableViewRefresh endUpdates];
-    }
     [refreshManager tableViewReloadFinishedAnimated:YES];
     loading = NO;
 }
@@ -162,7 +154,7 @@
     if (section == self.postsSectionNumber) {
         return self.posts.count;
     } else {
-        return loadMore;
+        return 1;
     }
 }
 
@@ -195,7 +187,7 @@
     if (indexPath.section == self.postsSectionNumber) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row] withWidth:self.view.frame.size.width].height;
     } else {
-        return 44;
+        return loadMore ? 44 : 0;
     }
 }
 

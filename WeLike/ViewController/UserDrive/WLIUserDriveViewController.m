@@ -38,9 +38,8 @@ static CGFloat const HeaderCellHeight = 156;
 - (void)reloadData:(BOOL)reloadAll
 {
     loading = YES;
-    if (reloadAll && !loadMore) {
+    if (reloadAll) {
         loadMore = YES;
-        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     if (reloadAll) {
         [self reloadUserInfo];
@@ -106,7 +105,7 @@ static CGFloat const HeaderCellHeight = 156;
     } else if (section == 1) {
         return self.posts.count;
     } else {
-        return loadMore;
+        return 1;
     }
 }
 
@@ -156,7 +155,7 @@ static CGFloat const HeaderCellHeight = 156;
     } else if (indexPath.section == 1) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row] withWidth:self.view.frame.size.width].height;
     } else {
-        return 44;
+        return loadMore ? 44 : 0;
     }
 }
 

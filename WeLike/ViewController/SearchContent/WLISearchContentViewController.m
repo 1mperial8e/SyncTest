@@ -45,6 +45,12 @@
     [self reloadData:YES];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.tableViewRefresh endEditing:YES];
+}
+
 #pragma mark - Actions
 
 - (void)cancelButtonAction:(id)sender
@@ -61,7 +67,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger rowsCount = loadMore;
+    NSInteger rowsCount = 1;
     if (section == 0) {
         rowsCount = self.dataSource.count;
     }
@@ -124,17 +130,22 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1) {
+        return loadMore ? 44 : 0;
+    }
+    return 50;
+}
+
 #pragma mark - Data loading methods
 
 - (void)reloadData:(BOOL)reloadAll
 {
     [self.searchOperation cancel];
     loading = YES;
-    if (reloadAll && !loadMore) {
+    if (reloadAll) {
         loadMore = YES;
-        [self.tableViewRefresh beginUpdates];
-        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableViewRefresh endUpdates];
     }
     NSUInteger page = reloadAll ? 1 : (self.dataSource.count / (kDefaultPageSize * 2)) + 1;
     __weak typeof(self) weakSelf = self;
@@ -181,11 +192,6 @@
         }
         [self addItems:items];
         loadMore = items.count == kDefaultPageSize * 2;
-        if (!loadMore) {
-            [self.tableViewRefresh beginUpdates];
-            [self.tableViewRefresh deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self.tableViewRefresh endUpdates];
-        }
         [refreshManager tableViewReloadFinishedAnimated:YES];
         loading = NO;
     }
