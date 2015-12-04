@@ -53,7 +53,9 @@
     
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
-    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    if (self.navigationController.viewControllers.count == 1) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated

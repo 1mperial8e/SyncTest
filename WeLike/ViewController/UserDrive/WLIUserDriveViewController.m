@@ -46,16 +46,18 @@ static CGFloat const HeaderCellHeight = 156;
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
-    [sharedConnect mydriveTimelineForUserID:self.user.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, NSDictionary *rankInfo, ServerResponse serverResponseCode) {		
-        weakSelf.rank = [rankInfo[@"stored"][@"rank"] integerValue];
-        weakSelf.users = [rankInfo[@"stored"][@"number_of_users"] integerValue];
-        weakSelf.points = [rankInfo[@"live"][@"points"] integerValue];
-        if (weakSelf.user.userID == sharedConnect.currentUser.userID) {
-            sharedConnect.currentUser = weakSelf.user;
-            [sharedConnect saveCurrentUser];
+    [sharedConnect mydriveTimelineForUserID:self.user.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, NSDictionary *rankInfo, ServerResponse serverResponseCode) {
+        if (serverResponseCode == OK) {
+            weakSelf.rank = [rankInfo[@"stored"][@"rank"] integerValue];
+            weakSelf.users = [rankInfo[@"stored"][@"number_of_users"] integerValue];
+            weakSelf.points = [rankInfo[@"live"][@"points"] integerValue];
+            if (weakSelf.user.userID == sharedConnect.currentUser.userID) {
+                sharedConnect.currentUser = weakSelf.user;
+                [sharedConnect saveCurrentUser];
+            }
+            [weakSelf.headerCell updateRank:self.rank forUsers:self.users];
+            [weakSelf.headerCell updatePoints:self.points];
         }
-		[weakSelf.headerCell updateRank:self.rank forUsers:self.users];
-		[weakSelf.headerCell updatePoints:self.points];
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }

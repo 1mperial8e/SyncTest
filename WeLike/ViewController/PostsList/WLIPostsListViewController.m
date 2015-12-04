@@ -91,6 +91,7 @@
 - (void)reloadData:(BOOL)reloadAll
 {
     if (reloadAll) {
+        loadMore = YES;
         [self.loadTimelineOperation cancel];
     }
     loading = YES;
