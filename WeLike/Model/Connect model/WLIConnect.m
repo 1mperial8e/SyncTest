@@ -266,6 +266,7 @@ static NSString *const AuthTokenKey = @"token";
         if (userFullName.length) {
             [parameters setObject:userFullName forKey:@"userFullname"];
         }
+#warning empty string
         if (userInfo.length) {
             [parameters setObject:userInfo forKey:@"userInfo"];
         }
