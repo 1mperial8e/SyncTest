@@ -261,15 +261,13 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%zd", userType] forKey:@"userTypeID"];
         if (userUsername.length) {
             [parameters setObject:userUsername forKey:@"username"];
-            //[parameters setObject:@"stas.test@test.com" forKey:@"email"];
         }
         if (userFullName.length) {
             [parameters setObject:userFullName forKey:@"userFullname"];
         }
-#warning empty string
-        if (userInfo.length) {
-            [parameters setObject:userInfo forKey:@"userInfo"];
-        }
+#warning empty string can't set
+		[parameters setObject:userInfo forKey:@"userInfo"];
+		
         [parameters setObject:self.authToken forKey:AuthTokenKey];
         
         [self.httpClient POST:@"api/setProfile" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
