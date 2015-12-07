@@ -145,7 +145,6 @@ int keyboardHeight() {
             [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.mainScrollView.contentOffset.y + offsetDown + 10) animated:YES];
        }
     }
-#warning  scroll textField here
     NSUInteger index = [self.textFields indexOfObject:textField];
     if ([self.delegates[index] respondsToSelector:@selector(textFieldDidBeginEditing:)]) {
         [self.delegates[index] textFieldDidBeginEditing:textField];
