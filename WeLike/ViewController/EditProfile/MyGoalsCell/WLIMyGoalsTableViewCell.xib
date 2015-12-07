@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WLIMyGoalsTableViewCell" id="KGk-i7-Jjw" customClass="WLIMyGoalsTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="318" height="170"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="318" height="169"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="X9V-Mh-5YA">
+                        <rect key="frame" x="15" y="10" width="288" height="150"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="150" id="QKn-ld-Prx"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstItem="X9V-Mh-5YA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="5Di-Pm-b8Y"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="X9V-Mh-5YA" secondAttribute="trailing" constant="7" id="7U7-lN-kBr"/>
+                    <constraint firstItem="X9V-Mh-5YA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uZf-ia-Ygx"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="textView" destination="X9V-Mh-5YA" id="D99-UW-klz"/>
+            </connections>
+            <point key="canvasLocation" x="406" y="170"/>
+        </tableViewCell>
+    </objects>
+</document>

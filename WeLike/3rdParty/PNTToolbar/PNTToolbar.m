@@ -141,11 +141,11 @@ int keyboardHeight() {
     } else if (offsetUp < 0) {
         [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.mainScrollView.contentOffset.y + offsetUp-10) animated:YES];
     } else if (offsetDown < 0) {
-        if (self.mainScrollView.contentOffset.y + offsetDown - 10 > 0) {
+        if (self.mainScrollView.contentOffset.y + offsetDown - 30 > 0) {
             [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.mainScrollView.contentOffset.y + offsetDown + 10) animated:YES];
-        } 
+       }
     }
-    
+#warning  scroll textField here
     NSUInteger index = [self.textFields indexOfObject:textField];
     if ([self.delegates[index] respondsToSelector:@selector(textFieldDidBeginEditing:)]) {
         [self.delegates[index] textFieldDidBeginEditing:textField];
@@ -229,11 +229,11 @@ int keyboardHeight() {
     int offsetDown = CGRectGetMaxY(textViewRect) - CGRectGetMaxY(visibleArea);
     int offsetUp = CGRectGetMinY(textViewRect) - CGRectGetMinY(visibleArea);
     if (offsetDown > 0) {
-        [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.mainScrollView.contentOffset.y + offsetDown+10) animated:YES];
+        [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.mainScrollView.contentOffset.y + offsetDown+30) animated:YES];
     } else if (offsetUp < 0) {
         [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.mainScrollView.contentOffset.y + offsetUp-10) animated:YES];
     }
-    
+#warning scroll Text Viewhere
     NSUInteger index = [self.textFields indexOfObject:textView];
     if ([self.delegates[index] respondsToSelector:@selector(textViewDidBeginEditing:)]) {
         [self.delegates[index] textViewDidBeginEditing:textView];

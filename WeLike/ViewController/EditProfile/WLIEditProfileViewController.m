@@ -12,18 +12,20 @@
 // Cells
 #import "WLIRegisterAvatarTableViewCell.h"
 #import "WLIRegisterTableViewCell.h"
+#import "WLIMyGoalsTableViewCell.h"
 #import "WLIChangePasswordTableViewCell.h"
 
 // Models
 #import "WLIAppDelegate.h"
 
-@interface WLIEditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate>
+@interface WLIEditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) UITextField *textFieldEmail;
 @property (weak, nonatomic) UITextField *textFieldUsername;
 @property (weak, nonatomic) UITextField *textFieldFullName;
+@property (weak, nonatomic) UITextView *textViewMyGoals;
 
 @property (weak, nonatomic) UIImageView *avatarImageView;
 
@@ -46,6 +48,7 @@
     
     [self.tableView registerNib:WLIRegisterAvatarTableViewCell.nib forCellReuseIdentifier:WLIRegisterAvatarTableViewCell.ID];
     [self.tableView registerNib:WLIRegisterTableViewCell.nib forCellReuseIdentifier:WLIRegisterTableViewCell.ID];
+	[self.tableView registerNib:WLIMyGoalsTableViewCell.nib forCellReuseIdentifier:WLIMyGoalsTableViewCell.ID];
     [self.tableView registerNib:WLIChangePasswordTableViewCell.nib forCellReuseIdentifier:WLIChangePasswordTableViewCell.ID];
 }
 
@@ -66,7 +69,7 @@
     
     if (self.textFieldEmail && self.textFieldUsername && self.textFieldFullName) {
         toolbar.mainScrollView = self.tableView;
-        toolbar.textFields = @[/*self.textFieldEmail,*/ self.textFieldUsername,  self.textFieldFullName ];
+        toolbar.textFields = @[/*self.textFieldEmail,*/ self.textFieldUsername,  self.textFieldFullName, self.textViewMyGoals];
     }
 }
 
@@ -82,7 +85,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -90,7 +93,13 @@
     UITableViewCell *cell;
     if (indexPath.row == 0) {
         cell = [self avatarCellForIndexPath:indexPath];
-    } else if (indexPath.row == 4) {
+	} else if (indexPath.row == 4) {
+		WLIMyGoalsTableViewCell *myGoalsCell = [tableView dequeueReusableCellWithIdentifier:WLIMyGoalsTableViewCell.ID forIndexPath:indexPath];
+		myGoalsCell.textView.text = sharedConnect.currentUser.userInfo;
+		self.textViewMyGoals = myGoalsCell.textView;
+		self.textViewMyGoals.delegate = self;
+		cell = myGoalsCell;
+	} else if (indexPath.row == 5) {
         WLIChangePasswordTableViewCell *passCell = [tableView dequeueReusableCellWithIdentifier:WLIChangePasswordTableViewCell.ID forIndexPath:indexPath];
         __weak typeof(self) weakSelf = self;
         passCell.changePasswordHandler = ^{
@@ -98,7 +107,7 @@
             [weakSelf.navigationController pushViewController:changePassController animated:YES];
         };
         cell = passCell;
-    } else {
+	} else {
         cell = [self dataFieldCellForIndexPath:indexPath];
     }
     return cell;
@@ -111,7 +120,9 @@
     CGFloat heigh = 50.f;
     if (indexPath.row == 0) {
         heigh = 130.f;
-    }
+    } else if (indexPath.row == 4) 	{
+		heigh = 170.f;
+	}
     return heigh;
 }
 
@@ -146,7 +157,7 @@
         cell.textField.placeholder = @"full name";
         self.textFieldFullName = cell.textField;
         self.textFieldFullName.text = sharedConnect.currentUser.userFullName;
-    }
+	}
     return cell;
 }
 
@@ -183,7 +194,7 @@
         [hud show:YES];
         __weak typeof(self) weakSelf = self;
         UIImage *image = self.imageReplaced ? self.avatarImageView.image : nil;
-      [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userUsername:self.textFieldUsername.text userAvatar:image userFullName:self.textFieldFullName.text userInfo:@"" latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
+      [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userUsername:self.textFieldUsername.text userAvatar:image userFullName:self.textFieldFullName.text userInfo:self.textViewMyGoals.text latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode != OK) {
                 [weakSelf showErrorWithMessage:@"Something went wrong. Please try again."];
@@ -246,6 +257,13 @@
 - (void)keyboardWillHide:(NSNotification *)notification
 {
     self.tableView.contentInset = UIEdgeInsetsZero;
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string {
+	return self.textViewMyGoals.text.length<255; //((range.location < 255)||(self.textViewMyGoals.text.length<255));
+#warning constant here?
 }
 
 @end
