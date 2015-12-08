@@ -106,13 +106,13 @@
 
 - (void)downloadedPosts:(NSArray *)posts serverResponse:(ServerResponse)serverResponseCode reloadAll:(BOOL)reloadAll
 {
+    loadMore = posts.count == kDefaultPageSize;
     if (serverResponseCode == OK) {
         if (reloadAll && self.posts.count) {
             [self removePosts:self.posts];
         }
         [self addPosts:posts];
     }
-    loadMore = posts.count == kDefaultPageSize;
     [refreshManager tableViewReloadFinishedAnimated:YES];
     loading = NO;
 }
