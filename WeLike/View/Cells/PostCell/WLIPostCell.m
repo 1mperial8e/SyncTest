@@ -142,8 +142,10 @@ static CGFloat const StaticCellHeight = 154;
             self.imageViewHeightConstraint.constant = (([UIScreen mainScreen].bounds.size.width - 8) * 245) / 292;
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.post.postImageThumbPath]];			
             __weak typeof(self) weakSelf = self;
+			[self.imageActivityIndicator startAnimating];
             [self.imageViewPostImage setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
+					[self.imageActivityIndicator stopAnimating];
                     weakSelf.originalImage = image;
 					weakSelf.imageViewPostImage.image = image;
                 });
