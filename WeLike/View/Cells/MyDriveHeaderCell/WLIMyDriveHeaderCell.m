@@ -10,8 +10,9 @@
 #import "WLIEditProfileViewController.h"
 #import "WLIConnect.h"
 #import "WLIAppDelegate.h"
+#import <MessageUI/MessageUI.h>
 
-@interface WLIMyDriveHeaderCell ()
+@interface WLIMyDriveHeaderCell () <MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewUser;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;
@@ -67,8 +68,10 @@
 {
     UITapGestureRecognizer *followingTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followingTap:)];
     UITapGestureRecognizer *followersTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followersTap:)];
+	UITapGestureRecognizer *emailTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(emailLabelTap:)];
     [self.followersLabel.superview addGestureRecognizer:followersTap];
     [self.followingLabel.superview addGestureRecognizer:followingTap];
+	[self.labelUserEmail addGestureRecognizer:emailTap];
  
 #warning clean
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
@@ -112,6 +115,11 @@
     if ([self.delegate respondsToSelector:@selector(showFollowingsList)]) {
         [self.delegate showFollowingsList];
     }
+}
+
+- (void)emailLabelTap:(UITapGestureRecognizer *)gesture
+{
+	[WLIUtils showEmailControllerWithToRecepient:@[self.user.userEmail] delegate:self];
 }
 
 #pragma mark - Accessors
@@ -181,6 +189,22 @@
 		[[WLIConnect sharedConnect] setFollowOnUserID:self.user.userID onCompletion:^(WLIFollow *follow, ServerResponse serverResponseCode) {
 			sender.userInteractionEnabled = YES;
 		}];
+	}
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error
+{
+	[controller dismissViewControllerAnimated:YES completion:^{
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+	}];
+	switch (result) {
+		case MFMailComposeResultFailed:
+			NSLog(@"%@", error);
+			break;
+		default:
+			break;
 	}
 }
 
