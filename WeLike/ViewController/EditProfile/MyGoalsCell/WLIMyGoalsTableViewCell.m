@@ -15,9 +15,9 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.textView.layer.cornerRadius = CGRectGetHeight(self.textView.frame) / 15;
-	self.textView.layer.borderColor = [UIColor groupTableViewBackgroundColor].CGColor;
-	self.textView.layer.borderWidth = 1.0f;
+    self.textView.layer.cornerRadius = 5;
+	self.textView.layer.borderColor = [UIColor colorWithWhite:0.80 alpha:1.0].CGColor;
+	self.textView.layer.borderWidth = 0.5f;
 }
 
 #pragma mark - Actions

@@ -130,7 +130,7 @@
 		WLIMyGoalsTableViewCell *cell  = [topLevelObjects objectAtIndex:0];
 		cell.textView.text = self.textViewMyGoals.text;
 		CGFloat height = ceilf([cell.textView sizeThatFits:cell.textView.frame.size].height);
-		return height+20;
+		return height + 20;
 	}
     return heigh;
 }
@@ -272,7 +272,21 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
 {
-	return self.textViewMyGoals.text.length < 255;
+	if ([string isEqualToString:@"\n"]) {
+		[[self view] endEditing:YES];
+		return  NO;
+	}
+	return self.textViewMyGoals.text.length<255;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+	CGFloat height = ceilf([textView sizeThatFits:textView.frame.size].height);
+	if (self.myGoalsTextViewContentSize.height != height) {
+		[self.tableView beginUpdates];
+		[self.tableView endUpdates];
+		self.myGoalsTextViewContentSize = textView.contentSize;
+	}
 }
 
 @end
