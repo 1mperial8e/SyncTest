@@ -12,6 +12,7 @@
 #import "WLIUserDriveViewController.h"
 #import <MessageUI/MessageUI.h>
 #import "WLILikersViewController.h"
+#import "WLIFullScreenPhotoViewController.h"
 @interface WLIViewController () <UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) NSIndexPath *indexPathToReload;
@@ -102,14 +103,11 @@
 
 #pragma mark - WLIPostCellDelegate methods
 
-- (void)showImageForPost:(WLIPost*)post sender:(WLIPostCell *)senderCell
+- (void)showImageForPost:(WLIPost *)post sender:(id)senderCell
 {
-    if (![self isMemberOfClass:[WLIPostViewController class]]) {
-        self.indexPathToReload = [self.tableViewRefresh indexPathForCell:senderCell];
-        WLIPostViewController *postViewController = [WLIPostViewController new];
-        postViewController.post = post;
-        [self.navigationController pushViewController:postViewController animated:YES];
-    }
+	if (!post.postVideoPath.length) {
+		[self showFullImageForCell:senderCell];
+	}
 }
 
 - (void)showCommentsForPost:(WLIPost*)post sender:(WLIPostCell *)senderCell
@@ -247,5 +245,21 @@
 	[self.navigationController pushViewController:likersViewController animated:YES];
 }
 
+#pragma mark - FullImage
+
+- (void)showFullImageForCell:(WLIPostCell *)cell
+{
+	if (cell.originalImage) {
+        CGRect cellFrame = [self.view convertRect:cell.frame fromView:self.tableViewRefresh];
+		CGRect imageViewRect = cell.imageViewPostImage.superview.frame;
+		imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
+		imageViewRect.origin.y += cellFrame.origin.y + imageViewRect.origin.x;
+		WLIFullScreenPhotoViewController *imageController = [WLIFullScreenPhotoViewController new];
+		imageController.image = cell.originalImage;
+		imageController.presentationRect = imageViewRect;
+		imageController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+		[self.tabBarController presentViewController:imageController animated:NO completion:nil];
+	}
+}
 
 @end

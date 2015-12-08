@@ -193,6 +193,9 @@
                                             <action selector="buttonVideoTouchUpInside:" destination="NHx-lt-jXj" eventType="touchUpInside" id="Mle-Cs-WFx"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YCr-fz-8NA">
+                                        <rect key="frame" x="282" y="235" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -200,12 +203,14 @@
                                     <constraint firstAttribute="bottom" secondItem="s1E-Ff-GQr" secondAttribute="bottom" id="1cD-cm-7aj"/>
                                     <constraint firstAttribute="trailing" secondItem="4zI-Gc-7Cx" secondAttribute="trailing" id="5Vb-x0-jJS"/>
                                     <constraint firstAttribute="bottom" secondItem="4zI-Gc-7Cx" secondAttribute="bottom" id="6Ag-Lk-x9s"/>
+                                    <constraint firstItem="YCr-fz-8NA" firstAttribute="centerY" secondItem="4zI-Gc-7Cx" secondAttribute="centerY" id="AYr-rp-Xp2"/>
                                     <constraint firstItem="sbr-sq-xNl" firstAttribute="centerY" secondItem="crh-kc-mda" secondAttribute="centerY" id="B93-AF-rmO"/>
                                     <constraint firstItem="s1E-Ff-GQr" firstAttribute="top" secondItem="crh-kc-mda" secondAttribute="top" id="BPB-Uo-5md"/>
                                     <constraint firstItem="4zI-Gc-7Cx" firstAttribute="top" secondItem="crh-kc-mda" secondAttribute="top" id="FHG-Vg-xjU"/>
                                     <constraint firstAttribute="height" constant="490" id="IGR-Kx-MR5"/>
                                     <constraint firstItem="sbr-sq-xNl" firstAttribute="centerX" secondItem="crh-kc-mda" secondAttribute="centerX" id="bCD-uO-ean"/>
                                     <constraint firstItem="s1E-Ff-GQr" firstAttribute="leading" secondItem="crh-kc-mda" secondAttribute="leading" id="k8g-At-xSC"/>
+                                    <constraint firstItem="YCr-fz-8NA" firstAttribute="centerX" secondItem="4zI-Gc-7Cx" secondAttribute="centerX" id="l24-kb-qq4"/>
                                     <constraint firstAttribute="trailing" secondItem="s1E-Ff-GQr" secondAttribute="trailing" id="s6e-KX-ion"/>
                                     <constraint firstItem="4zI-Gc-7Cx" firstAttribute="leading" secondItem="crh-kc-mda" secondAttribute="leading" id="sFN-sb-J1k"/>
                                 </constraints>
@@ -424,6 +429,7 @@
                 <outlet property="buttonUser" destination="mpX-Sc-2Oc" id="4QF-9r-MaZ"/>
                 <outlet property="buttonVideo" destination="sbr-sq-xNl" id="H63-Ct-QxR"/>
                 <outlet property="categoryView" destination="Yf8-Og-rbg" id="Tah-Tl-sa1"/>
+                <outlet property="imageActivityIndicator" destination="YCr-fz-8NA" id="eQL-Jn-VeA"/>
                 <outlet property="imageViewHeightConstraint" destination="IGR-Kx-MR5" id="sNa-4a-cqP"/>
                 <outlet property="imageViewPostImage" destination="s1E-Ff-GQr" id="yDD-pp-7cL"/>
                 <outlet property="imageViewUser" destination="HG4-ga-kea" id="S5e-DU-oLD"/>

@@ -25,6 +25,7 @@
 @property (assign, nonatomic) BOOL showFollowButton;
 
 @property (strong, nonatomic) UIImage *originalImage;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *imageActivityIndicator;
 
 + (CGSize)sizeWithPost:(WLIPost *)post withWidth:(CGFloat)width;
 

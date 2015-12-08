@@ -20,6 +20,7 @@
         self.postTitle = [self stringFromDictionary:postWithInfo forKey:@"postTitle"];
         self.postText = [self stringFromDictionary:postWithInfo forKey:@"postText"];
         self.postImagePath = [self stringFromDictionary:postWithInfo forKey:@"postImage"];
+		self.postImageThumbPath = [self stringFromDictionary:postWithInfo forKey:@"postThumb"];
         self.postVideoPath = [self stringFromDictionary:postWithInfo forKey:@"postVideo"];
         self.postDate = [self dateFromDictionary:postWithInfo forKey:@"postDate"];
         self.postTimeAgo = [self stringFromDictionary:postWithInfo forKey:@"timeAgo"];
