@@ -129,6 +129,12 @@
 		309236B01C0DB5580073A78A /* WLIAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 309236AF1C0DB5580073A78A /* WLIAnalytics.m */; };
 		309FF0BF1C0F03F0009C9344 /* WLILikersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */; };
 		309FF0C01C0F03F0009C9344 /* WLILikersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */; };
+		30DCE4EE1C1708F800244011 /* WLIMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DCE4EC1C1708F800244011 /* WLIMailViewController.m */; };
+		30DCE4EF1C1708F800244011 /* WLIMailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30DCE4ED1C1708F800244011 /* WLIMailViewController.xib */; };
+		30DCE4F51C170F8A00244011 /* WLIMailTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DCE4F31C170F8A00244011 /* WLIMailTextFieldTableViewCell.m */; };
+		30DCE4F61C170F8A00244011 /* WLIMailTextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30DCE4F41C170F8A00244011 /* WLIMailTextFieldTableViewCell.xib */; };
+		30DCE4FA1C170FA900244011 /* WLIMailTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DCE4F81C170FA900244011 /* WLIMailTextViewTableViewCell.m */; };
+		30DCE4FB1C170FA900244011 /* WLIMailTextViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30DCE4F91C170FA900244011 /* WLIMailTextViewTableViewCell.xib */; };
 		4F2C83B81BFB269700EDD64F /* WLISearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2C83B61BFB269700EDD64F /* WLISearchTableViewCell.m */; };
 		4F2C83B91BFB269700EDD64F /* WLISearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2C83B71BFB269700EDD64F /* WLISearchTableViewCell.xib */; };
 		4F2C83BE1BFB26D900EDD64F /* WLIBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2C83BC1BFB26D900EDD64F /* WLIBaseTableViewCell.m */; };
@@ -388,6 +394,15 @@
 		309FF0BC1C0F03F0009C9344 /* WLILikersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLILikersViewController.h; sourceTree = "<group>"; };
 		309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLILikersViewController.m; sourceTree = "<group>"; };
 		309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLILikersViewController.xib; sourceTree = "<group>"; };
+		30DCE4EB1C1708F800244011 /* WLIMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIMailViewController.h; sourceTree = "<group>"; };
+		30DCE4EC1C1708F800244011 /* WLIMailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIMailViewController.m; sourceTree = "<group>"; };
+		30DCE4ED1C1708F800244011 /* WLIMailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIMailViewController.xib; sourceTree = "<group>"; };
+		30DCE4F21C170F8A00244011 /* WLIMailTextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIMailTextFieldTableViewCell.h; sourceTree = "<group>"; };
+		30DCE4F31C170F8A00244011 /* WLIMailTextFieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIMailTextFieldTableViewCell.m; sourceTree = "<group>"; };
+		30DCE4F41C170F8A00244011 /* WLIMailTextFieldTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIMailTextFieldTableViewCell.xib; sourceTree = "<group>"; };
+		30DCE4F71C170FA900244011 /* WLIMailTextViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIMailTextViewTableViewCell.h; sourceTree = "<group>"; };
+		30DCE4F81C170FA900244011 /* WLIMailTextViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIMailTextViewTableViewCell.m; sourceTree = "<group>"; };
+		30DCE4F91C170FA900244011 /* WLIMailTextViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIMailTextViewTableViewCell.xib; sourceTree = "<group>"; };
 		4F2C83B51BFB269700EDD64F /* WLISearchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLISearchTableViewCell.h; sourceTree = "<group>"; };
 		4F2C83B61BFB269700EDD64F /* WLISearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLISearchTableViewCell.m; sourceTree = "<group>"; };
 		4F2C83B71BFB269700EDD64F /* WLISearchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLISearchTableViewCell.xib; sourceTree = "<group>"; };
@@ -872,6 +887,7 @@
 		2C6D27151896BACA00C459CB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				30DCE4EA1C1708A200244011 /* WLIMailViewController */,
 				309FF0BB1C0F033D009C9344 /* Likers */,
 				2C6D27551896BACA00C459CB /* WLIViewController */,
 				4FC33E931C0CB56C005F29D3 /* WebViewController */,
@@ -1203,6 +1219,38 @@
 				309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */,
 			);
 			path = Likers;
+			sourceTree = "<group>";
+		};
+		30DCE4EA1C1708A200244011 /* WLIMailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				30DCE4F01C170F1B00244011 /* MailTextFieldCell */,
+				30DCE4F11C170F1B00244011 /* MailTextViewCell */,
+				30DCE4EB1C1708F800244011 /* WLIMailViewController.h */,
+				30DCE4EC1C1708F800244011 /* WLIMailViewController.m */,
+				30DCE4ED1C1708F800244011 /* WLIMailViewController.xib */,
+			);
+			path = WLIMailViewController;
+			sourceTree = "<group>";
+		};
+		30DCE4F01C170F1B00244011 /* MailTextFieldCell */ = {
+			isa = PBXGroup;
+			children = (
+				30DCE4F21C170F8A00244011 /* WLIMailTextFieldTableViewCell.h */,
+				30DCE4F31C170F8A00244011 /* WLIMailTextFieldTableViewCell.m */,
+				30DCE4F41C170F8A00244011 /* WLIMailTextFieldTableViewCell.xib */,
+			);
+			path = MailTextFieldCell;
+			sourceTree = "<group>";
+		};
+		30DCE4F11C170F1B00244011 /* MailTextViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				30DCE4F71C170FA900244011 /* WLIMailTextViewTableViewCell.h */,
+				30DCE4F81C170FA900244011 /* WLIMailTextViewTableViewCell.m */,
+				30DCE4F91C170FA900244011 /* WLIMailTextViewTableViewCell.xib */,
+			);
+			path = MailTextViewCell;
 			sourceTree = "<group>";
 		};
 		4F2C83B41BFB269700EDD64F /* Hashtag Cell */ = {
@@ -1614,6 +1662,7 @@
 				2E4918571BCBDBD100E25255 /* WLIInfoWhyViewController.xib in Resources */,
 				4F69E8E41BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib in Resources */,
 				2C6D27D11896BACA00C459CB /* WLICommentCell.xib in Resources */,
+				30DCE4EF1C1708F800244011 /* WLIMailViewController.xib in Resources */,
 				0743482D1BBABD6D00EAA2AA /* infobutton.png in Resources */,
 				2C6D27FB1896BACA00C459CB /* WLITimelineViewController.xib in Resources */,
 				2C6D27E01896BACA00C459CB /* WLICommentsViewController.xib in Resources */,
@@ -1621,6 +1670,7 @@
 				2E28F3921BADE8BA006CF0BE /* WLIFollowingsViewController.xib in Resources */,
 				4F2C83B91BFB269700EDD64F /* WLISearchTableViewCell.xib in Resources */,
 				2EEF2C1C1BD64B0F001785C5 /* WLINewPostAttachmentCell.xib in Resources */,
+				30DCE4FB1C170FA900244011 /* WLIMailTextViewTableViewCell.xib in Resources */,
 				4F2C83E11BFB7C7800EDD64F /* WLIPeopleListViewController.xib in Resources */,
 				2C6D27B61896BACA00C459CB /* MNMPullToRefreshIcon@2x.png in Resources */,
 				2C6D27F01896BACA00C459CB /* WLIPostViewController.xib in Resources */,
@@ -1648,6 +1698,7 @@
 				074348251BBABCB700EAA2AA /* Capability2.png in Resources */,
 				074348271BBABCB700EAA2AA /* Customer2.png in Resources */,
 				2E28F3981BADEEFF006CF0BE /* WLISearchContentViewController.xib in Resources */,
+				30DCE4F61C170F8A00244011 /* WLIMailTextFieldTableViewCell.xib in Resources */,
 				4F8E2D491BF4A4C000953EC0 /* WLICategoryPostsViewController.xib in Resources */,
 				309FF0C01C0F03F0009C9344 /* WLILikersViewController.xib in Resources */,
 				074348261BBABCB700EAA2AA /* Customer.png in Resources */,
@@ -1736,6 +1787,7 @@
 				2C6D27D81896BACA00C459CB /* WLIPostCell.m in Sources */,
 				2EC320471BDF964B0038E7B3 /* WLINewPostImageCell.m in Sources */,
 				2C6D27FA1896BACA00C459CB /* WLITimelineViewController.m in Sources */,
+				30DCE4FA1C170FA900244011 /* WLIMailTextViewTableViewCell.m in Sources */,
 				2E28F3631BADA43E006CF0BE /* WLIPostsListViewController.m in Sources */,
 				2C6D27EF1896BACA00C459CB /* WLIPostViewController.m in Sources */,
 				2C6D27B21896BACA00C459CB /* MBProgressHUD.m in Sources */,
@@ -1743,6 +1795,7 @@
 				4F69E8D71BF09FA300A6CD5A /* WLILoginTableViewCell.m in Sources */,
 				2EC320541BE8D9140038E7B3 /* WLISelectCountryTableViewCell.m in Sources */,
 				2E28F3911BADE8BA006CF0BE /* WLIFollowingsViewController.m in Sources */,
+				30DCE4F51C170F8A00244011 /* WLIMailTextFieldTableViewCell.m in Sources */,
 				2C6D27C51896BACA00C459CB /* WLIAppDelegate.m in Sources */,
 				4F2C83E61BFB884A00EDD64F /* WLIEditProfileViewController.m in Sources */,
 				2C5B5C9C1A1A8FAE00175A58 /* AFSecurityPolicy.m in Sources */,
@@ -1762,6 +1815,7 @@
 				2CF096DD1ACAE1F7004FB868 /* NSDate+TimeAgo.m in Sources */,
 				2C6D27D41896BACA00C459CB /* WLILoadingCell.m in Sources */,
 				4F2C83DB1BFB2B8200EDD64F /* WLITableViewCell.m in Sources */,
+				30DCE4EE1C1708F800244011 /* WLIMailViewController.m in Sources */,
 				2E28F3731BADE286006CF0BE /* WLIMyDriveViewController.m in Sources */,
 				4F69E8DE1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.m in Sources */,
 				309236B01C0DB5580073A78A /* WLIAnalytics.m in Sources */,

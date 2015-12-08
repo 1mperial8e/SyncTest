@@ -11,6 +11,7 @@
 #import "WLIAppDelegate.h"
 #import <MessageUI/MessageUI.h>
 #import <SafariServices/SafariServices.h>
+#import "WLIMailViewController.h"
 
 @implementation WLIUtils
 
@@ -117,6 +118,13 @@
     } else {
         [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Please, setup mail account in settings." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
+}
+
++ (void)showCustomEmailController
+{
+	WLIMailViewController * customMailController = [[WLIMailViewController alloc] init];
+	UINavigationController * mailNavigationController = [[UINavigationController alloc] initWithRootViewController:customMailController];
+	[self.rootController presentViewController:mailNavigationController animated:YES completion:nil];
 }
 
 @end

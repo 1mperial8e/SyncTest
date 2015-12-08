@@ -81,7 +81,8 @@
 
 - (void)sendFeedBack:(id)sender
 {
-    [WLIUtils showEmailControllerWithToRecepient:@[@"santander@santanderconsumer.no"] delegate:self];
+   // [WLIUtils showEmailControllerWithToRecepient:@[@"santander@santanderconsumer.no"] delegate:self];
+	[WLIUtils showCustomEmailController];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate
