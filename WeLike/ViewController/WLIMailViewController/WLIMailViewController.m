@@ -46,7 +46,7 @@
 	} else {
 		WLIMailTextFieldTableViewCell *mailTextFieldCell = [tableView dequeueReusableCellWithIdentifier:WLIMailTextFieldTableViewCell.ID forIndexPath:indexPath];
 		if (indexPath.row == 0) {
-			mailTextFieldCell.textField.text = @"santander@santanderconsumer.no";
+			mailTextFieldCell.textField.text = self.emailRecipient;
 			mailTextFieldCell.labelFakePlaceholder.text = @"To:";
 			mailTextFieldCell.userInteractionEnabled = NO;
 		} else if (indexPath.row == 1) {			

@@ -120,9 +120,10 @@
     }
 }
 
-+ (void)showCustomEmailController
++ (void)showCustomEmailControllerWithToRecepient:(NSString *)toRecepient
 {
 	WLIMailViewController * customMailController = [[WLIMailViewController alloc] init];
+	customMailController.emailRecipient = toRecepient;
 	UINavigationController * mailNavigationController = [[UINavigationController alloc] initWithRootViewController:customMailController];
 	[self.rootController presentViewController:mailNavigationController animated:YES completion:nil];
 }

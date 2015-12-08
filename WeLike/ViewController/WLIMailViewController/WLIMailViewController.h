@@ -8,4 +8,6 @@
 
 @interface WLIMailViewController : UIViewController
 
+@property (strong, nonatomic) NSString *emailRecipient;
+
 @end

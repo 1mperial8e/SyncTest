@@ -21,6 +21,6 @@ static NSString *const CustomLinkAttributeName = @"CustomLinkAttributeName";
 + (void)showWebViewControllerWithUrl:(NSURL *)url;
 + (UIViewController *)rootController;
 + (void)showEmailControllerWithToRecepient:(NSArray *)toRecepients delegate:(id<MFMailComposeViewControllerDelegate>)delegate;
-+ (void)showCustomEmailController;
++ (void)showCustomEmailControllerWithToRecepient:(NSString *)toRecepient;
 
 @end
