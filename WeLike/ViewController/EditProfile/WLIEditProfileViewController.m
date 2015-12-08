@@ -261,9 +261,9 @@
 
 #pragma mark - UITextViewDelegate
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string {
-	return self.textViewMyGoals.text.length<255; //((range.location < 255)||(self.textViewMyGoals.text.length<255));
-#warning constant here?
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
+{
+	return self.textViewMyGoals.text.length < 255;
 }
 
 @end
