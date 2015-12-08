@@ -143,12 +143,14 @@ static CGFloat const StaticCellHeight = 154;
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.post.postImageThumbPath]];			
             __weak typeof(self) weakSelf = self;
 			[self.imageActivityIndicator startAnimating];
-            [self.imageViewPostImage setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-					[self.imageActivityIndicator stopAnimating];
+            [self.imageViewPostImage setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull thumb) {
+                [weakSelf.imageActivityIndicator stopAnimating];
+                weakSelf.imageViewPostImage.image = thumb;
+                request = [NSURLRequest requestWithURL:[NSURL URLWithString:weakSelf.post.postImagePath]];
+                [weakSelf.imageViewPostImage setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+                    weakSelf.imageViewPostImage.image = image;
                     weakSelf.originalImage = image;
-					weakSelf.imageViewPostImage.image = image;
-                });
+                } failure:nil];
             } failure:nil];
         }
         
