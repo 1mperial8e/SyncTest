@@ -22,6 +22,7 @@
 
 @property (strong, nonatomic) WLIUser *user;
 @property (weak, nonatomic) id<MyDriveHeaderCellDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UITextView *myGoalsTextView;
 
 - (void)updateRank:(NSInteger)rank forUsers:(NSInteger)users;
 - (void)updatePoints:(NSInteger)points;

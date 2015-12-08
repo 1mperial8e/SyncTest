@@ -12,20 +12,23 @@
 // Cells
 #import "WLIRegisterAvatarTableViewCell.h"
 #import "WLIRegisterTableViewCell.h"
+#import "WLIMyGoalsTableViewCell.h"
 #import "WLIChangePasswordTableViewCell.h"
 
 // Models
 #import "WLIAppDelegate.h"
 
-@interface WLIEditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate>
+@interface WLIEditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) UITextField *textFieldEmail;
 @property (weak, nonatomic) UITextField *textFieldUsername;
 @property (weak, nonatomic) UITextField *textFieldFullName;
+@property (weak, nonatomic) UITextView *textViewMyGoals;
 
 @property (weak, nonatomic) UIImageView *avatarImageView;
+@property (nonatomic) CGSize myGoalsTextViewContentSize;
 
 @property (assign, nonatomic) BOOL imageReplaced;
 
@@ -40,12 +43,11 @@
     [super viewDidLoad];
 
     self.navigationItem.title = @"Edit Profile";
-    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-    
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;    
     [self.tableView registerNib:WLIRegisterAvatarTableViewCell.nib forCellReuseIdentifier:WLIRegisterAvatarTableViewCell.ID];
     [self.tableView registerNib:WLIRegisterTableViewCell.nib forCellReuseIdentifier:WLIRegisterTableViewCell.ID];
+	[self.tableView registerNib:WLIMyGoalsTableViewCell.nib forCellReuseIdentifier:WLIMyGoalsTableViewCell.ID];
     [self.tableView registerNib:WLIChangePasswordTableViewCell.nib forCellReuseIdentifier:WLIChangePasswordTableViewCell.ID];
 }
 
@@ -66,7 +68,7 @@
     
     if (self.textFieldEmail && self.textFieldUsername && self.textFieldFullName) {
         toolbar.mainScrollView = self.tableView;
-        toolbar.textFields = @[/*self.textFieldEmail,*/ self.textFieldUsername,  self.textFieldFullName ];
+        toolbar.textFields = @[/*self.textFieldEmail,*/ self.textFieldUsername,  self.textFieldFullName, self.textViewMyGoals];
     }
 }
 
@@ -82,7 +84,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -90,7 +92,18 @@
     UITableViewCell *cell;
     if (indexPath.row == 0) {
         cell = [self avatarCellForIndexPath:indexPath];
-    } else if (indexPath.row == 4) {
+	} else if (indexPath.row == 4) {
+		WLIMyGoalsTableViewCell *myGoalsCell = [tableView dequeueReusableCellWithIdentifier:WLIMyGoalsTableViewCell.ID forIndexPath:indexPath];
+		if (sharedConnect.currentUser.userInfo.length) {
+			myGoalsCell.textView.text = sharedConnect.currentUser.userInfo;
+		} else {
+			myGoalsCell.textView.text = @"My drive for 2020 is:";
+		}
+		self.textViewMyGoals = myGoalsCell.textView;
+		self.textViewMyGoals.delegate = self;
+		self.myGoalsTextViewContentSize = myGoalsCell.textView.contentSize;
+		cell = myGoalsCell;
+	} else if (indexPath.row == 5) {
         WLIChangePasswordTableViewCell *passCell = [tableView dequeueReusableCellWithIdentifier:WLIChangePasswordTableViewCell.ID forIndexPath:indexPath];
         __weak typeof(self) weakSelf = self;
         passCell.changePasswordHandler = ^{
@@ -98,7 +111,7 @@
             [weakSelf.navigationController pushViewController:changePassController animated:YES];
         };
         cell = passCell;
-    } else {
+	} else {
         cell = [self dataFieldCellForIndexPath:indexPath];
     }
     return cell;
@@ -112,6 +125,13 @@
     if (indexPath.row == 0) {
         heigh = 130.f;
     }
+ else if (indexPath.row == 4) 	{
+		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"WLIMyGoalsTableViewCell" owner:self options:nil];
+		WLIMyGoalsTableViewCell *cell  = [topLevelObjects objectAtIndex:0];
+		cell.textView.text = self.textViewMyGoals.text;
+		CGFloat height = ceilf([cell.textView sizeThatFits:cell.textView.frame.size].height);
+		return height + 20;
+	}
     return heigh;
 }
 
@@ -146,7 +166,7 @@
         cell.textField.placeholder = @"full name";
         self.textFieldFullName = cell.textField;
         self.textFieldFullName.text = sharedConnect.currentUser.userFullName;
-    }
+	}
     return cell;
 }
 
@@ -183,7 +203,7 @@
         [hud show:YES];
         __weak typeof(self) weakSelf = self;
         UIImage *image = self.imageReplaced ? self.avatarImageView.image : nil;
-      [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userUsername:self.textFieldUsername.text userAvatar:image userFullName:self.textFieldFullName.text userInfo:@"" latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
+      [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userUsername:self.textFieldUsername.text userAvatar:image userFullName:self.textFieldFullName.text userInfo:self.textViewMyGoals.text latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode != OK) {
                 [weakSelf showErrorWithMessage:@"Something went wrong. Please try again."];
@@ -246,6 +266,27 @@
 - (void)keyboardWillHide:(NSNotification *)notification
 {
     self.tableView.contentInset = UIEdgeInsetsZero;
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
+{
+	if ([string isEqualToString:@"\n"]) {
+		[[self view] endEditing:YES];
+		return  NO;
+	}
+	return self.textViewMyGoals.text.length<255;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+	CGFloat height = ceilf([textView sizeThatFits:textView.frame.size].height);
+	if (self.myGoalsTextViewContentSize.height != height) {
+		[self.tableView beginUpdates];
+		[self.tableView endUpdates];
+		self.myGoalsTextViewContentSize = textView.contentSize;
+	}
 }
 
 @end

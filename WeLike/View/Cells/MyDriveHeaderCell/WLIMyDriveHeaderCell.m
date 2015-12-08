@@ -153,6 +153,7 @@
         self.postsCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.myPostsCount];
         self.followersCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
         self.followingCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followingCount];
+		self.myGoalsTextView.text = [NSString stringWithFormat:@"%@", self.user.userInfo];
         [self updatePoints:self.user.points];
     }
 }

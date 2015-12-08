@@ -127,6 +127,8 @@
 		309236AA1C0DA0690073A78A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309236A91C0DA0690073A78A /* Security.framework */; };
 		309236AC1C0DA0730073A78A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309236AB1C0DA0730073A78A /* SystemConfiguration.framework */; };
 		309236B01C0DB5580073A78A /* WLIAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 309236AF1C0DB5580073A78A /* WLIAnalytics.m */; };
+		30962D541C159B1C00E23C3B /* WLIMyGoalsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30962D521C159B1C00E23C3B /* WLIMyGoalsTableViewCell.m */; };
+		30962D551C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30962D531C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib */; };
 		309FF0BF1C0F03F0009C9344 /* WLILikersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */; };
 		309FF0C01C0F03F0009C9344 /* WLILikersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */; };
 		4F2C83B81BFB269700EDD64F /* WLISearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2C83B61BFB269700EDD64F /* WLISearchTableViewCell.m */; };
@@ -385,6 +387,9 @@
 		309236AB1C0DA0730073A78A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		309236AE1C0DB5580073A78A /* WLIAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIAnalytics.h; sourceTree = "<group>"; };
 		309236AF1C0DB5580073A78A /* WLIAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIAnalytics.m; sourceTree = "<group>"; };
+		30962D511C159B1C00E23C3B /* WLIMyGoalsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIMyGoalsTableViewCell.h; sourceTree = "<group>"; };
+		30962D521C159B1C00E23C3B /* WLIMyGoalsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIMyGoalsTableViewCell.m; sourceTree = "<group>"; };
+		30962D531C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIMyGoalsTableViewCell.xib; sourceTree = "<group>"; };
 		309FF0BC1C0F03F0009C9344 /* WLILikersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLILikersViewController.h; sourceTree = "<group>"; };
 		309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLILikersViewController.m; sourceTree = "<group>"; };
 		309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLILikersViewController.xib; sourceTree = "<group>"; };
@@ -1195,6 +1200,16 @@
 			path = WLIAnalitycs;
 			sourceTree = "<group>";
 		};
+		30962D501C159B1C00E23C3B /* MyGoalsCell */ = {
+			isa = PBXGroup;
+			children = (
+				30962D511C159B1C00E23C3B /* WLIMyGoalsTableViewCell.h */,
+				30962D521C159B1C00E23C3B /* WLIMyGoalsTableViewCell.m */,
+				30962D531C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib */,
+			);
+			path = MyGoalsCell;
+			sourceTree = "<group>";
+		};
 		309FF0BB1C0F033D009C9344 /* Likers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1293,6 +1308,7 @@
 		4F2C83E21BFB884A00EDD64F /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
+				30962D501C159B1C00E23C3B /* MyGoalsCell */,
 				4F4D46481BFE2D5C00993349 /* ChangePasswordCell */,
 				4F4D46421BFE2C3D00993349 /* ChangePassword */,
 				4F2C83E31BFB884A00EDD64F /* WLIEditProfileViewController.h */,
@@ -1643,6 +1659,7 @@
 				074D688C1BB54B29000167DD /* director.mov in Resources */,
 				2EC3205A1BE8F9160038E7B3 /* WLICategorySelectTableViewCell.xib in Resources */,
 				2E29E3311BCE635F00769DD1 /* WLIPostCell.xib in Resources */,
+				30962D551C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib in Resources */,
 				2EEF2C1E1BD64B39001785C5 /* WLINewPostImageCell.xib in Resources */,
 				074348281BBABCB700EAA2AA /* Market.png in Resources */,
 				074348251BBABCB700EAA2AA /* Capability2.png in Resources */,
@@ -1715,6 +1732,7 @@
 				2C6D27BF1896BACA00C459CB /* SBJsonStreamTokeniser.m in Sources */,
 				4F8200411BFCC5F400B0EB57 /* VideoConversionService.m in Sources */,
 				2C6D27BC1896BACA00C459CB /* SBJsonStreamParserAccumulator.m in Sources */,
+				30962D541C159B1C00E23C3B /* WLIMyGoalsTableViewCell.m in Sources */,
 				2C6D27E71896BACA00C459CB /* WLILoginViewController.m in Sources */,
 				2C6D27FC1896BACA00C459CB /* WLIWelcomeViewController.m in Sources */,
 				2C5B5CA01A1A8FAE00175A58 /* AFURLSessionManager.m in Sources */,
