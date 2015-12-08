@@ -154,9 +154,12 @@ static CGFloat const HeaderCellHeight = 156;
 {
     if (indexPath.section == 0) {
 		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"WLIMyDriveHeaderCell" owner:self options:nil];		
-		WLIMyDriveHeaderCell *cell  = [topLevelObjects firstObject];
-		 cell.user = self.user;
-		CGSize size = [cell.myGoalsTextView sizeThatFits:CGSizeMake([UIScreen mainScreen].bounds.size.width , MAXFLOAT)];
+		WLIMyDriveHeaderCell *cell = [topLevelObjects firstObject];
+        cell.user = self.user;
+        CGSize size = CGSizeZero;
+        if (cell.user.userInfo.length) {
+            size = [cell.myGoalsTextView sizeThatFits:CGSizeMake([UIScreen mainScreen].bounds.size.width , MAXFLOAT)];
+        }
 		return size.height + HeaderCellHeight;
     } else if (indexPath.section == 1) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row] withWidth:self.view.frame.size.width].height;

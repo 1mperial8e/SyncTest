@@ -120,7 +120,7 @@
 
 - (void)emailLabelTap:(UITapGestureRecognizer *)gesture
 {
-	[WLIUtils showEmailControllerWithToRecepient:@[self.user.userEmail] delegate:self];
+    [WLIUtils showCustomEmailControllerWithToRecepient:self.user.userEmail];
 }
 
 #pragma mark - Accessors
