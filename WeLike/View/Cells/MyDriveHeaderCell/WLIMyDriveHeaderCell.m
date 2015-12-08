@@ -73,10 +73,11 @@
     [self.followingLabel.superview addGestureRecognizer:followingTap];
 	[self.labelUserEmail addGestureRecognizer:emailTap];
  
-#warning clean
+#if DEBUG
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
     longPress.minimumPressDuration = 4.0f;
     [self.imageViewUser addGestureRecognizer:longPress];
+#endif
 }
 
 - (void)logout:(id)sender
