@@ -9,6 +9,8 @@
 #import "WLIBaseTableViewCell.h"
 
 @interface WLIMailTextFieldTableViewCell : WLIBaseTableViewCell
-@property (weak,nonatomic) IBOutlet UITextField * textField;
-@property (weak,nonatomic) IBOutlet UILabel * labelFakePlaceholder;
+
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UILabel *labelFakePlaceholder;
+
 @end

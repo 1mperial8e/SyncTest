@@ -10,23 +10,17 @@
 
 @interface WLIMailTextViewTableViewCell ()
 
-@property (weak , nonatomic) IBOutlet UITextView * textView;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+
 @end
 
 
 @implementation WLIMailTextViewTableViewCell
 
-- (void)awakeFromNib
-{
-    // Initialization code
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
 	self.textView.textContainer.lineFragmentPadding = 0;
-
-    // Configure the view for the selected state
 }
 
 @end
