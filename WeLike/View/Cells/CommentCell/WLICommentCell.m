@@ -76,7 +76,7 @@ static WLICommentCell *sharedCell = nil;
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
     if ([URL.absoluteString hasPrefix:@"mailto:"]) {
-        [WLIUtils showEmailControllerWithToRecepient:@[[URL.absoluteString substringFromIndex:7]] delegate:self];
+        [WLIUtils showCustomEmailControllerWithToRecepient:[URL.absoluteString substringFromIndex:7]];
     } else {
         [WLIUtils showWebViewControllerWithUrl:URL];
     }
