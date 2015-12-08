@@ -250,9 +250,10 @@
 - (void)showFullImageForCell:(WLIPostCell *)cell
 {
 	if (cell.originalImage) {
+        CGRect cellFrame = [self.view convertRect:cell.frame fromView:self.tableViewRefresh];
 		CGRect imageViewRect = cell.imageViewPostImage.superview.frame;
 		imageViewRect.origin.x = ([UIScreen mainScreen].bounds.size.width - imageViewRect.size.width) / 2;
-		imageViewRect.origin.y += -self.tableViewRefresh.contentOffset.y + imageViewRect.origin.x;
+		imageViewRect.origin.y += cellFrame.origin.y + imageViewRect.origin.x;
 		WLIFullScreenPhotoViewController *imageController = [WLIFullScreenPhotoViewController new];
 		imageController.image = cell.originalImage;
 		imageController.presentationRect = imageViewRect;
