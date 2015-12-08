@@ -28,6 +28,7 @@
 @property (weak, nonatomic) UITextView *textViewMyGoals;
 
 @property (weak, nonatomic) UIImageView *avatarImageView;
+@property (nonatomic) CGSize myGoalsTextViewContentSize;
 
 @property (assign, nonatomic) BOOL imageReplaced;
 
@@ -42,10 +43,8 @@
     [super viewDidLoad];
 
     self.navigationItem.title = @"Edit Profile";
-    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-    
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;    
     [self.tableView registerNib:WLIRegisterAvatarTableViewCell.nib forCellReuseIdentifier:WLIRegisterAvatarTableViewCell.ID];
     [self.tableView registerNib:WLIRegisterTableViewCell.nib forCellReuseIdentifier:WLIRegisterTableViewCell.ID];
 	[self.tableView registerNib:WLIMyGoalsTableViewCell.nib forCellReuseIdentifier:WLIMyGoalsTableViewCell.ID];
@@ -95,9 +94,14 @@
         cell = [self avatarCellForIndexPath:indexPath];
 	} else if (indexPath.row == 4) {
 		WLIMyGoalsTableViewCell *myGoalsCell = [tableView dequeueReusableCellWithIdentifier:WLIMyGoalsTableViewCell.ID forIndexPath:indexPath];
-		myGoalsCell.textView.text = sharedConnect.currentUser.userInfo;
+		if (sharedConnect.currentUser.userInfo.length) {
+			myGoalsCell.textView.text = sharedConnect.currentUser.userInfo;
+		} else {
+			myGoalsCell.textView.text = @"My drive for 2020 is:";
+		}
 		self.textViewMyGoals = myGoalsCell.textView;
 		self.textViewMyGoals.delegate = self;
+		self.myGoalsTextViewContentSize = myGoalsCell.textView.contentSize;
 		cell = myGoalsCell;
 	} else if (indexPath.row == 5) {
         WLIChangePasswordTableViewCell *passCell = [tableView dequeueReusableCellWithIdentifier:WLIChangePasswordTableViewCell.ID forIndexPath:indexPath];
@@ -120,8 +124,13 @@
     CGFloat heigh = 50.f;
     if (indexPath.row == 0) {
         heigh = 130.f;
-    } else if (indexPath.row == 4) 	{
-		heigh = 170.f;
+    }
+ else if (indexPath.row == 4) 	{
+		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"WLIMyGoalsTableViewCell" owner:self options:nil];
+		WLIMyGoalsTableViewCell *cell  = [topLevelObjects objectAtIndex:0];
+		cell.textView.text = self.textViewMyGoals.text;
+		CGFloat height = ceilf([cell.textView sizeThatFits:cell.textView.frame.size].height);
+		return height+20;
 	}
     return heigh;
 }

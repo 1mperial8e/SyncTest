@@ -268,11 +268,12 @@
                         <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="D7A-R1-cWK">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="text" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="D7A-R1-cWK">
                         <rect key="frame" x="16" y="100" width="343" height="0.0"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="250" id="qsv-zf-a49"/>
                         </constraints>
+                        <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
