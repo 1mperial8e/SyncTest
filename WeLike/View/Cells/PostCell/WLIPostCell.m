@@ -140,12 +140,12 @@ static CGFloat const StaticCellHeight = 154;
 
         if (self.post.postImagePath.length) {
             self.imageViewHeightConstraint.constant = (([UIScreen mainScreen].bounds.size.width - 8) * 245) / 292;
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.post.postImagePath]];
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.post.postImageThumbPath]];			
             __weak typeof(self) weakSelf = self;
             [self.imageViewPostImage setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     weakSelf.originalImage = image;
-                    weakSelf.imageViewPostImage.image = [weakSelf croppedImageForPreview:image];
+					weakSelf.imageViewPostImage.image = image;
                 });
             } failure:nil];
         }
@@ -395,30 +395,6 @@ static CGFloat const StaticCellHeight = 154;
 }
 
 #pragma mark - Utils
-
-- (UIImage *)croppedImageForPreview:(UIImage *)srcImage
-{
-    CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    CGFloat viewWidth = screenSize.width - 8;
-    CGFloat viewHeight = (viewWidth * 245) / 292;
-    CGFloat coef = 1;
-    CGRect drawRect = CGRectZero;
-    if (srcImage.size.height >= srcImage.size.width) {
-        coef = srcImage.size.width / viewWidth;
-        drawRect.origin.x = 0;
-        drawRect.origin.y = -(srcImage.size.height - ((srcImage.size.width * 245) / 292)) / 2;
-    } else {
-        coef = srcImage.size.height / viewHeight;
-        drawRect.origin.y = 0;
-        drawRect.origin.x = -(srcImage.size.width - ((srcImage.size.height * 292) / 245)) / 2;
-    }
-    drawRect.size = srcImage.size;
-    UIGraphicsBeginImageContext(CGSizeMake(viewWidth * coef, viewHeight * coef));
-    [srcImage drawInRect:drawRect];
-    UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return croppedImage;
-}
 
 - (void)blockUserInteraction
 {

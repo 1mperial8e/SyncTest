@@ -15,6 +15,7 @@
 @property (strong, nonatomic) NSString *postTitle;
 @property (strong, nonatomic) NSString *postText;
 @property (strong, nonatomic) NSString *postImagePath;
+@property (strong, nonatomic) NSString *postImageThumbPath;
 @property (strong, nonatomic) NSString *postVideoPath;
 @property (strong, nonatomic) NSDate *postDate;
 @property (strong, nonatomic) NSString *postTimeAgo;
