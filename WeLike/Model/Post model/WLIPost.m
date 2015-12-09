@@ -8,6 +8,7 @@
 
 #import "WLIPost.h"
 #import "NSDate+TimeAgo.h"
+#import "WLIComment.h"
 
 @implementation WLIPost
 
@@ -32,7 +33,8 @@
         self.isConnected = [self boolFromDictionary:postWithInfo forKey:@"isConnected"];
         self.user.followingUser = self.isConnected;
         self.commentedThisPost = [self boolFromDictionary:postWithInfo forKey:@"isCommented"];
-        
+		self.postComments = [WLIComment arrayWithDictionariesArray:[postWithInfo objectForKey:@"comments"]];
+		
         self.categoryMarket = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 1;
         self.categoryCapabilities = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 2;
         self.categoryCustomer = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 4;
