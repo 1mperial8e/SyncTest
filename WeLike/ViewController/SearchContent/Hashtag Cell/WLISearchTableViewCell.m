@@ -71,7 +71,7 @@
     } else {
         self.usernameLabel.text = self.user.userUsername;
         self.fullNameLabel.text = self.user.userFullName;
-        [self.userImageView setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
+        [self.userImageView setImageWithURL:[NSURL URLWithString:self.user.userAvatarThumbPath] placeholderImage:DefaultAvatar];
     }
 }
 

@@ -161,6 +161,5 @@ typedef enum ServerResponse ServerResponse;
 
 #pragma mark - Search
 
-- (AFHTTPRequestOperation *)search:(NSString *)searchString pageNumber:(NSInteger)pageNumber onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion;
-
+- (AFHTTPRequestOperation *)search:(NSString *)searchString term:(NSString *)searchTerm pageNumber:(NSInteger)pageNumber onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion;
 @end

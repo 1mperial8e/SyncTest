@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, WLIUserType) {
 @property (strong, nonatomic) NSString *userFullName;
 @property (strong, nonatomic) NSString *userInfo;
 @property (strong, nonatomic) NSString *userAvatarPath;
+@property (strong, nonatomic) NSString *userAvatarThumbPath;
 @property (strong, nonatomic) NSString *userUsername;
 @property (assign, nonatomic) BOOL followingUser;
 

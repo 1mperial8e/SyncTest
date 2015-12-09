@@ -154,7 +154,7 @@
             self.followButton.backgroundColor = [UIColor whiteColor];
             self.followButton.layer.borderColor = [UIColor redColor].CGColor;
         }
-        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
+        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarThumbPath] placeholderImage:DefaultAvatar];
         self.labelUserName.text = self.user.userFullName;
         self.labelUserEmail.text = self.user.userEmail;
         

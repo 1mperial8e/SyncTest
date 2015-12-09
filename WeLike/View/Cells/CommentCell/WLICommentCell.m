@@ -61,7 +61,7 @@ static WLICommentCell *sharedCell = nil;
 - (void)updateInfo
 {
     if (self.comment && ![self.comment isEqual:[NSNull null]]) {
-        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.comment.user.userAvatarPath] placeholderImage:DefaultAvatar];
+        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.comment.user.userAvatarThumbPath] placeholderImage:DefaultAvatar];
         
         self.labelUsername.text = self.comment.user.userUsername;
         self.labelTimeAgo.text = self.comment.commentTimeAgo;

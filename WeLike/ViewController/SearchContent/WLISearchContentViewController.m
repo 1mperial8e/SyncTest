@@ -24,6 +24,9 @@
 
 @property (strong, nonatomic) AFHTTPRequestOperation *searchOperation;
 @property (strong, nonatomic) NSString *searchString;
+@property (strong, nonatomic) NSString *searchTerm;
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
 @end
 
@@ -39,7 +42,7 @@
     [self.tableViewRefresh registerNib:WLILoadingCell.nib forCellReuseIdentifier:WLILoadingCell.ID];
     
     self.tableViewRefresh.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    self.searchString = @"";
+    self.searchTerm = @"mix";
     self.navigationItem.title = @"Search";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonAction:)];
     [self reloadData:YES];
@@ -56,6 +59,18 @@
 - (void)cancelButtonAction:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)segmentControlValueChanged:(id)sender
+{
+    if (self.segmentControl.selectedSegmentIndex == 0) {
+        self.searchTerm = @"mix";
+    } else if (self.segmentControl.selectedSegmentIndex == 1) {
+        self.searchTerm = @"user";
+    } else if (self.segmentControl.selectedSegmentIndex == 2) {
+        self.searchTerm = @"hashtag";
+    }
+    [self reloadData:YES];
 }
 
 #pragma mark - UITableViewDataSource methods
@@ -147,9 +162,9 @@
     if (reloadAll) {
         loadMore = YES;
     }
-    NSUInteger page = reloadAll ? 1 : (self.dataSource.count / (kDefaultPageSize * 2)) + 1;
+    NSUInteger page = reloadAll ? 1 : (self.dataSource.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
-    self.searchOperation = [sharedConnect search:self.searchString pageNumber:page onCompletion:^(NSMutableArray *items, ServerResponse serverResponseCode) {
+    self.searchOperation = [sharedConnect search:self.searchString term:self.searchTerm pageNumber:page onCompletion:^(NSMutableArray *items, ServerResponse serverResponseCode) {
         [weakSelf downloadedItems:items serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -191,7 +206,7 @@
             [self removeItems:self.dataSource];
         }
         [self addItems:items];
-        loadMore = items.count == kDefaultPageSize * 2;
+        loadMore = items.count == kDefaultPageSize;
         [refreshManager tableViewReloadFinishedAnimated:YES];
         loading = NO;
     }

@@ -42,7 +42,7 @@
 
 - (void)setupCell
 {
-    [self.imageViewUserImage setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
+    [self.imageViewUserImage setImageWithURL:[NSURL URLWithString:self.user.userAvatarThumbPath] placeholderImage:DefaultAvatar];
     self.labelUserName.text = self.user.userUsername;
     self.buttonFollow.selected = self.user.followingUser;
     self.buttonFollow.hidden = (self.user.userID == [WLIConnect sharedConnect].currentUser.userID);

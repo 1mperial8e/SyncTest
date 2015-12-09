@@ -140,7 +140,7 @@ static CGFloat const StaticCellHeight = 154;
 - (void)updateInfo
 {
     if (self.post) {
-        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.post.user.userAvatarPath] placeholderImage:DefaultAvatar];
+        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.post.user.userAvatarThumbPath] placeholderImage:DefaultAvatar];
         self.buttonVideo.hidden = !self.post.postVideoPath.length;
         self.labelUserName.text = self.post.user.userUsername;
         self.labelTimeAgo.text = self.post.postTimeAgo;

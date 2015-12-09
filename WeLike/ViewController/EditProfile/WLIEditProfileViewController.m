@@ -141,9 +141,15 @@
 {
     WLIRegisterAvatarTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WLIRegisterAvatarTableViewCell.ID forIndexPath:indexPath];
     self.avatarImageView = cell.avatarImageView;
-    [self.avatarImageView setImageWithURL:[NSURL URLWithString:sharedConnect.currentUser.userAvatarPath]];
+    
+    __block NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:sharedConnect.currentUser.userAvatarThumbPath]];
+    __weak typeof(self) weakSelf = self;
+    [self.avatarImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+        [weakSelf.avatarImageView setImageWithURL:[NSURL URLWithString:sharedConnect.currentUser.userAvatarPath]];
+    } failure:nil];
     self.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.avatarImageView.bounds) / 2;
     self.avatarImageView.layer.masksToBounds = YES;
+    
     [cell.chooseAvatarButton addTarget:self action:@selector(selectAvatarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
@@ -174,6 +180,7 @@
 
 - (void)cacelAction:(id)sender
 {
+    [self.avatarImageView cancelImageRequestOperation];
     [self.tableView endEditing:NO];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

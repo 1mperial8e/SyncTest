@@ -998,22 +998,34 @@ static NSString *const AuthTokenKey = @"token";
 
 #pragma mark - Search
 
-- (AFHTTPRequestOperation *)search:(NSString *)searchString pageNumber:(NSInteger)pageNumber onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion
+- (AFHTTPRequestOperation *)search:(NSString *)searchString term:(NSString *)searchTerm pageNumber:(NSInteger)pageNumber onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:[NSString stringWithFormat:@"%@", searchString ? searchString : @""] forKey:@"searchstring"];
     [parameters setObject:[NSString stringWithFormat:@"%zd", pageNumber] forKey:@"page"];
     [parameters setObject:[NSString stringWithFormat:@"%zd", kDefaultPageSize] forKey:@"take"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
-
+    [parameters setObject:searchTerm forKey:@"result_type"];
     AFHTTPRequestOperation *operation = [self.httpClient POST:@"api/search" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *rawHashtags = responseObject[@"hashtags"];
-        NSArray *hashtags = [WLIHashtag arrayWithDictionariesArray:rawHashtags];
-        NSArray *rawUsers = responseObject[@"users"];
-        NSArray *users = [WLIUser arrayWithDictionariesArray:rawUsers];
-        NSArray *result = [hashtags arrayByAddingObjectsFromArray:users];
+        NSMutableArray *items = [NSMutableArray array];
+        if ([searchTerm isEqualToString:@"mix"]) {
+            NSArray *result = responseObject[@"mix"];
+            for (NSDictionary *dict in result) {
+                if ([dict objectForKey:@"hashtagID"]) {
+                    [items addObject:[WLIHashtag initWithDictionary:dict]];
+                } else {
+                    [items addObject:[WLIUser initWithDictionary:dict]];
+                }
+            }
+        } else if ([searchTerm isEqualToString:@"user"]) {
+            NSArray *result = responseObject[@"users"];
+            [items addObjectsFromArray:[WLIUser arrayWithDictionariesArray:result]];
+        } else if ([searchTerm isEqualToString:@"hashtag"]) {
+            NSArray *result = responseObject[@"hashtags"];
+            [items addObjectsFromArray:[WLIHashtag arrayWithDictionariesArray:result]];
+        }
         if (completion) {
-            completion(result.mutableCopy, OK);
+            completion(items, OK);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLogFormatted:error.localizedDescription];
