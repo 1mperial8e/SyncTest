@@ -14,11 +14,13 @@
 #import <MessageUI/MessageUI.h>
 #import <MediaPlayer/MediaPlayer.h>
 
+#import "WLIPostCommentCell.h"
+
 static WLIPostCell *sharedCell = nil;
 
 static CGFloat const StaticCellHeight = 154;
 
-@interface WLIPostCell () <UITextViewDelegate, MFMailComposeViewControllerDelegate>
+@interface WLIPostCell () <UITextViewDelegate, MFMailComposeViewControllerDelegate, WLIPostCommentCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *middleView;
@@ -47,6 +49,8 @@ static CGFloat const StaticCellHeight = 154;
 @property (strong, nonatomic) UIButton *buttonCatPeople;
 
 @property (strong, nonatomic) MPMoviePlayerViewController *movieController;
+
+@property (strong, nonatomic) NSMutableArray *commentViews;
 
 @end
 
@@ -100,6 +104,7 @@ static CGFloat const StaticCellHeight = 154;
     self.originalImage = nil;
     self.showDeleteButton = NO;
     [self removeCategoryButtons];
+	[self removeCommentsFromCell];
 }
 
 #pragma mark - Accessors
@@ -122,7 +127,12 @@ static CGFloat const StaticCellHeight = 154;
     sharedCell.textView.text = post.postText.length ? post.postText : @"A";
     CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 32, MAXFLOAT)]; // 32 left & right spacing
     CGFloat imageViewHeight = post.postImagePath.length ? (width * 245) / 292 : 5;
-    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight);
+	CGFloat commentsHeigh = 8;
+	for (WLIComment *postComment in post.postComments) {
+		CGFloat currentCommentHeight = [WLIPostCommentCell sizeWithComment:postComment].height;
+		commentsHeigh += currentCommentHeight;
+	}
+    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight + commentsHeigh);
 }
 
 #pragma mark - Update
@@ -169,7 +179,34 @@ static CGFloat const StaticCellHeight = 154;
             self.buttonDelete.hidden = YES;
         }
         [self insertCategoryButtons];
-    }
+		[self insertCommentsToCell];
+	}
+}
+
+- (void)insertCommentsToCell
+{
+	__block CGFloat commentOffset = 8;
+	self.commentViews = [[NSMutableArray alloc] init];
+    [self.post.postComments enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WLIComment   * _Nonnull postComment, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray *viewArray =  [[NSBundle mainBundle] loadNibNamed:@"WLIPostCommentCell" owner:self options:nil];
+        WLIPostCommentCell *cell = [viewArray firstObject];
+        cell.comment = postComment;
+        CGFloat commentHeight = [WLIPostCommentCell sizeWithComment:postComment].height;
+        cell.frame = CGRectMake(0, commentOffset, self.bottomView.frame.size.width, commentHeight);
+        commentOffset += commentHeight;
+        [self.commentsContainer addSubview:cell];
+        [self.commentViews addObject:cell];
+        cell.delegate = self;
+
+    }];
+}
+
+- (void)removeCommentsFromCell
+{
+	for (UIView *cellView in self.commentViews) {
+		[cellView removeFromSuperview];
+	}
+    [self.commentViews removeAllObjects];
 }
 
 - (void)updateLikesInfo
@@ -420,6 +457,27 @@ static CGFloat const StaticCellHeight = 154;
         default:
             break;
     }
+}
+
+#pragma mark - WLIPostCommentCellDelegate
+
+- (void)showUser:(WLIUser *)user userID:(NSInteger)userID sender:(id)senderCell
+{
+	if ([self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+		[self.delegate showUser:user userID:userID sender:self];
+	}
+}
+
+- (void)showAllCommentsForPostSender:(id)sender
+{
+	[self buttonCommentTouchUpInside:sender];
+}
+
+- (void)showTimelineForMySearchString:(NSString *)searchString
+{
+	if ([self.delegate respondsToSelector:@selector(showTimelineForSearchString:)]) {
+		[self.delegate showTimelineForSearchString:searchString];
+	}
 }
 
 @end

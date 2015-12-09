@@ -320,7 +320,7 @@
                                                 <state key="normal" image="post-cell-comments"/>
                                                 <state key="selected" image="post-cell-comments-h"/>
                                                 <connections>
-                                                    <action selector="buttonCommentTouchUpInside:" destination="NHx-lt-jXj" eventType="touchUpInside" id="fQJ-Dy-lpW"/>
+                                                    <action selector="buttonCommentTouchUpInside:" destination="NHx-lt-jXj" eventType="touchUpInside" id="7JX-46-XxN"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eir-rs-qDW">
@@ -388,15 +388,22 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nUF-ac-hji">
+                                <rect key="frame" x="0.0" y="670" width="584" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="nUF-ac-hji" secondAttribute="bottom" id="0JA-ru-46z"/>
                             <constraint firstAttribute="trailing" secondItem="crh-kc-mda" secondAttribute="trailing" id="4Uv-cM-Nhx"/>
                             <constraint firstItem="crh-kc-mda" firstAttribute="leading" secondItem="7Al-Di-3fm" secondAttribute="leading" id="6N3-z0-am5"/>
                             <constraint firstItem="Yf8-Og-rbg" firstAttribute="top" secondItem="crh-kc-mda" secondAttribute="bottom" constant="1" id="6aZ-Ng-3Hz"/>
                             <constraint firstItem="TxT-Py-Ldk" firstAttribute="top" secondItem="Yf8-Og-rbg" secondAttribute="bottom" constant="5" id="8zm-Rt-w3T"/>
+                            <constraint firstAttribute="trailing" secondItem="nUF-ac-hji" secondAttribute="trailing" id="Apf-ce-Obf"/>
                             <constraint firstItem="eJm-ef-1fh" firstAttribute="leading" secondItem="7Al-Di-3fm" secondAttribute="leading" id="DKi-3T-ZEM"/>
+                            <constraint firstItem="nUF-ac-hji" firstAttribute="top" secondItem="eJm-ef-1fh" secondAttribute="bottom" constant="-6" id="Eq0-Ae-anR"/>
                             <constraint firstAttribute="trailing" secondItem="eJm-ef-1fh" secondAttribute="trailing" id="ITx-GU-uB5"/>
                             <constraint firstItem="Yf8-Og-rbg" firstAttribute="leading" secondItem="7Al-Di-3fm" secondAttribute="leading" id="K41-fb-AyI"/>
                             <constraint firstItem="eJm-ef-1fh" firstAttribute="top" secondItem="TxT-Py-Ldk" secondAttribute="bottom" constant="27" id="OOQ-aa-222"/>
@@ -407,6 +414,7 @@
                             <constraint firstItem="crh-kc-mda" firstAttribute="top" secondItem="zt3-2d-bqe" secondAttribute="bottom" id="hq5-EF-xCm"/>
                             <constraint firstAttribute="trailing" secondItem="Yf8-Og-rbg" secondAttribute="trailing" id="lDb-9S-zD3"/>
                             <constraint firstItem="zt3-2d-bqe" firstAttribute="leading" secondItem="7Al-Di-3fm" secondAttribute="leading" id="qYs-VS-ouU"/>
+                            <constraint firstItem="nUF-ac-hji" firstAttribute="leading" secondItem="7Al-Di-3fm" secondAttribute="leading" id="uBa-v9-EbO"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -429,6 +437,7 @@
                 <outlet property="buttonUser" destination="mpX-Sc-2Oc" id="4QF-9r-MaZ"/>
                 <outlet property="buttonVideo" destination="sbr-sq-xNl" id="H63-Ct-QxR"/>
                 <outlet property="categoryView" destination="Yf8-Og-rbg" id="Tah-Tl-sa1"/>
+                <outlet property="commentsContainer" destination="nUF-ac-hji" id="dxV-PU-VSo"/>
                 <outlet property="imageActivityIndicator" destination="YCr-fz-8NA" id="eQL-Jn-VeA"/>
                 <outlet property="imageViewHeightConstraint" destination="IGR-Kx-MR5" id="sNa-4a-cqP"/>
                 <outlet property="imageViewPostImage" destination="s1E-Ff-GQr" id="yDD-pp-7cL"/>
