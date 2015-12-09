@@ -37,11 +37,6 @@ static WLIPostCommentCell *sharedCell = nil;
 	[self.textView addGestureRecognizer:textViewTap];
 }
 
-- (void)prepareForReuse
-{
-    [super prepareForReuse];
-}
-
 #pragma mark - Accessors
 
 - (void)setComment:(WLIComment *)comment
@@ -55,7 +50,7 @@ static WLIPostCommentCell *sharedCell = nil;
 - (void)updateInfo
 {
     if (self.comment && ![self.comment isEqual:[NSNull null]]) {
-		NSString * theText = [NSString stringWithFormat:@"%@ %@",self.comment.user.userUsername,self.comment.commentText];
+		NSString *theText = [NSString stringWithFormat:@"%@ %@", self.comment.user.userUsername, self.comment.commentText];
 		NSMutableAttributedString *attrString = [WLIUtils formattedString:theText WithHashtagsAndUsers:self.comment.taggedUsers].mutableCopy;
 		[attrString addAttributes:@{NSFontAttributeName : self.textView.font} range:NSMakeRange(0, attrString.string.length)];
 		[attrString addAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} range:NSMakeRange(0, self.comment.user.userUsername.length)];
@@ -77,14 +72,7 @@ static WLIPostCommentCell *sharedCell = nil;
 	return NO;
 }
 
-#pragma mark - Gestures;
-
-- (void)tappedOnUser:(id)sender
-{
-	if ([self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
-		[self.delegate showUser:self.comment.user userID:self.comment.user.userID sender:self];
-	}
-}
+#pragma mark - Gestures
 
 - (void)tappedOnTextView:(UITapGestureRecognizer *)gesture
 {
@@ -105,13 +93,17 @@ static WLIPostCommentCell *sharedCell = nil;
 				if ([self.delegate respondsToSelector:@selector(showTimelineForMySearchString:)]) {
 					[self.delegate showTimelineForMySearchString:hashtag];
 				}
-			} else {				
-				NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", [[hashtag stringByReplacingOccurrencesOfString:@"@" withString:@""] substringFromIndex:0]];
+			} else if ([hashtag hasPrefix:@"@"]) {
+				NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", [hashtag substringFromIndex:0]];
 				NSDictionary *userInfo = [self.comment.taggedUsers filteredArrayUsingPredicate:namePredicate].firstObject;
 				if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
 					[self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];
 				}
-			}
+            } else {
+                if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+                    [self.delegate showUser:nil userID:self.comment.user.userID sender:self];
+                }
+            }
 		} else {
 			if ([self.delegate respondsToSelector:@selector(showAllCommentsForPostSender:)]) {
 				[self.delegate showAllCommentsForPostSender:self];
@@ -130,9 +122,9 @@ static WLIPostCommentCell *sharedCell = nil;
 	NSString *theText = [NSString stringWithFormat:@"%@ %@",comment.user.userUsername,comment.commentText];
     sharedCell.textView.text = comment.commentText.length ? theText : @"A";
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 50, MAXFLOAT)]; // 54 left & right spacing
+    CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 50, MAXFLOAT)]; // 50 left & right spacing
 	//CGFloat *lines = [sharedCell.textView];
-    return CGSizeMake(width, textSize.height+8.5);
+    return CGSizeMake(width, textSize.height + 8.5);
 }
 
 @end

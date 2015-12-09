@@ -16,7 +16,6 @@
 
 #import "WLIPostCommentCell.h"
 
-
 static WLIPostCell *sharedCell = nil;
 
 static CGFloat const StaticCellHeight = 154;
@@ -51,7 +50,7 @@ static CGFloat const StaticCellHeight = 154;
 
 @property (strong, nonatomic) MPMoviePlayerViewController *movieController;
 
-@property (strong, nonatomic) NSMutableArray * commentViews;
+@property (strong, nonatomic) NSMutableArray *commentViews;
 
 @end
 
@@ -133,7 +132,7 @@ static CGFloat const StaticCellHeight = 154;
 		CGFloat currentCommentHeight = [WLIPostCommentCell sizeWithComment:postComment].height;
 		commentsHeigh += currentCommentHeight;
 	}
-	    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight + commentsHeigh);
+    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight + commentsHeigh);
 }
 
 #pragma mark - Update
@@ -186,19 +185,20 @@ static CGFloat const StaticCellHeight = 154;
 
 - (void)insertCommentsToCell
 {
-	CGFloat commentOffset = 8;
+	__block CGFloat commentOffset = 8;
 	self.commentViews = [[NSMutableArray alloc] init];
-	for (WLIComment *postComment in self.post.postComments) {
-		NSArray *theViewArray =  [[NSBundle mainBundle] loadNibNamed:@"WLIPostCommentCell" owner:self options:nil];
-		WLIPostCommentCell *theCell = [theViewArray firstObject];
-		theCell.comment = postComment;
-		CGFloat commentHeight = [WLIPostCommentCell sizeWithComment:postComment].height;
-		theCell.frame = CGRectMake(0, commentOffset, self.bottomView.frame.size.width, commentHeight);
-		commentOffset += commentHeight;
-		[self.commentsContainer addSubview:theCell];
-		[self.commentViews addObject:theCell];
-		theCell.delegate = self;
-	}
+    [self.post.postComments enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WLIComment   * _Nonnull postComment, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray *viewArray =  [[NSBundle mainBundle] loadNibNamed:@"WLIPostCommentCell" owner:self options:nil];
+        WLIPostCommentCell *cell = [viewArray firstObject];
+        cell.comment = postComment;
+        CGFloat commentHeight = [WLIPostCommentCell sizeWithComment:postComment].height;
+        cell.frame = CGRectMake(0, commentOffset, self.bottomView.frame.size.width, commentHeight);
+        commentOffset += commentHeight;
+        [self.commentsContainer addSubview:cell];
+        [self.commentViews addObject:cell];
+        cell.delegate = self;
+
+    }];
 }
 
 - (void)removeCommentsFromCell
@@ -206,6 +206,7 @@ static CGFloat const StaticCellHeight = 154;
 	for (UIView *cellView in self.commentViews) {
 		[cellView removeFromSuperview];
 	}
+    [self.commentViews removeAllObjects];
 }
 
 - (void)updateLikesInfo

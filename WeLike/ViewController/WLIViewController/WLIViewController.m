@@ -63,7 +63,9 @@
 {
     [super viewWillAppear:animated];
     if (self.indexPathToReload) {
+        [self.tableViewRefresh beginUpdates];
         [self.tableViewRefresh reloadRowsAtIndexPaths:@[self.indexPathToReload] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableViewRefresh endUpdates];
         self.indexPathToReload = nil;
     }
 }
