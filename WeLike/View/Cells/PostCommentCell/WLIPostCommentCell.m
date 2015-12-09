@@ -51,8 +51,19 @@ static  NSInteger postCommentLinesCount = 5;
 - (void)updateInfo
 {
     if (self.comment && ![self.comment isEqual:[NSNull null]]) {
-		NSString *theText = [NSString stringWithFormat:@"%@ %@", self.comment.user.userUsername, self.comment.commentText];
-		NSMutableAttributedString *attrString = [WLIUtils formattedString:theText WithHashtagsAndUsers:self.comment.taggedUsers].mutableCopy;
+		NSString *text = [NSString stringWithFormat:@"%@ %@",self.comment.user.userUsername, self.comment.commentText];
+		
+		self.textView.text = text;
+        CGFloat height = ceilf([self.textView sizeThatFits:CGSizeMake(self.textView.frame.size.width, MAXFLOAT)].height);
+        NSInteger lines = (int)(height / self.textView.font.lineHeight);
+
+		if (lines > postCommentLinesCount) {
+			NSInteger newLength = text.length * (postCommentLinesCount / (CGFloat)lines);
+			text = [text substringToIndex:newLength - 5];
+			text = [text stringByAppendingString:@" ..."];
+		}
+		self.textView.text = nil;
+		NSMutableAttributedString *attrString = [WLIUtils formattedString:text WithHashtagsAndUsers:self.comment.taggedUsers].mutableCopy;
 		[attrString addAttributes:@{NSFontAttributeName : self.textView.font} range:NSMakeRange(0, attrString.string.length)];
 		[attrString addAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} range:NSMakeRange(0, self.comment.user.userUsername.length)];
 		[attrString addAttributes:@{CustomLinkAttributeName : @YES} range:NSMakeRange(0, self.comment.user.userUsername.length)];
@@ -120,12 +131,19 @@ static  NSInteger postCommentLinesCount = 5;
         sharedCell = [[[NSBundle mainBundle] loadNibNamed:@"WLIPostCommentCell" owner:nil options:nil] lastObject];
     }
 	CGFloat width = [UIScreen mainScreen].bounds.size.width;
-	NSString *theText = [NSString stringWithFormat:@"%@ %@",comment.user.userUsername,comment.commentText];
-    sharedCell.textView.text = comment.commentText.length ? theText : @"A";
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 50, MAXFLOAT)]; // 50 left & right spacing
-	//CGFloat *lines = [sharedCell.textView];
-    return CGSizeMake(width, textSize.height + 8.5);
+	NSString *text = [NSString stringWithFormat:@"%@ %@", comment.user.userUsername, comment.commentText];
+    sharedCell.textView.text = comment.commentText.length ? text : @"A";
+	CGFloat height = ceilf([sharedCell.textView sizeThatFits:CGSizeMake(sharedCell.textView.frame.size.width, MAXFLOAT)].height);
+	NSInteger lines = (int)(height / sharedCell.textView.font.lineHeight);
+	
+	if (lines > postCommentLinesCount) {
+		NSInteger newLength = text.length * (postCommentLinesCount / (CGFloat)lines);
+		text = [text substringToIndex:newLength - 5];
+		text= [text stringByAppendingString:@" ..."];
+		sharedCell.textView.text = text;
+		height = ceilf([sharedCell.textView sizeThatFits:CGSizeMake(sharedCell.textView.frame.size.width, MAXFLOAT)].height);
+	}
+    return CGSizeMake(width, height + 8.5);
 }
 
 @end
