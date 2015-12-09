@@ -14,7 +14,7 @@
 #import <MessageUI/MessageUI.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-#import "WLICommentCell.h"
+#import "WLIPostCommentCell.h"
 
 
 static WLIPostCell *sharedCell = nil;
@@ -130,7 +130,7 @@ static CGFloat const StaticCellHeight = 154;
     CGFloat imageViewHeight = post.postImagePath.length ? (width * 245) / 292 : 5;
 	CGFloat commentsHeigh = 0;
 	for (WLIComment *postComment in post.postComments) {
-		CGFloat currentCommentHeight = [WLICommentCell sizeWithComment:postComment].height;
+		CGFloat currentCommentHeight = [WLIPostCommentCell sizeWithComment:postComment].height;
 		commentsHeigh += currentCommentHeight;
 	}
 	    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight + commentsHeigh);
@@ -189,10 +189,10 @@ static CGFloat const StaticCellHeight = 154;
 	CGFloat commentOffset = 0;
 	self.commentViews = [[NSMutableArray alloc] init];
 	for (WLIComment *postComment in self.post.postComments) {
-		NSArray *theViewArray =  [[NSBundle mainBundle] loadNibNamed:@"WLICommentCell" owner:self options:nil];
-		WLICommentCell *theCell = [theViewArray objectAtIndex:0];
+		NSArray *theViewArray =  [[NSBundle mainBundle] loadNibNamed:@"WLIPostCommentCell" owner:self options:nil];
+		WLIPostCommentCell *theCell = [theViewArray firstObject];
 		theCell.comment = postComment;
-		CGFloat commentHeight = [WLICommentCell sizeWithComment:postComment].height;
+		CGFloat commentHeight = [WLIPostCommentCell sizeWithComment:postComment].height;
 		theCell.frame = CGRectMake(0, commentOffset, self.bottomView.frame.size.width, commentHeight);
 		commentOffset += commentHeight;
 		[self.commentsContainer addSubview:theCell];
