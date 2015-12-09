@@ -14,6 +14,9 @@
 #import <MessageUI/MessageUI.h>
 #import <MediaPlayer/MediaPlayer.h>
 
+#import "WLICommentCell.h"
+
+
 static WLIPostCell *sharedCell = nil;
 
 static CGFloat const StaticCellHeight = 154;
@@ -47,6 +50,8 @@ static CGFloat const StaticCellHeight = 154;
 @property (strong, nonatomic) UIButton *buttonCatPeople;
 
 @property (strong, nonatomic) MPMoviePlayerViewController *movieController;
+
+@property (strong, nonatomic) NSMutableArray * commentViews;
 
 @end
 
@@ -100,6 +105,7 @@ static CGFloat const StaticCellHeight = 154;
     self.originalImage = nil;
     self.showDeleteButton = NO;
     [self removeCategoryButtons];
+	[self removeCommentsFromCell];
 }
 
 #pragma mark - Accessors
@@ -122,7 +128,12 @@ static CGFloat const StaticCellHeight = 154;
     sharedCell.textView.text = post.postText.length ? post.postText : @"A";
     CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 32, MAXFLOAT)]; // 32 left & right spacing
     CGFloat imageViewHeight = post.postImagePath.length ? (width * 245) / 292 : 5;
-    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight);
+	CGFloat commentsHeigh = 0;
+	for (WLIComment *postComment in post.postComments) {
+		CGFloat currentCommentHeight = [WLICommentCell sizeWithComment:postComment].height;
+		commentsHeigh += currentCommentHeight;
+	}
+	    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight + commentsHeigh);
 }
 
 #pragma mark - Update
@@ -169,7 +180,31 @@ static CGFloat const StaticCellHeight = 154;
             self.buttonDelete.hidden = YES;
         }
         [self insertCategoryButtons];
-    }
+		[self insertCommentsToCell];
+	}
+}
+
+- (void)insertCommentsToCell
+{
+	CGFloat commentOffset = 0;
+	self.commentViews = [[NSMutableArray alloc] init];
+	for (WLIComment *postComment in self.post.postComments) {
+		NSArray *theViewArray =  [[NSBundle mainBundle] loadNibNamed:@"WLICommentCell" owner:self options:nil];
+		WLICommentCell *theCell = [theViewArray objectAtIndex:0];
+		theCell.comment = postComment;
+		CGFloat commentHeight = [WLICommentCell sizeWithComment:postComment].height;
+		theCell.frame = CGRectMake(0, commentOffset, self.bottomView.frame.size.width, commentHeight);
+		commentOffset += commentHeight;
+		[self.commentsContainer addSubview:theCell];
+		[self.commentViews addObject:theCell];
+	}
+}
+
+- (void)removeCommentsFromCell
+{
+	for (UIView *cellView in self.commentViews) {
+		[cellView removeFromSuperview];
+	}
 }
 
 - (void)updateLikesInfo
