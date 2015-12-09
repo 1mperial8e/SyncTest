@@ -11,6 +11,7 @@
 #import <MessageUI/MessageUI.h>
 
 static WLIPostCommentCell *sharedCell = nil;
+static  NSInteger postCommentLinesCount = 5;
 
 @interface WLIPostCommentCell () <UITextViewDelegate>
 
@@ -55,7 +56,6 @@ static WLIPostCommentCell *sharedCell = nil;
 		[attrString addAttributes:@{NSFontAttributeName : self.textView.font} range:NSMakeRange(0, attrString.string.length)];
 		[attrString addAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} range:NSMakeRange(0, self.comment.user.userUsername.length)];
 		[attrString addAttributes:@{CustomLinkAttributeName : @YES} range:NSMakeRange(0, self.comment.user.userUsername.length)];
-		
 		self.textView.attributedText = attrString;
     }
 }
@@ -119,6 +119,7 @@ static WLIPostCommentCell *sharedCell = nil;
     if (!sharedCell) {
         sharedCell = [[[NSBundle mainBundle] loadNibNamed:@"WLIPostCommentCell" owner:nil options:nil] lastObject];
     }
+	CGFloat width = [UIScreen mainScreen].bounds.size.width;
 	NSString *theText = [NSString stringWithFormat:@"%@ %@",comment.user.userUsername,comment.commentText];
     sharedCell.textView.text = comment.commentText.length ? theText : @"A";
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
