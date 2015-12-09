@@ -320,7 +320,7 @@
                                                 <state key="normal" image="post-cell-comments"/>
                                                 <state key="selected" image="post-cell-comments-h"/>
                                                 <connections>
-                                                    <action selector="buttonCommentTouchUpInside:" destination="NHx-lt-jXj" eventType="touchUpInside" id="fQJ-Dy-lpW"/>
+                                                    <action selector="buttonCommentTouchUpInside:" destination="NHx-lt-jXj" eventType="touchUpInside" id="7JX-46-XxN"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eir-rs-qDW">

@@ -21,7 +21,7 @@ static WLIPostCell *sharedCell = nil;
 
 static CGFloat const StaticCellHeight = 154;
 
-@interface WLIPostCell () <UITextViewDelegate, MFMailComposeViewControllerDelegate>
+@interface WLIPostCell () <UITextViewDelegate, MFMailComposeViewControllerDelegate, WLIPostCommentCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *middleView;
@@ -128,7 +128,7 @@ static CGFloat const StaticCellHeight = 154;
     sharedCell.textView.text = post.postText.length ? post.postText : @"A";
     CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 32, MAXFLOAT)]; // 32 left & right spacing
     CGFloat imageViewHeight = post.postImagePath.length ? (width * 245) / 292 : 5;
-	CGFloat commentsHeigh = 0;
+	CGFloat commentsHeigh = 8;
 	for (WLIComment *postComment in post.postComments) {
 		CGFloat currentCommentHeight = [WLIPostCommentCell sizeWithComment:postComment].height;
 		commentsHeigh += currentCommentHeight;
@@ -186,7 +186,7 @@ static CGFloat const StaticCellHeight = 154;
 
 - (void)insertCommentsToCell
 {
-	CGFloat commentOffset = 0;
+	CGFloat commentOffset = 8;
 	self.commentViews = [[NSMutableArray alloc] init];
 	for (WLIComment *postComment in self.post.postComments) {
 		NSArray *theViewArray =  [[NSBundle mainBundle] loadNibNamed:@"WLIPostCommentCell" owner:self options:nil];
@@ -197,6 +197,7 @@ static CGFloat const StaticCellHeight = 154;
 		commentOffset += commentHeight;
 		[self.commentsContainer addSubview:theCell];
 		[self.commentViews addObject:theCell];
+		theCell.delegate = self;
 	}
 }
 
@@ -455,6 +456,27 @@ static CGFloat const StaticCellHeight = 154;
         default:
             break;
     }
+}
+
+#pragma mark - WLIPostCommentCellDelegate
+
+- (void)showUser:(WLIUser *)user userID:(NSInteger)userID sender:(id)senderCell
+{
+	if ([self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+		[self.delegate showUser:user userID:userID sender:self];
+	}
+}
+
+- (void)showAllCommentsForPostSender:(id)sender
+{
+	[self buttonCommentTouchUpInside:sender];
+}
+
+- (void)showTimelineForMySearchString:(NSString *)searchString
+{
+	if ([self.delegate respondsToSelector:@selector(showTimelineForSearchString:)]) {
+		[self.delegate showTimelineForSearchString:searchString];
+	}
 }
 
 @end

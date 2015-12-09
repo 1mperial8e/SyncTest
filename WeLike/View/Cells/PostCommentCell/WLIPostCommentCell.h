@@ -9,10 +9,20 @@
 #import "WLIComment.h"
 #import "WLITableViewCell.h"
 
+@protocol WLIPostCommentCellDelegate <NSObject>
+
+@optional
+
+- (void)showUser:(WLIUser *)user userID:(NSInteger)userID sender:(id)senderCell;
+- (void)showAllCommentsForPostSender:(id)senderCell;
+- (void)showTimelineForMySearchString:(NSString *)searchString;
+
+@end
+
 @interface WLIPostCommentCell : WLITableViewCell
 
 @property (strong, nonatomic) WLIComment *comment;
-@property (weak, nonatomic) id<WLICellDelegate> delegate;
+@property (weak, nonatomic) id<WLIPostCommentCellDelegate> delegate;
 
 + (CGSize)sizeWithComment:(WLIComment *)comment;
 
