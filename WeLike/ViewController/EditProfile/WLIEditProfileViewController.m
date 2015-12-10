@@ -124,12 +124,11 @@
     CGFloat heigh = 50.f;
     if (indexPath.row == 0) {
         heigh = 130.f;
-    }
- else if (indexPath.row == 4) 	{
+    } else if (indexPath.row == 4) 	{
 		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"WLIMyGoalsTableViewCell" owner:self options:nil];
 		WLIMyGoalsTableViewCell *cell  = [topLevelObjects objectAtIndex:0];
 		cell.textView.text = self.textViewMyGoals.text;
-		CGFloat height = ceilf([cell.textView sizeThatFits:cell.textView.frame.size].height);
+		CGFloat height = ceilf([cell.textView sizeThatFits:CGSizeMake(cell.textView.frame.size.width, MAXFLOAT)].height);
 		return height + 20;
 	}
     return heigh;
@@ -287,7 +286,8 @@
 		[[self view] endEditing:YES];
 		return  NO;
 	}
-	return self.textViewMyGoals.text.length<255;
+    NSString *newText = [self.textViewMyGoals.text stringByReplacingCharactersInRange:range withString:string];
+	return newText.length < 255;
 }
 
 - (void)textViewDidChange:(UITextView *)textView
