@@ -18,7 +18,7 @@
 
 static WLIPostCell *sharedCell = nil;
 
-static CGFloat const StaticCellHeight = 154;
+static CGFloat const StaticCellHeight = 140;
 
 @interface WLIPostCell () <UITextViewDelegate, MFMailComposeViewControllerDelegate, WLIPostCommentCellDelegate>
 
@@ -34,6 +34,8 @@ static CGFloat const StaticCellHeight = 154;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentsContainerHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *seeMoreButtonHeightConstraint;
 
 @property (strong, nonatomic) IBOutlet UIButton *buttonComment;
 @property (strong, nonatomic) IBOutlet UILabel *labelComments;
@@ -124,7 +126,7 @@ static CGFloat const StaticCellHeight = 154;
     if (!sharedCell) {
         sharedCell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(WLIPostCell.class) owner:nil options:nil] lastObject];
     }
-    sharedCell.textView.text = post.postText.length ? post.postText : @"A";
+    sharedCell.textView.text = post.postText.length ? [post.user.userUsername stringByAppendingFormat:@" %@", post.postText] : @"A";
     CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 32, MAXFLOAT)]; // 32 left & right spacing
     CGFloat imageViewHeight = post.postImagePath.length ? (width * 245) / 292 : 5;
 	CGFloat commentsHeigh = 8;
@@ -132,7 +134,8 @@ static CGFloat const StaticCellHeight = 154;
 		CGFloat currentCommentHeight = [WLIPostCommentCell sizeWithComment:postComment].height;
 		commentsHeigh += currentCommentHeight;
 	}
-    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight + commentsHeigh);
+    CGFloat seeMoreLabelHeight = post.postCommentsCount > 3 ? 23 : 0;
+    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight + commentsHeigh + seeMoreLabelHeight);
 }
 
 #pragma mark - Update
@@ -144,10 +147,14 @@ static CGFloat const StaticCellHeight = 154;
         self.buttonVideo.hidden = !self.post.postVideoPath.length;
         self.labelUserName.text = self.post.user.userUsername;
         self.labelTimeAgo.text = self.post.postTimeAgo;
-        NSMutableAttributedString *attrString = [[WLIUtils formattedString:self.post.postText WithHashtagsAndUsers:self.post.taggedUsers] mutableCopy];
+        NSMutableAttributedString *attrString = [[WLIUtils formattedString:[self.post.user.userUsername stringByAppendingFormat:@" %@", self.post.postText] WithHashtagsAndUsers:self.post.taggedUsers] mutableCopy];
         [attrString addAttributes:@{NSFontAttributeName : self.textView.font} range:NSMakeRange(0, attrString.string.length)];
+        NSRange usernameRange = NSMakeRange(0, self.post.user.userUsername.length);
+        [attrString addAttributes:@{NSForegroundColorAttributeName : [UIColor redColor], CustomLinkAttributeName : @1} range:usernameRange];
         self.textView.attributedText = attrString;
-
+        
+        self.seeMoreButtonHeightConstraint.constant = self.post.postCommentsCount > 3 ? 23 : 0;
+        
         if (self.post.postImagePath.length) {
             self.imageViewHeightConstraint.constant = (([UIScreen mainScreen].bounds.size.width - 8) * 245) / 292;
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.post.postImageThumbPath]];			
@@ -197,8 +204,9 @@ static CGFloat const StaticCellHeight = 154;
         [self.commentsContainer addSubview:cell];
         [self.commentViews addObject:cell];
         cell.delegate = self;
-
     }];
+    self.commentsContainerHeightConstraint.constant = commentOffset;
+    [self layoutIfNeeded];
 }
 
 - (void)removeCommentsFromCell
