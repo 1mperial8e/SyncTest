@@ -13,6 +13,7 @@
 #import <MessageUI/MessageUI.h>
 #import "WLILikersViewController.h"
 #import "WLIFullScreenPhotoViewController.h"
+#import "WLIMyDriveViewController.h"
 @interface WLIViewController () <UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) NSIndexPath *indexPathToReload;
@@ -122,7 +123,12 @@
 
 - (void)showUser:(WLIUser *)user userID:(NSInteger)userID sender:(WLIPostCell *)senderCell
 {
-    WLIUserDriveViewController *userDrive = [WLIUserDriveViewController new];
+	WLIUserDriveViewController * userDrive;
+	if ((user.userID == [WLIConnect sharedConnect].currentUser.userID) || (userID == [WLIConnect sharedConnect].currentUser.userID)) {
+		userDrive = [WLIMyDriveViewController new];
+	} else {
+		userDrive = [WLIUserDriveViewController new];
+	}	
     if (user) {
         userDrive.user = user;
     } else {
