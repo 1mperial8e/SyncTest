@@ -158,7 +158,7 @@ static CGFloat const HeaderCellHeight = 156;
         cell.user = self.user;
         CGSize size = CGSizeZero;
         if (cell.user.userInfo.length) {
-            size = [cell.myGoalsTextView sizeThatFits:CGSizeMake([UIScreen mainScreen].bounds.size.width , MAXFLOAT)];
+            size = [cell.myGoalsTextView sizeThatFits:CGSizeMake([UIScreen mainScreen].bounds.size.width - 32, MAXFLOAT)]; // 32 spacings
         }
 		return size.height + HeaderCellHeight;
     } else if (indexPath.section == 1) {
