@@ -28,7 +28,6 @@
 @property (weak, nonatomic) UITextView *textViewMyGoals;
 
 @property (weak, nonatomic) UIImageView *avatarImageView;
-@property (nonatomic) CGSize myGoalsTextViewContentSize;
 
 @property (assign, nonatomic) BOOL imageReplaced;
 
@@ -101,7 +100,6 @@
 		}
 		self.textViewMyGoals = myGoalsCell.textView;
 		self.textViewMyGoals.delegate = self;
-		self.myGoalsTextViewContentSize = myGoalsCell.textView.contentSize;
 		cell = myGoalsCell;
 	} else if (indexPath.row == 5) {
         WLIChangePasswordTableViewCell *passCell = [tableView dequeueReusableCellWithIdentifier:WLIChangePasswordTableViewCell.ID forIndexPath:indexPath];
@@ -126,9 +124,9 @@
         heigh = 130.f;
     } else if (indexPath.row == 4) 	{
 		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"WLIMyGoalsTableViewCell" owner:self options:nil];
-		WLIMyGoalsTableViewCell *cell  = [topLevelObjects objectAtIndex:0];
+		WLIMyGoalsTableViewCell *cell = [topLevelObjects objectAtIndex:0];
 		cell.textView.text = self.textViewMyGoals.text;
-		CGFloat height = ceilf([cell.textView sizeThatFits:CGSizeMake(cell.textView.frame.size.width, MAXFLOAT)].height);
+		CGFloat height = ceilf([cell.textView sizeThatFits:CGSizeMake([UIScreen mainScreen].bounds.size.width - 30, MAXFLOAT)].height);
 		return height + 20;
 	}
     return heigh;
@@ -282,8 +280,7 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
 {
-    NSRange placeholderRange = NSMakeRange(0, MyDriveGoalsPlaceholder.length);
-    if (NSIntersectionRange(placeholderRange, range).length) {
+    if (range.location <= MyDriveGoalsPlaceholder.length - 1) {
         return NO;
     }
 	if ([string isEqualToString:@"\n"]) {
@@ -296,11 +293,14 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-	CGFloat height = ceilf([textView sizeThatFits:textView.frame.size].height);
-	if (self.myGoalsTextViewContentSize.height != height) {
+	CGFloat height = ceil([textView sizeThatFits:CGSizeMake(CGRectGetWidth(textView.frame), MAXFLOAT)].height + 0.5);
+	if (textView.contentSize.height > height + 1 || textView.contentSize.height < height - 1) {
 		[self.tableView beginUpdates];
 		[self.tableView endUpdates];
-		self.myGoalsTextViewContentSize = textView.contentSize;
+        
+        CGRect textViewRect = [self.tableView convertRect:textView.frame fromView:textView.superview];
+        textViewRect.origin.y += 5;
+        [self.tableView scrollRectToVisible:textViewRect animated:YES];
 	}
 }
 
