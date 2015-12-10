@@ -123,7 +123,7 @@
 
 - (void)showUser:(WLIUser *)user userID:(NSInteger)userID sender:(WLIPostCell *)senderCell
 {
-	WLIUserDriveViewController * userDrive;
+	WLIUserDriveViewController *userDrive;
 	if ((user.userID == [WLIConnect sharedConnect].currentUser.userID) || (userID == [WLIConnect sharedConnect].currentUser.userID)) {
 		userDrive = [WLIMyDriveViewController new];
 	} else {
