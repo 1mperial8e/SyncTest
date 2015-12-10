@@ -61,16 +61,19 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
     [super viewWillDisappear:animated];
     self.textFieldEnterComment.text = @"";
     
-    NSMutableArray *comments = [NSMutableArray array];
-    for (NSInteger i = self.comments.count - 1; i >= 0; i--) {
-        id comment = self.comments[i];
-        if (comment && comments.count < 3) {
-            [comments addObject:comment];
-        } else {
-            break;
+    if (!loading) {
+        NSMutableArray *comments = [NSMutableArray array];
+        for (NSInteger i = self.comments.count - 1; i >= 0; i--) {
+            id comment = self.comments[i];
+            if (comment && comments.count < 3) {
+                [comments addObject:comment];
+            } else {
+                break;
+            }
         }
+        self.post.postComments = comments;
     }
-    self.post.postComments = comments;
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

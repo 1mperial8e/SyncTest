@@ -431,6 +431,14 @@ static CGFloat const StaticCellHeight = 140;
                 if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
                     [self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];
                 }
+            } else {
+                if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+                    [self.delegate showUser:nil userID:self.post.user.userID sender:self];
+                }
+            }
+        } else {
+            if ([self.delegate respondsToSelector:@selector(showAllCommentsForPostSender:)]) {
+                [self buttonCommentTouchUpInside:self];
             }
         }
     }
