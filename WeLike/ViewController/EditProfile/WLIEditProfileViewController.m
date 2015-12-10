@@ -97,7 +97,7 @@
 		if (sharedConnect.currentUser.userInfo.length) {
 			myGoalsCell.textView.text = sharedConnect.currentUser.userInfo;
 		} else {
-			myGoalsCell.textView.text = @"My drive for 2020 is:";
+			myGoalsCell.textView.text = MyDriveGoalsPlaceholder;
 		}
 		self.textViewMyGoals = myGoalsCell.textView;
 		self.textViewMyGoals.delegate = self;
@@ -210,7 +210,7 @@
         __weak typeof(self) weakSelf = self;
         UIImage *image = self.imageReplaced ? self.avatarImageView.image : nil;
         NSString *aboutText = self.textViewMyGoals.text;
-        if ([aboutText isEqualToString:@"My drive for 2020 is:"]) {
+        if ([aboutText isEqualToString:MyDriveGoalsPlaceholder]) {
             aboutText = @"";
         }
         [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userUsername:self.textFieldUsername.text userAvatar:image userFullName:self.textFieldFullName.text userInfo:aboutText latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
@@ -282,6 +282,10 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
 {
+    NSRange placeholderRange = NSMakeRange(0, MyDriveGoalsPlaceholder.length);
+    if (NSIntersectionRange(placeholderRange, range).length) {
+        return NO;
+    }
 	if ([string isEqualToString:@"\n"]) {
 		[[self view] endEditing:YES];
 		return  NO;
