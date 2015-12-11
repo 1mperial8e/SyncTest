@@ -72,22 +72,6 @@
     [self.followersLabel.superview addGestureRecognizer:followersTap];
     [self.followingLabel.superview addGestureRecognizer:followingTap];
 	[self.labelUserEmail addGestureRecognizer:emailTap];
- 
-#if DEBUG
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
-    longPress.minimumPressDuration = 4.0f;
-    [self.imageViewUser addGestureRecognizer:longPress];
-#endif
-}
-
-- (void)logout:(id)sender
-{
-#if DEBUG
-    [[WLIConnect sharedConnect] logout];
-    WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
-    appDelegate.tabBarController.selectedIndex = 0;
-    [appDelegate.tabBarController showUI];
-#endif
 }
 
 #pragma mark - Public

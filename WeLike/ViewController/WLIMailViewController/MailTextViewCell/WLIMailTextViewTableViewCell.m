@@ -8,13 +8,6 @@
 
 #import "WLIMailTextViewTableViewCell.h"
 
-@interface WLIMailTextViewTableViewCell ()
-
-@property (weak, nonatomic) IBOutlet UITextView *textView;
-
-@end
-
-
 @implementation WLIMailTextViewTableViewCell
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -113,6 +113,11 @@
         }
         [self addPosts:posts];
     }
+    if (self.posts.count) {
+        self.tableViewRefresh.backgroundColor = [UIColor whiteColor];
+    } else {
+        self.tableViewRefresh.backgroundColor = [UIColor clearColor];
+    }
     [refreshManager tableViewReloadFinishedAnimated:YES];
     loading = NO;
 }

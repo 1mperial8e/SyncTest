@@ -10,4 +10,6 @@
 
 @interface WLIMailTextViewTableViewCell : WLIBaseTableViewCell
 
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+
 @end

@@ -1040,6 +1040,37 @@ static NSString *const AuthTokenKey = @"token";
     return operation;
 }
 
+#pragma mark - Email
+
+- (void)sendEmailToRecipient:(NSString *)toRecipient withSubject:(NSString *)subject content:(NSString *)content onCompletion:(void (^)(ServerResponse serverResponseCode))completion
+{
+    if (!toRecipient.length || (!subject.length && !content.length)) {
+        if (completion) {
+            completion(BAD_REQUEST);
+        }
+    } else {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:toRecipient forKey:@"email"];
+        [parameters setObject:subject forKey:@"subject"];
+        [parameters setObject:content forKey:@"content"];
+        [parameters setObject:self.authToken forKey:AuthTokenKey];
+        [self.httpClient POST:@"api/send_email" parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            if (completion) {
+                completion(OK);
+            }
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLogFormatted:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion((ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(NO_CONNECTION);
+                }
+            }
+        }];
+    }
+}
+
 #pragma mark - debugger
 
 - (void)debugger:(NSString *)post methodLog:(NSString *)method dataLog:(NSString *)data {

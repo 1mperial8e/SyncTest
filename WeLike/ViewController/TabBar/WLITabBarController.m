@@ -8,6 +8,12 @@
 
 #import "WLITabBarController.h"
 #import "WLIWelcomeViewController.h"
+#import "WLINewPostTableViewController.h"
+#import "WLIInfoPageViewController.h"
+#import "WLIFollowingsViewController.h"
+#import "WLIMyDriveViewController.h"
+#import "WLITimelineViewController.h"
+
 #import "WLIConnect.h"
 
 #import <SafariServices/SafariServices.h>
@@ -19,6 +25,15 @@
 @end
 
 @implementation WLITabBarController
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self createControllers];
+    }
+    return self;
+}
 
 #pragma mark - View lifecycle
 
@@ -37,6 +52,45 @@
 }
 
 #pragma mark - UI
+
+- (void)createControllers
+{
+    WLIInfoPageViewController *infoPageViewController = [WLIInfoPageViewController new];
+    UINavigationController *infoPageNavigationController = [[UINavigationController alloc] initWithRootViewController:infoPageViewController];
+    infoPageNavigationController.navigationBar.translucent = NO;
+    
+    WLITimelineViewController *timelineViewController = [WLITimelineViewController new];
+    UINavigationController *timelineNavigationController = [[UINavigationController alloc] initWithRootViewController:timelineViewController];
+    timelineNavigationController.navigationBar.translucent = NO;
+    
+    WLINewPostTableViewController *newPostViewController = [WLINewPostTableViewController new];
+    UINavigationController *newPostNavigationController = [[UINavigationController alloc] initWithRootViewController:newPostViewController];
+    newPostNavigationController.navigationBar.translucent = NO;
+    
+    WLIFollowingsViewController *followingsViewController = [WLIFollowingsViewController new];
+    UINavigationController *followingNavigationController = [[UINavigationController alloc] initWithRootViewController:followingsViewController];
+    followingNavigationController.navigationBar.translucent = NO;
+    
+    WLIMyDriveViewController *myDriveViewController = [WLIMyDriveViewController new];
+    UINavigationController *myDriveNavigationController = [[UINavigationController alloc] initWithRootViewController:myDriveViewController];
+    myDriveNavigationController.navigationBar.translucent = NO;
+    self.viewControllers = @[infoPageNavigationController, timelineNavigationController, newPostNavigationController, followingNavigationController, myDriveNavigationController];
+    
+    UITabBarItem *infoPageTabBarItem = [[UITabBarItem alloc] initWithTitle:@"20by2020" image:[[UIImage imageNamed:@"tabbar-20-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-20"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    infoPageViewController.tabBarItem = infoPageTabBarItem;
+    
+    UITabBarItem *timelineTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Timeline" image:[[UIImage imageNamed:@"tabbar-timeline-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-timeline"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    timelineViewController.tabBarItem = timelineTabBarItem;
+    
+    UITabBarItem *newPostTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Add Energy" image:[[UIImage imageNamed:@"tabbar-newpost-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-newpost"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    newPostViewController.tabBarItem = newPostTabBarItem;
+    
+    UITabBarItem *followingTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Following" image:[[UIImage imageNamed:@"tabbar-following-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-following"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    followingNavigationController.tabBarItem = followingTabBarItem;
+    
+    UITabBarItem *myDriveTabBarItem = [[UITabBarItem alloc] initWithTitle:@"My Energy" image:[[UIImage imageNamed:@"tabbar-mydrive-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-mydrive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    myDriveViewController.tabBarItem = myDriveTabBarItem;
+}
 
 - (void)configureTabBar
 {
@@ -68,6 +122,7 @@
 - (void)showUI
 {
     if (![WLIConnect sharedConnect].currentUser) {
+        [self createControllers];
         self.welcomeViewController.view.alpha = 1.0f;
     } else {
         self.welcomeViewController.view.alpha = 0.0f;

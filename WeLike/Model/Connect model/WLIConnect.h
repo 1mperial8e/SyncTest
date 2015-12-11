@@ -162,4 +162,9 @@ typedef enum ServerResponse ServerResponse;
 #pragma mark - Search
 
 - (AFHTTPRequestOperation *)search:(NSString *)searchString term:(NSString *)searchTerm pageNumber:(NSInteger)pageNumber onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion;
+
+#pragma mark - Email
+
+- (void)sendEmailToRecipient:(NSString *)toRecipient withSubject:(NSString *)subject content:(NSString *)content onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
+
 @end

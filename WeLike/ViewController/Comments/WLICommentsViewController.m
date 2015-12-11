@@ -156,9 +156,6 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
         if (comment.user.userID == sharedConnect.currentUser.userID) {
             canDelete = YES;
         }
-        if (self.post.user.userID == sharedConnect.currentUser.userID) {
-            canDelete = YES;
-        }
     } else {
         canDelete = NO;
     }

@@ -83,7 +83,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -109,7 +109,19 @@
             [weakSelf.navigationController pushViewController:changePassController animated:YES];
         };
         cell = passCell;
-	} else {
+    } else if (indexPath.row == 6) {
+        WLIChangePasswordTableViewCell *passCell = [tableView dequeueReusableCellWithIdentifier:WLIChangePasswordTableViewCell.ID forIndexPath:indexPath];
+        __weak typeof(self) weakSelf = self;
+        [passCell.changePasswordButton setTitle:@"Logout" forState:UIControlStateNormal];
+        passCell.changePasswordHandler = ^{
+            [[WLIConnect sharedConnect] logout];
+            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+            WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
+            appDelegate.tabBarController.selectedIndex = 0;
+            [appDelegate.tabBarController showUI];
+        };
+        cell = passCell;
+    } else {
         cell = [self dataFieldCellForIndexPath:indexPath];
     }
     return cell;
