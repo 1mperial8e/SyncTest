@@ -52,7 +52,9 @@
     } else if (self.presentingViewController) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-close"] style:UIBarButtonItemStylePlain target:self action:@selector(barButtonItemCancelTouchUpInside:)];
     }
-
+    hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:hud];
+    
     if (self.navigationController.viewControllers.count == 1) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
     }
