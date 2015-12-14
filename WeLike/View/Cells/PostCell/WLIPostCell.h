@@ -15,11 +15,9 @@
 @interface WLIPostCell : WLITableViewCell
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewPostImage;
-
-@property (strong, nonatomic) IBOutlet UIButton *buttonLike;
-@property (strong, nonatomic) IBOutlet UIButton *buttonComment;
-@property (strong, nonatomic) IBOutlet UILabel *labelComments;
-@property (strong, nonatomic) IBOutlet UILabel *labelLikes;
+@property (weak, nonatomic) IBOutlet UIButton *buttonFollow;
+@property (weak, nonatomic) IBOutlet UIButton *buttonLike;
+@property (weak, nonatomic) IBOutlet UIView *commentsContainer;
 
 @property (strong, nonatomic) WLIPost *post;
 @property (weak, nonatomic) id<WLICellDelegate> delegate;
@@ -28,7 +26,12 @@
 @property (assign, nonatomic) BOOL showFollowButton;
 
 @property (strong, nonatomic) UIImage *originalImage;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *imageActivityIndicator;
 
 + (CGSize)sizeWithPost:(WLIPost *)post withWidth:(CGFloat)width;
+
+- (void)updateLikesInfo;
+- (void)updateCommentsInfo;
+- (void)blockUserInteraction;
 
 @end

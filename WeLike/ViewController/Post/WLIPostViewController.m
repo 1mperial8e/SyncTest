@@ -8,6 +8,7 @@
 
 #import "WLIPostViewController.h"
 #import "WLIFullScreenPhotoViewController.h"
+#import "WLITimelineViewController.h"
 
 // Cells
 #import "WLICommentCell.h"
@@ -193,7 +194,7 @@
             if (serverResponseCode == OK) {
                 weakSelf.post.commentedThisPost = YES;
                 weakSelf.post.postCommentsCount++;
-                [weakSelf.comments insertObject:comment atIndex:0];
+                [weakSelf.comments addObject:comment];
                 [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)] withRowAnimation:UITableViewRowAnimationAutomatic];
                 weakSelf.textFieldEnterComment.text = @"";
             }
@@ -232,35 +233,6 @@
 
 #pragma mark - WLIPostCellDelegate
 
-- (void)toggleLikeForPost:(WLIPost *)post sender:(WLIPostCell *)senderCell
-{
-    if (post.likedThisPost) {
-        [[WLIConnect sharedConnect] removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
-            if (serverResponseCode == OK) {
-                senderCell.buttonLike.selected = NO;
-                post.postLikesCount--;
-                post.likedThisPost = NO;
-                if (post.postLikesCount == 0) {
-                    senderCell.labelLikes.hidden = YES;
-                }
-                senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
-            }
-        }];
-    } else {
-        [[WLIConnect sharedConnect] setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
-            if (serverResponseCode == OK) {
-                senderCell.buttonLike.selected = YES;
-                post.postLikesCount++;
-                post.likedThisPost = YES;
-                if (post.postLikesCount > 0) {
-                    senderCell.labelLikes.hidden = NO;
-                }
-                senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
-            }
-        }];
-    }
-}
-
 - (void)showImageForPost:(WLIPost *)post sender:(id)senderCell
 {
     if (!self.post.postVideoPath.length) {
@@ -270,47 +242,12 @@
     }
 }
 
-- (void)followUser:(WLIUser *)user sender:(id)senderCell
+- (void)showTimelineForSearchString:(NSString *)searchString
 {
-    [self follow:YES user:user cellToReload:senderCell];
-}
-
-- (void)unfollowUser:(WLIUser *)user sender:(id)senderCell
-{
-    [self follow:NO user:user cellToReload:senderCell];
-}
-
-- (void)follow:(BOOL)follow user:(WLIUser *)user cellToReload:(WLIPostCell *)cell
-{
-    __block NSIndexPath *indexPath = [self.tableViewRefresh indexPathForCell:cell];
-    __weak typeof(self) weakSelf = self;
-    void (^followUserCompletion)(WLIFollow *, ServerResponse) = ^(WLIFollow *wliFollow, ServerResponse serverResponseCode) {
-        if (serverResponseCode == OK) {
-            user.followingUser = follow;
-            cell.post.user = user;
-            if (indexPath) {
-                [weakSelf.tableViewRefresh reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        } else {
-            NSString *message = @"An error occured, user was not followed.";
-            if (!follow) {
-                message = @"An error occured, user was not unfollowed.";
-            }
-            [[[UIAlertView alloc] initWithTitle:@"Error"
-                                        message:message
-                                       delegate:nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil]
-             performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
-        }
-    };
-    if (follow) {
-        [sharedConnect setFollowOnUserID:user.userID onCompletion:followUserCompletion];
-    } else {
-        [sharedConnect removeFollowWithFollowID:user.userID onCompletion:^(ServerResponse serverResponseCode) {
-            followUserCompletion(nil, serverResponseCode);
-        }];
-    }
+    WLITimelineViewController *timeline = [WLITimelineViewController new];
+    timeline.searchString = searchString;
+    timeline.navigationItem.title = searchString;
+    [self.navigationController pushViewController:timeline animated:YES];
 }
 
 #pragma mark - FullImage

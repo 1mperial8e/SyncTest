@@ -8,13 +8,19 @@
 
 #import "WLIPostCell.h"
 #import "WLIConnect.h"
+#import "WLIAppDelegate.h"
+#import "WLIWebViewController.h"
+
+#import <MessageUI/MessageUI.h>
 #import <MediaPlayer/MediaPlayer.h>
+
+#import "WLIPostCommentCell.h"
 
 static WLIPostCell *sharedCell = nil;
 
-static CGFloat const StaticCellHeight = 154;
+static CGFloat const StaticCellHeight = 140;
 
-@interface WLIPostCell () <UITextViewDelegate>
+@interface WLIPostCell () <UITextViewDelegate, MFMailComposeViewControllerDelegate, WLIPostCommentCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *middleView;
@@ -23,10 +29,17 @@ static CGFloat const StaticCellHeight = 154;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewUser;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;
 @property (weak, nonatomic) IBOutlet UILabel *labelTimeAgo;
-@property (weak, nonatomic) IBOutlet UIButton *buttonFollow;
+@property (weak, nonatomic) IBOutlet UIButton *buttonUser;
+
 @property (weak, nonatomic) IBOutlet UIButton *buttonDelete;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentsContainerHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *seeMoreButtonHeightConstraint;
+
+@property (strong, nonatomic) IBOutlet UIButton *buttonComment;
+@property (strong, nonatomic) IBOutlet UILabel *labelComments;
+@property (strong, nonatomic) IBOutlet UILabel *labelLikes;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonVideo;
 
@@ -38,6 +51,8 @@ static CGFloat const StaticCellHeight = 154;
 @property (strong, nonatomic) UIButton *buttonCatPeople;
 
 @property (strong, nonatomic) MPMoviePlayerViewController *movieController;
+
+@property (strong, nonatomic) NSMutableArray *commentViews;
 
 @end
 
@@ -65,7 +80,20 @@ static CGFloat const StaticCellHeight = 154;
     if ([self.textView respondsToSelector:@selector(layoutMargins)]) {
         self.textView.layoutMargins = UIEdgeInsetsZero;
     }
+    
+    UITapGestureRecognizer *textViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnTextView:)];
+    [self.textView addGestureRecognizer:textViewTap];
+    
+    UITapGestureRecognizer *commentLabelTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonCommentTouchUpInside:)];
+    [self.labelComments addGestureRecognizer:commentLabelTap];
+	
+	UITapGestureRecognizer *labelLikesTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(getLikersForPost:)];
+	[self.labelLikes addGestureRecognizer:labelLikesTap];
+	
+	UITapGestureRecognizer *labelUserNameTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonUserTouchUpInside:)];
+	[self.labelUserName addGestureRecognizer:labelUserNameTap];
 }
+
 
 - (void)prepareForReuse
 {
@@ -78,6 +106,7 @@ static CGFloat const StaticCellHeight = 154;
     self.originalImage = nil;
     self.showDeleteButton = NO;
     [self removeCategoryButtons];
+	[self removeCommentsFromCell];
 }
 
 #pragma mark - Accessors
@@ -97,10 +126,16 @@ static CGFloat const StaticCellHeight = 154;
     if (!sharedCell) {
         sharedCell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(WLIPostCell.class) owner:nil options:nil] lastObject];
     }
-    sharedCell.textView.text = post.postText.length ? post.postText : @"A";
+    sharedCell.textView.text = post.postText.length ? [post.user.userUsername stringByAppendingFormat:@" %@", post.postText] : @"A";
     CGSize textSize = [sharedCell.textView sizeThatFits:CGSizeMake(width - 32, MAXFLOAT)]; // 32 left & right spacing
     CGFloat imageViewHeight = post.postImagePath.length ? (width * 245) / 292 : 5;
-    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight);
+	CGFloat commentsHeigh = 8;
+	for (WLIComment *postComment in post.postComments) {
+		CGFloat currentCommentHeight = [WLIPostCommentCell sizeWithComment:postComment].height;
+		commentsHeigh += currentCommentHeight;
+	}
+    CGFloat seeMoreLabelHeight = post.postCommentsCount > 3 ? 23 : 0;
+    return CGSizeMake(width, textSize.height + StaticCellHeight + imageViewHeight + commentsHeigh + seeMoreLabelHeight);
 }
 
 #pragma mark - Update
@@ -108,33 +143,46 @@ static CGFloat const StaticCellHeight = 154;
 - (void)updateInfo
 {
     if (self.post) {
-        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.post.user.userAvatarPath] placeholderImage:DefaultAvatar];
+        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.post.user.userAvatarThumbPath] placeholderImage:DefaultAvatar];
         self.buttonVideo.hidden = !self.post.postVideoPath.length;
         self.labelUserName.text = self.post.user.userUsername;
         self.labelTimeAgo.text = self.post.postTimeAgo;
-        self.textView.attributedText = [self formattedStringWithHashtagsAndUsers:self.post.postText];
-
+        NSMutableAttributedString *attrString = [[WLIUtils formattedString:[self.post.user.userUsername stringByAppendingFormat:@" %@", self.post.postText] WithHashtagsAndUsers:self.post.taggedUsers] mutableCopy];
+        [attrString addAttributes:@{NSFontAttributeName : self.textView.font} range:NSMakeRange(0, attrString.string.length)];
+        NSRange usernameRange = NSMakeRange(0, self.post.user.userUsername.length);
+        [attrString addAttributes:@{NSForegroundColorAttributeName : [UIColor redColor], CustomLinkAttributeName : @1} range:usernameRange];
+        self.textView.attributedText = attrString;
+        
+        self.seeMoreButtonHeightConstraint.constant = self.post.postCommentsCount > 3 ? 23 : 0;
+        
         if (self.post.postImagePath.length) {
             self.imageViewHeightConstraint.constant = (([UIScreen mainScreen].bounds.size.width - 8) * 245) / 292;
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.post.postImagePath]];
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.post.postImageThumbPath]];			
             __weak typeof(self) weakSelf = self;
-            [self.imageViewPostImage setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
-                dispatch_async(dispatch_get_main_queue(), ^{
+			[self.imageActivityIndicator startAnimating];
+            [self.imageViewPostImage setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull thumb) {
+                [weakSelf.imageActivityIndicator stopAnimating];
+                weakSelf.imageViewPostImage.image = thumb;
+                request = [NSURLRequest requestWithURL:[NSURL URLWithString:weakSelf.post.postImagePath]];
+                [weakSelf.imageViewPostImage setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+                    weakSelf.imageViewPostImage.image = image;
                     weakSelf.originalImage = image;
-                    weakSelf.imageViewPostImage.image = [weakSelf croppedImageForPreview:image];
-                });
-            } failure:nil];
+                } failure:nil];
+            } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+                request = [NSURLRequest requestWithURL:[NSURL URLWithString:weakSelf.post.postImagePath]];
+                [weakSelf.imageViewPostImage setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+                    [weakSelf.imageActivityIndicator stopAnimating];
+                    weakSelf.imageViewPostImage.image = image;
+                    weakSelf.originalImage = image;
+                } failure:nil];
+            }];
         }
         
-        self.buttonLike.selected = self.post.likedThisPost;
         self.buttonFollow.selected = self.post.user.followingUser;
-        self.buttonComment.selected = self.post.commentedThisPost;
         
-        self.labelLikes.hidden = !self.post.postLikesCount;
-        self.labelLikes.text = [NSString stringWithFormat:@"%zd", self.post.postLikesCount];
-        self.labelComments.hidden = !self.post.postCommentsCount;
-        self.labelComments.text = [NSString stringWithFormat:@"%zd", self.post.postCommentsCount];
-
+        [self updateLikesInfo];
+        [self updateCommentsInfo];
+        
         if (self.post.user.userID == [WLIConnect sharedConnect].currentUser.userID) {
             self.buttonFollow.hidden = YES;
             if (self.showDeleteButton) {
@@ -145,7 +193,58 @@ static CGFloat const StaticCellHeight = 154;
             self.buttonDelete.hidden = YES;
         }
         [self insertCategoryButtons];
+		[self insertCommentsToCell];
+	}
+}
+
+- (void)insertCommentsToCell
+{
+	__block CGFloat commentOffset = 8;
+	self.commentViews = [[NSMutableArray alloc] init];
+    [self.post.postComments enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WLIComment   * _Nonnull postComment, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray *viewArray =  [[NSBundle mainBundle] loadNibNamed:@"WLIPostCommentCell" owner:self options:nil];
+        WLIPostCommentCell *cell = [viewArray firstObject];
+        cell.comment = postComment;
+        CGFloat commentHeight = [WLIPostCommentCell sizeWithComment:postComment].height;
+        cell.frame = CGRectMake(0, commentOffset, [UIScreen mainScreen].bounds.size.width - 16, commentHeight);
+        commentOffset += commentHeight;
+        [self.commentsContainer addSubview:cell];
+        [self.commentViews addObject:cell];
+        cell.delegate = self;
+    }];
+    self.commentsContainerHeightConstraint.constant = commentOffset;
+    [self layoutIfNeeded];
+}
+
+- (void)removeCommentsFromCell
+{
+	for (UIView *cellView in self.commentViews) {
+		[cellView removeFromSuperview];
+	}
+    [self.commentViews removeAllObjects];
+}
+
+- (void)updateLikesInfo
+{
+    self.buttonLike.selected = self.post.likedThisPost;
+    if (self.post.likedThisPost) {
+        self.labelLikes.textColor = [UIColor redColor];
+    } else {
+        self.labelLikes.textColor = [UIColor colorWithWhite:76 / 255.0 alpha:1];
     }
+    self.labelLikes.userInteractionEnabled = self.post.postLikesCount;
+    self.labelLikes.text = [NSString stringWithFormat:@"%zd %@", self.post.postLikesCount, (self.post.postLikesCount == 1) ? @"like" : @"likes"];
+}
+
+- (void)updateCommentsInfo
+{
+    self.buttonComment.selected = self.post.commentedThisPost;
+    if (self.post.commentedThisPost) {
+        self.labelComments.textColor = [UIColor redColor];
+    } else {
+        self.labelComments.textColor = [UIColor colorWithWhite:76 / 255.0 alpha:1];
+    }
+    self.labelComments.text = [NSString stringWithFormat:@"%zd %@", self.post.postCommentsCount, (self.post.postCommentsCount == 1) ? @"comment" : @"comments"];
 }
 
 #pragma mark - Category buttons
@@ -240,6 +339,7 @@ static CGFloat const StaticCellHeight = 154;
 - (IBAction)buttonLikeTouchUpInside:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(toggleLikeForPost:sender:)]) {
+		self.buttonLike.userInteractionEnabled = NO;
         [self.delegate toggleLikeForPost:self.post sender:self];
     }
 }
@@ -303,97 +403,104 @@ static CGFloat const StaticCellHeight = 154;
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
-    NSString *hashtag = [self.textView.attributedText.string substringWithRange:characterRange];
-    if ([hashtag hasPrefix:@"#"]) {
-        if ([self.delegate respondsToSelector:@selector(showTimelineForSearchString:)]) {
-            [self.delegate showTimelineForSearchString:hashtag];
-        }
-        return NO;
-    } else if ([hashtag hasPrefix:@"@"]) {
-        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", [hashtag substringFromIndex:1]];
-        NSDictionary *userInfo = [self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].firstObject;
-        if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
-            [self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];
-        }
-        return NO;
+    if ([URL.absoluteString hasPrefix:@"mailto:"]) {
+        [WLIUtils showCustomEmailControllerWithToRecepient:[URL.absoluteString substringFromIndex:7]];
+    } else {
+        [WLIUtils showWebViewControllerWithUrl:URL];
     }
-    return YES;
+    return NO;
+}
+
+#pragma mark - Gesture
+
+- (void)tappedOnTextView:(UITapGestureRecognizer *)gesture
+{
+    UITextView *textView = (UITextView *)gesture.view;
+    NSLayoutManager *layoutManager = textView.layoutManager;
+    CGPoint location = [gesture locationInView:textView];
+    location.x -= textView.textContainerInset.left;
+    location.y -= textView.textContainerInset.top;
+    
+    NSUInteger characterIndex = [layoutManager characterIndexForPoint:location inTextContainer:textView.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
+    
+    if (characterIndex < textView.textStorage.length) {
+        NSRange range;
+        NSDictionary *attributes = [textView.textStorage attributesAtIndex:characterIndex effectiveRange:&range];
+        if ([attributes valueForKey:CustomLinkAttributeName]) {
+            NSString *hashtag = [textView.attributedText.string substringWithRange:range];
+            if ([hashtag hasPrefix:@"#"]) {
+                if ([self.delegate respondsToSelector:@selector(showTimelineForSearchString:)]) {
+                    [self.delegate showTimelineForSearchString:hashtag];
+                }
+            } else if ([hashtag hasPrefix:@"@"]) {
+                NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", [hashtag substringFromIndex:1]];
+                NSDictionary *userInfo = [self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].firstObject;
+                if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+                    [self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];
+                }
+            } else {
+                if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+                    [self.delegate showUser:nil userID:self.post.user.userID sender:self];
+                }
+            }
+        } else {
+            if ([self.delegate respondsToSelector:@selector(showAllCommentsForPostSender:)]) {
+                [self buttonCommentTouchUpInside:self];
+            }
+        }
+    }
+}
+
+- (void)getLikersForPost:(UILabel *)sender
+{
+	if (self.delegate && [self.delegate respondsToSelector:@selector(showLikersListForPost:)]) {
+		[self.delegate showLikersListForPost:self.post];
+	}
 }
 
 #pragma mark - Utils
 
-- (NSAttributedString *)formattedStringWithHashtagsAndUsers:(NSString *)string
+- (void)blockUserInteraction
 {
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string ? string : @""
-                                                                                         attributes:@{NSFontAttributeName : self.textView.font,
-                                                                                                      NSForegroundColorAttributeName : [UIColor colorWithWhite:0.75 alpha:1]}];
-    NSSet *endHashtagCharachters = [NSSet setWithObjects:@" ", @".", @"-", @"!", @"?", @"[", @"]", @"@", @"#", @"$", @"%", @"^", @"&", @"*", @"(", @")", @"+", @"=", @"/", @"|", @"/", nil];
-    for (int i = 0; i < attributedString.length; i++) {
-        unichar charachter = [attributedString.string characterAtIndex:i];
-        if (charachter == '#' || charachter == '@') {
-            BOOL isUserTag = charachter == '@';
-            for (int j = i + 1; j < attributedString.length; j++) {
-                unichar nextCharachter = [attributedString.string characterAtIndex:j];
-                if (j == attributedString.length - 1 && ![endHashtagCharachters containsObject:[NSString stringWithFormat:@"%c", nextCharachter]]) {
-                    // end of text
-                    if (isUserTag) {
-                        NSString *user = [string substringWithRange:NSMakeRange(i + 1, j - i)];
-                        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", user];
-                        if (![self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].count) {
-                            break;
-                        }
-                    }
-                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i + 1)];
-                    [attributedString addAttribute:NSLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i + 1)];
-                    break;
-                }
-                if ([endHashtagCharachters containsObject:[NSString stringWithFormat:@"%c", nextCharachter]]) {
-                    if (j == i + 1) { // only #, @
-                        break;
-                    }
-                    if (isUserTag) {
-                        NSString *user = [string substringWithRange:NSMakeRange(i + 1, j - i - 1)];
-                        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", user];
-                        if (![self.post.taggedUsers filteredArrayUsingPredicate:namePredicate].count) {
-                            break;
-                        }
-                    }
-
-                    // end of hashtag
-                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(i, j - i)];
-                    [attributedString addAttribute:NSLinkAttributeName value:@"LINK" range:NSMakeRange(i, j - i)];
-                    i = j;
-                    break;
-                }
-            }
-        }
-    }
-    
-    return attributedString;
+	self.labelUserName.userInteractionEnabled = NO;
+	self.buttonUser.userInteractionEnabled=NO;
 }
 
-- (UIImage *)croppedImageForPreview:(UIImage *)srcImage
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error
 {
-    CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    CGFloat viewWidth = screenSize.width - 8;
-    CGFloat viewHeight = (viewWidth * 245) / 292;
-    CGFloat coef = 1;
-    CGRect drawRect = CGRectZero;
-    if (srcImage.size.height >= srcImage.size.width) {
-        coef = srcImage.size.width / viewWidth;
-        drawRect.origin.x = 0;
-        drawRect.origin.y = -(srcImage.size.height - ((srcImage.size.width * 245) / 292)) / 2;
-    } else {
-        coef = srcImage.size.height / viewHeight;
-        drawRect.origin.y = 0;
-        drawRect.origin.x = -(srcImage.size.width - ((srcImage.size.height * 292) / 245)) / 2;
+    [[WLIUtils rootController] dismissViewControllerAnimated:YES completion:^{
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }];
+    switch (result) {
+        case MFMailComposeResultFailed:
+            NSLog(@"%@", error);
+            break;
+        default:
+            break;
     }
-    drawRect.size = srcImage.size;
-    UIGraphicsBeginImageContext(CGSizeMake(viewWidth * coef, viewHeight * coef));
-    [srcImage drawInRect:drawRect];
-    UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return croppedImage;
+}
+
+#pragma mark - WLIPostCommentCellDelegate
+
+- (void)showUser:(WLIUser *)user userID:(NSInteger)userID sender:(id)senderCell
+{
+	if ([self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
+		[self.delegate showUser:user userID:userID sender:self];
+	}
+}
+
+- (void)showAllCommentsForPostSender:(id)sender
+{
+	[self buttonCommentTouchUpInside:sender];
+}
+
+- (void)showTimelineForMySearchString:(NSString *)searchString
+{
+	if ([self.delegate respondsToSelector:@selector(showTimelineForSearchString:)]) {
+		[self.delegate showTimelineForSearchString:searchString];
+	}
 }
 
 @end

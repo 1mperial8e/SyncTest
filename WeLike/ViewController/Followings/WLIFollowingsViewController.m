@@ -19,9 +19,8 @@
 - (void)reloadData:(BOOL)reloadAll
 {    
     loading = YES;
-    if (reloadAll && !loadMore) {
+    if (reloadAll) {
         loadMore = YES;
-        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;

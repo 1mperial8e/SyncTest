@@ -240,7 +240,7 @@ static NSString *const AuthTokenKey = @"token";
 
 - (void)updateUserWithUserID:(NSInteger)userID
                     userType:(WLIUserType)userType
-                   userEmail:(NSString *)userEmail
+                   userUsername:(NSString *)userUsername
                   userAvatar:(UIImage *)userAvatar
                 userFullName:(NSString *)userFullName
                     userInfo:(NSString *)userInfo
@@ -259,15 +259,13 @@ static NSString *const AuthTokenKey = @"token";
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"userID"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", userType] forKey:@"userTypeID"];
-        if (userEmail.length) {
-            [parameters setObject:userEmail forKey:@"email"];
+        if (userUsername.length) {
+            [parameters setObject:userUsername forKey:@"username"];
         }
         if (userFullName.length) {
             [parameters setObject:userFullName forKey:@"userFullname"];
         }
-        if (userInfo.length) {
-            [parameters setObject:userInfo forKey:@"userInfo"];
-        }
+		[parameters setObject:userInfo forKey:@"userInfo"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
         
         [self.httpClient POST:@"api/setProfile" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -409,31 +407,31 @@ static NSString *const AuthTokenKey = @"token";
 
 #pragma mark - Timeline
 
-- (void)timelineForUserID:(NSInteger)userID
+- (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
                      page:(NSInteger)page
                  pageSize:(NSInteger)pageSize
              onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 {
     
-    [self timelineForUserID:userID withCategory:0 page:page pageSize:pageSize onCompletion:completion];
+   return [self timelineForUserID:userID withCategory:0 page:page pageSize:pageSize onCompletion:completion];
 }
 
-- (void)timelineForUserID:(NSInteger)userID
+- (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
              withCategory:(NSInteger)categoryID
                      page:(NSInteger)page
                  pageSize:(NSInteger)pageSize
              onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
 {
-    [self timelineForUserID:userID withCategory:categoryID countryID:0 searchString:@"" page:page pageSize:pageSize onCompletion:completion];
+   return [self timelineForUserID:userID withCategory:categoryID countryID:0 searchString:@"" page:page pageSize:pageSize onCompletion:completion];
 }
 
-- (void)timelineForUserID:(NSInteger)userID
-             withCategory:(NSInteger)categoryID
-                countryID:(NSInteger)countryID
-             searchString:(NSString *)searchString
-                     page:(NSInteger)page
-                 pageSize:(NSInteger)pageSize
-             onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
+- (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
+                                 withCategory:(NSInteger)categoryID
+                                    countryID:(NSInteger)countryID
+                                 searchString:(NSString *)searchString
+                                         page:(NSInteger)page
+                                     pageSize:(NSInteger)pageSize
+                                 onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
 {
     if (userID < 1) {
         if (completion) {
@@ -441,8 +439,8 @@ static NSString *const AuthTokenKey = @"token";
         }
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"userID"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", categoryID] forKey:@"categoryID"];
@@ -450,7 +448,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%@", [searchString lowercaseString]] forKey:@"searchstring"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-        [self.httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        AFHTTPRequestOperation *operation = [self.httpClient POST:@"api/getTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *rawPosts = [responseObject objectForKey:@"items"];
             NSArray *posts = [WLIPost arrayWithDictionariesArray:rawPosts];
             if (completion) {
@@ -466,7 +464,9 @@ static NSString *const AuthTokenKey = @"token";
                 }
             }
         }];
+        return operation;
     }
+    return nil;
 }
 
 - (void)connectTimelineForUserID:(NSInteger)userID
@@ -484,7 +484,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"forUserID"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
-        [parameters setObject:@"0" forKey:@"categoryID"];
+        [parameters setObject:@"15" forKey:@"categoryID"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
         [self.httpClient POST:@"api/getConnectTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -599,6 +599,7 @@ static NSString *const AuthTokenKey = @"token";
         } success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *rawPost = [responseObject objectForKey:@"item"];
             WLIPost *post = [WLIPost initWithDictionary:rawPost];
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"NewPostAdded" object:self userInfo:@{@"newPost" : post}];
             if (completion) {
                 completion(post, OK);
             }
@@ -850,6 +851,33 @@ static NSString *const AuthTokenKey = @"token";
     }];
 }
 
+- (void)likersForPostID:(NSInteger)postID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *likers, ServerResponse serverResponseCode))completion
+{	
+		NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+		[parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
+		[parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+		[parameters setObject:[NSString stringWithFormat:@"%zd", postID] forKey:@"postID"];
+		[parameters setObject:self.authToken forKey:AuthTokenKey];
+		
+		[self.httpClient POST:@"api/getLikes" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+			NSArray *rawLikers = [responseObject objectForKey:@"items"];
+			NSArray *likers = [WLIUser arrayWithDictionariesArray:rawLikers];
+			if (completion) {
+				completion([likers mutableCopy], OK);
+			}
+		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			[self debugger:parameters.description methodLog:@"api/getLikes" dataLogFormatted:error.localizedDescription];
+			if (completion) {
+				if (operation.response) {
+					completion(nil, (ServerResponse)operation.response.statusCode);
+				} else {
+					completion(nil, NO_CONNECTION);
+				}
+			}
+		}];
+}
+
+
 #pragma mark - Follow
 
 - (void)setFollowOnUserID:(NSInteger)userID onCompletion:(void (^)(WLIFollow *follow, ServerResponse serverResponseCode))completion
@@ -968,20 +996,36 @@ static NSString *const AuthTokenKey = @"token";
     }
 }
 
-#pragma mark - Hashtags
+#pragma mark - Search
 
-- (void)hashtagsInSearch:(NSString *)searchString pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion
+- (AFHTTPRequestOperation *)search:(NSString *)searchString term:(NSString *)searchTerm pageNumber:(NSInteger)pageNumber onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:[NSString stringWithFormat:@"%@", searchString ? searchString : @""] forKey:@"searchstring"];
-    [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", pageNumber] forKey:@"page"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", kDefaultPageSize] forKey:@"take"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
-
-    [self.httpClient POST:@"api/getPoplularHashtags" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *rawHashtags = responseObject[@"items"];
-        NSArray *hashtags = [WLIHashtag arrayWithDictionariesArray:rawHashtags];
+    [parameters setObject:searchTerm forKey:@"result_type"];
+    AFHTTPRequestOperation *operation = [self.httpClient POST:@"api/search" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSMutableArray *items = [NSMutableArray array];
+        if ([searchTerm isEqualToString:@"mix"]) {
+            NSArray *result = responseObject[@"mix"];
+            for (NSDictionary *dict in result) {
+                if ([dict objectForKey:@"hashtagID"]) {
+                    [items addObject:[WLIHashtag initWithDictionary:dict]];
+                } else {
+                    [items addObject:[WLIUser initWithDictionary:dict]];
+                }
+            }
+        } else if ([searchTerm isEqualToString:@"user"]) {
+            NSArray *result = responseObject[@"users"];
+            [items addObjectsFromArray:[WLIUser arrayWithDictionariesArray:result]];
+        } else if ([searchTerm isEqualToString:@"hashtag"]) {
+            NSArray *result = responseObject[@"hashtags"];
+            [items addObjectsFromArray:[WLIHashtag arrayWithDictionariesArray:result]];
+        }
         if (completion) {
-            completion([hashtags mutableCopy], OK);
+            completion(items, OK);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLogFormatted:error.localizedDescription];
@@ -993,6 +1037,38 @@ static NSString *const AuthTokenKey = @"token";
             }
         }
     }];
+    return operation;
+}
+
+#pragma mark - Email
+
+- (void)sendEmailToRecipient:(NSString *)toRecipient withSubject:(NSString *)subject content:(NSString *)content onCompletion:(void (^)(ServerResponse serverResponseCode))completion
+{
+    if (!toRecipient.length || (!subject.length && !content.length)) {
+        if (completion) {
+            completion(BAD_REQUEST);
+        }
+    } else {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:toRecipient forKey:@"email"];
+        [parameters setObject:subject forKey:@"subject"];
+        [parameters setObject:content forKey:@"content"];
+        [parameters setObject:self.authToken forKey:AuthTokenKey];
+        [self.httpClient POST:@"api/send_email" parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            if (completion) {
+                completion(OK);
+            }
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLogFormatted:error.localizedDescription];
+            if (completion) {
+                if (operation.response) {
+                    completion((ServerResponse)operation.response.statusCode);
+                } else {
+                    completion(NO_CONNECTION);
+                }
+            }
+        }];
+    }
 }
 
 #pragma mark - debugger

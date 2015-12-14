@@ -10,8 +10,9 @@
 #import "WLIEditProfileViewController.h"
 #import "WLIConnect.h"
 #import "WLIAppDelegate.h"
+#import <MessageUI/MessageUI.h>
 
-@interface WLIMyDriveHeaderCell ()
+@interface WLIMyDriveHeaderCell () <MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewUser;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;
@@ -67,23 +68,10 @@
 {
     UITapGestureRecognizer *followingTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followingTap:)];
     UITapGestureRecognizer *followersTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followersTap:)];
+	UITapGestureRecognizer *emailTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(emailLabelTap:)];
     [self.followersLabel.superview addGestureRecognizer:followersTap];
     [self.followingLabel.superview addGestureRecognizer:followingTap];
- 
-#warning clean
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
-    longPress.minimumPressDuration = 4.0f;
-    [self.imageViewUser addGestureRecognizer:longPress];
-}
-
-- (void)logout:(id)sender
-{
-#if DEBUG
-    [[WLIConnect sharedConnect] logout];
-    WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
-    appDelegate.tabBarController.selectedIndex = 0;
-    [appDelegate.tabBarController showUI];
-#endif
+	[self.labelUserEmail addGestureRecognizer:emailTap];
 }
 
 #pragma mark - Public
@@ -112,6 +100,11 @@
     if ([self.delegate respondsToSelector:@selector(showFollowingsList)]) {
         [self.delegate showFollowingsList];
     }
+}
+
+- (void)emailLabelTap:(UITapGestureRecognizer *)gesture
+{
+    [WLIUtils showCustomEmailControllerWithToRecepient:self.user.userEmail];
 }
 
 #pragma mark - Accessors
@@ -145,7 +138,7 @@
             self.followButton.backgroundColor = [UIColor whiteColor];
             self.followButton.layer.borderColor = [UIColor redColor].CGColor;
         }
-        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarPath] placeholderImage:DefaultAvatar];
+        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarThumbPath] placeholderImage:DefaultAvatar];
         self.labelUserName.text = self.user.userFullName;
         self.labelUserEmail.text = self.user.userEmail;
         
@@ -153,6 +146,7 @@
         self.postsCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.myPostsCount];
         self.followersCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
         self.followingCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followingCount];
+		self.myGoalsTextView.text = [NSString stringWithFormat:@"%@", self.user.userInfo];
         [self updatePoints:self.user.points];
     }
 }
@@ -169,11 +163,34 @@
     [rootVC presentViewController:navController animated:YES completion:nil];
 }
 
-- (IBAction)followButtonAction:(id)sender
+- (IBAction)followButtonAction:(UIButton *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(follow:user:)]) {
-        [self.delegate follow:!self.user.followingUser user:self.user];
-    }
+	sender.userInteractionEnabled = NO;
+	if (self.user.followingUser) {
+		[[WLIConnect sharedConnect] removeFollowWithFollowID:self.user.userID onCompletion:^(ServerResponse serverResponseCode) {
+			sender.userInteractionEnabled = YES;
+		}];
+	} else {
+		[[WLIConnect sharedConnect] setFollowOnUserID:self.user.userID onCompletion:^(WLIFollow *follow, ServerResponse serverResponseCode) {
+			sender.userInteractionEnabled = YES;
+		}];
+	}
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error
+{
+	[controller dismissViewControllerAnimated:YES completion:^{
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+	}];
+	switch (result) {
+		case MFMailComposeResultFailed:
+			NSLog(@"%@", error);
+			break;
+		default:
+			break;
+	}
 }
 
 @end

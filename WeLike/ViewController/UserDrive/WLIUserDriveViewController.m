@@ -13,6 +13,9 @@ static CGFloat const HeaderCellHeight = 156;
 @interface WLIUserDriveViewController ()
 
 @property (weak, nonatomic) WLIMyDriveHeaderCell *headerCell;
+@property (assign, nonatomic) NSInteger rank;
+@property (assign, nonatomic) NSInteger users;
+@property (assign, nonatomic) NSInteger points;
 
 @end
 
@@ -35,9 +38,8 @@ static CGFloat const HeaderCellHeight = 156;
 - (void)reloadData:(BOOL)reloadAll
 {
     loading = YES;
-    if (reloadAll && !loadMore) {
+    if (reloadAll) {
         loadMore = YES;
-        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     if (reloadAll) {
         [self reloadUserInfo];
@@ -45,17 +47,17 @@ static CGFloat const HeaderCellHeight = 156;
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
     [sharedConnect mydriveTimelineForUserID:self.user.userID page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, NSDictionary *rankInfo, ServerResponse serverResponseCode) {
-        NSInteger rank = [rankInfo[@"stored"][@"rank"] integerValue];
-        NSInteger users = [rankInfo[@"stored"][@"number_of_users"] integerValue];
-        NSInteger points = [rankInfo[@"live"][@"points"] integerValue];
-        weakSelf.user.rank = rank;
-        weakSelf.user.points = points;
-        if (weakSelf.user.userID == sharedConnect.currentUser.userID) {
-            sharedConnect.currentUser = weakSelf.user;
-            [sharedConnect saveCurrentUser];
+        if (serverResponseCode == OK) {
+            weakSelf.rank = [rankInfo[@"stored"][@"rank"] integerValue];
+            weakSelf.users = [rankInfo[@"stored"][@"number_of_users"] integerValue];
+            weakSelf.points = [rankInfo[@"live"][@"points"] integerValue];
+            if (weakSelf.user.userID == sharedConnect.currentUser.userID) {
+                sharedConnect.currentUser = weakSelf.user;
+                [sharedConnect saveCurrentUser];
+            }
+            [weakSelf.headerCell updateRank:self.rank forUsers:self.users];
+            [weakSelf.headerCell updatePoints:self.points];
         }
-        [weakSelf.headerCell updateRank:rank forUsers:users];
-        [weakSelf.headerCell updatePoints:points];
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -65,12 +67,9 @@ static CGFloat const HeaderCellHeight = 156;
     __weak typeof(self) weakSelf = self;
     [sharedConnect userWithUserID:self.user.userID onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
         if (serverResponseCode == OK) {
-            user.followingUser = weakSelf.user.followingUser;
             weakSelf.user = user;
             weakSelf.navigationItem.title = user.userUsername;
-            [weakSelf.tableViewRefresh beginUpdates];
-            [weakSelf.tableViewRefresh reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [weakSelf.tableViewRefresh endUpdates];
+            [weakSelf.tableViewRefresh reloadData];
         }
     }];
 }
@@ -91,19 +90,6 @@ static CGFloat const HeaderCellHeight = 156;
     [self.navigationController pushViewController:followingsViewController animated:YES];
 }
 
-- (void)follow:(BOOL)follow user:(WLIUser *)user
-{
-    if (follow) {
-        [sharedConnect setFollowOnUserID:user.userID onCompletion:^(WLIFollow *follow, ServerResponse serverResponseCode) {
-            
-        }];
-    } else {
-        [sharedConnect removeFollowWithFollowID:user.userID onCompletion:^(ServerResponse serverResponseCode) {
-            
-        }];
-    }
-}
-
 #pragma mark - UITableViewDataSource methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -118,7 +104,7 @@ static CGFloat const HeaderCellHeight = 156;
     } else if (section == 1) {
         return self.posts.count;
     } else {
-        return loadMore;
+        return 1;
     }
 }
 
@@ -141,8 +127,10 @@ static CGFloat const HeaderCellHeight = 156;
 - (UITableViewCell *)headerCellForIndexPath:(NSIndexPath *)indexPath
 {
     WLIMyDriveHeaderCell *cell = [self.tableViewRefresh dequeueReusableCellWithIdentifier:WLIMyDriveHeaderCell.ID forIndexPath:indexPath];
-    cell.delegate = self;
+    cell.delegate = self;	
     cell.user = self.user;
+	[cell updateRank:self.rank forUsers:self.users];
+	[cell updatePoints:self.points];
     return cell;
 }
 
@@ -153,6 +141,7 @@ static CGFloat const HeaderCellHeight = 156;
     cell.showDeleteButton = YES;
     cell.showFollowButton = NO;
     cell.post = self.posts[indexPath.row];
+	[cell blockUserInteraction];
     return cell;
 }
 
@@ -161,11 +150,18 @@ static CGFloat const HeaderCellHeight = 156;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return HeaderCellHeight;
+		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"WLIMyDriveHeaderCell" owner:self options:nil];		
+		WLIMyDriveHeaderCell *cell = [topLevelObjects firstObject];
+        cell.user = self.user;
+        CGSize size = CGSizeZero;
+        if (cell.user.userInfo.length) {
+            size = [cell.myGoalsTextView sizeThatFits:CGSizeMake([UIScreen mainScreen].bounds.size.width - 32, MAXFLOAT)]; // 32 spacings
+        }
+		return size.height + HeaderCellHeight;
     } else if (indexPath.section == 1) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row] withWidth:self.view.frame.size.width].height;
     } else {
-        return 44;
+        return loadMore ? 44 : 0;
     }
 }
 

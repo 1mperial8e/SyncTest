@@ -107,15 +107,12 @@
 
 - (void)downloadedPeople:(NSArray *)people serverResponse:(ServerResponse)serverResponseCode reloadAll:(BOOL)reloadAll
 {
+    loadMore = people.count == kDefaultPageSize;
     if (serverResponseCode == OK) {
         if (reloadAll && self.people.count) {
             [self removePeople:self.people];
         }
         [self addPeople:people];
-    }
-    loadMore = people.count == kDefaultPageSize;
-    if (!loadMore) {
-        [self.tableViewRefresh deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     [refreshManager tableViewReloadFinishedAnimated:YES];
     loading = NO;
@@ -130,7 +127,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger rows = loadMore;
+    NSInteger rows = 1;
     if (section == 0) {
         rows = self.people.count;
     }
@@ -155,6 +152,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 1) {
+        return loadMore ? 44 : 0;
+    }
     return 44;
 }
 
@@ -171,22 +171,14 @@
 
 #pragma mark - WLIUserCellDelegate
 
-- (void)followUser:(WLIUser *)user sender:(id)senderCell
-{
-    [self follow:YES user:user cellToReload:senderCell];
-}
-
-- (void)unfollowUser:(WLIUser *)user sender:(id)senderCell
-{
-    [self follow:NO user:user cellToReload:senderCell];
-}
-
 - (void)follow:(BOOL)follow user:(WLIUser *)user cellToReload:(WLIUserCell *)cell
 {
     __block NSIndexPath *indexPath = [self.tableViewRefresh indexPathForCell:cell];
     __weak typeof(self) weakSelf = self;
+	cell.buttonFollow.userInteractionEnabled = NO;
     void (^followUserCompletion)(WLIFollow *, ServerResponse) = ^(WLIFollow *wliFollow, ServerResponse serverResponseCode) {
-        if (serverResponseCode == OK) {
+		cell.buttonFollow.userInteractionEnabled = YES;
+		if (serverResponseCode == OK) {
             user.followingUser = follow;
             cell.user = user;
             if (indexPath) {

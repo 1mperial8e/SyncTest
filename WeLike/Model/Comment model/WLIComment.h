@@ -14,8 +14,8 @@
 
 @property (assign, nonatomic) NSInteger commentID;
 @property (strong, nonatomic) NSString *commentText;
-@property (strong, nonatomic) NSDate *commentDate;
 @property (strong, nonatomic) NSString *commentTimeAgo;
 @property (strong, nonatomic) WLIUser *user;
+@property (strong, nonatomic) NSArray *taggedUsers;
 
 @end

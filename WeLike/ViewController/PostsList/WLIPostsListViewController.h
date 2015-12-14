@@ -8,12 +8,13 @@
 
 #import "WLIViewController.h"
 
-@interface WLIPostsListViewController : WLIViewController <WLIViewControllerRefreshProtocol, UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface WLIPostsListViewController : WLIViewController <WLIViewControllerRefreshProtocol, UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate, WLICellDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;
 @property (strong, nonatomic) NSMutableArray *posts;
 
 @property (assign, nonatomic) NSInteger postsSectionNumber;
+@property (strong, nonatomic) AFHTTPRequestOperation *loadTimelineOperation;
 
 - (void)removePosts:(NSArray *)posts;
 - (void)addPosts:(NSArray *)posts;

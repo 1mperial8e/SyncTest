@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLITimelineViewController">
@@ -18,9 +18,14 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops… It seems that there aren't any posts or Internet connection is not established. Pull down to refresh." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LFW-yG-Icc">
+                    <rect key="frame" x="30" y="273" width="540" height="54"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="iHR-z7-sfy">
                     <rect key="frame" x="0.0" y="44" width="600" height="556"/>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="sectionIndexBackgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
@@ -31,15 +36,14 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x6A-GH-ALi">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                     <subviews>
-                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fJP-K1-qng">
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="4" translatesAutoresizingMaskIntoConstraints="NO" id="fJP-K1-qng">
                             <rect key="frame" x="8" y="8" width="584" height="29"/>
-                            <animations/>
                             <segments>
-                                <segment title="Nordic"/>
                                 <segment title="Denmark"/>
                                 <segment title="Finland"/>
                                 <segment title="Norway"/>
                                 <segment title="Sweden"/>
+                                <segment title="Nordic"/>
                             </segments>
                             <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -47,7 +51,6 @@
                             </connections>
                         </segmentedControl>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="fJP-K1-qng" secondAttribute="trailing" constant="8" id="4IQ-8k-LEK"/>
@@ -57,16 +60,19 @@
                     </constraints>
                 </view>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="x6A-GH-ALi" firstAttribute="top" secondItem="1" secondAttribute="top" id="5KE-tY-06O"/>
+                <constraint firstItem="LFW-yG-Icc" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="30" id="HsQ-mM-XWo"/>
                 <constraint firstItem="x6A-GH-ALi" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="IEO-G8-PNf"/>
                 <constraint firstAttribute="bottom" secondItem="iHR-z7-sfy" secondAttribute="bottom" id="IPz-lH-jiG"/>
                 <constraint firstItem="iHR-z7-sfy" firstAttribute="top" secondItem="x6A-GH-ALi" secondAttribute="bottom" id="Vd5-ay-OK4"/>
+                <constraint firstAttribute="trailing" secondItem="LFW-yG-Icc" secondAttribute="trailing" constant="30" id="fpk-uU-GDm"/>
+                <constraint firstItem="LFW-yG-Icc" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="kU2-q2-Y6u"/>
                 <constraint firstAttribute="trailing" secondItem="x6A-GH-ALi" secondAttribute="trailing" id="kl1-VL-Ya6"/>
                 <constraint firstAttribute="trailing" secondItem="iHR-z7-sfy" secondAttribute="trailing" id="pcb-fk-v3D"/>
                 <constraint firstItem="iHR-z7-sfy" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="sVd-kO-kw0"/>
+                <constraint firstItem="LFW-yG-Icc" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="xcG-sV-8Bl"/>
             </constraints>
             <point key="canvasLocation" x="630" y="547"/>
         </view>

@@ -12,6 +12,7 @@
 #import "WLIRegisterAvatarTableViewCell.h"
 #import "WLIRegisterTableViewCell.h"
 
+
 @interface WLIRegisterViewController () <UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -154,12 +155,14 @@
 {
     if (!self.textFieldEmail.text.length) {
         [self showErrorWithMessage:@"Email is required."];
-    } else if (![self isValidEmail:self.textFieldEmail.text UseHardFilter:YES]) {
+    } else if (![WLIUtils isValidEmail:self.textFieldEmail.text UseHardFilter:YES]) {
         [self showErrorWithMessage:@"Email is not valid."];
     } else if (self.textFieldPassword.text.length < 4 || self.textFieldRepassword.text.length < 4) {
         [self showErrorWithMessage:@"Password is required. Your password should be at least 4 characters long."];
     } else if (!self.textFieldUsername.text.length) {
         [self showErrorWithMessage:@"Username is required."];
+    } else if (![WLIUtils isValidUserName:self.textFieldUsername.text]) {
+        [self showErrorWithMessage:@"Username is not valid."];
     } else if (![self.textFieldPassword.text isEqualToString:self.textFieldRepassword.text]) {
         [self showErrorWithMessage:@"Password and repassword doesn't match."];
     } else if (!self.textFieldFullName.text.length) {
@@ -174,6 +177,7 @@
         [sharedConnect registerUserWithUsername:self.textFieldUsername.text password:self.textFieldPassword.text email:self.textFieldEmail.text userAvatar:self.avatarImageView.image userType:WLIUserTypePerson userFullName:self.textFieldFullName.text userInfo:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode == OK) {
+				[WLIAnalytics setUserID:[NSString stringWithFormat:@"%li",(long)[WLIConnect sharedConnect].currentUser.userID]];
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             } else if (serverResponseCode == NO_CONNECTION) {
                 [weakSelf showErrorWithMessage:@"No connection. Please try again."];
@@ -186,16 +190,6 @@
             }
         }];
     }
-}
-
-- (BOOL)isValidEmail:(NSString *)email UseHardFilter:(BOOL)filter
-{
-    BOOL stricterFilter = filter;
-    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@{1}([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
-    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
-    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    return [emailTest evaluateWithObject:email];
 }
 
 #pragma mark - Alert

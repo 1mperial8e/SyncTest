@@ -48,14 +48,16 @@
 
 - (void)reloadData:(BOOL)reloadAll
 {
+    if (reloadAll) {
+        [self.loadTimelineOperation cancel];
+    }
     loading = YES;
-    if (reloadAll && !loadMore) {
+    if (reloadAll) {
         loadMore = YES;
-        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
-    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:15 countryID:self.countryId searchString:self.searchString page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:15 countryID:self.countryId searchString:self.searchString page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -64,6 +66,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    [super scrollViewDidScroll:scrollView];
     if (scrollView.contentOffset.y >= 0) {
         if (self.prevOffset.y + 10 < scrollView.contentOffset.y) {
             [self showSegmentView:NO];
@@ -93,7 +96,7 @@
 
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender
 {
-    self.countryId = sender.selectedSegmentIndex;
+    self.countryId = sender.selectedSegmentIndex + 1;
     [self reloadData:YES];
 }
 

@@ -97,34 +97,48 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 
 - (IBAction)buttonAddImageTouchUpInside:(id)sender
 {
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        // Cancel button tappped do nothing.
-    }]];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    __weak typeof(self) weakSelf = self;
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Shoot photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self takePhoto];
+		if([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized) {
+			[weakSelf takePhoto];
+		} else {
+			[weakSelf showMediaAccessAlert:@"Please provide access to your camera in settings" ];
+		}
     }]];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self selectPhoto];
-    }]];
+        if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
+            [weakSelf selectPhoto];
+		} else {
+			[weakSelf showMediaAccessAlert:@"Please provide access to your photos in settings"];
+		}
+	}]];
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 - (IBAction)buttonAddVideoTouchUpInside:(id)sender
 {
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        // Cancel button tappped do nothing.
-    }]];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    __weak typeof(self) weakSelf = self;
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Shoot video" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self takeVideo];
+		if([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized) {
+			[weakSelf takeVideo];
+		} else {
+			[weakSelf showMediaAccessAlert:@"Please provide access to your camera in settings" ];
+		}
     }]];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select video" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self selectVideo];
+		if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
+			[weakSelf selectVideo];
+		} else {
+			[weakSelf showMediaAccessAlert:@"Please provide access to your videos in settings"];
+		}
     }]];
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
@@ -145,7 +159,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
         categoryCode = categoryCode + 8;
     NSString *countries = @"";
     if ([[self.countryStates objectForKey:@"all"] boolValue]) {
-        countries = [countries stringByAppendingString:@"0"];
+        countries = [countries stringByAppendingString:@"5"];
     } else {
         BOOL addComa = NO;
         if ([[self.countryStates objectForKey:@"denmark"] boolValue]) {
@@ -174,9 +188,14 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
             countries = [countries stringByAppendingString:@"4"];
         }
     }
-    
-    [self.sharedConnect sendPostWithCountries:countries postText:self.textContent postKeywords:nil postCategory:@(categoryCode) postImage:self.image postVideo:self.video onCompletion:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
+	
+	if (self.textContent.length != 0 || self.image || self.video) {
+		[self.sharedConnect sendPostWithCountries:countries postText:self.textContent postKeywords:nil postCategory:@(categoryCode) postImage:self.image postVideo:self.video onCompletion:nil];
+		[self dismissViewControllerAnimated:YES completion:nil];
+	} else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please add some content"	 delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+	}
 }
 
 - (void)cancelButtonAction:(id)sender
@@ -333,8 +352,6 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
         self.image = [self scaledImage:image];
         self.video = nil;
     } else {
-//        self.video = [NSData dataWithContentsOfURL:info[UIImagePickerControllerMediaURL]];
-
         NSURL *assetUrl = [info objectForKey:UIImagePickerControllerReferenceURL];
         if (assetUrl) {
             [self convertAssetAtUrl:assetUrl];
@@ -342,22 +359,6 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
             NSString *tmpFilePath = [[NSTemporaryDirectory() stringByAppendingPathComponent:[NSUUID UUID].UUIDString] stringByAppendingPathExtension:@"mp4"];
             [self copyFileAtUrl:info[UIImagePickerControllerMediaURL] toPath:tmpFilePath];
         }
-//        self.video = [NSData dataWithContentsOfURL:[info objectForKey:UIImagePickerControllerMediaURL]];
-//        AVURLAsset *videoAsset = [[AVURLAsset alloc] initWithURL:[info objectForKey:UIImagePickerControllerMediaURL] options:nil];
-//        AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:videoAsset];
-//        generator.appliesPreferredTrackTransform = YES;
-//        NSError *error = NULL;
-//        CMTime time = [videoAsset duration];
-//        time.value = 1000;
-//        generator.maximumSize = ScaledImageSize;
-//        
-//        CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:NULL error:&error];
-//        if (error) {
-//            NSLog(@"%@", error);
-//        } else {
-//            self.image = [UIImage imageWithCGImage:imgRef];
-//            CGImageRelease(imgRef);
-//        }
     }
     __weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{
@@ -490,6 +491,22 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     if (error) {
         NSLog(@"%@", error);
     }
+}
+
+- (void)showMediaAccessAlert:(NSString *)alertMessage
+{
+	UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:nil message:alertMessage delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
+	[accessAlert show];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex != alertView.cancelButtonIndex) {
+		NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+		[[UIApplication sharedApplication] openURL:url];
+	}
 }
 
 @end

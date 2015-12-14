@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad
 {
-    self.selectedCountry = 0;
+    self.selectedCountry = 5;
     self.postsSectionNumber = 1;
     
     [super viewDidLoad];
@@ -45,14 +45,16 @@
 
 - (void)reloadData:(BOOL)reloadAll
 {
+    if (reloadAll) {
+        [self.loadTimelineOperation cancel];
+    }
     loading = YES;
-    if (reloadAll && !loadMore) {
+    if (reloadAll) {
         loadMore = YES;
-        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
-    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:self.categoryID countryID:self.selectedCountry searchString:@"" page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:self.categoryID countryID:self.selectedCountry searchString:@"" page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -71,7 +73,7 @@
     } else if (section == 1) {
         return self.posts.count;
     } else {
-        return loadMore;
+        return 1;
     }
 }
 
@@ -103,7 +105,7 @@
         weakSelf.selectedCountry = country;
         [weakSelf reloadData:YES];
     };
-    countryCell.segmentControl.selectedSegmentIndex = self.selectedCountry;
+    countryCell.segmentControl.selectedSegmentIndex = self.selectedCountry - 1;
     return countryCell;
 }
 
@@ -125,7 +127,7 @@
     } else if (indexPath.section == 1) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row]  withWidth:self.view.frame.size.width].height;
     } else {
-        return 44;
+        return loadMore ? 44 : 0;
     }
 }
 

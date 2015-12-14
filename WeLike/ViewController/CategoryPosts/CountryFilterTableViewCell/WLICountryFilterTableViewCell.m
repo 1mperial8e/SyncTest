@@ -10,12 +10,18 @@
 
 @implementation WLICountryFilterTableViewCell
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.segmentControl.selectedSegmentIndex = 4;
+}
+
 #pragma mark - Actions
 
 - (IBAction)selectedCategoryChanged:(UISegmentedControl *)sender
 {
     if (self.countrySelectedHandler) {
-        self.countrySelectedHandler(sender.selectedSegmentIndex);
+        self.countrySelectedHandler(sender.selectedSegmentIndex + 1);
     }
 }
 

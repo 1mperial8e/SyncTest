@@ -23,6 +23,7 @@
         self.userUsername = [self stringFromDictionary:userWithInfo forKey:@"username"];
         self.userInfo = [self stringFromDictionary:userWithInfo forKey:@"userInfo"];
         self.userAvatarPath = [self stringFromDictionary:userWithInfo forKey:@"userAvatar"];
+        self.userAvatarThumbPath = [self stringFromDictionary:userWithInfo forKey:@"userAvatarThumb"];
         self.followingUser = [self boolFromDictionary:userWithInfo forKey:@"followingUser"];
         self.followersCount = [self integerFromDictionary:userWithInfo forKey:@"followersCount"];
         self.followingCount = [self integerFromDictionary:userWithInfo forKey:@"followingCount"];

@@ -17,28 +17,28 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="neH-Vg-9q8">
                         <rect key="frame" x="0.0" y="0.0" width="588" height="43"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="X1n-te-Xts">
-                                <rect key="frame" x="8" y="8" width="572" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-rQ-VVQ">
+                                <rect key="frame" x="5" y="7" width="578" height="29"/>
                                 <animations/>
                                 <segments>
-                                    <segment title="Nordic"/>
                                     <segment title="Denmark"/>
                                     <segment title="Finland"/>
                                     <segment title="Norway"/>
                                     <segment title="Sweden"/>
+                                    <segment title="Nordic"/>
                                 </segments>
                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <action selector="selectedCategoryChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="HXs-vg-aOK"/>
+                                    <action selector="selectedCategoryChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="wXh-7j-IK6"/>
                                 </connections>
                             </segmentedControl>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="X1n-te-Xts" secondAttribute="trailing" constant="8" id="NnH-N9-BrX"/>
-                            <constraint firstItem="X1n-te-Xts" firstAttribute="centerY" secondItem="neH-Vg-9q8" secondAttribute="centerY" id="law-9h-BI9"/>
-                            <constraint firstItem="X1n-te-Xts" firstAttribute="leading" secondItem="neH-Vg-9q8" secondAttribute="leading" constant="8" id="rTt-5S-6Hf"/>
+                            <constraint firstItem="ViX-rQ-VVQ" firstAttribute="leading" secondItem="neH-Vg-9q8" secondAttribute="leading" constant="5" id="64n-ke-tid"/>
+                            <constraint firstItem="ViX-rQ-VVQ" firstAttribute="centerY" secondItem="neH-Vg-9q8" secondAttribute="centerY" id="UTJ-Kq-tYb"/>
+                            <constraint firstAttribute="trailing" secondItem="ViX-rQ-VVQ" secondAttribute="trailing" constant="5" id="bhx-UG-Loh"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -52,7 +52,7 @@
             </tableViewCellContentView>
             <animations/>
             <connections>
-                <outlet property="segmentControl" destination="X1n-te-Xts" id="QZU-BG-4Pm"/>
+                <outlet property="segmentControl" destination="ViX-rQ-VVQ" id="8Vr-Yi-DFk"/>
             </connections>
             <point key="canvasLocation" x="482" y="185"/>
         </tableViewCell>

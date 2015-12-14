@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLIFollowingsViewController">
@@ -16,6 +16,12 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops… It seems that there aren't any posts or Internet connection is not established. Pull down to refresh." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHl-IA-jOe">
+                    <rect key="frame" x="30" y="273" width="540" height="54"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mrO-Ch-fKt">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -28,7 +34,11 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="mrO-Ch-fKt" secondAttribute="trailing" id="Hha-XR-K1c"/>
+                <constraint firstAttribute="trailing" secondItem="dHl-IA-jOe" secondAttribute="trailing" constant="30" id="Sbc-Nc-5oS"/>
+                <constraint firstItem="dHl-IA-jOe" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="W53-9i-86R"/>
+                <constraint firstItem="dHl-IA-jOe" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="clK-Sz-Qjq"/>
                 <constraint firstAttribute="bottom" secondItem="mrO-Ch-fKt" secondAttribute="bottom" id="dQH-gg-SbS"/>
+                <constraint firstItem="dHl-IA-jOe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="iZu-X0-jgr"/>
                 <constraint firstItem="mrO-Ch-fKt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xb5-eL-3Er"/>
                 <constraint firstItem="mrO-Ch-fKt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ySe-vy-9Xj"/>
             </constraints>

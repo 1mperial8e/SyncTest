@@ -12,18 +12,20 @@
 // Cells
 #import "WLIRegisterAvatarTableViewCell.h"
 #import "WLIRegisterTableViewCell.h"
+#import "WLIMyGoalsTableViewCell.h"
 #import "WLIChangePasswordTableViewCell.h"
 
 // Models
 #import "WLIAppDelegate.h"
 
-@interface WLIEditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate>
+@interface WLIEditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) UITextField *textFieldEmail;
 @property (weak, nonatomic) UITextField *textFieldUsername;
 @property (weak, nonatomic) UITextField *textFieldFullName;
+@property (weak, nonatomic) UITextView *textViewMyGoals;
 
 @property (weak, nonatomic) UIImageView *avatarImageView;
 
@@ -40,23 +42,20 @@
     [super viewDidLoad];
 
     self.navigationItem.title = @"Edit Profile";
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveChangesAction:)];
-    if (self.navigationController.presentingViewController) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cacelAction:)];
-    }
-    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-    
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;    
     [self.tableView registerNib:WLIRegisterAvatarTableViewCell.nib forCellReuseIdentifier:WLIRegisterAvatarTableViewCell.ID];
     [self.tableView registerNib:WLIRegisterTableViewCell.nib forCellReuseIdentifier:WLIRegisterTableViewCell.ID];
+	[self.tableView registerNib:WLIMyGoalsTableViewCell.nib forCellReuseIdentifier:WLIMyGoalsTableViewCell.ID];
     [self.tableView registerNib:WLIChangePasswordTableViewCell.nib forCellReuseIdentifier:WLIChangePasswordTableViewCell.ID];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveChangesAction:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cacelAction:)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -68,7 +67,7 @@
     
     if (self.textFieldEmail && self.textFieldUsername && self.textFieldFullName) {
         toolbar.mainScrollView = self.tableView;
-        toolbar.textFields = @[self.textFieldEmail, /*self.textFieldUsername,*/ self.textFieldFullName];
+        toolbar.textFields = @[/*self.textFieldEmail,*/ self.textFieldUsername,  self.textFieldFullName, self.textViewMyGoals];
     }
 }
 
@@ -84,7 +83,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -92,12 +91,34 @@
     UITableViewCell *cell;
     if (indexPath.row == 0) {
         cell = [self avatarCellForIndexPath:indexPath];
-    } else if (indexPath.row == 4) {
+	} else if (indexPath.row == 4) {
+		WLIMyGoalsTableViewCell *myGoalsCell = [tableView dequeueReusableCellWithIdentifier:WLIMyGoalsTableViewCell.ID forIndexPath:indexPath];
+		if (sharedConnect.currentUser.userInfo.length) {
+			myGoalsCell.textView.text = sharedConnect.currentUser.userInfo;
+		} else {
+			myGoalsCell.textView.text = MyDriveGoalsPlaceholder;
+		}
+		self.textViewMyGoals = myGoalsCell.textView;
+		self.textViewMyGoals.delegate = self;
+		cell = myGoalsCell;
+	} else if (indexPath.row == 5) {
         WLIChangePasswordTableViewCell *passCell = [tableView dequeueReusableCellWithIdentifier:WLIChangePasswordTableViewCell.ID forIndexPath:indexPath];
         __weak typeof(self) weakSelf = self;
         passCell.changePasswordHandler = ^{
             WLIChangePasswordViewController *changePassController = [WLIChangePasswordViewController new];
             [weakSelf.navigationController pushViewController:changePassController animated:YES];
+        };
+        cell = passCell;
+    } else if (indexPath.row == 6) {
+        WLIChangePasswordTableViewCell *passCell = [tableView dequeueReusableCellWithIdentifier:WLIChangePasswordTableViewCell.ID forIndexPath:indexPath];
+        __weak typeof(self) weakSelf = self;
+        [passCell.changePasswordButton setTitle:@"Logout" forState:UIControlStateNormal];
+        passCell.changePasswordHandler = ^{
+            [[WLIConnect sharedConnect] logout];
+            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+            WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
+            appDelegate.tabBarController.selectedIndex = 0;
+            [appDelegate.tabBarController showUI];
         };
         cell = passCell;
     } else {
@@ -113,7 +134,13 @@
     CGFloat heigh = 50.f;
     if (indexPath.row == 0) {
         heigh = 130.f;
-    }
+    } else if (indexPath.row == 4) 	{
+		NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"WLIMyGoalsTableViewCell" owner:self options:nil];
+		WLIMyGoalsTableViewCell *cell = [topLevelObjects objectAtIndex:0];
+		cell.textView.text = self.textViewMyGoals.text;
+		CGFloat height = ceilf([cell.textView sizeThatFits:CGSizeMake([UIScreen mainScreen].bounds.size.width - 30, MAXFLOAT)].height);
+		return height + 20;
+	}
     return heigh;
 }
 
@@ -123,9 +150,15 @@
 {
     WLIRegisterAvatarTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WLIRegisterAvatarTableViewCell.ID forIndexPath:indexPath];
     self.avatarImageView = cell.avatarImageView;
-    [self.avatarImageView setImageWithURL:[NSURL URLWithString:sharedConnect.currentUser.userAvatarPath]];
+    
+    __block NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:sharedConnect.currentUser.userAvatarThumbPath]];
+    __weak typeof(self) weakSelf = self;
+    [self.avatarImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+        [weakSelf.avatarImageView setImageWithURL:[NSURL URLWithString:sharedConnect.currentUser.userAvatarPath]];
+    } failure:nil];
     self.avatarImageView.layer.cornerRadius = CGRectGetHeight(cell.avatarImageView.bounds) / 2;
     self.avatarImageView.layer.masksToBounds = YES;
+    
     [cell.chooseAvatarButton addTarget:self action:@selector(selectAvatarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
@@ -137,17 +170,18 @@
         cell.textField.placeholder = @"email address";
         cell.textField.keyboardType = UIKeyboardTypeEmailAddress;
         self.textFieldEmail = cell.textField;
+        self.textFieldEmail.userInteractionEnabled =NO;
         self.textFieldEmail.text = sharedConnect.currentUser.userEmail;
     } else if (indexPath.row == 2) {
         cell.textField.placeholder = @"username";
         self.textFieldUsername = cell.textField;
-        self.textFieldUsername.userInteractionEnabled = NO;
+        self.textFieldUsername.userInteractionEnabled =YES;
         self.textFieldUsername.text = sharedConnect.currentUser.userUsername;
     } else if (indexPath.row == 3) {
         cell.textField.placeholder = @"full name";
         self.textFieldFullName = cell.textField;
         self.textFieldFullName.text = sharedConnect.currentUser.userFullName;
-    }
+	}
     return cell;
 }
 
@@ -155,12 +189,9 @@
 
 - (void)cacelAction:(id)sender
 {
+    [self.avatarImageView cancelImageRequestOperation];
     [self.tableView endEditing:NO];
-    if (self.navigationController.presentingViewController) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)selectAvatarButtonAction:(id)sender
@@ -178,17 +209,21 @@
 {
     if (!self.textFieldEmail.text.length) {
         [self showErrorWithMessage:@"Email is required."];
-    } /*else if (!self.textFieldUsername.text.length) {
+    } else if (!self.textFieldUsername.text.length) {
         [self showErrorWithMessage:@"Username is required."];
-    }*/ else if (![self isValidEmail:self.textFieldEmail.text UseHardFilter:YES]) {
-        [self showErrorWithMessage:@"Email is not valid."];
+    } else if (![WLIUtils isValidUserName:self.textFieldUsername.text]) {
+       [self showErrorWithMessage:@"Username isn't valid."];
     } else if (!self.textFieldFullName.text.length) {
         [self showErrorWithMessage:@"Full Name is required."];
     } else {
         [hud show:YES];
         __weak typeof(self) weakSelf = self;
         UIImage *image = self.imageReplaced ? self.avatarImageView.image : nil;
-        [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userEmail:self.textFieldEmail.text userAvatar:image userFullName:self.textFieldFullName.text userInfo:@"" latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
+        NSString *aboutText = self.textViewMyGoals.text;
+        if ([aboutText isEqualToString:MyDriveGoalsPlaceholder]) {
+            aboutText = @"";
+        }
+        [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userUsername:self.textFieldUsername.text userAvatar:image userFullName:self.textFieldFullName.text userInfo:aboutText latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode != OK) {
                 [weakSelf showErrorWithMessage:@"Something went wrong. Please try again."];
@@ -197,16 +232,6 @@
             }
         }];
     }
-}
-
-- (BOOL)isValidEmail:(NSString *)email UseHardFilter:(BOOL)filter
-{
-    BOOL stricterFilter = filter;
-    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@{1}([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
-    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
-    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    return [emailTest evaluateWithObject:email];
 }
 
 #pragma mark - Alert
@@ -261,6 +286,34 @@
 - (void)keyboardWillHide:(NSNotification *)notification
 {
     self.tableView.contentInset = UIEdgeInsetsZero;
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string
+{
+    if (range.location <= MyDriveGoalsPlaceholder.length - 1) {
+        return NO;
+    }
+	if ([string isEqualToString:@"\n"]) {
+		[[self view] endEditing:YES];
+		return  NO;
+	}
+    NSString *newText = [self.textViewMyGoals.text stringByReplacingCharactersInRange:range withString:string];
+	return newText.length < 255;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+	CGFloat height = ceil([textView sizeThatFits:CGSizeMake(CGRectGetWidth(textView.frame), MAXFLOAT)].height + 0.5);
+	if (textView.contentSize.height > height + 1 || textView.contentSize.height < height - 1) {
+		[self.tableView beginUpdates];
+		[self.tableView endUpdates];
+        
+        CGRect textViewRect = [self.tableView convertRect:textView.frame fromView:textView.superview];
+        textViewRect.origin.y += 5;
+        [self.tableView scrollRectToVisible:textViewRect animated:YES];
+	}
 }
 
 @end

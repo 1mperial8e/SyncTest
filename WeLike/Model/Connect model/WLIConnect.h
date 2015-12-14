@@ -65,7 +65,7 @@ typedef enum ServerResponse ServerResponse;
 
 - (void)updateUserWithUserID:(NSInteger)userID
                     userType:(WLIUserType)userType
-                   userEmail:(NSString *)userEmail
+                   userUsername:(NSString *)userUsername
                   userAvatar:(UIImage *)userAvatar
                 userFullName:(NSString *)userFullName
                     userInfo:(NSString *)userInfo
@@ -89,18 +89,18 @@ typedef enum ServerResponse ServerResponse;
 
 #pragma mark - Timeline
 
-- (void)timelineForUserID:(NSInteger)userID
+- (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
                      page:(NSInteger)page
                  pageSize:(NSInteger)pageSize
              onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 
-- (void)timelineForUserID:(NSInteger)userID
+- (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
              withCategory:(NSInteger)categoryID
                      page:(NSInteger)page
                  pageSize:(NSInteger)pageSize
              onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 
-- (void)timelineForUserID:(NSInteger)userID
+- (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
              withCategory:(NSInteger)categoryID
                 countryID:(NSInteger)countryID
              searchString:(NSString *)searchString
@@ -150,6 +150,7 @@ typedef enum ServerResponse ServerResponse;
 - (void)setLikeOnPostID:(NSInteger)postID onCompletion:(void (^)(WLILike *like, ServerResponse serverResponseCode))completion;
 - (void)removeLikeWithLikeID:(NSInteger)likeID onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
 - (void)likesForPostID:(NSInteger)postID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *likes, ServerResponse serverResponseCode))completion;
+- (void)likersForPostID:(NSInteger)postID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *likers, ServerResponse serverResponseCode))completion;
 
 #pragma mark - Follow
 
@@ -158,8 +159,12 @@ typedef enum ServerResponse ServerResponse;
 - (void)followersForUserID:(NSInteger)userID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *followers, ServerResponse serverResponseCode))completion;
 - (void)followingForUserID:(NSInteger)userID page:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *following, ServerResponse serverResponseCode))completion;
 
-#pragma mark - Hashtags
+#pragma mark - Search
 
-- (void)hashtagsInSearch:(NSString *)searchString pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion;
+- (AFHTTPRequestOperation *)search:(NSString *)searchString term:(NSString *)searchTerm pageNumber:(NSInteger)pageNumber onCompletion:(void (^)(NSMutableArray *hashtags, ServerResponse serverResponseCode))completion;
+
+#pragma mark - Email
+
+- (void)sendEmailToRecipient:(NSString *)toRecipient withSubject:(NSString *)subject content:(NSString *)content onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
 
 @end

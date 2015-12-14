@@ -44,7 +44,7 @@
                         </state>
                         <state key="selected" image="postFollowingBtn"/>
                         <connections>
-                            <action selector="buttonFollowUnfollowTouchUpInside:" destination="tlw-fh-Okf" eventType="touchUpInside" id="nzl-m2-YTK"/>
+                            <action selector="buttonFollowTouchUpInside:" destination="tlw-fh-Okf" eventType="touchUpInside" id="xNZ-jY-b7x"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k7B-fE-9MD">
@@ -77,7 +77,7 @@
             </tableViewCellContentView>
             <animations/>
             <connections>
-                <outlet property="buttonFollowUnfollow" destination="7qc-7p-g1n" id="3Hm-ly-y0H"/>
+                <outlet property="buttonFollow" destination="7qc-7p-g1n" id="BM0-8m-XXn"/>
                 <outlet property="imageViewUserImage" destination="Zbb-U7-ZZH" id="tL0-B2-590"/>
                 <outlet property="labelUserName" destination="IYc-fh-SEN" id="cwF-dd-9Lc"/>
             </connections>

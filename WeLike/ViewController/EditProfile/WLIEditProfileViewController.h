@@ -8,6 +8,8 @@
 
 #import "WLIViewController.h"
 
+static NSString *const MyDriveGoalsPlaceholder = @"My drive for 2020 is:";
+
 @interface WLIEditProfileViewController : WLIViewController
 
 @end

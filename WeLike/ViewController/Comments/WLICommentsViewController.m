@@ -7,6 +7,7 @@
 //
 
 #import "WLICommentsViewController.h"
+#import "WLITimelineViewController.h"
 
 // Cells
 #import "WLICommentCell.h"
@@ -60,7 +61,25 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
     [super viewWillDisappear:animated];
     self.textFieldEnterComment.text = @"";
     
+    if (!loading) {
+        NSMutableArray *comments = [NSMutableArray array];
+        for (NSInteger i = self.comments.count - 1; i >= 0; i--) {
+            id comment = self.comments[i];
+            if (comment && comments.count < 3) {
+                [comments addObject:comment];
+            } else {
+                break;
+            }
+        }
+        self.post.postComments = comments;
+    }
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)dealloc
+{
+    
 }
 
 #pragma mark - UIResponder
@@ -142,9 +161,6 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
         if (comment.user.userID == sharedConnect.currentUser.userID) {
             canDelete = YES;
         }
-        if (self.post.user.userID == sharedConnect.currentUser.userID) {
-            canDelete = YES;
-        }
     } else {
         canDelete = NO;
     }
@@ -196,7 +212,7 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
             if (serverResponseCode == OK) {
                 [hud hide:YES];
                 weakSelf.post.commentedThisPost = YES;
-                [weakSelf.comments insertObject:comment atIndex:0];
+                [weakSelf.comments addObject:comment];
                 weakSelf.post.postCommentsCount++;
                 [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationAutomatic];
                 weakSelf.textFieldEnterComment.text = @"";
@@ -205,6 +221,16 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
     }
     [textField resignFirstResponder];
     return YES;
+}
+
+#pragma mark - WLICellDelegate
+
+- (void)showTimelineForSearchString:(NSString *)searchString
+{
+    WLITimelineViewController *timeline = [WLITimelineViewController new];
+    timeline.searchString = searchString;
+    timeline.navigationItem.title = searchString;
+    [self.navigationController pushViewController:timeline animated:YES];
 }
 
 #pragma mark - NSNotification

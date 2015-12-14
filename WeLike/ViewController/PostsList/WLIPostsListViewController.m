@@ -69,6 +69,7 @@
             post.user.followingUser = followed;
         }
     }
+    
     if (idPaths.count) {
         [self.tableViewRefresh beginUpdates];
         [self.tableViewRefresh reloadRowsAtIndexPaths:idPaths withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -89,14 +90,14 @@
 
 - (void)reloadData:(BOOL)reloadAll
 {
-    loading = YES;
-    if (reloadAll && !loadMore) {
+    if (reloadAll) {
         loadMore = YES;
-        [self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.loadTimelineOperation cancel];
     }
+    loading = YES;
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
-    [sharedConnect timelineForUserID:sharedConnect.currentUser.userID page:page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID page:page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -105,15 +106,17 @@
 
 - (void)downloadedPosts:(NSArray *)posts serverResponse:(ServerResponse)serverResponseCode reloadAll:(BOOL)reloadAll
 {
+    loadMore = posts.count == kDefaultPageSize;
     if (serverResponseCode == OK) {
         if (reloadAll && self.posts.count) {
             [self removePosts:self.posts];
         }
         [self addPosts:posts];
     }
-    loadMore = posts.count == kDefaultPageSize;
-    if (!loadMore) {
-        [self.tableViewRefresh deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:self.postsSectionNumber + 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (self.posts.count) {
+        self.tableViewRefresh.backgroundColor = [UIColor whiteColor];
+    } else {
+        self.tableViewRefresh.backgroundColor = [UIColor clearColor];
     }
     [refreshManager tableViewReloadFinishedAnimated:YES];
     loading = NO;
@@ -128,9 +131,7 @@
         index++;
     }
     [self.posts removeObjectsInArray:posts];
-    [self.tableViewRefresh beginUpdates];
-    [self.tableViewRefresh deleteRowsAtIndexPaths:oldIdPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableViewRefresh endUpdates];
+    [self.tableViewRefresh reloadData];
 }
 
 - (void)addPosts:(NSArray *)posts
@@ -159,7 +160,7 @@
     if (section == self.postsSectionNumber) {
         return self.posts.count;
     } else {
-        return loadMore;
+        return 1;
     }
 }
 
@@ -192,7 +193,7 @@
     if (indexPath.section == self.postsSectionNumber) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row] withWidth:self.view.frame.size.width].height;
     } else {
-        return 44;
+        return loadMore ? 44 : 0;
     }
 }
 
@@ -212,35 +213,6 @@
 }
 
 #pragma mark - WLIPostCellDelegate methods
-
-- (void)toggleLikeForPost:(WLIPost*)post sender:(WLIPostCell*)senderCell
-{
-    if (post.likedThisPost) {
-        [sharedConnect removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
-            if (serverResponseCode == OK) {
-                senderCell.buttonLike.selected = NO;
-                post.postLikesCount--;
-                post.likedThisPost = NO;
-                if (post.postLikesCount == 0) {
-                    senderCell.labelLikes.hidden = YES;
-                }
-                senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
-            }
-        }];
-    } else {
-        [sharedConnect setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
-            if (serverResponseCode == OK) {
-                senderCell.buttonLike.selected = YES;
-                post.postLikesCount++;
-                post.likedThisPost = YES;
-                if (post.postLikesCount > 0) {
-                    senderCell.labelLikes.hidden = NO;
-                }
-                senderCell.labelLikes.text = [NSString stringWithFormat:@"%zd", post.postLikesCount];
-            }
-        }];
-    }
-}
 
 - (void)showCatMarketForPost:(WLIPost *)post sender:(id)senderCell
 {
@@ -296,15 +268,14 @@
 
 - (void)follow:(BOOL)follow user:(WLIUser *)user cellToReload:(WLIPostCell *)cell
 {
-    __block NSIndexPath *indexPath = [self.tableViewRefresh indexPathForCell:cell];
-    __weak typeof(self) weakSelf = self;
+    __weak typeof(cell) weakCell = cell;
+	cell.buttonFollow.userInteractionEnabled = NO;
     void (^followUserCompletion)(WLIFollow *, ServerResponse) = ^(WLIFollow *wliFollow, ServerResponse serverResponseCode) {
+		weakCell.buttonFollow.userInteractionEnabled = YES;
         if (serverResponseCode == OK) {
             user.followingUser = follow;
-            cell.post.user = user;
-            if (indexPath) {
-                [weakSelf.tableViewRefresh reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
+            weakCell.post.user = user;
+            weakCell.buttonFollow.selected = user.followingUser;
         } else {
             NSString *message = @"An error occured, user was not followed.";
             if (!follow) {
