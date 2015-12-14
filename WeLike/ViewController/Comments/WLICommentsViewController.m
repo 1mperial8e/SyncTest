@@ -77,6 +77,11 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)dealloc
+{
+    
+}
+
 #pragma mark - UIResponder
 
 - (BOOL)canBecomeFirstResponder

@@ -52,9 +52,7 @@
     } else if (self.presentingViewController) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-close"] style:UIBarButtonItemStylePlain target:self action:@selector(barButtonItemCancelTouchUpInside:)];
     }
-    
-    hud = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:hud];
+
     if (self.navigationController.viewControllers.count == 1) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
     }
@@ -63,12 +61,23 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    if ([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait) {
+        [UIView setAnimationsEnabled:NO];
+    }
     if (self.indexPathToReload) {
         [self.tableViewRefresh beginUpdates];
         [self.tableViewRefresh reloadRowsAtIndexPaths:@[self.indexPathToReload] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableViewRefresh endUpdates];
         self.indexPathToReload = nil;
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+    [UIView setAnimationsEnabled:YES];
 }
 
 #pragma mark - Actions methods

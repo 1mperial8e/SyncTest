@@ -67,12 +67,9 @@ static CGFloat const HeaderCellHeight = 156;
     __weak typeof(self) weakSelf = self;
     [sharedConnect userWithUserID:self.user.userID onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
         if (serverResponseCode == OK) {
-            user.followingUser = weakSelf.user.followingUser;
             weakSelf.user = user;
             weakSelf.navigationItem.title = user.userUsername;
-            [weakSelf.tableViewRefresh beginUpdates];
-            [weakSelf.tableViewRefresh reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [weakSelf.tableViewRefresh endUpdates];
+            [weakSelf.tableViewRefresh reloadData];
         }
     }];
 }

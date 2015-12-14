@@ -1042,8 +1042,8 @@
 			isa = PBXGroup;
 			children = (
 				2C6D26741896BACA00C459CB /* WeLike */,
-				2CCE1A9717ECD32B00680126 /* Frameworks */,
 				2CCE1A9617ECD32B00680126 /* Products */,
+				2CCE1A9717ECD32B00680126 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

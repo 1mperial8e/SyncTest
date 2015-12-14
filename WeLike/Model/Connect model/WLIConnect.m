@@ -426,12 +426,12 @@ static NSString *const AuthTokenKey = @"token";
 }
 
 - (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
-             withCategory:(NSInteger)categoryID
-                countryID:(NSInteger)countryID
-             searchString:(NSString *)searchString
-                     page:(NSInteger)page
-                 pageSize:(NSInteger)pageSize
-             onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
+                                 withCategory:(NSInteger)categoryID
+                                    countryID:(NSInteger)countryID
+                                 searchString:(NSString *)searchString
+                                         page:(NSInteger)page
+                                     pageSize:(NSInteger)pageSize
+                                 onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
 {
     if (userID < 1) {
         if (completion) {
@@ -439,8 +439,8 @@ static NSString *const AuthTokenKey = @"token";
         }
     } else {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
-        [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"forUserID"];
+        [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"userID"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", categoryID] forKey:@"categoryID"];
@@ -484,7 +484,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%zd", userID] forKey:@"forUserID"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
-        [parameters setObject:@"0" forKey:@"categoryID"];
+        [parameters setObject:@"15" forKey:@"categoryID"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
         [self.httpClient POST:@"api/getConnectTimeline" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

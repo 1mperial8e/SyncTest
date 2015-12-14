@@ -9,7 +9,7 @@
 #ifndef WeLike_GlobalDefines_h
 #define WeLike_GlobalDefines_h
 
-#define kDefaultPageSize 15
+#define kDefaultPageSize 10
 #define DefaultAvatar [UIImage imageNamed:@"avatar-empty"]
 
 #define ScaledImageSize CGSizeMake(640, 480)

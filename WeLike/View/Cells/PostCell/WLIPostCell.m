@@ -168,7 +168,14 @@ static CGFloat const StaticCellHeight = 140;
                     weakSelf.imageViewPostImage.image = image;
                     weakSelf.originalImage = image;
                 } failure:nil];
-            } failure:nil];
+            } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+                request = [NSURLRequest requestWithURL:[NSURL URLWithString:weakSelf.post.postImagePath]];
+                [weakSelf.imageViewPostImage setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+                    [weakSelf.imageActivityIndicator stopAnimating];
+                    weakSelf.imageViewPostImage.image = image;
+                    weakSelf.originalImage = image;
+                } failure:nil];
+            }];
         }
         
         self.buttonFollow.selected = self.post.user.followingUser;
@@ -199,7 +206,7 @@ static CGFloat const StaticCellHeight = 140;
         WLIPostCommentCell *cell = [viewArray firstObject];
         cell.comment = postComment;
         CGFloat commentHeight = [WLIPostCommentCell sizeWithComment:postComment].height;
-        cell.frame = CGRectMake(0, commentOffset, self.bottomView.frame.size.width, commentHeight);
+        cell.frame = CGRectMake(0, commentOffset, [UIScreen mainScreen].bounds.size.width - 16, commentHeight);
         commentOffset += commentHeight;
         [self.commentsContainer addSubview:cell];
         [self.commentViews addObject:cell];
