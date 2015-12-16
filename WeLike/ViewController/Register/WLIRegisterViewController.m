@@ -186,7 +186,7 @@
             } else if (serverResponseCode == FORBIDDEN) {
                 [weakSelf showAlertWithSupport];
             } else if (serverResponseCode == USERNAME_EXISTS) {
-					[weakSelf showErrorWithMessage:[NSString stringWithFormat:@"User \"%@\" already exists. Please try again.", self.textFieldUsername.text]];
+                [weakSelf showErrorWithMessage:[NSString stringWithFormat:@"User \"%@\" already exists. Please try again.", weakSelf.textFieldUsername.text]];
 			} else {
                 [weakSelf showErrorWithMessage:@"Something went wrong. Please try again."];
             }

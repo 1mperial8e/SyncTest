@@ -197,14 +197,18 @@ static NSString *const AuthTokenKey = @"token";
             if (completion) {
 				if (operation.response) {
 					NSData *errorJsonData = [[operation.responseObject objectForKey:@"error"] dataUsingEncoding:NSUTF8StringEncoding];
-					NSError *jsonError;
-					NSDictionary *errorsDictionary = [NSJSONSerialization JSONObjectWithData:errorJsonData options:NSJSONReadingMutableContainers  error:&jsonError];
-					if ([[errorsDictionary objectForKey:@"username"] firstObject] ) {
-					 completion(nil, USERNAME_EXISTS);
-					} else  {
-						completion(nil, (ServerResponse)operation.response.statusCode);
-					}
-				} else {
+                    if (errorJsonData) {
+                        NSError *jsonError;
+                        NSDictionary *errorsDictionary = [NSJSONSerialization JSONObjectWithData:errorJsonData options:NSJSONReadingMutableContainers  error:&jsonError];
+                        if ([[errorsDictionary objectForKey:@"username"] firstObject] ) {
+                            completion(nil, USERNAME_EXISTS);
+                        } else  {
+                            completion(nil, (ServerResponse)operation.response.statusCode);
+                        }
+                    } else {
+                        completion(nil, (ServerResponse)operation.response.statusCode);
+                    }
+                } else {
 					completion(nil, NO_CONNECTION);
 				}
             }
