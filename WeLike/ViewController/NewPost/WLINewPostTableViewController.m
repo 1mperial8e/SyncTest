@@ -102,7 +102,8 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     __weak typeof(self) weakSelf = self;
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Shoot photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-		if([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized) {
+        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+		if (status == AVAuthorizationStatusAuthorized || status == ALAuthorizationStatusNotDetermined) {
 			[weakSelf takePhoto];
 		} else {
 			[weakSelf showMediaAccessAlert:@"Please provide access to your camera in settings" ];
@@ -126,8 +127,9 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     __weak typeof(self) weakSelf = self;
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Shoot video" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-		if([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized) {
-			[weakSelf takeVideo];
+        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (status == AVAuthorizationStatusAuthorized || status == ALAuthorizationStatusNotDetermined) {
+            [weakSelf takeVideo];
 		} else {
 			[weakSelf showMediaAccessAlert:@"Please provide access to your camera in settings" ];
 		}
@@ -142,7 +144,6 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     }]];
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
-
 
 - (void)publishButtonAction:(id)sender
 {
