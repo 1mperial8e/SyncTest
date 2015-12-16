@@ -20,8 +20,6 @@
 		074D68881BB53B40000167DD /* Graph1.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D68871BB53B40000167DD /* Graph1.png */; };
 		074D688A1BB53C4D000167DD /* illustration2.png in Resources */ = {isa = PBXBuildFile; fileRef = 074D68891BB53C4D000167DD /* illustration2.png */; };
 		074D688C1BB54B29000167DD /* director.mov in Resources */ = {isa = PBXBuildFile; fileRef = 074D688B1BB54B29000167DD /* director.mov */; };
-		07A349121B9D902700C7EBBD /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A349101B9D902700C7EBBD /* Fabric.framework */; };
-		07A349131B9D902700C7EBBD /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A349111B9D902700C7EBBD /* Crashlytics.framework */; };
 		2C5B5C7D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5C6D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m */; };
 		2C5B5C7E1A1A8F9500175A58 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5C6F1A1A8F9500175A58 /* UIActivityIndicatorView+AFNetworking.m */; };
 		2C5B5C7F1A1A8F9500175A58 /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B5C711A1A8F9500175A58 /* UIAlertView+AFNetworking.m */; };
@@ -162,6 +160,8 @@
 		4F4D46471BFE2C5B00993349 /* WLIChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F4D46451BFE2C5B00993349 /* WLIChangePasswordViewController.xib */; };
 		4F4D464C1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4D464A1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.m */; };
 		4F4D464D1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F4D464B1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.xib */; };
+		4F67ABA81C216F7000C97E13 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F67ABA61C216F7000C97E13 /* Crashlytics.framework */; };
+		4F67ABA91C216F7000C97E13 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F67ABA71C216F7000C97E13 /* Fabric.framework */; };
 		4F69E8D71BF09FA300A6CD5A /* WLILoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8D51BF09FA300A6CD5A /* WLILoginTableViewCell.m */; };
 		4F69E8D81BF09FA300A6CD5A /* WLILoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F69E8D61BF09FA300A6CD5A /* WLILoginTableViewCell.xib */; };
 		4F69E8DE1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8DC1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.m */; };
@@ -215,8 +215,6 @@
 		074D68871BB53B40000167DD /* Graph1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Graph1.png; sourceTree = "<group>"; };
 		074D68891BB53C4D000167DD /* illustration2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = illustration2.png; sourceTree = "<group>"; };
 		074D688B1BB54B29000167DD /* director.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = director.mov; sourceTree = "<group>"; };
-		07A349101B9D902700C7EBBD /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		07A349111B9D902700C7EBBD /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2C5B5C6C1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		2C5B5C6D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		2C5B5C6E1A1A8F9500175A58 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -448,6 +446,8 @@
 		4F4D46491BFE2D7A00993349 /* WLIChangePasswordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIChangePasswordTableViewCell.h; sourceTree = "<group>"; };
 		4F4D464A1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIChangePasswordTableViewCell.m; sourceTree = "<group>"; };
 		4F4D464B1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIChangePasswordTableViewCell.xib; sourceTree = "<group>"; };
+		4F67ABA61C216F7000C97E13 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		4F67ABA71C216F7000C97E13 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		4F69E8D41BF09FA300A6CD5A /* WLILoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLILoginTableViewCell.h; sourceTree = "<group>"; };
 		4F69E8D51BF09FA300A6CD5A /* WLILoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLILoginTableViewCell.m; sourceTree = "<group>"; };
 		4F69E8D61BF09FA300A6CD5A /* WLILoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLILoginTableViewCell.xib; sourceTree = "<group>"; };
@@ -520,17 +520,17 @@
 				309236A81C0D9FDC0073A78A /* libFlurry_7.3.0.a in Frameworks */,
 				2E4851771B9F8C27002216B7 /* AVFoundation.framework in Frameworks */,
 				2CA087021AC941C7002696D9 /* MediaPlayer.framework in Frameworks */,
+				4F67ABA91C216F7000C97E13 /* Fabric.framework in Frameworks */,
 				2CCE1A9B17ECD32B00680126 /* CoreGraphics.framework in Frameworks */,
 				2C8AF2801A1B772F0003B22E /* QuartzCore.framework in Frameworks */,
 				2C8AF27E1A1B77220003B22E /* OpenGLES.framework in Frameworks */,
+				4F67ABA81C216F7000C97E13 /* Crashlytics.framework in Frameworks */,
 				2C8AF27B1A1B76BB0003B22E /* Accelerate.framework in Frameworks */,
 				C7B424BD183D2563003B51D0 /* StoreKit.framework in Frameworks */,
 				C7B424BB183D254C003B51D0 /* libz.1.2.5.dylib in Frameworks */,
 				C7B424B9183D2540003B51D0 /* libsqlite3.0.dylib in Frameworks */,
 				C7B424B7183D2519003B51D0 /* MessageUI.framework in Frameworks */,
-				07A349131B9D902700C7EBBD /* Crashlytics.framework in Frameworks */,
 				C7B424B5183D2507003B51D0 /* CoreData.framework in Frameworks */,
-				07A349121B9D902700C7EBBD /* Fabric.framework in Frameworks */,
 				2CCE1A9D17ECD32B00680126 /* UIKit.framework in Frameworks */,
 				2CCE1A9917ECD32B00680126 /* Foundation.framework in Frameworks */,
 			);
@@ -583,9 +583,9 @@
 			isa = PBXGroup;
 			children = (
 				309236A41C0D9FDC0073A78A /* Flurry */,
-				07A349101B9D902700C7EBBD /* Fabric.framework */,
-				07A349111B9D902700C7EBBD /* Crashlytics.framework */,
 				2CF096DA1ACAE1F7004FB868 /* NSDate-TimeAgo */,
+				4F67ABA61C216F7000C97E13 /* Crashlytics.framework */,
+				4F67ABA71C216F7000C97E13 /* Fabric.framework */,
 				2C6D26761896BACA00C459CB /* AFNetworking */,
 				2C6D26A71896BACA00C459CB /* BlockFramework */,
 				2C6D26AB1896BACA00C459CB /* Helper */,
@@ -1778,7 +1778,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# ./Fabric.framework/run 5ce1ef35ca4b1954a7f308b01bd80931a0071f01 de8b5c6a6955955992a62d75ffb88e2ad61f5aef090d2bca6777f4c4f9a2faee";
+			shellScript = "./Fabric.framework/run 5ce1ef35ca4b1954a7f308b01bd80931a0071f01 de8b5c6a6955955992a62d75ffb88e2ad61f5aef090d2bca6777f4c4f9a2faee";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2020,7 +2020,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/WeLike/3rdParty/Flurry",
+					"$(PROJECT_DIR)/WeLike/3rdParty/**",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -2055,7 +2055,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/WeLike/3rdParty/Flurry",
+					"$(PROJECT_DIR)/WeLike/3rdParty/**",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
