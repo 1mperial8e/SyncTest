@@ -110,7 +110,11 @@
                 if (serverResponseCode == OK) {
                     [weakSelf.navigationController popViewControllerAnimated:YES];
                 } else {
-                    [weakSelf showErrorWithMessage:@"Something went wrong. Please try again."];
+					if (serverResponseCode == 401) {
+						[weakSelf showErrorWithMessage:@"Wrong old password."];
+					} else {
+						[weakSelf showErrorWithMessage:@"Something went wrong. Please try again."];
+					}
                 }
                 [hud hide:YES];
             }];
