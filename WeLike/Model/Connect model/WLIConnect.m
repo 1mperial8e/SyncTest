@@ -195,11 +195,18 @@ static NSString *const AuthTokenKey = @"token";
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [self debugger:parameters.description methodLog:@"api/register" dataLogFormatted:error.localizedDescription];
             if (completion) {
-                if (operation.response) {
-                    completion(nil, (ServerResponse)operation.response.statusCode);
-                } else {
-                    completion(nil, NO_CONNECTION);
-                }
+				if (operation.response) {
+					NSData *errorJsonData = [[operation.responseObject objectForKey:@"error"] dataUsingEncoding:NSUTF8StringEncoding];
+					NSError *jsonError;
+					NSDictionary *errorsDictionary = [NSJSONSerialization JSONObjectWithData:errorJsonData options:NSJSONReadingMutableContainers  error:&jsonError];
+					if ([[errorsDictionary objectForKey:@"username"] firstObject] ) {
+					 completion(nil, USERNAME_EXISTS);
+					} else  {
+						completion(nil, (ServerResponse)operation.response.statusCode);
+					}
+				} else {
+					completion(nil, NO_CONNECTION);
+				}
             }
         }];
     }

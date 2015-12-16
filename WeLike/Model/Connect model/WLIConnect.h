@@ -30,7 +30,8 @@ enum ServerResponse {
     USER_EXISTS,
     USER_CREATED,
     LIKE_CREATED,
-    LIKE_EXISTS
+    LIKE_EXISTS,
+	USERNAME_EXISTS = 105	
 };
 
 typedef enum ServerResponse ServerResponse;
