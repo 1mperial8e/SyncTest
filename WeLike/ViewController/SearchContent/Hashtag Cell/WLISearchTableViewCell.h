@@ -12,7 +12,7 @@
 
 @interface WLISearchTableViewCell : WLIBaseTableViewCell
 
-@property (strong, nonatomic) WLIHashtag *hashtag;
-@property (strong, nonatomic) WLIUser *user;
+@property (weak, nonatomic) WLIHashtag *hashtag;
+@property (weak, nonatomic) WLIUser *user;
 
 @end

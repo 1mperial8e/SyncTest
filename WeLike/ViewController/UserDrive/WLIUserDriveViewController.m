@@ -55,8 +55,8 @@ static CGFloat const HeaderCellHeight = 156;
                 sharedConnect.currentUser = weakSelf.user;
                 [sharedConnect saveCurrentUser];
             }
-            [weakSelf.headerCell updateRank:self.rank forUsers:self.users];
-            [weakSelf.headerCell updatePoints:self.points];
+            [weakSelf.headerCell updateRank:weakSelf.rank forUsers:weakSelf.users];
+            [weakSelf.headerCell updatePoints:weakSelf.points];
         }
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];

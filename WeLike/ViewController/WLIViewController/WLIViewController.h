@@ -15,7 +15,6 @@
 
 @protocol WLIViewControllerRefreshProtocol <NSObject>
 
-@property (strong, nonatomic) UITableView *tableViewRefresh;
 - (void)reloadData:(BOOL)reloadAll;
 
 @end
@@ -28,6 +27,9 @@
     BOOL loading;
     __weak WLIConnect *sharedConnect;
 }
+
+@property (weak, nonatomic) UITableView *tableViewRefresh;
+
 
 - (void)sendFeedBack:(id)sender;
 

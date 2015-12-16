@@ -12,4 +12,6 @@
 
 @property (strong, nonatomic) NSString *searchString;
 
+- (void)scrollToTop;
+
 @end

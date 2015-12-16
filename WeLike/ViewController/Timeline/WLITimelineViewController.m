@@ -100,4 +100,11 @@
     [self reloadData:YES];
 }
 
+#pragma mark - Public
+
+- (void)scrollToTop
+{
+    [self.tableViewRefresh setContentOffset:CGPointZero animated:YES];
+}
+
 @end

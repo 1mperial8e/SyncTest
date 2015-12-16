@@ -81,9 +81,13 @@
         newPostNavigationController.navigationBar.translucent = NO;
         [tabBarController presentViewController:newPostNavigationController animated:YES completion:nil];
         return NO;
-    } else {
+    } else if ([navigationViewController.topViewController isKindOfClass:[WLITimelineViewController class]]) {
+        if (navigationViewController.viewControllers.count == 1) {
+            [self.timelineViewController scrollToTop];
+        }
         return YES;
     }
+    return YES;
 }
 
 #pragma mark - Other methods

@@ -37,9 +37,9 @@ static CGFloat const StaticCellHeight = 140;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentsContainerHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *seeMoreButtonHeightConstraint;
 
-@property (strong, nonatomic) IBOutlet UIButton *buttonComment;
-@property (strong, nonatomic) IBOutlet UILabel *labelComments;
-@property (strong, nonatomic) IBOutlet UILabel *labelLikes;
+@property (weak, nonatomic) IBOutlet UIButton *buttonComment;
+@property (weak, nonatomic) IBOutlet UILabel *labelComments;
+@property (weak, nonatomic) IBOutlet UILabel *labelLikes;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonVideo;
 

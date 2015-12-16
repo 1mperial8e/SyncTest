@@ -20,7 +20,7 @@
 
 @interface WLIMyDriveHeaderCell : WLIBaseTableViewCell
 
-@property (strong, nonatomic) WLIUser *user;
+@property (weak, nonatomic) WLIUser *user;
 @property (weak, nonatomic) id<MyDriveHeaderCellDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITextView *myGoalsTextView;
 

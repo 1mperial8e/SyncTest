@@ -17,7 +17,6 @@
 @interface WLIViewController () <UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) NSIndexPath *indexPathToReload;
-@property (strong, nonatomic) UITableView *tableViewRefresh;
 
 @end
 
@@ -42,8 +41,7 @@
     [super viewDidLoad];
     
     if ([self conformsToProtocol:@protocol(WLIViewControllerRefreshProtocol)]) {
-        id<WLIViewControllerRefreshProtocol> objectConformsToProtocol = (id<WLIViewControllerRefreshProtocol>)self;
-        refreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60.0f tableView:objectConformsToProtocol.tableViewRefresh withClient:self];
+        refreshManager = [[MNMPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60.0f tableView:self.tableViewRefresh withClient:self];
     }
     loadMore = YES;
     
@@ -55,9 +53,9 @@
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
     
-    if (self.navigationController.viewControllers.count == 1) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = self;
-    }
+//    if (self.navigationController.viewControllers.count == 1) {
+//        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -171,6 +169,8 @@
         [refreshManager tableViewReloadFinishedAnimated:YES];
     }
 }
+
+#pragma mark - GestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {

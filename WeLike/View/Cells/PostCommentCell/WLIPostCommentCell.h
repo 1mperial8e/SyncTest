@@ -21,7 +21,7 @@
 
 @interface WLIPostCommentCell : WLITableViewCell
 
-@property (strong, nonatomic) WLIComment *comment;
+@property (weak, nonatomic) WLIComment *comment;
 @property (weak, nonatomic) id<WLIPostCommentCellDelegate> delegate;
 
 + (CGSize)sizeWithComment:(WLIComment *)comment;

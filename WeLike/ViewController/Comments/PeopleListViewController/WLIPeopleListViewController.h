@@ -10,7 +10,6 @@
 
 @interface WLIPeopleListViewController : WLIViewController <WLIViewControllerRefreshProtocol>
 
-@property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;
 @property (strong, nonatomic) NSMutableArray *people;
 
 - (void)removePeople:(NSArray *)people;

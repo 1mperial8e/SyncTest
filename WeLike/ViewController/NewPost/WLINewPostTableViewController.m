@@ -110,7 +110,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     }]];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
+        if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized || [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusNotDetermined) {
             [weakSelf selectPhoto];
 		} else {
 			[weakSelf showMediaAccessAlert:@"Please provide access to your photos in settings"];
@@ -134,7 +134,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     }]];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select video" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-		if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
+		if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized || [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusNotDetermined) {
 			[weakSelf selectVideo];
 		} else {
 			[weakSelf showMediaAccessAlert:@"Please provide access to your videos in settings"];

@@ -18,8 +18,6 @@
 
 @interface WLISearchContentViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView *tableViewRefresh;
-
 @property (strong, nonatomic) NSMutableArray *dataSource;
 
 @property (strong, nonatomic) AFHTTPRequestOperation *searchOperation;
@@ -51,6 +49,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self.searchOperation cancel];
     [self.tableViewRefresh endEditing:YES];
 }
 

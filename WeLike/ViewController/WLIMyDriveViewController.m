@@ -10,7 +10,7 @@
 
 @interface WLIMyDriveViewController ()
 
-@property (strong, nonatomic) WLIPost *morePost;
+@property (weak, nonatomic) WLIPost *morePost;
 @property (assign, nonatomic) NSInteger deleteButtonIndex;
 
 @end
