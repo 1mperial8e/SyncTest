@@ -26,7 +26,9 @@
     self.title = @"My Energy";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_email"] style:UIBarButtonItemStylePlain target:self action:@selector(sendFeedBack:)];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newPostNotificationRecieved:) name:@"NewPostAdded" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newPostNotificationRecieved:) name:NewPostNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postDeletedNotificationRecieved:) name:PostDeletedNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -90,6 +92,21 @@
 	[self.tableViewRefresh beginUpdates];
 	[self.tableViewRefresh insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self.tableViewRefresh endUpdates];
+}
+
+- (void)postDeletedNotificationRecieved:(NSNotification *)notification
+{
+	NSNumber *postID = [[notification userInfo] valueForKey:@"postId"];
+	for (WLIPost *post in self.posts)	{
+		if (post.postID == [postID integerValue]) {
+			NSInteger postIndex = [self.posts indexOfObject:post];
+			[self.posts removeObjectAtIndex:postIndex];
+			[self.tableViewRefresh beginUpdates];
+			[self.tableViewRefresh deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:postIndex inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+			[self.tableViewRefresh endUpdates];
+			break;
+		}
+	}
 }
 
 @end

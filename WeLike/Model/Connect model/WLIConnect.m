@@ -599,7 +599,7 @@ static NSString *const AuthTokenKey = @"token";
         } success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *rawPost = [responseObject objectForKey:@"item"];
             WLIPost *post = [WLIPost initWithDictionary:rawPost];
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"NewPostAdded" object:self userInfo:@{@"newPost" : post}];
+			[[NSNotificationCenter defaultCenter] postNotificationName:NewPostNotification object:self userInfo:@{@"newPost" : post}];
             if (completion) {
                 completion(post, OK);
             }
@@ -678,6 +678,7 @@ static NSString *const AuthTokenKey = @"token";
         if (completion) {
             completion(OK);
         }
+		[[NSNotificationCenter defaultCenter] postNotificationName:PostDeletedNotification object:nil userInfo:@{@"postId" : @(postID), @"deleted" : @YES}];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self debugger:parameters.description methodLog:@"api/deletePost" dataLogFormatted:error.localizedDescription];
         if (completion) {

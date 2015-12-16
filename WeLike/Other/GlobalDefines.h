@@ -17,3 +17,5 @@
 #endif
 
 static NSString *const FollowerUserNotification = @"FollowerUserNotification";
+static NSString *const PostDeletedNotification = @"PostDeletedNotification";
+static NSString *const NewPostNotification = @"NewPostAddedNotification";
