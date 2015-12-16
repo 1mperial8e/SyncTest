@@ -19,5 +19,6 @@
 - (void)addPosts:(NSArray *)posts;
 - (void)downloadedPosts:(NSArray *)posts serverResponse:(ServerResponse)serverResponseCode reloadAll:(BOOL)reloadAll;
 - (void)followedUserNotification:(NSNotification *)notification;
+- (void)searchButtonAction:(id)sender;
 
 @end

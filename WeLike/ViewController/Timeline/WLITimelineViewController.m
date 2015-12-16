@@ -7,6 +7,7 @@
 //
 
 #import "WLITimelineViewController.h"
+#import "WLITimelineSettingsViewController.h"
 
 @interface WLITimelineViewController () <UIScrollViewDelegate>
 
@@ -39,9 +40,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (self.searchString.length) {
-        self.navigationItem.rightBarButtonItem = nil;
-    }
+    if (!self.searchString.length)  {
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-search"] style:UIBarButtonItemStylePlain target:self action:@selector(searchButtonAction:)];
+		
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-edit"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonAction:)];
+	}
 }
 
 #pragma mark - Data loading methods
@@ -76,6 +79,19 @@
         self.prevOffset = scrollView.contentOffset;
     }
 }
+
+#pragma mark - Actions
+
+- (void)settingsButtonAction:(id)sender
+{
+	WLITimelineSettingsViewController *settingsViewController = [WLITimelineSettingsViewController new];
+	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+	navController.navigationBar.backgroundColor = [UIColor redColor];
+	
+	UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
+	[rootVC presentViewController:navController animated:YES completion:nil];
+}
+
 
 #pragma mark - Animation
 
