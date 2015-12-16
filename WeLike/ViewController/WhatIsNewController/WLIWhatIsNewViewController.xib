@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLIWhatIsNewViewController">
+            <connections>
+                <outlet property="okButton" destination="7YY-nh-OFn" id="gfU-pX-bhH"/>
+                <outlet property="separatorHeightConstraint" destination="h9r-MZ-VNK" id="FM4-Ae-2TU"/>
+                <outlet property="textView" destination="9lh-97-jNX" id="kKr-e0-SbY"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CD2-EK-u22">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="RF4-EA-en7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="light"/>
+                </visualEffectView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lga-IJ-ruc">
+                    <rect key="frame" x="30" y="30" width="540" height="540"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IiZ-5X-klb">
+                            <rect key="frame" x="2" y="2" width="536" height="536"/>
+                            <color key="backgroundColor" white="1" alpha="0.80204814189999996" colorSpace="calibratedWhite"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9lh-97-jNX">
+                            <rect key="frame" x="5" y="56" width="530" height="476"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="-3" maxY="0.0"/>
+                            <mutableString key="text">ENHANCEMENTS
+- Implemented Flurry analytics tool for statistics
+- darker text color
+- Every user now have a public user profile, and by clicking on the avatar you will see the user page with posts, scores and more information.
+- User can now add their personal goal for 2020 on their profile page.
+- Comments are now displayed under the post and not on separate page
+- You can now tag user in posts and comments. 
+- You can now use hyperlinks in posts and comments. Every link will open an integrated web-view.
+- You can now click on an email address and send a message directly to another user by mail.
+- You can now click on an image and see the image inn fullscreen, and zoom the image.
+- You can now click on number of likes and see a list of who have liked your post
+- Post images can now be saved to the phone.
+- New search page with advanced search for Top, tags and other users. Sort post from most/less popular
+- Improvements with the score section
+- It´s now possible to change your username on the "Edit profile page"
+- Username and hashtags will be converted to lower-case only.
+- Video can be viewed in landscape mode
+
+IMPROVEMENTS
+- Image and video stability improvements
+
+BUG FIXES
+- fixed problem where Add Energy page was opened as default when re-login
+- "Something went wrong" message appears in case of apply picture to profile without internet connection
+- New added post isn't visible after publishing new energy
+- Apps crashes in case of cancelling wrong Change Password requesting
+- No message about disabled access to Camera in case of photo and video adding to the new post
+- An error occurred, user was not followed" message appears in case of clicking few times on "Follow" button one by one
+- Fixed error where empty post was published
+- App crashes in case of click on "Follow" button after switching between countries
+- Bugs with resetting points every Sunday night.
+- Bugs with ranking system
+- Error with some corrupted users
+- Fixed a problem where users was kicked out of the app
+- Problems with preview image on video</mutableString>
+                            <color key="textColor" red="0.30980392159999998" green="0.30980392159999998" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Features" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ljv-kb-aNi">
+                            <rect key="frame" x="15" y="5" width="520" height="30"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="evr-Ap-VTu"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRQ-Xh-A1h">
+                            <rect key="frame" x="15" y="35" width="520" height="20"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="Icu-oW-4xz"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wtA-W0-ROH">
+                            <rect key="frame" x="2" y="55" width="536" height="1"/>
+                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="h9r-MZ-VNK"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7YY-nh-OFn">
+                            <rect key="frame" x="500" y="8" width="35" height="45"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="35" id="Ccf-LP-Swe"/>
+                                <constraint firstAttribute="height" constant="45" id="c16-B9-EgY"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                            <state key="normal" title="╳">
+                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="okButtonAction:" destination="-1" eventType="touchUpInside" id="Pna-Zg-yVS"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="9lh-97-jNX" secondAttribute="bottom" constant="8" id="BfR-VC-naK"/>
+                        <constraint firstItem="Ljv-kb-aNi" firstAttribute="leading" secondItem="lga-IJ-ruc" secondAttribute="leading" constant="15" id="CIr-3S-Pn5"/>
+                        <constraint firstAttribute="trailing" secondItem="9lh-97-jNX" secondAttribute="trailing" constant="5" id="Drn-3E-VKf"/>
+                        <constraint firstAttribute="bottom" secondItem="IiZ-5X-klb" secondAttribute="bottom" constant="2" id="EdX-GH-P4L"/>
+                        <constraint firstAttribute="trailing" secondItem="wtA-W0-ROH" secondAttribute="trailing" constant="2" id="Ew5-sH-e8O"/>
+                        <constraint firstAttribute="trailing" secondItem="IiZ-5X-klb" secondAttribute="trailing" constant="2" id="JPM-5i-kuc"/>
+                        <constraint firstAttribute="trailing" secondItem="hRQ-Xh-A1h" secondAttribute="trailing" constant="5" id="KQG-pf-Z0W"/>
+                        <constraint firstAttribute="trailing" secondItem="Ljv-kb-aNi" secondAttribute="trailing" constant="5" id="QHY-4L-j0B"/>
+                        <constraint firstItem="7YY-nh-OFn" firstAttribute="top" secondItem="lga-IJ-ruc" secondAttribute="top" constant="8" id="Rqh-jh-2uP"/>
+                        <constraint firstItem="9lh-97-jNX" firstAttribute="top" secondItem="hRQ-Xh-A1h" secondAttribute="bottom" constant="1" id="Tul-Oc-TYN"/>
+                        <constraint firstItem="9lh-97-jNX" firstAttribute="leading" secondItem="lga-IJ-ruc" secondAttribute="leading" constant="5" id="ZuY-MB-08f"/>
+                        <constraint firstItem="Ljv-kb-aNi" firstAttribute="top" secondItem="lga-IJ-ruc" secondAttribute="top" constant="5" id="cmQ-5w-UDH"/>
+                        <constraint firstAttribute="trailing" secondItem="7YY-nh-OFn" secondAttribute="trailing" constant="5" id="esB-Yb-fHg"/>
+                        <constraint firstItem="wtA-W0-ROH" firstAttribute="top" secondItem="hRQ-Xh-A1h" secondAttribute="bottom" id="fxC-AW-ATd"/>
+                        <constraint firstItem="IiZ-5X-klb" firstAttribute="leading" secondItem="lga-IJ-ruc" secondAttribute="leading" constant="2" id="nNa-ul-r5l"/>
+                        <constraint firstItem="wtA-W0-ROH" firstAttribute="leading" secondItem="lga-IJ-ruc" secondAttribute="leading" constant="2" id="oNr-Wi-wDu"/>
+                        <constraint firstItem="hRQ-Xh-A1h" firstAttribute="leading" secondItem="lga-IJ-ruc" secondAttribute="leading" constant="15" id="odI-f7-uMq"/>
+                        <constraint firstItem="IiZ-5X-klb" firstAttribute="top" secondItem="lga-IJ-ruc" secondAttribute="top" constant="2" id="rV0-Uu-CxA"/>
+                        <constraint firstItem="hRQ-Xh-A1h" firstAttribute="top" secondItem="Ljv-kb-aNi" secondAttribute="bottom" id="wxn-OH-8i8"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="lga-IJ-ruc" secondAttribute="bottom" constant="30" id="BQK-4h-yOc"/>
+                <constraint firstItem="CD2-EK-u22" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="JZe-E2-OVi"/>
+                <constraint firstAttribute="trailing" secondItem="lga-IJ-ruc" secondAttribute="trailing" constant="30" id="PND-Nl-etc"/>
+                <constraint firstItem="lga-IJ-ruc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="iIk-ze-8PH"/>
+                <constraint firstItem="lga-IJ-ruc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="sT1-YF-IQB"/>
+                <constraint firstAttribute="trailing" secondItem="CD2-EK-u22" secondAttribute="trailing" id="w8r-eF-iMt"/>
+                <constraint firstItem="CD2-EK-u22" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="wLD-6H-EtV"/>
+                <constraint firstAttribute="bottom" secondItem="CD2-EK-u22" secondAttribute="bottom" id="wQS-4M-t8W"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

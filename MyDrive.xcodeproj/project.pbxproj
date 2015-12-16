@@ -162,6 +162,8 @@
 		4F4D464D1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F4D464B1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.xib */; };
 		4F67ABA81C216F7000C97E13 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F67ABA61C216F7000C97E13 /* Crashlytics.framework */; };
 		4F67ABA91C216F7000C97E13 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F67ABA71C216F7000C97E13 /* Fabric.framework */; };
+		4F67ABAE1C21B13200C97E13 /* WLIWhatIsNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F67ABAC1C21B13200C97E13 /* WLIWhatIsNewViewController.m */; };
+		4F67ABAF1C21B13200C97E13 /* WLIWhatIsNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F67ABAD1C21B13200C97E13 /* WLIWhatIsNewViewController.xib */; };
 		4F69E8D71BF09FA300A6CD5A /* WLILoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8D51BF09FA300A6CD5A /* WLILoginTableViewCell.m */; };
 		4F69E8D81BF09FA300A6CD5A /* WLILoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F69E8D61BF09FA300A6CD5A /* WLILoginTableViewCell.xib */; };
 		4F69E8DE1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F69E8DC1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.m */; };
@@ -448,6 +450,9 @@
 		4F4D464B1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIChangePasswordTableViewCell.xib; sourceTree = "<group>"; };
 		4F67ABA61C216F7000C97E13 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		4F67ABA71C216F7000C97E13 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		4F67ABAB1C21B13200C97E13 /* WLIWhatIsNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIWhatIsNewViewController.h; sourceTree = "<group>"; };
+		4F67ABAC1C21B13200C97E13 /* WLIWhatIsNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIWhatIsNewViewController.m; sourceTree = "<group>"; };
+		4F67ABAD1C21B13200C97E13 /* WLIWhatIsNewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIWhatIsNewViewController.xib; sourceTree = "<group>"; };
 		4F69E8D41BF09FA300A6CD5A /* WLILoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLILoginTableViewCell.h; sourceTree = "<group>"; };
 		4F69E8D51BF09FA300A6CD5A /* WLILoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLILoginTableViewCell.m; sourceTree = "<group>"; };
 		4F69E8D61BF09FA300A6CD5A /* WLILoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLILoginTableViewCell.xib; sourceTree = "<group>"; };
@@ -898,7 +903,8 @@
 		2C6D27151896BACA00C459CB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				30DCE4EA1C1708A200244011 /* WLIMailViewController */,
+				4F67ABAA1C21B0E900C97E13 /* WhatIsNewController */,
+				30DCE4EA1C1708A200244011 /* MailViewController */,
 				309FF0BB1C0F033D009C9344 /* Likers */,
 				2C6D27551896BACA00C459CB /* WLIViewController */,
 				4FC33E931C0CB56C005F29D3 /* WebViewController */,
@@ -1252,7 +1258,7 @@
 			path = Likers;
 			sourceTree = "<group>";
 		};
-		30DCE4EA1C1708A200244011 /* WLIMailViewController */ = {
+		30DCE4EA1C1708A200244011 /* MailViewController */ = {
 			isa = PBXGroup;
 			children = (
 				30DCE4F01C170F1B00244011 /* MailTextFieldCell */,
@@ -1261,6 +1267,7 @@
 				30DCE4EC1C1708F800244011 /* WLIMailViewController.m */,
 				30DCE4ED1C1708F800244011 /* WLIMailViewController.xib */,
 			);
+			name = MailViewController;
 			path = WLIMailViewController;
 			sourceTree = "<group>";
 		};
@@ -1410,6 +1417,16 @@
 				4F4D464B1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.xib */,
 			);
 			path = ChangePasswordCell;
+			sourceTree = "<group>";
+		};
+		4F67ABAA1C21B0E900C97E13 /* WhatIsNewController */ = {
+			isa = PBXGroup;
+			children = (
+				4F67ABAB1C21B13200C97E13 /* WLIWhatIsNewViewController.h */,
+				4F67ABAC1C21B13200C97E13 /* WLIWhatIsNewViewController.m */,
+				4F67ABAD1C21B13200C97E13 /* WLIWhatIsNewViewController.xib */,
+			);
+			path = WhatIsNewController;
 			sourceTree = "<group>";
 		};
 		4F69E8D31BF09F8800A6CD5A /* LoginCell */ = {
@@ -1742,6 +1759,7 @@
 				4F2C83E71BFB884A00EDD64F /* WLIEditProfileViewController.xib in Resources */,
 				0743482B1BBABCB700EAA2AA /* People.png in Resources */,
 				4FE75D301BFF36E20063F3D8 /* WLIUserDriveViewController.xib in Resources */,
+				4F67ABAF1C21B13200C97E13 /* WLIWhatIsNewViewController.xib in Resources */,
 				2C6D27C71896BACA00C459CB /* Images.xcassets in Resources */,
 				2C6D27DE1896BACA00C459CB /* WLIUserCell.xib in Resources */,
 				2C6D27E41896BACA00C459CB /* WLIFollowingViewController.xib in Resources */,
@@ -1791,6 +1809,7 @@
 				4F8E2D461BF4A4C000953EC0 /* WLICountryFilterTableViewCell.m in Sources */,
 				2C6D27B71896BACA00C459CB /* MNMPullToRefreshManager.m in Sources */,
 				2C6D27BD1896BACA00C459CB /* SBJsonStreamParserAdapter.m in Sources */,
+				4F67ABAE1C21B13200C97E13 /* WLIWhatIsNewViewController.m in Sources */,
 				2C5B5C991A1A8FAE00175A58 /* AFHTTPRequestOperationManager.m in Sources */,
 				4F8E2D381BF4A2AF00953EC0 /* WLIConnect.m in Sources */,
 				2C5B5C801A1A8F9500175A58 /* UIButton+AFNetworking.m in Sources */,
