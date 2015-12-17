@@ -41,6 +41,7 @@
             post.user.userFullName = self.user.userFullName;
             post.user.userUsername = self.user.userUsername;
             post.user.userAvatarPath = self.user.userAvatarPath;
+            post.user.userAvatarThumbPath = self.user.userAvatarThumbPath;
         }
         [self.tableViewRefresh reloadData];
     }

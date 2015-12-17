@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -312,6 +312,7 @@
                                             <constraint firstItem="HgY-d5-XKh" firstAttribute="centerY" secondItem="Di0-Ne-c3x" secondAttribute="centerY" id="EUf-gi-gRa"/>
                                             <constraint firstItem="Eir-rs-qDW" firstAttribute="centerY" secondItem="Di0-Ne-c3x" secondAttribute="centerY" id="ZrN-re-ggB"/>
                                             <constraint firstItem="Eir-rs-qDW" firstAttribute="top" secondItem="Di0-Ne-c3x" secondAttribute="top" id="gmf-IX-lQs"/>
+                                            <constraint firstAttribute="bottom" secondItem="Eir-rs-qDW" secondAttribute="bottom" id="grg-Po-OAs"/>
                                             <constraint firstItem="HgY-d5-XKh" firstAttribute="centerX" secondItem="Di0-Ne-c3x" secondAttribute="centerX" constant="-20" id="puO-GI-cyM"/>
                                             <constraint firstItem="Eir-rs-qDW" firstAttribute="leading" secondItem="HgY-d5-XKh" secondAttribute="trailing" constant="8" id="sht-jf-Bky"/>
                                         </constraints>
