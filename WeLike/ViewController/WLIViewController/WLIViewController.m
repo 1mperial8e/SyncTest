@@ -94,7 +94,7 @@
 
 - (void)sendFeedBack:(id)sender
 {	
-	[WLIUtils showCustomEmailControllerWithToRecepient:@"santander@santanderconsumer.no"];
+	[WLIUtils showCustomEmailControllerWithToRecepient:@"support@santanderconsumer.no"];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate
