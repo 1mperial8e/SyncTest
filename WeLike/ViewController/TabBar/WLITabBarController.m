@@ -55,10 +55,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([WLIUtils shouldShowNewFeatures]) {
-        WLIWhatIsNewViewController *whatIsNewVC = [WLIWhatIsNewViewController new];
-        [self presentViewController:whatIsNewVC animated:YES completion:nil];
-    }
+//    if ([WLIUtils shouldShowNewFeatures]) {
+//        WLIWhatIsNewViewController *whatIsNewVC = [WLIWhatIsNewViewController new];
+//        [self presentViewController:whatIsNewVC animated:YES completion:nil];
+//    }
 }
 
 #pragma mark - UI

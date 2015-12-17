@@ -159,16 +159,14 @@
         [self showErrorWithMessage:@"Email is not valid."];
     } else if (self.textFieldPassword.text.length < 4 || self.textFieldRepassword.text.length < 4) {
         [self showErrorWithMessage:@"Password is required. Your password should be at least 4 characters long."];
+    } else if (![self.textFieldPassword.text isEqualToString:self.textFieldRepassword.text]) {
+        [self showErrorWithMessage:@"Password and repassword doesn't match."];
     } else if (!self.textFieldUsername.text.length) {
         [self showErrorWithMessage:@"Username is required."];
     } else if (![WLIUtils isValidUserName:self.textFieldUsername.text]) {
         [self showErrorWithMessage:@"Username is not valid."];
-    } else if (![self.textFieldPassword.text isEqualToString:self.textFieldRepassword.text]) {
-        [self showErrorWithMessage:@"Password and repassword doesn't match."];
     } else if (!self.textFieldFullName.text.length) {
         [self showErrorWithMessage:@"Full Name is required."];
-    } else if (!self.avatarImageView.image) {
-        [self showErrorWithMessage:@"Avatar image is required."];
     } else {
         [self.view endEditing:YES];
         [hud show:YES];
