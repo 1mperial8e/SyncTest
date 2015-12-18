@@ -19,7 +19,7 @@
 
 @end
 
-@interface WLIViewController : UIViewController <WLICellDelegate, MNMPullToRefreshManagerClient> {
+@interface WLIViewController : UIViewController <WLICellDelegate, MNMPullToRefreshManagerClient, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate> {
     PNTToolbar *toolbar;
     MNMPullToRefreshManager *refreshManager;
     MBProgressHUD *hud;

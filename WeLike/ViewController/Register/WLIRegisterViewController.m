@@ -209,7 +209,8 @@
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex != alertView.cancelButtonIndex) {
-        [self sendFeedBack:nil];
+//        [self sendFeedBack:nil];
+        [WLIUtils showEmailControllerWithToRecepient:@[@"support@santanderconsumer.no"] delegate:self];
     }
 }
 
