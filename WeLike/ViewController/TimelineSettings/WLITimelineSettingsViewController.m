@@ -21,10 +21,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-	[self.tableView registerNib:WLITimelineSettingsTableViewCell.nib forCellReuseIdentifier:WLITimelineSettingsTableViewCell.ID];
-	self.navigationItem.title = @"Timeline Settings";
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(settingsAcceptAction:)];
+    [self setupUI];
+}
+
+#pragma mark - Setup
+
+- (void)setupUI
+{
+    self.navigationItem.title = @"Timeline Settings";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(settingsAcceptAction:)];
+}
+
+- (void)setupTableView
+{
+    [self.tableView registerNib:WLITimelineSettingsTableViewCell.nib forCellReuseIdentifier:WLITimelineSettingsTableViewCell.ID];
+
+    NSArray *viewArray = [[NSBundle mainBundle] loadNibNamed:@"WLITimelineSettingsHeaderView" owner:self options:nil];
+    UIView *header = [viewArray firstObject];
+    self.tableView.tableHeaderView = header;
 }
 
 #pragma mark - Table view data source
@@ -36,19 +50,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	WLITimelineSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:WLITimelineSettingsTableViewCell.ID forIndexPath:indexPath];
-	cell.countryLabel.text = [WLICountrySettings sharedSource].countries[indexPath.row];
-	cell.countryStateSwitch.tag = indexPath.row;
-	[cell.countryStateSwitch setOn: [[WLICountrySettings sharedSource].countriesEnabledState[indexPath.row] integerValue]];
-	cell.delegate = self;
-	return cell;
+	return [self countrySwitchCellForIndexPath:indexPath];
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+#pragma mark - Cells
+
+- (UITableViewCell *)countrySwitchCellForIndexPath:(NSIndexPath *)indexPath
 {
-	NSArray *viewArray =  [[NSBundle mainBundle] loadNibNamed:@"WLITimelineSettingsHeaderView" owner:self options:nil];
-	UIView *header = [viewArray firstObject];
-	return header;
+    WLITimelineSettingsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WLITimelineSettingsTableViewCell.ID forIndexPath:indexPath];
+    cell.countryLabel.text = [WLICountrySettings sharedSource].countries[indexPath.row];
+    cell.countryStateSwitch.tag = indexPath.row;
+    [cell.countryStateSwitch setOn: [[WLICountrySettings sharedSource].countriesEnabledState[indexPath.row] integerValue]];
+    cell.delegate = self;
+    return cell;
 }
 
 #pragma mark - Actions
