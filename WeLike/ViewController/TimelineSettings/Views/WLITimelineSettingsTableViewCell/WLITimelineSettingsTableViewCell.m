@@ -14,6 +14,8 @@
 
 @implementation WLITimelineSettingsTableViewCell
 
+#pragma mark - Actions
+
 - (IBAction)countryStateSwitched:(UISwitch *)sender
 {
 	if ([self.delegate respondsToSelector:@selector(stateSwitched:forCountryIndex:)]) {

@@ -6,6 +6,8 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
+#import "WLIBaseTableViewCell.h"
+
 @protocol WLITimelineSettingsTableViewCellDelegate <NSObject>
 
 @optional
@@ -14,8 +16,7 @@
 
 @end
 
-
-@interface WLITimelineSettingsTableViewCell : UITableViewCell
+@interface WLITimelineSettingsTableViewCell : WLIBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *countryLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *countryStateSwitch;

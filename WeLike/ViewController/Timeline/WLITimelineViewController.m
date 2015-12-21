@@ -87,9 +87,7 @@
 	WLITimelineSettingsViewController *settingsViewController = [WLITimelineSettingsViewController new];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
 	navController.navigationBar.backgroundColor = [UIColor redColor];
-	
-	UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
-	[rootVC presentViewController:navController animated:YES completion:nil];
+    [[WLIUtils rootController] presentViewController:navController animated:YES completion:nil];
 }
 
 

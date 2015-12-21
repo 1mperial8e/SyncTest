@@ -22,10 +22,8 @@
 {
     [super viewDidLoad];
 	
-	[self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WLITimelineSettingsTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([WLITimelineSettingsTableViewCell class])];	
-	
+	[self.tableView registerNib:WLITimelineSettingsTableViewCell.nib forCellReuseIdentifier:WLITimelineSettingsTableViewCell.ID];
 	self.navigationItem.title = @"Timeline Settings";
-	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(settingsAcceptAction:)];
 }
 
@@ -38,7 +36,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	WLITimelineSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WLITimelineSettingsTableViewCell class]) forIndexPath:indexPath];
+	WLITimelineSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:WLITimelineSettingsTableViewCell.ID forIndexPath:indexPath];
 	cell.countryLabel.text = [WLICountrySettings sharedSource].countries[indexPath.row];
 	cell.countryStateSwitch.tag = indexPath.row;
 	[cell.countryStateSwitch setOn: [[WLICountrySettings sharedSource].countriesEnabledState[indexPath.row] integerValue]];
@@ -46,7 +44,7 @@
 	return cell;
 }
 
--(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
 	NSArray *viewArray =  [[NSBundle mainBundle] loadNibNamed:@"WLITimelineSettingsHeaderView" owner:self options:nil];
 	UIView *header = [viewArray firstObject];

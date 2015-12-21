@@ -47,8 +47,7 @@
 - (void)getCountriesState
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	if (![defaults objectForKey:@"Denmark"])
-	{
+	if (![defaults objectForKey:@"Denmark"]) {
 		[defaults setObject:@1 forKey:@"Denmark"];
 		[defaults setObject:@2 forKey:@"Finland"];
 		[defaults setObject:@3 forKey:@"Norway"];
@@ -66,9 +65,9 @@
 {
 	NSNumber *numericState;
 	if (state) {
-		numericState = [NSNumber numberWithInteger: index + 1];
+		numericState = [NSNumber numberWithInteger:index + 1];
 	} else {
-		numericState = [NSNumber numberWithInteger: 0];
+		numericState = [NSNumber numberWithInteger:0];
 	}
 	self.countriesEnabledState[index] = numericState;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
