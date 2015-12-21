@@ -105,7 +105,7 @@ static  NSInteger postCommentLinesCount = 5;
 					[self.delegate showTimelineForMySearchString:hashtag];
 				}
 			} else if ([hashtag hasPrefix:@"@"]) {
-				NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", [hashtag substringFromIndex:0]];
+				NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"username LIKE %@", [hashtag substringFromIndex:1]];
 				NSDictionary *userInfo = [self.comment.taggedUsers filteredArrayUsingPredicate:namePredicate].firstObject;
 				if (self.delegate && [self.delegate respondsToSelector:@selector(showUser:userID:sender:)]) {
 					[self.delegate showUser:nil userID:[userInfo[@"id"] integerValue] sender:self];

@@ -13,6 +13,7 @@
 #import "WLIFollowingsViewController.h"
 #import "WLIMyDriveViewController.h"
 #import "WLITimelineViewController.h"
+#import "WLIWhatIsNewViewController.h"
 
 #import "WLIConnect.h"
 
@@ -49,6 +50,15 @@
 {
     [super viewWillAppear:animated];
     [self showUI];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+//    if ([WLIUtils shouldShowNewFeatures]) {
+//        WLIWhatIsNewViewController *whatIsNewVC = [WLIWhatIsNewViewController new];
+//        [self presentViewController:whatIsNewVC animated:YES completion:nil];
+//    }
 }
 
 #pragma mark - UI

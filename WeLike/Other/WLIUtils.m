@@ -128,4 +128,11 @@
 	[self.rootController presentViewController:mailNavigationController animated:YES completion:nil];
 }
 
++ (BOOL)shouldShowNewFeatures
+{
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NewFeaturesKey = [@"NewFeaturesKey" stringByAppendingString:version];
+    return ![[[NSUserDefaults standardUserDefaults] objectForKey:NewFeaturesKey] boolValue];
+}
+
 @end

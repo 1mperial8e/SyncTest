@@ -7,6 +7,7 @@
 //
 
 static NSString *const CustomLinkAttributeName = @"CustomLinkAttributeName";
+NSString *NewFeaturesKey;
 
 @protocol MFMailComposeViewControllerDelegate;
 
@@ -22,5 +23,7 @@ static NSString *const CustomLinkAttributeName = @"CustomLinkAttributeName";
 + (UIViewController *)rootController;
 + (void)showEmailControllerWithToRecepient:(NSArray *)toRecepients delegate:(id<MFMailComposeViewControllerDelegate>)delegate;
 + (void)showCustomEmailControllerWithToRecepient:(NSString *)toRecepient;
+
++ (BOOL)shouldShowNewFeatures;
 
 @end

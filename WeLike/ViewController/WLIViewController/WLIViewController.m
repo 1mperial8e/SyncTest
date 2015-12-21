@@ -14,7 +14,7 @@
 #import "WLILikersViewController.h"
 #import "WLIFullScreenPhotoViewController.h"
 #import "WLIMyDriveViewController.h"
-@interface WLIViewController () <UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
+@interface WLIViewController () <UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSIndexPath *indexPathToReload;
 
@@ -94,7 +94,7 @@
 
 - (void)sendFeedBack:(id)sender
 {	
-	[WLIUtils showCustomEmailControllerWithToRecepient:@"santander@santanderconsumer.no"];
+	[WLIUtils showCustomEmailControllerWithToRecepient:@"support@santanderconsumer.no"];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate

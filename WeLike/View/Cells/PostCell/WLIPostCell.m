@@ -238,6 +238,9 @@ static CGFloat const StaticCellHeight = 140;
 
 - (void)updateCommentsInfo
 {
+    if (self.post.postCommentsCount == 0) {
+        self.post.commentedThisPost = NO;
+    }
     self.buttonComment.selected = self.post.commentedThisPost;
     if (self.post.commentedThisPost) {
         self.labelComments.textColor = [UIColor redColor];
