@@ -20,13 +20,4 @@
 	self.textView.layer.borderWidth = 0.5f;
 }
 
-#pragma mark - Actions
-
-- (IBAction)loginAction:(id)sender
-{
-    if (self.registerHandler) {
-        self.registerHandler();
-    }
-}
-
 @end

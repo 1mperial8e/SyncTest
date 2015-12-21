@@ -12,6 +12,7 @@
 #import "WLIConnect.h"
 #import "MBProgressHUD.h"
 #import "PNTToolbar.h"
+#import <MessageUI/MessageUI.h>
 
 @protocol WLIViewControllerRefreshProtocol <NSObject>
 
@@ -29,7 +30,6 @@
 }
 
 @property (weak, nonatomic) UITableView *tableViewRefresh;
-
 
 - (void)sendFeedBack:(id)sender;
 

@@ -42,7 +42,7 @@
                             <rect key="frame" x="5" y="56" width="530" height="476"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="-3" maxY="0.0"/>
-                            <mutableString key="text">ENHANCEMENTS
+                            <string key="text">ENHANCEMENTS
 - Implemented Flurry analytics tool for statistics
 - darker text color
 - Every user now have a public user profile, and by clicking on the avatar you will see the user page with posts, scores and more information.
@@ -76,7 +76,7 @@ BUG FIXES
 - Bugs with ranking system
 - Error with some corrupted users
 - Fixed a problem where users was kicked out of the app
-- Problems with preview image on video</mutableString>
+- Problems with preview image on video</string>
                             <color key="textColor" red="0.30980392159999998" green="0.30980392159999998" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

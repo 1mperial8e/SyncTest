@@ -11,7 +11,6 @@
 @interface WLIMyGoalsTableViewCell : WLIBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-
-@property (copy, nonatomic) void (^registerHandler)();
+@property (weak, nonatomic) IBOutlet UILabel *label;
 
 @end
