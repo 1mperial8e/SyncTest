@@ -8,6 +8,7 @@
 
 #import "WLITimelineViewController.h"
 #import "WLITimelineSettingsViewController.h"
+#import "WLICountrySettings.h"
 
 @interface WLITimelineViewController () <UIScrollViewDelegate>
 
@@ -60,24 +61,10 @@
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
+	NSString *countriesStringId = [[WLICountrySettings sharedSource] getEnabledCountriesStringID];
     self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:15 countryID:self.countryId searchString:self.searchString page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [super scrollViewDidScroll:scrollView];
-    if (scrollView.contentOffset.y >= 0) {
-        if (self.prevOffset.y + 10 < scrollView.contentOffset.y) {
-            [self showSegmentView:NO];
-        } else if (self.prevOffset.y > scrollView.contentOffset.y + 10) {
-            [self showSegmentView:YES];
-        }
-        self.prevOffset = scrollView.contentOffset;
-    }
 }
 
 #pragma mark - Actions
@@ -88,30 +75,6 @@
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
 	navController.navigationBar.backgroundColor = [UIColor redColor];
     [[WLIUtils rootController] presentViewController:navController animated:YES completion:nil];
-}
-
-
-#pragma mark - Animation
-
-- (void)showSegmentView:(BOOL)show
-{
-    CGFloat constant = -CGRectGetHeight(self.filterContainer.frame);
-    if (show) {
-        constant = 0;
-    }
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.15 animations:^{
-        weakSelf.filterSegmentTopConstraint.constant = constant;
-        [weakSelf.view layoutIfNeeded];
-    }];
-}
-
-#pragma mark - Segment
-
-- (IBAction)segmentValueChanged:(UISegmentedControl *)sender
-{
-    self.countryId = sender.selectedSegmentIndex + 1;
-    [self reloadData:YES];
 }
 
 #pragma mark - Public

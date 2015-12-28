@@ -15,7 +15,6 @@
 #import "WLICategoryPeopleCell.h"
 #import "WLIPostCell.h"
 #import "WLILoadingCell.h"
-#import "WLICountryFilterTableViewCell.h"
 
 @interface WLICategoryPostsViewController ()
 
@@ -33,8 +32,7 @@
     self.postsSectionNumber = 1;
     
     [super viewDidLoad];
-
-    [self.tableViewRefresh registerNib:WLICountryFilterTableViewCell.nib forCellReuseIdentifier:WLICountryFilterTableViewCell.ID];
+	
     [self.tableViewRefresh registerNib:WLICategoryMarketCell.nib forCellReuseIdentifier:WLICategoryMarketCell.ID];
     [self.tableViewRefresh registerNib:WLICategoryCustomerCell.nib forCellReuseIdentifier:WLICategoryCustomerCell.ID];
     [self.tableViewRefresh registerNib:WLICategoryCapabilitiesCell.nib forCellReuseIdentifier:WLICategoryCapabilitiesCell.ID];
@@ -68,9 +66,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 2;
-    } else if (section == 1) {
+	if (section == 1) {
         return self.posts.count;
     } else {
         return 1;
@@ -84,8 +80,6 @@
         if (indexPath.row == 0) {
             NSString *cellID = [self categoryCellID];;
             cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
-        } else {
-            cell = [self countryCellForIndexPath:indexPath];
         }
     } else if (indexPath.section == 1) {
         cell = [self postCellForIndexPath:indexPath];
@@ -96,18 +90,6 @@
 }
 
 #pragma mark - Configure cells
-
-- (UITableViewCell *)countryCellForIndexPath:(NSIndexPath *)indexPath
-{
-    WLICountryFilterTableViewCell *countryCell = [self.tableViewRefresh dequeueReusableCellWithIdentifier:WLICountryFilterTableViewCell.ID forIndexPath:indexPath];
-    __weak typeof(self) weakSelf = self;
-    countryCell.countrySelectedHandler = ^(NSInteger country) {
-        weakSelf.selectedCountry = country;
-        [weakSelf reloadData:YES];
-    };
-    countryCell.segmentControl.selectedSegmentIndex = self.selectedCountry - 1;
-    return countryCell;
-}
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
 {

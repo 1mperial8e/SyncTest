@@ -13,5 +13,7 @@
 
 + (instancetype)sharedSource;
 - (void)setState:(BOOL)state forCountryIndex:(NSInteger)index;
+- (NSInteger) getEnabledCountriesCount;
+- (NSString *) getEnabledCountriesStringID;
 
 @end

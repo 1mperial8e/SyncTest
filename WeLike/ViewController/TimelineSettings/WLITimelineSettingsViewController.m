@@ -78,15 +78,7 @@
 - (void)stateSwitched:(BOOL)state forCountryIndex:(NSInteger)index fromCell:(id)senderCell
 {
 	WLITimelineSettingsTableViewCell *currentCell = (WLITimelineSettingsTableViewCell *) senderCell;
-	
-	NSInteger enabledCountriesCount = 0;
-	for (NSString *currentCountry in [WLICountrySettings sharedSource].countries) {
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		NSNumber *countryState = [defaults valueForKey:currentCountry];
-		if (![countryState isEqualToNumber:@0]) {
-			enabledCountriesCount++;
-		}
-	}
+	NSInteger enabledCountriesCount = [[WLICountrySettings sharedSource] getEnabledCountriesCount];	
 	if (enabledCountriesCount == 1 && !currentCell.countryStateSwitch.isOn) {
 				[currentCell.countryStateSwitch setOn:YES animated:YES];
 	} else {

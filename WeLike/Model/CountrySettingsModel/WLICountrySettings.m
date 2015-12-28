@@ -84,4 +84,32 @@
 	[defaults synchronize];
 }
 
+- (NSInteger) getEnabledCountriesCount
+{
+	NSInteger enabledCountriesCount = 0;
+	for (NSNumber *countryState in self.countriesEnabledState)
+	{
+		if (![countryState isEqualToNumber:@0]) {
+			enabledCountriesCount++;
+		}
+	}
+	return enabledCountriesCount;
+}
+
+- (NSString *) getEnabledCountriesStringID
+{
+	NSString *enabledCountriesStringID = @"";
+	for (NSNumber *countryState in self.countriesEnabledState)
+	{
+		if (![countryState isEqualToNumber:@0]) {
+			if (enabledCountriesStringID.length != 0) {
+				enabledCountriesStringID = [enabledCountriesStringID stringByAppendingString:@","];
+			}
+			NSString *currentID = [NSString stringWithFormat:@"%@",countryState];
+			enabledCountriesStringID = [enabledCountriesStringID stringByAppendingString:currentID];
+		}
+	}
+	return enabledCountriesStringID;
+}
+
 @end

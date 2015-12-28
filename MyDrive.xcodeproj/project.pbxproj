@@ -189,8 +189,6 @@
 		4F8E2D3C1BF4A2AF00953EC0 /* WLIObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E2D301BF4A2AF00953EC0 /* WLIObject.m */; };
 		4F8E2D3D1BF4A2AF00953EC0 /* WLIPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E2D331BF4A2AF00953EC0 /* WLIPost.m */; };
 		4F8E2D3E1BF4A2AF00953EC0 /* WLIUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E2D361BF4A2AF00953EC0 /* WLIUser.m */; };
-		4F8E2D461BF4A4C000953EC0 /* WLICountryFilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E2D411BF4A4C000953EC0 /* WLICountryFilterTableViewCell.m */; };
-		4F8E2D471BF4A4C000953EC0 /* WLICountryFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F8E2D421BF4A4C000953EC0 /* WLICountryFilterTableViewCell.xib */; };
 		4F8E2D481BF4A4C000953EC0 /* WLICategoryPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E2D441BF4A4C000953EC0 /* WLICategoryPostsViewController.m */; };
 		4F8E2D491BF4A4C000953EC0 /* WLICategoryPostsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F8E2D451BF4A4C000953EC0 /* WLICategoryPostsViewController.xib */; };
 		4FC33E971C0CB58A005F29D3 /* WLIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC33E951C0CB58A005F29D3 /* WLIWebViewController.m */; };
@@ -502,9 +500,6 @@
 		4F8E2D331BF4A2AF00953EC0 /* WLIPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIPost.m; sourceTree = "<group>"; };
 		4F8E2D351BF4A2AF00953EC0 /* WLIUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIUser.h; sourceTree = "<group>"; };
 		4F8E2D361BF4A2AF00953EC0 /* WLIUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIUser.m; sourceTree = "<group>"; };
-		4F8E2D401BF4A4C000953EC0 /* WLICountryFilterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLICountryFilterTableViewCell.h; sourceTree = "<group>"; };
-		4F8E2D411BF4A4C000953EC0 /* WLICountryFilterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLICountryFilterTableViewCell.m; sourceTree = "<group>"; };
-		4F8E2D421BF4A4C000953EC0 /* WLICountryFilterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLICountryFilterTableViewCell.xib; sourceTree = "<group>"; };
 		4F8E2D431BF4A4C000953EC0 /* WLICategoryPostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLICategoryPostsViewController.h; path = CategoryPosts/WLICategoryPostsViewController.h; sourceTree = "<group>"; };
 		4F8E2D441BF4A4C000953EC0 /* WLICategoryPostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLICategoryPostsViewController.m; path = CategoryPosts/WLICategoryPostsViewController.m; sourceTree = "<group>"; };
 		4F8E2D451BF4A4C000953EC0 /* WLICategoryPostsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLICategoryPostsViewController.xib; path = CategoryPosts/WLICategoryPostsViewController.xib; sourceTree = "<group>"; };
@@ -1163,7 +1158,6 @@
 		2E65F5891BBABD200077B44B /* CategoryPosts */ = {
 			isa = PBXGroup;
 			children = (
-				4F8E2D3F1BF4A4C000953EC0 /* CountryFilterTableViewCell */,
 				4F8E2D431BF4A4C000953EC0 /* WLICategoryPostsViewController.h */,
 				4F8E2D441BF4A4C000953EC0 /* WLICategoryPostsViewController.m */,
 				4F8E2D451BF4A4C000953EC0 /* WLICategoryPostsViewController.xib */,
@@ -1665,17 +1659,6 @@
 			path = "User model";
 			sourceTree = "<group>";
 		};
-		4F8E2D3F1BF4A4C000953EC0 /* CountryFilterTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				4F8E2D401BF4A4C000953EC0 /* WLICountryFilterTableViewCell.h */,
-				4F8E2D411BF4A4C000953EC0 /* WLICountryFilterTableViewCell.m */,
-				4F8E2D421BF4A4C000953EC0 /* WLICountryFilterTableViewCell.xib */,
-			);
-			name = CountryFilterTableViewCell;
-			path = CategoryPosts/CountryFilterTableViewCell;
-			sourceTree = "<group>";
-		};
 		4FC33E931C0CB56C005F29D3 /* WebViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1819,7 +1802,6 @@
 				4F8E2D491BF4A4C000953EC0 /* WLICategoryPostsViewController.xib in Resources */,
 				309FF0C01C0F03F0009C9344 /* WLILikersViewController.xib in Resources */,
 				074348261BBABCB700EAA2AA /* Customer.png in Resources */,
-				4F8E2D471BF4A4C000953EC0 /* WLICountryFilterTableViewCell.xib in Resources */,
 				4FE75D2A1BFF25770063F3D8 /* WLIForgotPasswordViewController.xib in Resources */,
 				4F4D46471BFE2C5B00993349 /* WLIChangePasswordViewController.xib in Resources */,
 				4F2C83E71BFB884A00EDD64F /* WLIEditProfileViewController.xib in Resources */,
@@ -1873,7 +1855,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F8E2D3D1BF4A2AF00953EC0 /* WLIPost.m in Sources */,
-				4F8E2D461BF4A4C000953EC0 /* WLICountryFilterTableViewCell.m in Sources */,
 				2C6D27B71896BACA00C459CB /* MNMPullToRefreshManager.m in Sources */,
 				2C6D27BD1896BACA00C459CB /* SBJsonStreamParserAdapter.m in Sources */,
 				4F67ABAE1C21B13200C97E13 /* WLIWhatIsNewViewController.m in Sources */,
