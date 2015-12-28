@@ -23,6 +23,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.isChanged = NO;
+    
     [self setupUI];
 	[self setupTableView];
 }
@@ -48,7 +50,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [WLICountrySettings sharedSource].countries.count;
+    return [WLICountrySettings sharedSettings].countries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -61,9 +63,9 @@
 - (UITableViewCell *)countrySwitchCellForIndexPath:(NSIndexPath *)indexPath
 {
     WLITimelineSettingsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WLITimelineSettingsTableViewCell.ID forIndexPath:indexPath];
-    cell.countryLabel.text = [WLICountrySettings sharedSource].countries[indexPath.row];
+    cell.countryLabel.text = [WLICountrySettings sharedSettings].countries[indexPath.row];
     cell.countryStateSwitch.tag = indexPath.row;
-    [cell.countryStateSwitch setOn: [[WLICountrySettings sharedSource].countriesEnabledState[indexPath.row] integerValue]];
+    [cell.countryStateSwitch setOn: [[WLICountrySettings sharedSettings].countriesEnabledState[indexPath.row] integerValue]];
     cell.delegate = self;
     return cell;
 }
@@ -82,13 +84,13 @@
 
 - (void)stateSwitched:(BOOL)state forCountryIndex:(NSInteger)index fromCell:(id)senderCell
 {
-	WLITimelineSettingsTableViewCell *currentCell = (WLITimelineSettingsTableViewCell *) senderCell;
-	NSInteger enabledCountriesCount = [[WLICountrySettings sharedSource] getEnabledCountriesCount];	
+	WLITimelineSettingsTableViewCell *currentCell = (WLITimelineSettingsTableViewCell *)senderCell;
+	NSInteger enabledCountriesCount = [[WLICountrySettings sharedSettings] getEnabledCountriesCount];	
 	if (enabledCountriesCount == 1 && !currentCell.countryStateSwitch.isOn) {
-				[currentCell.countryStateSwitch setOn:YES animated:YES];
+        [currentCell.countryStateSwitch setOn:YES animated:YES];
 	} else {
 		self.isChanged = YES;
-		[[WLICountrySettings sharedSource] setState:state forCountryIndex:index];
+		[[WLICountrySettings sharedSettings] setState:state forCountryIndex:index];
 	}
 }
 

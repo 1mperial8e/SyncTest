@@ -11,9 +11,10 @@
 @property (strong, nonatomic, readonly) NSArray *countries;
 @property (strong, nonatomic, readonly) NSMutableArray *countriesEnabledState;
 
-+ (instancetype)sharedSource;
++ (instancetype)sharedSettings;
 - (void)setState:(BOOL)state forCountryIndex:(NSInteger)index;
-- (NSInteger) getEnabledCountriesCount;
-- (NSString *) getEnabledCountriesStringID;
+
+- (NSInteger)getEnabledCountriesCount;
+- (NSString *)getEnabledCountriesStringID;
 
 @end

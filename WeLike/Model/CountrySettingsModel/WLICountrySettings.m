@@ -19,7 +19,7 @@
 
 #pragma mark - Singleton
 
-+ (instancetype)sharedSource
++ (instancetype)sharedSettings
 {
 	static id sharedInstance = nil;
 	static dispatch_once_t onceToken;
@@ -48,9 +48,9 @@
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if (![defaults objectForKey:@"Denmark"]) {
-		NSString *countryCode = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
+		NSString *countryCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
 		NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-		NSString *country = [usLocale displayNameForKey: NSLocaleCountryCode value: countryCode];
+		NSString *country = [usLocale displayNameForKey:NSLocaleCountryCode value:countryCode];
 		NSInteger index = 1;
 		for (NSString *checkCountry in self.countries) {
 			if ([checkCountry isEqualToString:country]) {
@@ -84,11 +84,10 @@
 	[defaults synchronize];
 }
 
-- (NSInteger) getEnabledCountriesCount
+- (NSInteger)getEnabledCountriesCount
 {
 	NSInteger enabledCountriesCount = 0;
-	for (NSNumber *countryState in self.countriesEnabledState)
-	{
+	for (NSNumber *countryState in self.countriesEnabledState) {
 		if (![countryState isEqualToNumber:@0]) {
 			enabledCountriesCount++;
 		}
@@ -96,11 +95,10 @@
 	return enabledCountriesCount;
 }
 
-- (NSString *) getEnabledCountriesStringID
+- (NSString *)getEnabledCountriesStringID
 {
 	NSString *enabledCountriesStringID = @"";
-	for (NSNumber *countryState in self.countriesEnabledState)
-	{
+	for (NSNumber *countryState in self.countriesEnabledState) {
 		if (![countryState isEqualToNumber:@0]) {
 			if (enabledCountriesStringID.length != 0) {
 				enabledCountriesStringID = [enabledCountriesStringID stringByAppendingString:@","];
