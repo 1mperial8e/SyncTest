@@ -103,7 +103,7 @@ typedef enum ServerResponse ServerResponse;
 
 - (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
              withCategory:(NSInteger)categoryID
-                countryID:(NSInteger)countryID
+                countryID:(NSString *)countryID
              searchString:(NSString *)searchString
                      page:(NSInteger)page
                  pageSize:(NSInteger)pageSize

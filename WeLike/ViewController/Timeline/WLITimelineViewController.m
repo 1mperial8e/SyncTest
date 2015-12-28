@@ -46,6 +46,8 @@
 		
 		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonAction:)];
 	}
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChangedNotificationRecieved:) name:CountriesFilterSettingsChangeNotification object:nil];
 }
 
 #pragma mark - Data loading methods
@@ -61,8 +63,9 @@
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
+	
 	NSString *countriesStringId = [[WLICountrySettings sharedSource] getEnabledCountriesStringID];
-    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:15 countryID:self.countryId searchString:self.searchString page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:15 countryID:countriesStringId searchString:self.searchString page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -82,6 +85,13 @@
 - (void)scrollToTop
 {
     [self.tableViewRefresh setContentOffset:CGPointZero animated:YES];
+}
+
+#pragma mark - Notification
+
+- (void) settingsChangedNotificationRecieved:(NSNotification *)notification
+{
+	[self reloadData:YES];
 }
 
 @end

@@ -12,6 +12,8 @@
 
 @interface WLITimelineSettingsViewController () <WLITimelineSettingsTableViewCellDelegate>
 
+@property (assign, nonatomic) BOOL isChanged;
+
 @end
 
 @implementation WLITimelineSettingsViewController
@@ -70,6 +72,9 @@
 
 - (void)settingsAcceptAction:(id)sender
 {
+	if (self.isChanged) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:CountriesFilterSettingsChangeNotification object:self userInfo:nil];
+	}
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -82,6 +87,7 @@
 	if (enabledCountriesCount == 1 && !currentCell.countryStateSwitch.isOn) {
 				[currentCell.countryStateSwitch setOn:YES animated:YES];
 	} else {
+		self.isChanged = YES;
 		[[WLICountrySettings sharedSource] setState:state forCountryIndex:index];
 	}
 }

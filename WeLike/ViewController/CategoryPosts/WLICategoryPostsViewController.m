@@ -15,6 +15,7 @@
 #import "WLICategoryPeopleCell.h"
 #import "WLIPostCell.h"
 #import "WLILoadingCell.h"
+#import "WLICountrySettings.h"
 
 @interface WLICategoryPostsViewController ()
 
@@ -37,6 +38,8 @@
     [self.tableViewRefresh registerNib:WLICategoryCustomerCell.nib forCellReuseIdentifier:WLICategoryCustomerCell.ID];
     [self.tableViewRefresh registerNib:WLICategoryCapabilitiesCell.nib forCellReuseIdentifier:WLICategoryCapabilitiesCell.ID];
     [self.tableViewRefresh registerNib:WLICategoryPeopleCell.nib forCellReuseIdentifier:WLICategoryPeopleCell.ID];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChangedNotificationRecieved:) name:CountriesFilterSettingsChangeNotification object:nil];
 }
 
 #pragma mark - Data loading methods
@@ -52,7 +55,8 @@
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
-    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:self.categoryID countryID:self.selectedCountry searchString:@"" page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+	NSString *countriesStringId = [[WLICountrySettings sharedSource] getEnabledCountriesStringID];
+    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:self.categoryID countryID:countriesStringId searchString:@"" page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -90,6 +94,7 @@
 }
 
 #pragma mark - Configure cells
+
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
 {
@@ -143,6 +148,13 @@
             break;
     }
     return cellID;
+}
+
+#pragma mark - Notification
+
+- (void) settingsChangedNotificationRecieved:(NSNotification *)notification
+{
+	[self reloadData:YES];
 }
 
 @end
