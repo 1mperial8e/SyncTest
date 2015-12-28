@@ -18,8 +18,8 @@
 
 - (IBAction)countryStateSwitched:(UISwitch *)sender
 {
-	if ([self.delegate respondsToSelector:@selector(stateSwitched:forCountryIndex:)]) {
-		[self.delegate stateSwitched:self.countryStateSwitch.isOn forCountryIndex:sender.tag];
+	if ([self.delegate respondsToSelector:@selector(stateSwitched:forCountryIndex:fromCell:)]) {
+		[self.delegate stateSwitched:self.countryStateSwitch.isOn forCountryIndex:sender.tag fromCell:self];
 	}	
 }
 

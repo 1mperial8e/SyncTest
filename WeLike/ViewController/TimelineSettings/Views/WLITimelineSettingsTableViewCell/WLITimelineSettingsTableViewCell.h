@@ -12,7 +12,7 @@
 
 @optional
 
-- (void)stateSwitched:(BOOL)state forCountryIndex:(NSInteger)index;
+- (void)stateSwitched:(BOOL)state forCountryIndex:(NSInteger)index fromCell:(id)senderCell;
 
 @end
 

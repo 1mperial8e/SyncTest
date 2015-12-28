@@ -9,12 +9,8 @@
 #import "WLITimelineSettingsViewController.h"
 #import "WLITimelineSettingsTableViewCell.h"
 #import "WLICountrySettings.h"
-#import "NSLocale+WLILocale.h"
-#warning delete NSLocale category after test
 
 @interface WLITimelineSettingsViewController () <WLITimelineSettingsTableViewCellDelegate>
-
-@property (strong, nonatomic) NSMutableArray *countryCells;
 
 @end
 
@@ -27,7 +23,6 @@
     [super viewDidLoad];
     [self setupUI];
 	[self setupTableView];
-	self.countryCells = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - Setup
@@ -68,7 +63,6 @@
     cell.countryStateSwitch.tag = indexPath.row;
     [cell.countryStateSwitch setOn: [[WLICountrySettings sharedSource].countriesEnabledState[indexPath.row] integerValue]];
     cell.delegate = self;
-	[self.countryCells addObject:cell];
     return cell;
 }
 
@@ -81,20 +75,22 @@
 
 #pragma mark - WLITimelineSettingsTableViewCellDelegate
 
-- (void)stateSwitched:(BOOL)state forCountryIndex:(NSInteger)index
+- (void)stateSwitched:(BOOL)state forCountryIndex:(NSInteger)index fromCell:(id)senderCell
 {
-	[[WLICountrySettings sharedSource] setState:state forCountryIndex:index];
-	WLITimelineSettingsTableViewCell *lastCell;
+	WLITimelineSettingsTableViewCell *currentCell = (WLITimelineSettingsTableViewCell *) senderCell;
+	
 	NSInteger enabledCountriesCount = 0;
-	for (WLITimelineSettingsTableViewCell *cell in self.countryCells) {
-		if (cell.countryStateSwitch.isOn) {
-			lastCell = cell;
+	for (NSString *currentCountry in [WLICountrySettings sharedSource].countries) {
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		NSNumber *countryState = [defaults valueForKey:currentCountry];
+		if (![countryState isEqualToNumber:@0]) {
 			enabledCountriesCount++;
-			cell.countryStateSwitch.userInteractionEnabled = YES;
 		}
 	}
-	if (enabledCountriesCount == 1) {
-		lastCell.countryStateSwitch.userInteractionEnabled = NO;
+	if (enabledCountriesCount == 1 && !currentCell.countryStateSwitch.isOn) {
+				[currentCell.countryStateSwitch setOn:YES animated:YES];
+	} else {
+		[[WLICountrySettings sharedSource] setState:state forCountryIndex:index];
 	}
 }
 
