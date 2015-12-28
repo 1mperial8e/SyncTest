@@ -37,6 +37,8 @@
     
     [super viewDidLoad];
     self.navigationItem.title = @"Following";
+	
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-search"] style:UIBarButtonItemStylePlain target:self action:@selector(searchButtonAction:)];
 }
 
 @end

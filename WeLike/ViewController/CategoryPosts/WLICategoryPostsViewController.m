@@ -15,11 +15,9 @@
 #import "WLICategoryPeopleCell.h"
 #import "WLIPostCell.h"
 #import "WLILoadingCell.h"
-#import "WLICountryFilterTableViewCell.h"
+#import "WLICountrySettings.h"
 
 @interface WLICategoryPostsViewController ()
-
-@property (assign, nonatomic) NSInteger selectedCountry;
 
 @end
 
@@ -29,16 +27,16 @@
 
 - (void)viewDidLoad
 {
-    self.selectedCountry = 5;
     self.postsSectionNumber = 1;
     
     [super viewDidLoad];
-
-    [self.tableViewRefresh registerNib:WLICountryFilterTableViewCell.nib forCellReuseIdentifier:WLICountryFilterTableViewCell.ID];
+	
     [self.tableViewRefresh registerNib:WLICategoryMarketCell.nib forCellReuseIdentifier:WLICategoryMarketCell.ID];
     [self.tableViewRefresh registerNib:WLICategoryCustomerCell.nib forCellReuseIdentifier:WLICategoryCustomerCell.ID];
     [self.tableViewRefresh registerNib:WLICategoryCapabilitiesCell.nib forCellReuseIdentifier:WLICategoryCapabilitiesCell.ID];
     [self.tableViewRefresh registerNib:WLICategoryPeopleCell.nib forCellReuseIdentifier:WLICategoryPeopleCell.ID];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChangedNotificationRecieved:) name:CountriesFilterSettingsChangeNotification object:nil];
 }
 
 #pragma mark - Data loading methods
@@ -54,7 +52,8 @@
     }
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
-    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:self.categoryID countryID:self.selectedCountry searchString:@"" page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+	NSString *countriesStringId = [[WLICountrySettings sharedSettings] getEnabledCountriesStringID];
+    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:self.categoryID countryID:countriesStringId searchString:@"" page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -68,9 +67,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 2;
-    } else if (section == 1) {
+	if (section == 1) {
         return self.posts.count;
     } else {
         return 1;
@@ -84,8 +81,6 @@
         if (indexPath.row == 0) {
             NSString *cellID = [self categoryCellID];;
             cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
-        } else {
-            cell = [self countryCellForIndexPath:indexPath];
         }
     } else if (indexPath.section == 1) {
         cell = [self postCellForIndexPath:indexPath];
@@ -97,17 +92,6 @@
 
 #pragma mark - Configure cells
 
-- (UITableViewCell *)countryCellForIndexPath:(NSIndexPath *)indexPath
-{
-    WLICountryFilterTableViewCell *countryCell = [self.tableViewRefresh dequeueReusableCellWithIdentifier:WLICountryFilterTableViewCell.ID forIndexPath:indexPath];
-    __weak typeof(self) weakSelf = self;
-    countryCell.countrySelectedHandler = ^(NSInteger country) {
-        weakSelf.selectedCountry = country;
-        [weakSelf reloadData:YES];
-    };
-    countryCell.segmentControl.selectedSegmentIndex = self.selectedCountry - 1;
-    return countryCell;
-}
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
 {
@@ -161,6 +145,13 @@
             break;
     }
     return cellID;
+}
+
+#pragma mark - Notification
+
+- (void) settingsChangedNotificationRecieved:(NSNotification *)notification
+{
+	[self reloadData:YES];
 }
 
 @end

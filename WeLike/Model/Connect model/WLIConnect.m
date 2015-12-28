@@ -438,7 +438,7 @@ static NSString *const AuthTokenKey = @"token";
 
 - (AFHTTPRequestOperation *)timelineForUserID:(NSInteger)userID
                                  withCategory:(NSInteger)categoryID
-                                    countryID:(NSInteger)countryID
+                                    countryID:(NSString *)countryID
                                  searchString:(NSString *)searchString
                                          page:(NSInteger)page
                                      pageSize:(NSInteger)pageSize
@@ -455,7 +455,7 @@ static NSString *const AuthTokenKey = @"token";
         [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
         [parameters setObject:[NSString stringWithFormat:@"%zd", categoryID] forKey:@"categoryID"];
-        [parameters setObject:[NSString stringWithFormat:@"%zd", countryID] forKey:@"countryID"];
+        [parameters setObject:countryID forKey:@"countryID"];
         [parameters setObject:[NSString stringWithFormat:@"%@", [searchString lowercaseString]] forKey:@"searchstring"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
 
