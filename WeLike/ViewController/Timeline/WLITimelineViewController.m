@@ -12,12 +12,6 @@
 
 @interface WLITimelineViewController () <UIScrollViewDelegate>
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *filterSegmentTopConstraint;
-@property (weak, nonatomic) IBOutlet UIView *filterContainer;
-@property (assign, nonatomic) CGPoint prevOffset;
-
-@property (assign, nonatomic) NSInteger countryId;
-
 @end
 
 @implementation WLITimelineViewController
@@ -30,9 +24,7 @@
     if (self) {
         self.searchString = @"";
         self.navigationItem.title = @"Timeline";
-        self.prevOffset = CGPointZero;
-        self.countryId = 0;
-    }
+	}
     return self;
 }
 

@@ -19,8 +19,6 @@
 
 @interface WLICategoryPostsViewController ()
 
-@property (assign, nonatomic) NSInteger selectedCountry;
-
 @end
 
 @implementation WLICategoryPostsViewController
@@ -29,7 +27,6 @@
 
 - (void)viewDidLoad
 {
-    self.selectedCountry = 5;
     self.postsSectionNumber = 1;
     
     [super viewDidLoad];

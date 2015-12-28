@@ -109,6 +109,9 @@
 			enabledCountriesStringID = [enabledCountriesStringID stringByAppendingString:currentID];
 		}
 	}
+	if (enabledCountriesStringID.length == 0) {
+		return @"0";
+	}
 	return enabledCountriesStringID;
 }
 
