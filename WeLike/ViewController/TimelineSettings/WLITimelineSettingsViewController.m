@@ -9,8 +9,12 @@
 #import "WLITimelineSettingsViewController.h"
 #import "WLITimelineSettingsTableViewCell.h"
 #import "WLICountrySettings.h"
+#import "NSLocale+WLILocale.h"
+#warning delete NSLocale category after test
 
 @interface WLITimelineSettingsViewController () <WLITimelineSettingsTableViewCellDelegate>
+
+@property (strong, nonatomic) NSMutableArray *countryCells;
 
 @end
 
@@ -22,6 +26,8 @@
 {
     [super viewDidLoad];
     [self setupUI];
+	[self setupTableView];
+	self.countryCells = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - Setup
@@ -62,6 +68,7 @@
     cell.countryStateSwitch.tag = indexPath.row;
     [cell.countryStateSwitch setOn: [[WLICountrySettings sharedSource].countriesEnabledState[indexPath.row] integerValue]];
     cell.delegate = self;
+	[self.countryCells addObject:cell];
     return cell;
 }
 
@@ -77,6 +84,18 @@
 - (void)stateSwitched:(BOOL)state forCountryIndex:(NSInteger)index
 {
 	[[WLICountrySettings sharedSource] setState:state forCountryIndex:index];
+	WLITimelineSettingsTableViewCell *lastCell;
+	NSInteger enabledCountriesCount = 0;
+	for (WLITimelineSettingsTableViewCell *cell in self.countryCells) {
+		if (cell.countryStateSwitch.isOn) {
+			lastCell = cell;
+			enabledCountriesCount++;
+			cell.countryStateSwitch.userInteractionEnabled = YES;
+		}
+	}
+	if (enabledCountriesCount == 1) {
+		lastCell.countryStateSwitch.userInteractionEnabled = NO;
+	}
 }
 
 @end

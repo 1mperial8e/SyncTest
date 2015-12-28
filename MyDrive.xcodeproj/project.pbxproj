@@ -137,6 +137,7 @@
 		30962D551C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30962D531C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib */; };
 		309FF0BF1C0F03F0009C9344 /* WLILikersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */; };
 		309FF0C01C0F03F0009C9344 /* WLILikersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */; };
+		30ADCF4A1C31371B00280D97 /* NSLocale+WLILocale.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ADCF491C31371B00280D97 /* NSLocale+WLILocale.m */; };
 		30DCE4EE1C1708F800244011 /* WLIMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DCE4EC1C1708F800244011 /* WLIMailViewController.m */; };
 		30DCE4EF1C1708F800244011 /* WLIMailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30DCE4ED1C1708F800244011 /* WLIMailViewController.xib */; };
 		30DCE4F51C170F8A00244011 /* WLIMailTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DCE4F31C170F8A00244011 /* WLIMailTextFieldTableViewCell.m */; };
@@ -419,6 +420,8 @@
 		309FF0BC1C0F03F0009C9344 /* WLILikersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLILikersViewController.h; sourceTree = "<group>"; };
 		309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLILikersViewController.m; sourceTree = "<group>"; };
 		309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLILikersViewController.xib; sourceTree = "<group>"; };
+		30ADCF481C31371B00280D97 /* NSLocale+WLILocale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLocale+WLILocale.h"; sourceTree = "<group>"; };
+		30ADCF491C31371B00280D97 /* NSLocale+WLILocale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLocale+WLILocale.m"; sourceTree = "<group>"; };
 		30DCE4EB1C1708F800244011 /* WLIMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIMailViewController.h; sourceTree = "<group>"; };
 		30DCE4EC1C1708F800244011 /* WLIMailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIMailViewController.m; sourceTree = "<group>"; };
 		30DCE4ED1C1708F800244011 /* WLIMailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIMailViewController.xib; sourceTree = "<group>"; };
@@ -595,6 +598,8 @@
 				2C6D27151896BACA00C459CB /* ViewControllers */,
 				2C6D27581896BACA00C459CB /* MyDrive-Info.plist */,
 				2C6D27591896BACA00C459CB /* MyDrive-Prefix.pch */,
+				30ADCF481C31371B00280D97 /* NSLocale+WLILocale.h */,
+				30ADCF491C31371B00280D97 /* NSLocale+WLILocale.m */,
 			);
 			path = WeLike;
 			sourceTree = "<group>";
@@ -1939,6 +1944,7 @@
 				2C6D27D41896BACA00C459CB /* WLILoadingCell.m in Sources */,
 				4F2C83DB1BFB2B8200EDD64F /* WLITableViewCell.m in Sources */,
 				30DCE4EE1C1708F800244011 /* WLIMailViewController.m in Sources */,
+				30ADCF4A1C31371B00280D97 /* NSLocale+WLILocale.m in Sources */,
 				2E28F3731BADE286006CF0BE /* WLIMyDriveViewController.m in Sources */,
 				4F69E8DE1BF0B48600A6CD5A /* WLIRegisterAvatarTableViewCell.m in Sources */,
 				309236B01C0DB5580073A78A /* WLIAnalytics.m in Sources */,

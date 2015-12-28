@@ -48,10 +48,18 @@
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if (![defaults objectForKey:@"Denmark"]) {
-		[defaults setObject:@1 forKey:@"Denmark"];
-		[defaults setObject:@2 forKey:@"Finland"];
-		[defaults setObject:@3 forKey:@"Norway"];
-		[defaults setObject:@4 forKey:@"Sweden"];
+		NSString *countryCode = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
+		NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+		NSString *country = [usLocale displayNameForKey: NSLocaleCountryCode value: countryCode];
+		NSInteger index = 1;
+		for (NSString *checkCountry in self.countries) {
+			if ([checkCountry isEqualToString:country]) {
+				[defaults setObject:[NSNumber numberWithLong:index] forKey:checkCountry];
+			} else {
+				[defaults setObject:@0 forKey:checkCountry];
+			}
+			index++;
+		}		
 		[defaults setObject:@5 forKey:@"Nordic"];
 		[defaults synchronize];
 	}
