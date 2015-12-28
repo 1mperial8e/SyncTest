@@ -10,7 +10,7 @@
 #import "WLITimelineSettingsViewController.h"
 #import "WLICountrySettings.h"
 
-@interface WLITimelineViewController () <UIScrollViewDelegate>
+@interface WLITimelineViewController ()
 
 @end
 
