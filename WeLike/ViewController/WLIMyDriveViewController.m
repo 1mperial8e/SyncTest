@@ -70,6 +70,8 @@
         [sharedConnect deletePostID:self.morePost.postID onCompletion:^(ServerResponse serverResponseCode) {
             if (serverResponseCode == OK) {
                 NSInteger postIndex = [weakSelf.posts indexOfObject:weakSelf.morePost];
+//set proper country id
+				[WLIAnalytics eventDeletePostWithUserId:[WLIConnect sharedConnect].currentUser.userID withPostId:weakSelf.morePost.postID withPostCategory:weakSelf.morePost.postCategoryID withCountry:0];
                 if (postIndex != NSNotFound) {
                     [weakSelf.posts removeObject:weakSelf.morePost];
                     [weakSelf.tableViewRefresh beginUpdates];

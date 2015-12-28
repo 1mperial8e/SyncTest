@@ -176,6 +176,7 @@ static NSString *const LoadingCellIdentifier = @"WLILoadingCell";
         [sharedConnect removeCommentWithCommentID:comment.commentID onCompletion:^(ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode == OK) {
+				[WLIAnalytics eventDeleteCommentWithUserId:[WLIConnect sharedConnect].currentUser.userID withPostId:weakSelf.post.postID withCommentId:comment.commentID];
                 [weakSelf.comments removeObject:comment];
                 weakSelf.post.postCommentsCount--;
                 [weakSelf.tableViewRefresh reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationAutomatic];

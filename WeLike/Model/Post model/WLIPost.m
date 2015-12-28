@@ -35,6 +35,7 @@
         self.commentedThisPost = [self boolFromDictionary:postWithInfo forKey:@"isCommented"];
 		self.postComments = [WLIComment arrayWithDictionariesArray:[postWithInfo objectForKey:@"comments"]];
 		
+		self.postCategoryID = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] ;
         self.categoryMarket = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 1;
         self.categoryCapabilities = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 2;
         self.categoryCustomer = [self integerFromDictionary:postWithInfo forKey:@"categoryID"] & 4;

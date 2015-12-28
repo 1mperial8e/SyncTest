@@ -30,6 +30,7 @@
 @property (assign, nonatomic) BOOL isConnected;
 @property (assign, nonatomic) BOOL commentedThisPost;
 
+@property (assign, nonatomic) NSInteger postCategoryID;
 @property (assign, nonatomic) BOOL categoryMarket;
 @property (assign, nonatomic) BOOL categoryCustomer;
 @property (assign, nonatomic) BOOL categoryCapabilities;
