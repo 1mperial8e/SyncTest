@@ -14,7 +14,6 @@
 
 @interface WLIMyDriveHeaderCell () <MFMailComposeViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageViewUser;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserEmail;
 @property (weak, nonatomic) IBOutlet UILabel *rankLabel;

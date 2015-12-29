@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLIStartPageViewController">
+            <connections>
+                <outlet property="agoraButton" destination="jiM-fh-P2s" id="2DM-Z3-24d"/>
+                <outlet property="contentHeightConstraint" destination="4gh-mD-IXG" id="R9n-J1-rLh"/>
+                <outlet property="scrollView" destination="bQL-M6-wej" id="KG0-ub-rot"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="whatIsMyDriveButton" destination="HCE-19-Ead" id="DYf-nu-zyU"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="1952"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQL-M6-wej">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="1952"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9En-7P-hrE">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="2000"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startPageLogo" translatesAutoresizingMaskIntoConstraints="NO" id="smW-cp-VzX">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="742"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="smW-cp-VzX" secondAttribute="height" multiplier="375:464" id="Zwt-gl-iwJ"/>
+                                    </constraints>
+                                </imageView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Co-pM-YTi">
+                                    <rect key="frame" x="0.0" y="742" width="600" height="75"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCE-19-Ead">
+                                            <rect key="frame" x="14" y="2" width="282" height="34"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="34" id="BYf-6a-nTO"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" title="What is MyDrive?"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="4"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="whatIsMyDriveButtonAction:" destination="-1" eventType="touchUpInside" id="eB1-vE-gf2"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Syr-LY-kS7">
+                                            <rect key="frame" x="304" y="2" width="282" height="34"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="34" id="qyD-Hm-Rcb"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" title="Why 20% by 2020">
+                                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="4"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="whyButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="Cp4-v3-ATq"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="Syr-LY-kS7" firstAttribute="width" secondItem="HCE-19-Ead" secondAttribute="width" id="3Kj-zs-EnG"/>
+                                        <constraint firstAttribute="height" constant="75" id="8QZ-dk-bxE"/>
+                                        <constraint firstAttribute="trailing" secondItem="Syr-LY-kS7" secondAttribute="trailing" constant="14" id="8xw-kQ-DDS"/>
+                                        <constraint firstItem="Syr-LY-kS7" firstAttribute="leading" secondItem="HCE-19-Ead" secondAttribute="trailing" constant="8" id="cyw-wB-RGL"/>
+                                        <constraint firstItem="HCE-19-Ead" firstAttribute="top" secondItem="6Co-pM-YTi" secondAttribute="top" constant="2" id="j3a-l1-j22"/>
+                                        <constraint firstItem="Syr-LY-kS7" firstAttribute="top" secondItem="6Co-pM-YTi" secondAttribute="top" constant="2" id="oHP-rD-sxg"/>
+                                        <constraint firstItem="HCE-19-Ead" firstAttribute="leading" secondItem="6Co-pM-YTi" secondAttribute="leading" constant="14" id="tWn-2H-EUd"/>
+                                    </constraints>
+                                </view>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video" translatesAutoresizingMaskIntoConstraints="NO" id="nIg-n3-WCy">
+                                    <rect key="frame" x="0.0" y="817" width="600" height="317"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="nIg-n3-WCy" secondAttribute="height" multiplier="600:317" id="PCl-DX-H8n"/>
+                                    </constraints>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kDy-Hl-uGB">
+                                    <rect key="frame" x="267" y="943" width="66" height="66"/>
+                                    <state key="normal" image="playButton"/>
+                                    <connections>
+                                        <action selector="playVideoButtonAction:" destination="-1" eventType="touchUpInside" id="41h-jV-sYy"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PTe-zj-4BD">
+                                    <rect key="frame" x="0.0" y="1134" width="600" height="304"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="agora1" translatesAutoresizingMaskIntoConstraints="NO" id="dkx-oe-Dch">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="304"/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jiM-fh-P2s">
+                                            <rect key="frame" x="27" y="135" width="246" height="34"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="34" id="Sr1-e5-hal"/>
+                                            </constraints>
+                                            <state key="normal" title="Agora"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="4"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="agoraButtonAction:" destination="-1" eventType="touchUpInside" id="4sz-YJ-0pe"/>
+                                            </connections>
+                                        </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="digitalWeek2" translatesAutoresizingMaskIntoConstraints="NO" id="ehg-ll-F2v">
+                                            <rect key="frame" x="300" y="0.0" width="300" height="304"/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UZi-bn-e5l">
+                                            <rect key="frame" x="327" y="135" width="246" height="34"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="34" id="VGH-bl-Ycy"/>
+                                            </constraints>
+                                            <state key="normal" title="Digital Week">
+                                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="4"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="agoraButtonAction:" destination="-1" eventType="touchUpInside" id="bgd-r6-ni1"/>
+                                                <action selector="digitalWeekButtonAction:" destination="-1" eventType="touchUpInside" id="D8l-UP-Dsc"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="ehg-ll-F2v" firstAttribute="top" secondItem="PTe-zj-4BD" secondAttribute="top" id="17D-4w-FTB"/>
+                                        <constraint firstItem="UZi-bn-e5l" firstAttribute="leading" secondItem="dkx-oe-Dch" secondAttribute="trailing" constant="27" id="28w-N6-HnI"/>
+                                        <constraint firstItem="dkx-oe-Dch" firstAttribute="leading" secondItem="PTe-zj-4BD" secondAttribute="leading" id="2O5-3c-Kfo"/>
+                                        <constraint firstItem="UZi-bn-e5l" firstAttribute="centerY" secondItem="PTe-zj-4BD" secondAttribute="centerY" id="4sN-P2-9F6"/>
+                                        <constraint firstAttribute="bottom" secondItem="dkx-oe-Dch" secondAttribute="bottom" id="6IT-Ob-l4E"/>
+                                        <constraint firstItem="jiM-fh-P2s" firstAttribute="centerY" secondItem="PTe-zj-4BD" secondAttribute="centerY" id="83M-Vu-7HF"/>
+                                        <constraint firstItem="dkx-oe-Dch" firstAttribute="top" secondItem="PTe-zj-4BD" secondAttribute="top" id="Bid-pR-guc"/>
+                                        <constraint firstAttribute="width" secondItem="PTe-zj-4BD" secondAttribute="height" multiplier="75:38" id="Lx4-XJ-H8O"/>
+                                        <constraint firstAttribute="bottom" secondItem="ehg-ll-F2v" secondAttribute="bottom" id="Qzu-hh-zxF"/>
+                                        <constraint firstItem="ehg-ll-F2v" firstAttribute="leading" secondItem="dkx-oe-Dch" secondAttribute="trailing" id="jmC-ai-tuc"/>
+                                        <constraint firstAttribute="trailing" secondItem="UZi-bn-e5l" secondAttribute="trailing" constant="27" id="nmB-iG-rVQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="ehg-ll-F2v" secondAttribute="trailing" id="op6-4M-qRi"/>
+                                        <constraint firstItem="ehg-ll-F2v" firstAttribute="leading" secondItem="jiM-fh-P2s" secondAttribute="trailing" constant="27" id="vzS-1X-TIV"/>
+                                        <constraint firstItem="jiM-fh-P2s" firstAttribute="leading" secondItem="PTe-zj-4BD" secondAttribute="leading" constant="27" id="xlV-CY-AXS"/>
+                                        <constraint firstItem="ehg-ll-F2v" firstAttribute="width" secondItem="dkx-oe-Dch" secondAttribute="width" id="zeT-Ax-0E9"/>
+                                    </constraints>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7t4-tb-fft">
+                                    <rect key="frame" x="0.0" y="1438" width="600" height="304"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="7t4-tb-fft" secondAttribute="height" multiplier="67:34" id="MLq-qL-hA0"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
+                                    <state key="normal" title="www.tourdesfjords.no" backgroundImage="sitePicture">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="websiteButtonAction:" destination="-1" eventType="touchUpInside" id="oK0-Ew-Grk"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYu-lL-qJJ">
+                                    <rect key="frame" x="0.0" y="1742" width="600" height="208"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="santanderLogo" translatesAutoresizingMaskIntoConstraints="NO" id="3Bn-2W-9pq">
+                                            <rect key="frame" x="230" y="83" width="140" height="42"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="3Bn-2W-9pq" firstAttribute="centerX" secondItem="HYu-lL-qJJ" secondAttribute="centerX" id="38G-Lv-GUc"/>
+                                        <constraint firstAttribute="width" secondItem="HYu-lL-qJJ" secondAttribute="height" multiplier="75:26" id="DUD-j2-bqc"/>
+                                        <constraint firstItem="3Bn-2W-9pq" firstAttribute="centerY" secondItem="HYu-lL-qJJ" secondAttribute="centerY" id="bZL-PR-QYS"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="nIg-n3-WCy" secondAttribute="trailing" id="0hW-u1-qI7"/>
+                                <constraint firstAttribute="trailing" secondItem="6Co-pM-YTi" secondAttribute="trailing" id="11k-C8-ZzN"/>
+                                <constraint firstItem="smW-cp-VzX" firstAttribute="top" secondItem="9En-7P-hrE" secondAttribute="top" id="1sH-Cp-cdd"/>
+                                <constraint firstAttribute="height" constant="2000" id="4gh-mD-IXG"/>
+                                <constraint firstAttribute="trailing" secondItem="smW-cp-VzX" secondAttribute="trailing" id="D6U-MU-Uet"/>
+                                <constraint firstItem="nIg-n3-WCy" firstAttribute="leading" secondItem="9En-7P-hrE" secondAttribute="leading" id="GMG-id-3tw"/>
+                                <constraint firstItem="6Co-pM-YTi" firstAttribute="leading" secondItem="9En-7P-hrE" secondAttribute="leading" id="GUc-Du-zH0"/>
+                                <constraint firstAttribute="trailing" secondItem="7t4-tb-fft" secondAttribute="trailing" id="K6c-SZ-TLj"/>
+                                <constraint firstItem="6Co-pM-YTi" firstAttribute="top" secondItem="smW-cp-VzX" secondAttribute="bottom" id="PYV-56-SaU"/>
+                                <constraint firstItem="smW-cp-VzX" firstAttribute="leading" secondItem="9En-7P-hrE" secondAttribute="leading" id="RKY-Kr-Y9S"/>
+                                <constraint firstAttribute="trailing" secondItem="HYu-lL-qJJ" secondAttribute="trailing" id="SwN-Zp-x0d"/>
+                                <constraint firstItem="kDy-Hl-uGB" firstAttribute="centerX" secondItem="nIg-n3-WCy" secondAttribute="centerX" id="ThQ-A6-xBE"/>
+                                <constraint firstItem="PTe-zj-4BD" firstAttribute="top" secondItem="nIg-n3-WCy" secondAttribute="bottom" id="YZz-Pk-jkw"/>
+                                <constraint firstItem="HYu-lL-qJJ" firstAttribute="top" secondItem="7t4-tb-fft" secondAttribute="bottom" id="Zqb-qP-jyr"/>
+                                <constraint firstItem="kDy-Hl-uGB" firstAttribute="centerY" secondItem="nIg-n3-WCy" secondAttribute="centerY" id="aHV-fj-atN"/>
+                                <constraint firstItem="HYu-lL-qJJ" firstAttribute="leading" secondItem="9En-7P-hrE" secondAttribute="leading" id="bGX-87-Ocw"/>
+                                <constraint firstItem="7t4-tb-fft" firstAttribute="top" secondItem="PTe-zj-4BD" secondAttribute="bottom" id="bPR-SW-cJc"/>
+                                <constraint firstItem="7t4-tb-fft" firstAttribute="leading" secondItem="9En-7P-hrE" secondAttribute="leading" id="da7-8Q-v8U"/>
+                                <constraint firstItem="PTe-zj-4BD" firstAttribute="leading" secondItem="9En-7P-hrE" secondAttribute="leading" id="n9g-5Y-XGW"/>
+                                <constraint firstItem="nIg-n3-WCy" firstAttribute="top" secondItem="6Co-pM-YTi" secondAttribute="bottom" id="pkQ-bA-S3T"/>
+                                <constraint firstAttribute="trailing" secondItem="PTe-zj-4BD" secondAttribute="trailing" id="uAE-S2-Oxx"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="9En-7P-hrE" secondAttribute="bottom" id="7on-qL-b4P"/>
+                        <constraint firstItem="9En-7P-hrE" firstAttribute="top" secondItem="bQL-M6-wej" secondAttribute="top" id="H2X-cN-oSz"/>
+                        <constraint firstAttribute="trailing" secondItem="9En-7P-hrE" secondAttribute="trailing" id="Jns-Tb-Jao"/>
+                        <constraint firstItem="9En-7P-hrE" firstAttribute="leading" secondItem="bQL-M6-wej" secondAttribute="leading" id="WVT-qT-SkG"/>
+                        <constraint firstItem="9En-7P-hrE" firstAttribute="centerX" secondItem="bQL-M6-wej" secondAttribute="centerX" id="x3V-wP-n3A"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="bQL-M6-wej" secondAttribute="bottom" id="AgC-IJ-jRO"/>
+                <constraint firstItem="bQL-M6-wej" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="BDG-GW-11A"/>
+                <constraint firstItem="bQL-M6-wej" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PV5-De-JYN"/>
+                <constraint firstAttribute="trailing" secondItem="bQL-M6-wej" secondAttribute="trailing" id="Ptd-df-gPq"/>
+                <constraint firstItem="bQL-M6-wej" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="i1L-5w-rcH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="563" y="934"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="agora1" width="160" height="162"/>
+        <image name="digitalWeek2" width="160" height="162"/>
+        <image name="playButton" width="66" height="66"/>
+        <image name="santanderLogo" width="140" height="42"/>
+        <image name="sitePicture" width="335" height="170"/>
+        <image name="startPageLogo" width="375" height="464"/>
+        <image name="video" width="335" height="177"/>
+    </resources>
+</document>

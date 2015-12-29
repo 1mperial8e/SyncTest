@@ -9,11 +9,11 @@
 #import "WLITabBarController.h"
 #import "WLIWelcomeViewController.h"
 #import "WLINewPostTableViewController.h"
-#import "WLIInfoPageViewController.h"
 #import "WLIFollowingsViewController.h"
 #import "WLIMyDriveViewController.h"
 #import "WLITimelineViewController.h"
 #import "WLIWhatIsNewViewController.h"
+#import "WLIStartPageViewController.h"
 
 #import "WLIConnect.h"
 
@@ -65,9 +65,9 @@
 
 - (void)createControllers
 {
-    WLIInfoPageViewController *infoPageViewController = [WLIInfoPageViewController new];
-    UINavigationController *infoPageNavigationController = [[UINavigationController alloc] initWithRootViewController:infoPageViewController];
-    infoPageNavigationController.navigationBar.translucent = NO;
+    WLIStartPageViewController *startPageViewController = [WLIStartPageViewController new];
+    UINavigationController *startPageNavigationController = [[UINavigationController alloc] initWithRootViewController:startPageViewController];
+    startPageNavigationController.navigationBar.translucent = NO;
     
     WLITimelineViewController *timelineViewController = [WLITimelineViewController new];
     UINavigationController *timelineNavigationController = [[UINavigationController alloc] initWithRootViewController:timelineViewController];
@@ -84,10 +84,10 @@
     WLIMyDriveViewController *myDriveViewController = [WLIMyDriveViewController new];
     UINavigationController *myDriveNavigationController = [[UINavigationController alloc] initWithRootViewController:myDriveViewController];
     myDriveNavigationController.navigationBar.translucent = NO;
-    self.viewControllers = @[infoPageNavigationController, timelineNavigationController, newPostNavigationController, followingNavigationController, myDriveNavigationController];
+    self.viewControllers = @[startPageNavigationController, timelineNavigationController, newPostNavigationController, followingNavigationController, myDriveNavigationController];
     
-    UITabBarItem *infoPageTabBarItem = [[UITabBarItem alloc] initWithTitle:@"20by2020" image:[[UIImage imageNamed:@"tabbar-20-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-20"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    infoPageViewController.tabBarItem = infoPageTabBarItem;
+    UITabBarItem *startPageTabBarItem = [[UITabBarItem alloc] initWithTitle:@"20by2020" image:[[UIImage imageNamed:@"tabbar-20-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-20"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    startPageViewController.tabBarItem = startPageTabBarItem;
     
     UITabBarItem *timelineTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Timeline" image:[[UIImage imageNamed:@"tabbar-timeline-h"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabbar-timeline"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     timelineViewController.tabBarItem = timelineTabBarItem;

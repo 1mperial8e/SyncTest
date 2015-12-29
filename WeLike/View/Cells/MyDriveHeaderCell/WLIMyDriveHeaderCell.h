@@ -11,14 +11,20 @@
 
 #import "WLIUser.h"
 
+@class WLIMyDriveHeaderCell;
+
 @protocol MyDriveHeaderCellDelegate <NSObject>
 
 @optional
 - (void)showFollowingsList;
 - (void)showFollowersList;
+- (void)showAvatarForCell:(WLIMyDriveHeaderCell *)cell;
+
 @end
 
 @interface WLIMyDriveHeaderCell : WLIBaseTableViewCell
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewUser;
 
 @property (weak, nonatomic) WLIUser *user;
 @property (weak, nonatomic) id<MyDriveHeaderCellDelegate> delegate;

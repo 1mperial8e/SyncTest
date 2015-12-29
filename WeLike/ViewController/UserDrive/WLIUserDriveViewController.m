@@ -7,6 +7,7 @@
 //
 
 #import "WLIUserDriveViewController.h"
+#import "WLIFullScreenPhotoViewController.h"
 
 static CGFloat const HeaderCellHeight = 156;
 
@@ -88,6 +89,22 @@ static CGFloat const HeaderCellHeight = 156;
     WLIFollowingViewController *followingsViewController = [WLIFollowingViewController new];
     followingsViewController.user = self.user;
     [self.navigationController pushViewController:followingsViewController animated:YES];
+}
+
+- (void)showAvatarForCell:(WLIMyDriveHeaderCell *)cell
+{
+    NSData *defaultAvatarData = UIImagePNGRepresentation(DefaultAvatar);
+    if (cell.imageViewUser.image) {
+        NSData *imageData = UIImagePNGRepresentation(cell.imageViewUser.image);
+        if (![imageData isEqualToData:defaultAvatarData]) {
+            CGRect frame = [self.view convertRect:cell.imageViewUser.frame fromView:self.tableViewRefresh];
+            WLIFullScreenPhotoViewController *imageController = [WLIFullScreenPhotoViewController new];
+            imageController.image = cell.imageViewUser.image;
+            imageController.presentationRect = frame;
+            imageController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            [self.tabBarController presentViewController:imageController animated:NO completion:nil];
+        }
+    }
 }
 
 #pragma mark - UITableViewDataSource methods
