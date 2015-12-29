@@ -13,7 +13,7 @@
 @interface WLIAnalytics : NSObject
 
 + (void)trackEvent:(NSString *)eventName withParameters:(NSDictionary *)params;
-+ (void)setUserID:(NSString *) userID;
++ (void)setUserID:(NSString *)userID;
 + (void)startSession;
 
 #pragma mark - Events

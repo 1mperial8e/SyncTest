@@ -45,9 +45,15 @@
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
 	[parameters setObject:[NSNumber numberWithInteger:user.userID] forKey:@"UserId"];
-	if (user.userUsername)  [parameters setObject:user.userUsername forKey:@"UserName"];
-	if (user.userFullName)  [parameters setObject:user.userFullName forKey:@"UserFullname"];
-	if (user.userEmail)  [parameters setObject:user.userEmail forKey:@"UserEmail"];
+	if (user.userUsername) {
+		[parameters setObject:user.userUsername forKey:@"UserName"];
+	}
+	if (user.userFullName) {
+		[parameters setObject:user.userFullName forKey:@"UserFullname"];
+	}
+	if (user.userEmail) {
+		[parameters setObject:user.userEmail forKey:@"UserEmail"];
+	}
 	
 	[self trackEvent:@"Registration" withParameters:parameters];
 }
@@ -56,10 +62,18 @@
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
 	[parameters setObject:[NSNumber numberWithInteger:statusCode] forKey:@"StatusCode"];
-	if (errorMessage)  [parameters setObject:errorMessage forKey:@"ErrorMessage"];
-	if (userName)  [parameters setObject:userName forKey:@"UserName"];
-	if (userFullName)  [parameters setObject:userFullName forKey:@"UserFullname"];
-	if (userEmail)  [parameters setObject:userEmail forKey:@"UserEmail"];
+	if (errorMessage) {
+		[parameters setObject:errorMessage forKey:@"ErrorMessage"];
+	}
+	if (userName) {
+		[parameters setObject:userName forKey:@"UserName"];
+	}
+	if (userFullName) {
+		[parameters setObject:userFullName forKey:@"UserFullname"];
+	}
+	if (userEmail) {
+		[parameters setObject:userEmail forKey:@"UserEmail"];
+	}
 	
 	[self trackEvent:@"RegistrationFailed" withParameters:parameters];
 }
@@ -68,9 +82,15 @@
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
 	[parameters setObject:[NSNumber numberWithInteger:user.userID] forKey:@"UserId"];
-	if (user.userUsername)  [parameters setObject:user.userUsername forKey:@"UserName"];
-	if (user.userFullName)  [parameters setObject:user.userFullName forKey:@"UserFullname"];
-	if (user.userEmail)  [parameters setObject:user.userEmail forKey:@"UserEmail"];
+	if (user.userUsername) {
+		[parameters setObject:user.userUsername forKey:@"UserName"];
+	}
+	if (user.userFullName) {
+		[parameters setObject:user.userFullName forKey:@"UserFullname"];
+	}
+	if (user.userEmail) {
+		[parameters setObject:user.userEmail forKey:@"UserEmail"];
+	}
 	
 	[self trackEvent:@"Login" withParameters:parameters];
 }
@@ -79,8 +99,12 @@
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
 	[parameters setObject:[NSNumber numberWithInteger:statusCode] forKey:@"StatusCode"];
-	if (userName)  [parameters setObject:userName forKey:@"UserName"];
-	if (errorMessage)  [parameters setObject:errorMessage forKey:@"ErrorMessage"];
+	if (userName) {
+		[parameters setObject:userName forKey:@"UserName"];
+	}
+	if (errorMessage) {
+		[parameters setObject:errorMessage forKey:@"ErrorMessage"];
+	}
 	
 	[self trackEvent:@"LoginFailed" withParameters:parameters];
 }
@@ -89,9 +113,15 @@
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
 	[parameters setObject:[NSNumber numberWithInteger:user.userID] forKey:@"UserId"];
-	if (user.userUsername)  [parameters setObject:user.userUsername forKey:@"UserName"];
-	if (user.userFullName)  [parameters setObject:user.userFullName forKey:@"UserFullname"];
-	if (user.userEmail)  [parameters setObject:user.userEmail forKey:@"UserEmail"];
+	if (user.userUsername) {
+		[parameters setObject:user.userUsername forKey:@"UserName"];
+	}
+	if (user.userFullName) {
+		[parameters setObject:user.userFullName forKey:@"UserFullname"];
+	}
+	if (user.userEmail) {
+		[parameters setObject:user.userEmail forKey:@"UserEmail"];
+	}
 	
 	[self trackEvent:@"AutoLogin" withParameters:parameters];
 }
@@ -100,9 +130,15 @@
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
 	[parameters setObject:[NSNumber numberWithInteger:user.userID] forKey:@"UserId"];
-	if (user.userUsername)  [parameters setObject:user.userUsername forKey:@"UserName"];
-	if (user.userFullName)  [parameters setObject:user.userFullName forKey:@"UserFullname"];
-	if (user.userEmail)  [parameters setObject:user.userEmail forKey:@"UserEmail"];
+	if (user.userUsername) {
+		[parameters setObject:user.userUsername forKey:@"UserName"];
+	}
+	if (user.userFullName) {
+		[parameters setObject:user.userFullName forKey:@"UserFullname"];
+	}
+	if (user.userEmail) {
+		[parameters setObject:user.userEmail forKey:@"UserEmail"];
+	}
 	
 	[self trackEvent:@"Logout" withParameters:parameters];
 }
@@ -155,8 +191,12 @@
 	[parameters setObject:[NSNumber numberWithInteger:postCategory] forKey:@"PostCategory"];
 	[parameters setObject:[NSNumber numberWithInteger:country] forKey:@"Country"];
 	[parameters setObject:@"text" forKey:@"PostContent"];
-	if (post.postVideoPath.length != 0)  [parameters setObject:@"video" forKey:@"PostContent"];
-	if (post.postImagePath.length != 0)  [parameters setObject:@"image" forKey:@"PostContent"];
+	if (post.postVideoPath.length != 0) {
+		[parameters setObject:@"video" forKey:@"PostContent"];
+	}
+	if (post.postImagePath.length != 0) {
+		[parameters setObject:@"image" forKey:@"PostContent"];
+	}
 	
 	[self trackEvent:@"NewPost" withParameters:parameters];
 }
@@ -196,8 +236,12 @@
 {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
 	[parameters setObject:[NSNumber numberWithInteger:userId] forKey:@"UserId"];
-	if (searchQuery)  [parameters setObject:searchQuery forKey:@"SearchQuery"];
-	if (searchType)  [parameters setObject:searchType forKey:@"SearchType"];
+	if (searchQuery) {
+		[parameters setObject:searchQuery forKey:@"SearchQuery"];
+	}
+	if (searchType) {
+		[parameters setObject:searchType forKey:@"SearchType"];
+	}
 	
 	[self trackEvent:@"Search" withParameters:parameters];
 }
