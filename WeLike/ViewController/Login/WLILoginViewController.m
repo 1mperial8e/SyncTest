@@ -127,9 +127,8 @@
             if (serverResponseCode == OK) {
 				[WLIAnalytics setUserID:[NSString stringWithFormat:@"%li",(long)[WLIConnect sharedConnect].currentUser.userID]];
                 [weakSelf dismissViewControllerAnimated:YES completion:^{
-                    WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
-                    WLITimelineViewController *timelineViewController = (WLITimelineViewController *)[appDelegate.tabBarController.viewControllers[0] topViewController];
-                    [timelineViewController reloadData:YES];
+                    WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;					
+                    [appDelegate.timelineViewController reloadData:YES];
                 }];
             } else if (serverResponseCode == NO_CONNECTION) {
                 [weakSelf showErrorWithMessage:@"No connection. Please try again."];

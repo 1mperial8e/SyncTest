@@ -16,9 +16,13 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserEmail;
+@property (weak, nonatomic) IBOutlet UILabel *labelUserTitle;
+@property (weak, nonatomic) IBOutlet UILabel *labelUserDepartment;
 @property (weak, nonatomic) IBOutlet UILabel *rankLabel;
 @property (weak, nonatomic) IBOutlet UIButton *buttonEditProfile;
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userTitleLabelHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userDepartmentLabelHeight;
 
 // MARK: Bottom container outlets
 @property (weak, nonatomic) IBOutlet UILabel *likesCountLabel;
@@ -146,6 +150,17 @@
         self.followersCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
         self.followingCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followingCount];
 		self.myGoalsTextView.text = [NSString stringWithFormat:@"%@", self.user.userInfo];
+		if (self.user.userTitle.length > 0) {
+			self.labelUserTitle.text = self.user.userTitle;
+		} else {
+			self.userTitleLabelHeight.constant = 0;
+		}
+		if (self.user.userDepartment.length > 0) {
+			self.labelUserDepartment.text = self.user.userDepartment;
+		} else {
+			self.userDepartmentLabelHeight.constant = 0;
+		}
+		[self layoutIfNeeded];
         [self updatePoints:self.user.points];
     }
 }
