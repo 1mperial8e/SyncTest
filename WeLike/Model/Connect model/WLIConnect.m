@@ -7,6 +7,7 @@
 //
 
 #import "WLIConnect.h"
+#import "WLIAnalytics.h"
 
 #define kBaseLinkDevelopement @"http://mydrive-rails-dev.appmedia.no/"
 #define kBaseLinkProduction @"https://mydrive-rails-prod.appmedia.no/"
@@ -135,11 +136,13 @@ static NSString *const AuthTokenKey = @"token";
             NSDictionary *rawUser = [responseObject objectForKey:@"item"];
             _currentUser = [WLIUser initWithDictionary:rawUser];
             [self saveCurrentUser];
+			[WLIAnalytics eventLoginWithUser:self.currentUser];
             if (completion) {
                 completion(_currentUser, OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self debugger:parameters.description methodLog:@"api/login" dataLogFormatted:error.localizedDescription];
+			[WLIAnalytics eventLoginFailedWithStatusCode:operation.response.statusCode withUserName:username withErrorMessage:error.localizedDescription];
+			[self debugger:parameters.description methodLog:@"api/login" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {
                     completion(nil, (ServerResponse)operation.response.statusCode);
@@ -153,6 +156,7 @@ static NSString *const AuthTokenKey = @"token";
 
 - (void)logout
 {
+	[WLIAnalytics eventLogoutWithUser:self.currentUser];
     _currentUser = nil;
     [self removeCurrentUser];
 }
@@ -189,10 +193,12 @@ static NSString *const AuthTokenKey = @"token";
             NSDictionary *rawUser = [responseObject objectForKey:@"item"];
             _currentUser = [WLIUser initWithDictionary:rawUser];
             [self saveCurrentUser];
+			[WLIAnalytics eventRegistrationWithUser:self.currentUser];
             if (completion) {
                 completion(_currentUser, OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			[WLIAnalytics eventRegistrationFailedWithStatusCode:operation.response.statusCode withUserName:username withUserFullName:userFullName withUserEmail:email withErrorMessage:error.localizedDescription];
             [self debugger:parameters.description methodLog:@"api/register" dataLogFormatted:error.localizedDescription];
             if (completion) {
 				if (operation.response) {
@@ -303,6 +309,7 @@ static NSString *const AuthTokenKey = @"token";
                 completion(user, OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			[WLIAnalytics errorProfileEdit:error];
             [self debugger:parameters.description methodLog:@"api/setProfile" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {
@@ -329,6 +336,7 @@ static NSString *const AuthTokenKey = @"token";
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self debugger:parameters.description methodLog:@"api/changePassword" dataLogFormatted:error.localizedDescription];
+		[WLIAnalytics errorChangePassword:error];
         if (completion) {
             if (operation.response) {
                 completion((ServerResponse)operation.response.statusCode);
@@ -412,6 +420,7 @@ static NSString *const AuthTokenKey = @"token";
                 completion(OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			[WLIAnalytics errorResetPassword:error];
             [self debugger:parameters.description methodLog:@"api/forgotPassword" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {
@@ -474,6 +483,9 @@ static NSString *const AuthTokenKey = @"token";
                 completion([posts mutableCopy], OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			if (operation.response) {
+				[WLIAnalytics errorPostCategory:error];
+			}
             [self debugger:parameters.description methodLog:@"api/getTimeline" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {
@@ -619,10 +631,15 @@ static NSString *const AuthTokenKey = @"token";
             NSDictionary *rawPost = [responseObject objectForKey:@"item"];
             WLIPost *post = [WLIPost initWithDictionary:rawPost];
 			[[NSNotificationCenter defaultCenter] postNotificationName:NewPostNotification object:self userInfo:@{@"newPost" : post}];
-            if (completion) {
+
+			[WLIAnalytics eventNewPostWithUserId:self.currentUser.userID withPost:post withPostCategory:post.postCategoryID withPostCountry:0];
+//set proper country id
+
+			if (completion) {
                 completion(post, OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			[WLIAnalytics errorAddEnergy:error];
             [self debugger:parameters.description methodLog:@"api/sendPost" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {
@@ -699,6 +716,7 @@ static NSString *const AuthTokenKey = @"token";
         }
 		[[NSNotificationCenter defaultCenter] postNotificationName:PostDeletedNotification object:nil userInfo:@{@"postId" : @(postID), @"deleted" : @YES}];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		[WLIAnalytics errorPostDelete:error];
         [self debugger:parameters.description methodLog:@"api/deletePost" dataLogFormatted:error.localizedDescription];
         if (completion) {
             if (operation.response) {
@@ -728,6 +746,7 @@ static NSString *const AuthTokenKey = @"token";
         [self.httpClient POST:@"api/setComment" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *rawComment = [responseObject objectForKey:@"item"];
             WLIComment *comment = [WLIComment initWithDictionary:rawComment];
+			[WLIAnalytics eventNewCommentWithUserId:self.currentUser.userID withPostId:postID withCommentId:comment.commentID];
             if (completion) {
                 completion(comment, OK);
             }
@@ -756,6 +775,7 @@ static NSString *const AuthTokenKey = @"token";
             completion(OK);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		[WLIAnalytics errorCommentDelete:error];
         [self debugger:parameters.description methodLog:@"api/removeComment" dataLogFormatted:error.localizedDescription];
         if (completion) {
             if (operation.response) {
@@ -805,11 +825,12 @@ static NSString *const AuthTokenKey = @"token";
 
     [self.httpClient POST:@"api/setLike" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *rawLike = [responseObject objectForKey:@"item"];
-        WLILike *like = [WLILike initWithDictionary:rawLike];
+        WLILike *like = [WLILike initWithDictionary:rawLike];	
         if (completion) {
             completion(like, OK);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		[WLIAnalytics errorLike:error];
         [self debugger:parameters.description methodLog:@"api/setLike" dataLogFormatted:error.localizedDescription];
         if (completion) {
             if (operation.response) {
@@ -828,7 +849,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:[NSString stringWithFormat:@"%zd", postID] forKey:@"postID"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [self.httpClient POST:@"api/removeLike" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.httpClient POST:@"api/removeLike" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {	
         if (completion) {
             completion(OK);
         }
@@ -910,12 +931,14 @@ static NSString *const AuthTokenKey = @"token";
     [self.httpClient POST:@"api/setFollow" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *rawFollow = [responseObject objectForKey:@"item"];
         WLIFollow *follow = [WLIFollow initWithDictionary:rawFollow];
+		[WLIAnalytics eventFollowWithUserId:self.currentUser.userID forUserId:userID];
         self.currentUser.followingCount++;
         if (completion) {
             completion(follow, OK);
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:FollowerUserNotification object:nil userInfo:@{@"userId" : @(userID), @"followed" : @YES}];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		[WLIAnalytics errorFollow:error];
         [self debugger:parameters.description methodLog:@"api/setFollow" dataLogFormatted:error.localizedDescription];
         if (completion) {
             if (operation.response) {
@@ -936,7 +959,8 @@ static NSString *const AuthTokenKey = @"token";
 
     [self.httpClient POST:@"api/removeFollow" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.currentUser.followingCount--;
-        if (completion) {
+		[WLIAnalytics eventUnfollowWithUserId:self.currentUser.userID forUserId:followID];
+		if (completion) {
             completion(OK);
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:FollowerUserNotification object:nil userInfo:@{@"userId" : @(followID), @"followed" : @NO}];
@@ -1027,6 +1051,7 @@ static NSString *const AuthTokenKey = @"token";
     [parameters setObject:self.authToken forKey:AuthTokenKey];
     [parameters setObject:searchTerm forKey:@"result_type"];
     AFHTTPRequestOperation *operation = [self.httpClient POST:@"api/search" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		[WLIAnalytics eventSearchWithUserId:self.currentUser.userID withSearchQuery:searchString withSearchType:searchTerm];
         NSMutableArray *items = [NSMutableArray array];
         if ([searchTerm isEqualToString:@"mix"]) {
             NSArray *result = responseObject[@"mix"];
@@ -1048,6 +1073,7 @@ static NSString *const AuthTokenKey = @"token";
             completion(items, OK);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		[WLIAnalytics errorSearchResponse:error];
         [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLogFormatted:error.localizedDescription];
         if (completion) {
             if (operation.response) {
@@ -1079,6 +1105,7 @@ static NSString *const AuthTokenKey = @"token";
                 completion(OK);
             }
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+			[WLIAnalytics errorMailSend:error];
             [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {

@@ -52,10 +52,7 @@
     }
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
-    
-//    if (self.navigationController.viewControllers.count == 1) {
-//        self.navigationController.interactivePopGestureRecognizer.delegate = self;
-//    }
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -191,6 +188,8 @@
         post.postLikesCount--;
         [[WLIConnect sharedConnect] removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
 			senderCell.buttonLike.userInteractionEnabled = YES;
+			//set proper country id
+			[WLIAnalytics eventDislikeWithUserId:[WLIConnect sharedConnect].currentUser.userID withPostId:post.postID withPostCategory:post.postCategoryID withCountry:0];
             if (serverResponseCode != OK) {
                 post.postLikesCount++;
                 post.likedThisPost = YES;
@@ -202,6 +201,8 @@
         post.likedThisPost = YES;
         [[WLIConnect sharedConnect] setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
 			senderCell.buttonLike.userInteractionEnabled = YES;
+			//set proper country id
+			[WLIAnalytics eventLikeWithUserId:[WLIConnect sharedConnect].currentUser.userID withPostId:post.postID withPostCategory:post.postCategoryID withCountry:0];
             if (serverResponseCode != OK) {
                 post.likedThisPost = NO;
                 post.postLikesCount--;
