@@ -142,7 +142,7 @@ int keyboardHeight() {
         [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.mainScrollView.contentOffset.y + offsetUp-10) animated:YES];
     } else if (offsetDown < 0) {
         if (self.mainScrollView.contentOffset.y + offsetDown - 30 > 0) {
-            [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.mainScrollView.contentOffset.y + offsetDown + 10) animated:YES];
+            [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.mainScrollView.contentOffset.y + offsetDown + 35) animated:YES];
        }
     }
     NSUInteger index = [self.textFields indexOfObject:textField];
