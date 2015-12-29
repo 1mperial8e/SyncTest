@@ -20,6 +20,8 @@
         self.userPassword = [self stringFromDictionary:userWithInfo forKey:@"password"];
         self.userEmail = [self stringFromDictionary:userWithInfo forKey:@"email"];
         self.userFullName = [self stringFromDictionary:userWithInfo forKey:@"userFullname"];
+		self.userTitle = [self stringFromDictionary:userWithInfo forKey:@"userTitle"];
+		self.userDepartment = [self stringFromDictionary:userWithInfo forKey:@"userDepartment"];
         self.userUsername = [self stringFromDictionary:userWithInfo forKey:@"username"];
         self.userInfo = [self stringFromDictionary:userWithInfo forKey:@"userInfo"];
         self.userAvatarPath = [self stringFromDictionary:userWithInfo forKey:@"userAvatar"];
@@ -52,6 +54,8 @@
     [encoder encodeObject:self.userPassword forKey:@"userPassword"];
     [encoder encodeObject:self.userEmail forKey:@"userEmail"];
     [encoder encodeObject:self.userFullName forKey:@"userFullName"];
+	 [encoder encodeObject:self.userTitle forKey:@"userTitle"];
+	 [encoder encodeObject:self.userDepartment forKey:@"userDepartment"];
     [encoder encodeObject:self.userInfo forKey:@"userInfo"];
     [encoder encodeObject:self.userAvatarPath forKey:@"userAvatarPath"];
     [encoder encodeObject:self.userUsername forKey:@"userUsername"];
@@ -72,6 +76,8 @@
         self.userPassword = [decoder decodeObjectForKey:@"userPassword"];
         self.userEmail = [decoder decodeObjectForKey:@"email"];
         self.userFullName = [decoder decodeObjectForKey:@"userFullName"];
+		self.userTitle = [decoder decodeObjectForKey:@"userTitle"];
+		self.userDepartment = [decoder decodeObjectForKey:@"userDepartment"];
         self.userUsername = [decoder decodeObjectForKey:@"userUsername"];
         self.userInfo = [decoder decodeObjectForKey:@"userInfo"];
         self.userAvatarPath = [decoder decodeObjectForKey:@"userAvatarPath"];

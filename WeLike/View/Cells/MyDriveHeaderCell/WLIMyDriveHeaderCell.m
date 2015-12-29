@@ -12,13 +12,19 @@
 #import "WLIAppDelegate.h"
 #import <MessageUI/MessageUI.h>
 
+static CGFloat const LabelHeight = 22.f;
+
 @interface WLIMyDriveHeaderCell () <MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserEmail;
+@property (weak, nonatomic) IBOutlet UILabel *labelUserTitle;
+@property (weak, nonatomic) IBOutlet UILabel *labelUserDepartment;
 @property (weak, nonatomic) IBOutlet UILabel *rankLabel;
 @property (weak, nonatomic) IBOutlet UIButton *buttonEditProfile;
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userTitleLabelHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userDepartmentLabelHeight;
 
 // MARK: Bottom container outlets
 @property (weak, nonatomic) IBOutlet UILabel *likesCountLabel;
@@ -127,27 +133,58 @@
 {
     if (self.user) {
         BOOL isMe = (self.user.userID == [WLIConnect sharedConnect].currentUser.userID);
-        self.followButton.hidden = isMe;
-        self.buttonEditProfile.hidden = !isMe;
-        self.followButton.selected = self.user.followingUser;
-        if (self.followButton.selected) {
-            self.followButton.backgroundColor = [UIColor colorWithRed:126/255.0 green:211/255.0 blue:33/255.0 alpha:1];
-            self.followButton.layer.borderColor = [UIColor clearColor].CGColor;
-        } else {
-            self.followButton.backgroundColor = [UIColor whiteColor];
-            self.followButton.layer.borderColor = [UIColor redColor].CGColor;
-        }
-        [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarThumbPath] placeholderImage:DefaultAvatar];
-        self.labelUserName.text = self.user.userFullName;
-        self.labelUserEmail.text = self.user.userEmail;
         
-        self.likesCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.likesCount];
-        self.postsCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.myPostsCount];
-        self.followersCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
-        self.followingCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followingCount];
-		self.myGoalsTextView.text = [NSString stringWithFormat:@"%@", self.user.userInfo];
+        [self updateButtons:isMe];
+        [self updateTextInfo];
+        [self updateCountsInfo];
         [self updatePoints:self.user.points];
+
+        if (self.user.userAvatarPath) {
+            [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.user.userAvatarThumbPath] placeholderImage:DefaultAvatar];
+        }
+        [self layoutIfNeeded];
     }
+}
+
+- (void)updateButtons:(BOOL)isMe
+{
+    self.followButton.hidden = isMe;
+    self.buttonEditProfile.hidden = !isMe;
+    self.followButton.selected = self.user.followingUser;
+    if (self.followButton.selected) {
+        self.followButton.backgroundColor = [UIColor colorWithRed:126/255.0 green:211/255.0 blue:33/255.0 alpha:1];
+        self.followButton.layer.borderColor = [UIColor clearColor].CGColor;
+    } else {
+        self.followButton.backgroundColor = [UIColor whiteColor];
+        self.followButton.layer.borderColor = [UIColor redColor].CGColor;
+    }
+}
+
+- (void)updateTextInfo
+{
+    self.labelUserName.text = self.user.userFullName;
+    self.labelUserEmail.text = self.user.userEmail;
+    self.myGoalsTextView.text = [NSString stringWithFormat:@"%@", self.user.userInfo];
+    if (self.user.userTitle.length > 0) {
+        self.userTitleLabelHeight.constant = LabelHeight;
+        self.labelUserTitle.text = self.user.userTitle;
+    } else {
+        self.userTitleLabelHeight.constant = 0;
+    }
+    if (self.user.userDepartment.length > 0) {
+        self.userDepartmentLabelHeight.constant = LabelHeight;
+        self.labelUserDepartment.text = self.user.userDepartment;
+    } else {
+        self.userDepartmentLabelHeight.constant = 0;
+    }
+}
+
+- (void)updateCountsInfo
+{
+    self.likesCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.likesCount];
+    self.postsCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.myPostsCount];
+    self.followersCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
+    self.followingCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followingCount];
 }
 
 #pragma mark - Actions

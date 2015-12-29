@@ -181,8 +181,8 @@
 		4F77BED31C32918F004E625E /* promo.mov in Resources */ = {isa = PBXBuildFile; fileRef = 4F77BECF1C32918F004E625E /* promo.mov */; };
 		4F77BED41C32918F004E625E /* WLIStartPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F77BED11C32918F004E625E /* WLIStartPageViewController.m */; };
 		4F77BED51C32918F004E625E /* WLIStartPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F77BED21C32918F004E625E /* WLIStartPageViewController.xib */; };
-		4F80DE371C27FEC00004A052 /* WLIEditProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F80DE351C27FEC00004A052 /* WLIEditProfileTableViewCell.m */; };
-		4F80DE381C27FEC00004A052 /* WLIEditProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F80DE361C27FEC00004A052 /* WLIEditProfileTableViewCell.xib */; };
+		4F77BED91C32D766004E625E /* WLIEditProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F77BED71C32D766004E625E /* WLIEditProfileTableViewCell.m */; };
+		4F77BEDA1C32D766004E625E /* WLIEditProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F77BED81C32D766004E625E /* WLIEditProfileTableViewCell.xib */; };
 		4F8200411BFCC5F400B0EB57 /* VideoConversionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F82003F1BFCC5F400B0EB57 /* VideoConversionService.m */; };
 		4F8200751BFCD13900B0EB57 /* NSDictionary+Nonnull.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8200741BFCD13900B0EB57 /* NSDictionary+Nonnull.m */; };
 		4F8200781BFCD16000B0EB57 /* ALAsset+Copy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8200771BFCD16000B0EB57 /* ALAsset+Copy.m */; };
@@ -487,9 +487,9 @@
 		4F77BED01C32918F004E625E /* WLIStartPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIStartPageViewController.h; sourceTree = "<group>"; };
 		4F77BED11C32918F004E625E /* WLIStartPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIStartPageViewController.m; sourceTree = "<group>"; };
 		4F77BED21C32918F004E625E /* WLIStartPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIStartPageViewController.xib; sourceTree = "<group>"; };
-		4F80DE341C27FEC00004A052 /* WLIEditProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIEditProfileTableViewCell.h; sourceTree = "<group>"; };
-		4F80DE351C27FEC00004A052 /* WLIEditProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIEditProfileTableViewCell.m; sourceTree = "<group>"; };
-		4F80DE361C27FEC00004A052 /* WLIEditProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIEditProfileTableViewCell.xib; sourceTree = "<group>"; };
+		4F77BED61C32D766004E625E /* WLIEditProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIEditProfileTableViewCell.h; sourceTree = "<group>"; };
+		4F77BED71C32D766004E625E /* WLIEditProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIEditProfileTableViewCell.m; sourceTree = "<group>"; };
+		4F77BED81C32D766004E625E /* WLIEditProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIEditProfileTableViewCell.xib; sourceTree = "<group>"; };
 		4F82003F1BFCC5F400B0EB57 /* VideoConversionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoConversionService.m; sourceTree = "<group>"; };
 		4F8200401BFCC5F400B0EB57 /* VideoConversionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoConversionService.h; sourceTree = "<group>"; };
 		4F8200731BFCD13900B0EB57 /* NSDictionary+Nonnull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Nonnull.h"; sourceTree = "<group>"; };
@@ -1579,9 +1579,9 @@
 		4F80DE331C27FE740004A052 /* EditProfileCell */ = {
 			isa = PBXGroup;
 			children = (
-				4F80DE341C27FEC00004A052 /* WLIEditProfileTableViewCell.h */,
-				4F80DE351C27FEC00004A052 /* WLIEditProfileTableViewCell.m */,
-				4F80DE361C27FEC00004A052 /* WLIEditProfileTableViewCell.xib */,
+				4F77BED61C32D766004E625E /* WLIEditProfileTableViewCell.h */,
+				4F77BED71C32D766004E625E /* WLIEditProfileTableViewCell.m */,
+				4F77BED81C32D766004E625E /* WLIEditProfileTableViewCell.xib */,
 			);
 			path = EditProfileCell;
 			sourceTree = "<group>";
@@ -1803,7 +1803,6 @@
 				4F77BED51C32918F004E625E /* WLIStartPageViewController.xib in Resources */,
 				4F2C83B91BFB269700EDD64F /* WLISearchTableViewCell.xib in Resources */,
 				2EEF2C1C1BD64B0F001785C5 /* WLINewPostAttachmentCell.xib in Resources */,
-				4F80DE381C27FEC00004A052 /* WLIEditProfileTableViewCell.xib in Resources */,
 				30DCE4FB1C170FA900244011 /* WLIMailTextViewTableViewCell.xib in Resources */,
 				4F2C83E11BFB7C7800EDD64F /* WLIPeopleListViewController.xib in Resources */,
 				2C6D27B61896BACA00C459CB /* MNMPullToRefreshIcon@2x.png in Resources */,
@@ -1823,6 +1822,7 @@
 				4F4CCD0B1C05A29700EC7166 /* WLIFullScreenPhotoViewController.xib in Resources */,
 				2C6D27D51896BACA00C459CB /* WLILoadingCell.xib in Resources */,
 				4F2C83D31BFB27CB00EDD64F /* WLICategoryCustomerCell.xib in Resources */,
+				4F77BEDA1C32D766004E625E /* WLIEditProfileTableViewCell.xib in Resources */,
 				4F2C83BF1BFB26D900EDD64F /* WLIBaseTableViewCell.xib in Resources */,
 				074D688C1BB54B29000167DD /* director.mov in Resources */,
 				2EC3205A1BE8F9160038E7B3 /* WLICategorySelectTableViewCell.xib in Resources */,
@@ -1906,6 +1906,7 @@
 				4F8200411BFCC5F400B0EB57 /* VideoConversionService.m in Sources */,
 				2C6D27BC1896BACA00C459CB /* SBJsonStreamParserAccumulator.m in Sources */,
 				30962D541C159B1C00E23C3B /* WLIMyGoalsTableViewCell.m in Sources */,
+				4F77BED91C32D766004E625E /* WLIEditProfileTableViewCell.m in Sources */,
 				2C6D27E71896BACA00C459CB /* WLILoginViewController.m in Sources */,
 				2C6D27FC1896BACA00C459CB /* WLIWelcomeViewController.m in Sources */,
 				2C5B5CA01A1A8FAE00175A58 /* AFURLSessionManager.m in Sources */,
@@ -1921,7 +1922,6 @@
 				2C6D27B31896BACA00C459CB /* WLIActivityIndicator.m in Sources */,
 				4F8E2D481BF4A4C000953EC0 /* WLICategoryPostsViewController.m in Sources */,
 				2C6D27F91896BACA00C459CB /* WLITabBarController.m in Sources */,
-				4F80DE371C27FEC00004A052 /* WLIEditProfileTableViewCell.m in Sources */,
 				2C6D27BB1896BACA00C459CB /* SBJsonStreamParser.m in Sources */,
 				4F8E2D3E1BF4A2AF00953EC0 /* WLIUser.m in Sources */,
 				2C6D27C81896BACA00C459CB /* main.m in Sources */,
