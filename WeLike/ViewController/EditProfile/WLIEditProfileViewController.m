@@ -29,6 +29,8 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
 @property (weak, nonatomic) UITextField *textFieldEmail;
 @property (weak, nonatomic) UITextField *textFieldUsername;
 @property (weak, nonatomic) UITextField *textFieldFullName;
+@property (weak, nonatomic) UITextField *textFieldTitle;
+@property (weak, nonatomic) UITextField *textFieldDepartment;
 @property (weak, nonatomic) UITextView *textViewMyGoals;
 
 @property (weak, nonatomic) UIImageView *avatarImageView;
@@ -63,7 +65,7 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
     
     if (self.textFieldEmail && self.textFieldUsername && self.textFieldFullName) {
         toolbar.mainScrollView = self.tableView;
-        toolbar.textFields = @[self.textFieldUsername,  self.textFieldFullName, self.textViewMyGoals];
+        toolbar.textFields = @[self.textFieldUsername, self.textFieldFullName, self.textFieldTitle, self.textFieldDepartment, self.textViewMyGoals];
     }
 }
 
@@ -99,7 +101,7 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return 9;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -107,9 +109,9 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
     UITableViewCell *cell;
     if (indexPath.row == 0) {
         cell = [self avatarCellForIndexPath:indexPath];
-	} else if (indexPath.row == 4) {
+	} else if (indexPath.row == 6) {
         cell = [self myGoalsCellForIndexPath:indexPath];
-	} else if (indexPath.row == 5 || indexPath.row == 6) {
+	} else if (indexPath.row == 7 || indexPath.row == 8) {
         cell = [self buttonCellForIndexPath:indexPath];
     } else {
         cell = [self dataFieldCellForIndexPath:indexPath];
@@ -124,9 +126,9 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
     CGFloat height = TextFieldCellHeigth;
     if (indexPath.row == 0) {
         height = AvatarCellHeigth;
-    } else if (indexPath.row == 4) 	{
+    } else if (indexPath.row == 6) 	{
 		height = [self textViewCellHeight];
-    } else if (indexPath.row == 5 || indexPath.row == 6) {
+    } else if (indexPath.row == 7 || indexPath.row == 8) {
         height = ButtonCellHeigth;
     }
     return height;
@@ -138,6 +140,7 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
     if (!cell) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"WLIMyGoalsTableViewCell" owner:nil options:nil].firstObject;;
     }
+	cell.textView.text = self.textViewMyGoals.text;
     CGFloat height = ceilf([cell.textView sizeThatFits:CGSizeMake([UIScreen mainScreen].bounds.size.width - 30, MAXFLOAT)].height);
     return height + 33.f;
 }
@@ -186,6 +189,16 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
         cell.textField.placeholder = @"full name";
         self.textFieldFullName = cell.textField;
         self.textFieldFullName.text = sharedConnect.currentUser.userFullName;
+	} else if (indexPath.row == 4) {
+		cell.label.text = @"Title";
+		cell.textField.placeholder = @"title";
+		self.textFieldTitle = cell.textField;
+		self.textFieldTitle.text = sharedConnect.currentUser.userTitle;
+	} else if (indexPath.row == 5) {
+		cell.label.text = @"Department";
+		cell.textField.placeholder = @"department";
+		self.textFieldDepartment = cell.textField;
+		self.textFieldDepartment.text = sharedConnect.currentUser.userDepartment;
 	}
     return cell;
 }
@@ -194,13 +207,13 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
 {
     WLIChangePasswordTableViewCell *passCell = [self.tableView dequeueReusableCellWithIdentifier:WLIChangePasswordTableViewCell.ID forIndexPath:indexPath];
     __weak typeof(self) weakSelf = self;
-    if (indexPath.row == 5) {
+    if (indexPath.row == 7) {
         passCell.changePasswordHandler = ^{
             __strong typeof(self) strongSelf = weakSelf;
             WLIChangePasswordViewController *changePassController = [WLIChangePasswordViewController new];
             [strongSelf.navigationController pushViewController:changePassController animated:YES];
         };
-    } else if (indexPath.row == 6) {
+    } else if (indexPath.row == 8) {
         [passCell.changePasswordButton setTitle:@"Logout" forState:UIControlStateNormal];
         passCell.changePasswordHandler = ^{
             __strong typeof(self) strongSelf = weakSelf;
@@ -271,7 +284,7 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
     if ([aboutText isEqualToString:MyDriveGoalsPlaceholder]) {
         aboutText = @"";
     }
-    [sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userUsername:self.textFieldUsername.text userAvatar:image userFullName:self.textFieldFullName.text userInfo:aboutText latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
+	[sharedConnect updateUserWithUserID:sharedConnect.currentUser.userID userType:WLIUserTypePerson userUsername:self.textFieldUsername.text userAvatar:image userFullName:self.textFieldFullName.text userTitle:self.textFieldTitle.text userDepartment:self.textFieldDepartment.text userInfo:aboutText latitude:0 longitude:0 companyAddress:@"" companyPhone:@"" companyWeb:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
         [hud hide:YES];
         if (serverResponseCode != OK) {
             [weakSelf showErrorWithMessage:@"Something went wrong. Please try again."];

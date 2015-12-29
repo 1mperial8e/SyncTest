@@ -254,6 +254,8 @@ static NSString *const AuthTokenKey = @"token";
                    userUsername:(NSString *)userUsername
                   userAvatar:(UIImage *)userAvatar
                 userFullName:(NSString *)userFullName
+				userTitle:(NSString *)userTitle
+				userDepartment:(NSString *)userDepartment
                     userInfo:(NSString *)userInfo
                     latitude:(float)latitude
                    longitude:(float)longitude
@@ -276,6 +278,12 @@ static NSString *const AuthTokenKey = @"token";
         if (userFullName.length) {
             [parameters setObject:userFullName forKey:@"userFullname"];
         }
+		if (userTitle.length) {
+			[parameters setObject:userTitle forKey:@"userTitle"];
+		}
+		if (userDepartment.length) {
+			[parameters setObject:userDepartment forKey:@"userDepartment"];
+		}
 		[parameters setObject:userInfo forKey:@"userInfo"];
         [parameters setObject:self.authToken forKey:AuthTokenKey];
         

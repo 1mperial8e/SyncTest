@@ -69,6 +69,8 @@ typedef enum ServerResponse ServerResponse;
                    userUsername:(NSString *)userUsername
                   userAvatar:(UIImage *)userAvatar
                 userFullName:(NSString *)userFullName
+				   userTitle:(NSString *)userTitle
+			  userDepartment:(NSString *)userDepartment
                     userInfo:(NSString *)userInfo
                     latitude:(float)latitude
                    longitude:(float)longitude
