@@ -475,7 +475,9 @@ static NSString *const AuthTokenKey = @"token";
                 completion([posts mutableCopy], OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-			[WLIAnalytics errorPostCategory:error];			
+			if (operation.response) {
+				[WLIAnalytics errorPostCategory:error];
+			}
             [self debugger:parameters.description methodLog:@"api/getTimeline" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {

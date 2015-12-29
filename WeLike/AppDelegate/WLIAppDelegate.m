@@ -24,6 +24,7 @@
 {
 	[WLIAnalytics startSession];
 	if ([WLIConnect sharedConnect].currentUser) {
+		[WLIAnalytics eventAutoLoginWithUser:[WLIConnect sharedConnect].currentUser];
 		[WLIAnalytics setUserID:[NSString stringWithFormat:@"%li",(long)[WLIConnect sharedConnect].currentUser.userID]];
 	}
 	
@@ -43,6 +44,7 @@
 {	
 	[WLIAnalytics startSession];
 	if ([WLIConnect sharedConnect].currentUser) {
+		[WLIAnalytics eventAutoLoginWithUser:[WLIConnect sharedConnect].currentUser];
 		[WLIAnalytics setUserID:[NSString stringWithFormat:@"%li",(long)[WLIConnect sharedConnect].currentUser.userID]];
 	}
 }

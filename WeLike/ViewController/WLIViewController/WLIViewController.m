@@ -188,9 +188,9 @@
         post.postLikesCount--;
         [[WLIConnect sharedConnect] removeLikeWithLikeID:post.postID onCompletion:^(ServerResponse serverResponseCode) {
 			senderCell.buttonLike.userInteractionEnabled = YES;
+			//set proper country id
+			[WLIAnalytics eventDislikeWithUserId:[WLIConnect sharedConnect].currentUser.userID withPostId:post.postID withPostCategory:post.postCategoryID withCountry:0];
             if (serverResponseCode != OK) {
-//set proper country id
-				[WLIAnalytics eventDislikeWithUserId:[WLIConnect sharedConnect].currentUser.userID withPostId:post.postID withPostCategory:post.postCategoryID withCountry:0];
                 post.postLikesCount++;
                 post.likedThisPost = YES;
                 [senderCell updateLikesInfo];
@@ -201,9 +201,9 @@
         post.likedThisPost = YES;
         [[WLIConnect sharedConnect] setLikeOnPostID:post.postID onCompletion:^(WLILike *like, ServerResponse serverResponseCode) {
 			senderCell.buttonLike.userInteractionEnabled = YES;
+			//set proper country id
+			[WLIAnalytics eventLikeWithUserId:[WLIConnect sharedConnect].currentUser.userID withPostId:post.postID withPostCategory:post.postCategoryID withCountry:0];
             if (serverResponseCode != OK) {
-//set proper country id
-				[WLIAnalytics eventLikeWithUserId:[WLIConnect sharedConnect].currentUser.userID withPostId:post.postID withPostCategory:post.postCategoryID withCountry:0];
                 post.likedThisPost = NO;
                 post.postLikesCount--;
                 [senderCell updateLikesInfo];
