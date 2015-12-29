@@ -328,6 +328,7 @@ static NSString *const AuthTokenKey = @"token";
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self debugger:parameters.description methodLog:@"api/changePassword" dataLogFormatted:error.localizedDescription];
+		[WLIAnalytics errorChangePassword:error];
         if (completion) {
             if (operation.response) {
                 completion((ServerResponse)operation.response.statusCode);
@@ -411,6 +412,7 @@ static NSString *const AuthTokenKey = @"token";
                 completion(OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			[WLIAnalytics errorResetPassword:error];
             [self debugger:parameters.description methodLog:@"api/forgotPassword" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {
@@ -473,6 +475,7 @@ static NSString *const AuthTokenKey = @"token";
                 completion([posts mutableCopy], OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			[WLIAnalytics errorPostCategory:error];			
             [self debugger:parameters.description methodLog:@"api/getTimeline" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {
@@ -626,6 +629,7 @@ static NSString *const AuthTokenKey = @"token";
                 completion(post, OK);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			[WLIAnalytics errorAddEnergy:error];
             [self debugger:parameters.description methodLog:@"api/sendPost" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {
@@ -702,6 +706,7 @@ static NSString *const AuthTokenKey = @"token";
         }
 		[[NSNotificationCenter defaultCenter] postNotificationName:PostDeletedNotification object:nil userInfo:@{@"postId" : @(postID), @"deleted" : @YES}];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		[WLIAnalytics errorPostDelete:error];
         [self debugger:parameters.description methodLog:@"api/deletePost" dataLogFormatted:error.localizedDescription];
         if (completion) {
             if (operation.response) {
@@ -760,6 +765,7 @@ static NSString *const AuthTokenKey = @"token";
             completion(OK);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		[WLIAnalytics errorCommentDelete:error];
         [self debugger:parameters.description methodLog:@"api/removeComment" dataLogFormatted:error.localizedDescription];
         if (completion) {
             if (operation.response) {
@@ -814,6 +820,7 @@ static NSString *const AuthTokenKey = @"token";
             completion(like, OK);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		[WLIAnalytics errorLike:error];
         [self debugger:parameters.description methodLog:@"api/setLike" dataLogFormatted:error.localizedDescription];
         if (completion) {
             if (operation.response) {
@@ -921,6 +928,7 @@ static NSString *const AuthTokenKey = @"token";
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:FollowerUserNotification object:nil userInfo:@{@"userId" : @(userID), @"followed" : @YES}];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		[WLIAnalytics errorFollow:error];
         [self debugger:parameters.description methodLog:@"api/setFollow" dataLogFormatted:error.localizedDescription];
         if (completion) {
             if (operation.response) {
@@ -1055,6 +1063,7 @@ static NSString *const AuthTokenKey = @"token";
             completion(items, OK);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		[WLIAnalytics errorSearchResponse:error];
         [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLogFormatted:error.localizedDescription];
         if (completion) {
             if (operation.response) {
@@ -1086,6 +1095,7 @@ static NSString *const AuthTokenKey = @"token";
                 completion(OK);
             }
         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+			[WLIAnalytics errorMailSend:error];
             [self debugger:parameters.description methodLog:@"api/getPoplularHashtags" dataLogFormatted:error.localizedDescription];
             if (completion) {
                 if (operation.response) {
