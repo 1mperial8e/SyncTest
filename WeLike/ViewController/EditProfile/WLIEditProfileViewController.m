@@ -173,30 +173,30 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
     WLIEditProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:WLIEditProfileTableViewCell.ID forIndexPath:indexPath];
     if (indexPath.row == 1) {
         cell.label.text = @"E-mail address";
-        cell.textField.placeholder = @"email address";
+        cell.textField.placeholder = @"Email Address";
         cell.textField.keyboardType = UIKeyboardTypeEmailAddress;
         self.textFieldEmail = cell.textField;
         self.textFieldEmail.userInteractionEnabled =NO;
         self.textFieldEmail.text = sharedConnect.currentUser.userEmail;
     } else if (indexPath.row == 2) {
         cell.label.text = @"Username";
-        cell.textField.placeholder = @"username";
+        cell.textField.placeholder = @"Username";
         self.textFieldUsername = cell.textField;
         self.textFieldUsername.userInteractionEnabled =YES;
         self.textFieldUsername.text = sharedConnect.currentUser.userUsername;
     } else if (indexPath.row == 3) {
         cell.label.text = @"Full name";
-        cell.textField.placeholder = @"full name";
+        cell.textField.placeholder = @"Full name";
         self.textFieldFullName = cell.textField;
         self.textFieldFullName.text = sharedConnect.currentUser.userFullName;
 	} else if (indexPath.row == 4) {
 		cell.label.text = @"Title";
-		cell.textField.placeholder = @"title";
+		cell.textField.placeholder = @"Title";
 		self.textFieldTitle = cell.textField;
 		self.textFieldTitle.text = sharedConnect.currentUser.userTitle;
 	} else if (indexPath.row == 5) {
 		cell.label.text = @"Department";
-		cell.textField.placeholder = @"department";
+		cell.textField.placeholder = @"Department";
 		self.textFieldDepartment = cell.textField;
 		self.textFieldDepartment.text = sharedConnect.currentUser.userDepartment;
 	}
