@@ -138,6 +138,7 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
     if (!cell) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"WLIMyGoalsTableViewCell" owner:nil options:nil].firstObject;;
     }
+    cell.textView.text = self.textViewMyGoals.text;
     CGFloat height = ceilf([cell.textView sizeThatFits:CGSizeMake([UIScreen mainScreen].bounds.size.width - 30, MAXFLOAT)].height);
     return height + 33.f;
 }

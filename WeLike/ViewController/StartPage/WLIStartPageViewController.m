@@ -64,15 +64,17 @@
 
 - (IBAction)agoraButtonAction:(id)sender
 {
+    [WLIUtils showWebViewControllerWithUrl:[NSURL URLWithString:@"http://www.santander.co.uk"]];
 }
 
 - (IBAction)digitalWeekButtonAction:(id)sender
 {
+    [[[UIAlertView alloc] initWithTitle:@"Digital week" message:@"Coming soon" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 }
 
 - (IBAction)websiteButtonAction:(id)sender
 {
-    [WLIUtils showWebViewControllerWithUrl:[NSURL URLWithString:@"http://www.santander.co.uk"]];
+    [WLIUtils showWebViewControllerWithUrl:[NSURL URLWithString:@"http://www.tourdesfjords.no"]];
 }
 
 @end
