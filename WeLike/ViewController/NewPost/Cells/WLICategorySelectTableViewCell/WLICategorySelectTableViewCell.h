@@ -8,10 +8,10 @@
 
 @interface WLICategorySelectTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet UIButton *marketBtn;
-@property (strong, nonatomic) IBOutlet UIButton *capabilityBtn;
-@property (strong, nonatomic) IBOutlet UIButton *customerBtn;
-@property (strong, nonatomic) IBOutlet UIButton *peopleBtn;
+@property (weak, nonatomic) IBOutlet UIButton *marketBtn;
+@property (weak, nonatomic) IBOutlet UIButton *capabilityBtn;
+@property (weak, nonatomic) IBOutlet UIButton *customerBtn;
+@property (weak, nonatomic) IBOutlet UIButton *peopleBtn;
 @property (strong, nonatomic) NSMutableDictionary *catDict;
 
 @end

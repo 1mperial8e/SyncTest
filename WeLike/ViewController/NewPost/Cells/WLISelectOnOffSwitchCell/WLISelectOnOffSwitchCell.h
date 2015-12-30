@@ -8,8 +8,8 @@
 
 @interface WLISelectOnOffSwitchCell : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet UILabel *attribName;
-@property (strong, nonatomic) IBOutlet UISwitch *attribSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *attribName;
+@property (weak, nonatomic) IBOutlet UISwitch *attribSwitch;
 @property (strong, nonatomic) NSMutableDictionary *cellContent;
 
 @end

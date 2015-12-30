@@ -25,13 +25,11 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 @interface WLINewPostTableViewController () <UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) WLIConnect *sharedConnect;
-
 @property (strong, nonatomic) NSString *textContent;
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) NSData *video;
 @property (strong, nonatomic) NSMutableDictionary *countryStates;
 @property (strong, nonatomic) NSMutableDictionary *catStates;
-
 @property (strong, nonatomic) ALAssetsLibrary *assetsLibrary;
 @property (strong, nonatomic) MBProgressHUD *videoHud;
 
@@ -45,7 +43,6 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 {
     [super viewDidLoad];
     self.navigationItem.title = @"ADD ENERGY";
-    
     [self setupDefaults];
     [self setupTableView];
     
@@ -266,17 +263,14 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat ret;
-    NSInteger rowNumber = indexPath.row;
-
-    switch (rowNumber) {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
         case 0:
             return 44;
             break;
         case 2:
-            ret = [[UIScreen mainScreen] bounds].size.width * (245 / 292.f);
-            return ret;
+            return [[UIScreen mainScreen] bounds].size.width * (245 / 292.f);
             break;
         case 1:
             return 135;

@@ -8,6 +8,6 @@
 
 @interface WLINewPostImageCell : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet UIImageView *imgView;
+@property (weak, nonatomic) IBOutlet UIImageView *imgView;
 
 @end

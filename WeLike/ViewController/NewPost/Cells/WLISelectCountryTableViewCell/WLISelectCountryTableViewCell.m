@@ -15,23 +15,18 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.allBtn.selected = [[self.countryDict objectForKey:@"all"] boolValue];
-    self.denmarkBtn.selected = [[self.countryDict objectForKey:@"denmark"] boolValue];
-    self.finlandBtn.selected = [[self.countryDict objectForKey:@"finland"] boolValue];
-    self.norwayBtn.selected = [[self.countryDict objectForKey:@"norway"] boolValue];
-    self.swedenBtn.selected = [[self.countryDict objectForKey:@"sweden"] boolValue];
+    self.allBtn.selected = [self.countryDict[@"all"] boolValue];
+    self.denmarkBtn.selected = [self.countryDict[@"denmark"] boolValue];
+    self.finlandBtn.selected = [self.countryDict[@"finland"] boolValue];
+    self.norwayBtn.selected = [self.countryDict[@"norway"] boolValue];
+    self.swedenBtn.selected = [self.countryDict[@"sweden"] boolValue];
 }
 
 #pragma mark - Actions
 
-- (IBAction)switchAValueChanged:(id)sender
+- (IBAction)switchAValueChanged:(UIButton *)sender
 {
-    UIButton *btn = (UIButton*)sender;
-    if (btn.selected) {
-        btn.selected = NO;
-    }
-    else {
-        btn.selected = YES;
+	if (!sender.selected) {
         [self.countryDict setObject:@NO forKey:@"denmark"];
         [self.countryDict setObject:@NO forKey:@"finland"];
         [self.countryDict setObject:@NO forKey:@"norway"];
@@ -41,68 +36,45 @@
         self.norwayBtn.selected = NO;
         self.swedenBtn.selected = NO;
     }
-    [self.countryDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"all"];
+	sender.selected = !sender.selected;
+    [self.countryDict setObject:[NSNumber numberWithBool:sender.selected] forKey:@"all"];
     [self updateCountriesDict];
 }
 
-- (IBAction)switchDValueChanged:(id)sender
+- (IBAction)switchDValueChanged:(UIButton *)sender
 {
-    UIButton *btn = (UIButton*)sender;
-    if (btn.selected) {
-        btn.selected = NO;
-    }
-    else {
-        btn.selected = YES;
-    }
-    [self.countryDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"denmark"];
+    sender.selected = !sender.selected;
+    [self.countryDict setObject:[NSNumber numberWithBool:sender.selected] forKey:@"denmark"];
     [self updateCountriesDict];
 }
 
-- (IBAction)switchFValueChanged:(id)sender
+- (IBAction)switchFValueChanged:(UIButton *)sender
 {
-    UIButton *btn = (UIButton*)sender;
-    if (btn.selected) {
-        btn.selected = NO;
-    }
-    else {
-        btn.selected = YES;
-    }
-    [self.countryDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"finland"];
+    sender.selected = !sender.selected;
+    [self.countryDict setObject:[NSNumber numberWithBool:sender.selected] forKey:@"finland"];
     [self updateCountriesDict];
 }
 
-- (IBAction)switchNValueChanged:(id)sender
+- (IBAction)switchNValueChanged:(UIButton *)sender
 {
-    UIButton *btn = (UIButton*)sender;
-    if (btn.selected) {
-        btn.selected = NO;
-    }
-    else {
-        btn.selected = YES;
-    }
-    [self.countryDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"norway"];
+    sender.selected = !sender.selected;
+    [self.countryDict setObject:[NSNumber numberWithBool:sender.selected] forKey:@"norway"];
     [self updateCountriesDict];
 }
 
-- (IBAction)switchSValueChanged:(id)sender
+- (IBAction)switchSValueChanged:(UIButton *)sender
 {
-    UIButton *btn = (UIButton*)sender;
-    if (btn.selected) {
-        btn.selected = NO;
-    }
-    else {
-        btn.selected = YES;
-    }
-    [self.countryDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"sweden"];
+	sender.selected = !sender.selected;
+    [self.countryDict setObject:[NSNumber numberWithBool:sender.selected] forKey:@"sweden"];
     [self updateCountriesDict];
 }
 
 - (void)updateCountriesDict
 {
-    BOOL denmark = [[self.countryDict objectForKey:@"denmark"] boolValue];
-    BOOL norway = [[self.countryDict objectForKey:@"norway"] boolValue];
-    BOOL finland = [[self.countryDict objectForKey:@"finland"] boolValue];
-    BOOL sweden = [[self.countryDict objectForKey:@"sweden"] boolValue];
+    BOOL denmark = [self.countryDict[@"denmark"] boolValue];
+    BOOL norway = [self.countryDict[@"norway"] boolValue];
+    BOOL finland = [self.countryDict[@"finland"] boolValue];
+    BOOL sweden = [self.countryDict[@"sweden"] boolValue];
     
     if (denmark || norway || sweden || finland) {
         self.allBtn.selected = NO;

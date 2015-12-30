@@ -15,57 +15,36 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.marketBtn.selected = [[self.catDict objectForKey:@"market"] boolValue];
-    self.capabilityBtn.selected = [[self.catDict objectForKey:@"capability"] boolValue];
-    self.customerBtn.selected = [[self.catDict objectForKey:@"customer"] boolValue];
-    self.peopleBtn.selected = [[self.catDict objectForKey:@"people"] boolValue];
+    self.marketBtn.selected = [self.catDict[@"market"] boolValue];
+    self.capabilityBtn.selected = [self.catDict[@"capability"] boolValue];
+    self.customerBtn.selected = [self.catDict [@"customer"] boolValue];
+    self.peopleBtn.selected = [self.catDict[@"people"] boolValue];
 }
 
 #pragma mark - Actions
 
-- (IBAction)switchMAValueChanged:(id)sender
+- (IBAction)switchMAValueChanged:(UIButton *)sender
 {
-    UIButton *btn = (UIButton*)sender;
-    if (btn.selected) {
-        btn.selected = NO;
-    }
-    else {
-        btn.selected = YES;
-    }
-    [self.catDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"market"];
-}
-- (IBAction)switchCAValueChanged:(id)sender {
-    UIButton *btn = (UIButton*)sender;
-    if (btn.selected) {
-        btn.selected = NO;
-    }
-    else {
-        btn.selected = YES;
-    }
-    [self.catDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"capability"];
+	sender.selected = !sender.selected;
+    [self.catDict setObject:[NSNumber numberWithBool:sender.selected] forKey:@"market"];
 }
 
-- (IBAction)switchCUValueChanged:(id)sender
+- (IBAction)switchCAValueChanged:(UIButton *)sender
 {
-    UIButton *btn = (UIButton*)sender;
-    if (btn.selected) {
-        btn.selected = NO;
-    }
-    else {
-        btn.selected = YES;
-    }
-    [self.catDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"customer"];
+    sender.selected = !sender.selected;
+    [self.catDict setObject:[NSNumber numberWithBool:sender.selected] forKey:@"capability"];
 }
-- (IBAction)switchPEValueChanged:(id)sender
+
+- (IBAction)switchCUValueChanged:(UIButton *)sender
 {
-    UIButton *btn = (UIButton*)sender;
-    if (btn.selected) {
-        btn.selected = NO;
-    }
-    else {
-        btn.selected = YES;
-    }
-    [self.catDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"people"];
+    sender.selected = !sender.selected;
+    [self.catDict setObject:[NSNumber numberWithBool:sender.selected] forKey:@"customer"];
+}
+
+- (IBAction)switchPEValueChanged:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    [self.catDict setObject:[NSNumber numberWithBool:sender.selected] forKey:@"people"];
 }
 
 @end
