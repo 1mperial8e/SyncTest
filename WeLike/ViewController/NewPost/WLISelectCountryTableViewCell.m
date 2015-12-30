@@ -10,28 +10,10 @@
 
 @implementation WLISelectCountryTableViewCell
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
-}
-
-- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-}
-
-
 #pragma mark - Cell methods
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
     self.allBtn.selected = [[self.countryDict objectForKey:@"all"] boolValue];
     self.denmarkBtn.selected = [[self.countryDict objectForKey:@"denmark"] boolValue];
@@ -40,20 +22,15 @@
     self.swedenBtn.selected = [[self.countryDict objectForKey:@"sweden"] boolValue];
 }
 
-//- (void)prepareForReuse {
-//
-//}
+#pragma mark - Actions
 
-#pragma mark - Action methods
-
-- (IBAction)switchAValueChanged:(id)sender {
+- (IBAction)switchAValueChanged:(id)sender
+{
     UIButton *btn = (UIButton*)sender;
-    if (btn.selected)
-    {
+    if (btn.selected) {
         btn.selected = NO;
     }
-    else
-    {
+    else {
         btn.selected = YES;
         [self.countryDict setObject:@NO forKey:@"denmark"];
         [self.countryDict setObject:@NO forKey:@"finland"];
@@ -68,57 +45,52 @@
     [self updateCountriesDict];
 }
 
-- (IBAction)switchDValueChanged:(id)sender {
+- (IBAction)switchDValueChanged:(id)sender
+{
     UIButton *btn = (UIButton*)sender;
-    if (btn.selected)
-    {
+    if (btn.selected) {
         btn.selected = NO;
     }
-    else
-    {
+    else {
         btn.selected = YES;
-
     }
     [self.countryDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"denmark"];
     [self updateCountriesDict];
-
 }
-- (IBAction)switchFValueChanged:(id)sender {
+
+- (IBAction)switchFValueChanged:(id)sender
+{
     UIButton *btn = (UIButton*)sender;
-    if (btn.selected)
-    {
+    if (btn.selected) {
         btn.selected = NO;
     }
-    else
-    {
+    else {
         btn.selected = YES;
     }
     [self.countryDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"finland"];
     [self updateCountriesDict];
-
 }
-- (IBAction)switchNValueChanged:(id)sender {
+
+- (IBAction)switchNValueChanged:(id)sender
+{
     UIButton *btn = (UIButton*)sender;
-    if (btn.selected)
-    {
+    if (btn.selected) {
         btn.selected = NO;
     }
-    else
-    {
+    else {
         btn.selected = YES;
     }
     [self.countryDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"norway"];
     [self updateCountriesDict];
-
 }
-- (IBAction)switchSValueChanged:(id)sender {
+
+- (IBAction)switchSValueChanged:(id)sender
+{
     UIButton *btn = (UIButton*)sender;
-    if (btn.selected)
-    {
+    if (btn.selected) {
         btn.selected = NO;
     }
-    else
-    {
+    else {
         btn.selected = YES;
     }
     [self.countryDict setObject:[NSNumber numberWithBool:btn.selected] forKey:@"sweden"];

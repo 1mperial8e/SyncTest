@@ -15,11 +15,4 @@
 @property (strong, nonatomic) IBOutlet UIButton *swedenBtn;
 @property (strong, nonatomic) NSMutableDictionary *countryDict;
 
-
-- (IBAction)switchAValueChanged:(id)sender;
-- (IBAction)switchDValueChanged:(id)sender;
-- (IBAction)switchFValueChanged:(id)sender;
-- (IBAction)switchNValueChanged:(id)sender;
-- (IBAction)switchSValueChanged:(id)sender;
-
 @end

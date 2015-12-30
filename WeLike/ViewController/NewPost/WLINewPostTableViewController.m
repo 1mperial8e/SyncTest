@@ -26,11 +26,9 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 
 @property (weak, nonatomic) WLIConnect *sharedConnect;
 
-// MARK: Sharing content
 @property (strong, nonatomic) NSString *textContent;
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) NSData *video;
-
 @property (strong, nonatomic) NSMutableDictionary *countryStates;
 @property (strong, nonatomic) NSMutableDictionary *catStates;
 
@@ -95,7 +93,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 
 #pragma mark - Actions
 
-- (IBAction)buttonAddImageTouchUpInside:(id)sender
+- (void)buttonAddImageTouchUpInside:(id)sender
 {
 	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
@@ -120,7 +118,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
-- (IBAction)buttonAddVideoTouchUpInside:(id)sender
+- (void)buttonAddVideoTouchUpInside:(id)sender
 {
 	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
@@ -150,14 +148,18 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     [self.tableView endEditing:YES];
     NSInteger categoryCode = 0;
 
-    if ([[self.catStates objectForKey:@"market"] boolValue])
+	if ([[self.catStates objectForKey:@"market"] boolValue]) {
         categoryCode = categoryCode + 1;
-    if ([[self.catStates objectForKey:@"capability"] boolValue])
+	}
+	if ([[self.catStates objectForKey:@"capability"] boolValue]) {
         categoryCode = categoryCode + 2;
-    if ([[self.catStates objectForKey:@"customer"] boolValue])
+	}
+	if ([[self.catStates objectForKey:@"customer"] boolValue]) {
         categoryCode = categoryCode + 4;
-    if ([[self.catStates objectForKey:@"people"] boolValue])
+	}
+	if ([[self.catStates objectForKey:@"people"] boolValue]) {
         categoryCode = categoryCode + 8;
+	}
     NSString *countries = @"";
     if ([[self.countryStates objectForKey:@"all"] boolValue]) {
         countries = [countries stringByAppendingString:@"5"];
@@ -174,14 +176,14 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
             addComa = YES;
             countries = [countries stringByAppendingString:@"2"];
         }
-        if ([[self.countryStates objectForKey:@"norway"] boolValue]){
+        if ([[self.countryStates objectForKey:@"norway"] boolValue]) {
             if (addComa) {
                 countries = [countries stringByAppendingString:@","];
             }
             addComa = YES;
             countries = [countries stringByAppendingString:@"3"];
         }
-        if ([[self.countryStates objectForKey:@"sweden"] boolValue]){
+        if ([[self.countryStates objectForKey:@"sweden"] boolValue]) {
             if (addComa) {
                 countries = [countries stringByAppendingString:@","];
             }
@@ -194,7 +196,7 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 		[self.sharedConnect sendPostWithCountries:countries postText:self.textContent postKeywords:nil postCategory:@(categoryCode) postImage:self.image postVideo:self.video onCompletion:nil];
 		[self dismissViewControllerAnimated:YES completion:nil];
 	} else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please add some content"	 delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please add some content" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 	}
 }
@@ -225,26 +227,26 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     UITableViewCell *cell;
     
     switch (rowNumber) {
-        case 0: { // Select image button
+        case 0: {
             cell = [tableView dequeueReusableCellWithIdentifier:AttachmentCellId];
-            addPicture = [cell viewWithTag:1];
-            addVideo = [cell viewWithTag:2];
-            [addPicture addTarget:self action:@selector(buttonAddImageTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-            [addVideo addTarget:self action:@selector(buttonAddVideoTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+            self.addPicture = [cell viewWithTag:1];
+            self.addVideo = [cell viewWithTag:2];
+            [self.addPicture addTarget:self action:@selector(buttonAddImageTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+            [self.addVideo addTarget:self action:@selector(buttonAddVideoTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
             break;
         }
-        case 1: { // Text View
+        case 1: {
             cell = [tableView dequeueReusableCellWithIdentifier:TextCellId];
-            contentTextView = [cell viewWithTag:1];
-            contentTextView.text = self.textContent;
-            contentTextView.delegate = self;
+            self.contentTextView = [cell viewWithTag:1];
+            self.contentTextView.text = self.textContent;
+            self.contentTextView.delegate = self;
             break;
         }
-        case 2: {// Image display
+        case 2: {
             cell = [tableView dequeueReusableCellWithIdentifier:ImageCellId];
-            imageView = [cell viewWithTag:1];
+            self.imageView = [cell viewWithTag:1];
             if (self.image != nil) {
-                imageView.image = [self croppedImageForPreview:self.image];
+                self.imageView.image = [self croppedImageForPreview:self.image];
             }
             break;
         }
@@ -261,7 +263,6 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
         default:
             break;
     }
-    
     return cell;
 }
 
@@ -270,14 +271,14 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
     NSInteger rowNumber = indexPath.row;
 
     switch (rowNumber) {
-        case 0: // Select image button
+        case 0:
             return 44;
             break;
-        case 2: // Image display
+        case 2:
             ret = [[UIScreen mainScreen] bounds].size.width * (245 / 292.f);
             return ret;
             break;
-        case 1: // Text View
+        case 1:
             return 135;
             break;
         case 3:
@@ -370,9 +371,10 @@ static NSString *const CategoryCellId = @"WLICategorySelectTableViewCell";
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
+	__weak typeof(self) weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{
-        if (![contentTextView isFirstResponder]) {
-            [contentTextView becomeFirstResponder];
+        if (![weakSelf.contentTextView isFirstResponder]) {
+            [weakSelf.contentTextView becomeFirstResponder];
         }
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];

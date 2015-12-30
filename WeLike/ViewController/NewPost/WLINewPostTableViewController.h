@@ -11,17 +11,16 @@
 @import MediaPlayer;
 @import AVFoundation;
 
-@interface WLINewPostTableViewController : UITableViewController {
+@interface WLINewPostTableViewController : UITableViewController
         
-    IBOutlet UIButton *addPicture;
-    IBOutlet UIButton *addVideo;
-    IBOutlet UIButton *addAttachment;
-    IBOutlet UIImageView *imageView;
-    IBOutlet UITextView *contentTextView;
-    IBOutlet UILabel *strategyHeader;
-    IBOutlet UILabel *strategyContent;
-    IBOutlet UILabel *countryHeader;
-    IBOutlet UILabel *countryContent;
-}
+@property (strong, nonatomic) UIButton *addPicture;
+@property (strong, nonatomic) UIButton *addVideo;
+@property (strong, nonatomic) UIButton *addAttachment;
+@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UITextView *contentTextView;
+@property (strong, nonatomic) UILabel *strategyHeader;
+@property (strong, nonatomic) UILabel *strategyContent;
+@property (strong, nonatomic) UILabel *countryHeader;
+@property (strong, nonatomic) UILabel *countryContent;
 
 @end

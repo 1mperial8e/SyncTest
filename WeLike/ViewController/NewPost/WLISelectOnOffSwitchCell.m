@@ -10,40 +10,19 @@
 
 @implementation WLISelectOnOffSwitchCell
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
-- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-}
-
-
 #pragma mark - Cell methods
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
     [self.attribName setText:[self.cellContent objectForKey:@"name"]];
     [self.attribSwitch setOn:[[self.cellContent objectForKey:@"isOn"] boolValue]];
 }
 
-//- (void)prepareForReuse {
-//    
-//}
+#pragma mark - Actions
 
-#pragma mark - Action methods
-
-- (IBAction)switchValueChanged:(id)sender {
+- (IBAction)switchValueChanged:(id)sender
+{
     [self.cellContent setObject:[NSNumber numberWithBool:self.attribSwitch.on] forKey:@"isOn"];
 }
 
