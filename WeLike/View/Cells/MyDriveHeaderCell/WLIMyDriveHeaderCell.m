@@ -74,9 +74,11 @@ static CGFloat const LabelHeight = 22.f;
     UITapGestureRecognizer *followingTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followingTap:)];
     UITapGestureRecognizer *followersTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followersTap:)];
 	UITapGestureRecognizer *emailTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(emailLabelTap:)];
+    UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarImageViewTap:)];
     [self.followersLabel.superview addGestureRecognizer:followersTap];
     [self.followingLabel.superview addGestureRecognizer:followingTap];
 	[self.labelUserEmail addGestureRecognizer:emailTap];
+    [self.imageViewUser addGestureRecognizer:avatarTap];
 }
 
 #pragma mark - Public
@@ -110,6 +112,13 @@ static CGFloat const LabelHeight = 22.f;
 - (void)emailLabelTap:(UITapGestureRecognizer *)gesture
 {
     [WLIUtils showCustomEmailControllerWithToRecepient:self.user.userEmail];
+}
+
+- (void)avatarImageViewTap:(UIGestureRecognizer *)gesture
+{
+    if ([self.delegate respondsToSelector:@selector(showAvatarForCell:)]) {
+        [self.delegate showAvatarForCell:self];
+    }
 }
 
 #pragma mark - Accessors
