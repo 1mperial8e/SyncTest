@@ -2,12 +2,13 @@
 //  WLITimelineFeaturesView.m
 //  MyDrive
 //
-//  Created by Roman R on 30.12.15.
+//  Created by Stas Volskyi on 11/30/15.
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
 #import "WLITimelineFeaturesView.h"
 #import "WLITimelineFeaturesViewCell.h"
+#import "WLIAppDelegate.h"
 
 @interface WLITimelineFeaturesView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -35,7 +36,7 @@
 	
 	[self.collectionView registerNib:[UINib nibWithNibName:@"WLITimelineFeaturesViewCell"  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLITimelineFeaturesViewCell class])];
 	
-	self.dataArray = [NSArray arrayWithObjects:@"digitalweek", @"marketing", @"customer", @"capability", @"people", nil];
+	self.dataArray = [NSArray arrayWithObjects:@"#digitalweek", @"#marketing", @"#customer", @"#capability", @"#people", nil];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -48,16 +49,25 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	WLITimelineFeaturesViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WLITimelineFeaturesViewCell class]) forIndexPath:indexPath];
-	cell.backgroundColor = [UIColor redColor];
-	[cell.layer setCornerRadius:8];
 	
+	[cell.layer setCornerRadius:8];
 	if (indexPath.item == 0) {
-		cell.imageView.image = [UIImage imageNamed:@"digitalWeek"];
+		NSString *imageName = [(NSString *)self.dataArray[indexPath.item] substringFromIndex:1];
+		cell.imageView.image = [UIImage imageNamed:imageName];
 	} else {
-		cell.iconImageView.image = [UIImage imageNamed:self.dataArray[indexPath.item]];
+		NSString *imageName = [(NSString *)self.dataArray[indexPath.item] substringFromIndex:1];
+		cell.iconImageView.image = [UIImage imageNamed:imageName];
 	}
-	cell.label.text = [@"#" stringByAppendingString: self.dataArray[indexPath.item]];
+	cell.label.text = self.dataArray[indexPath.item];
 	return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+	WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
+	[appDelegate.timelineViewController showTimelineForSearchString:self.dataArray[indexPath.item]];
 }
 
 @end

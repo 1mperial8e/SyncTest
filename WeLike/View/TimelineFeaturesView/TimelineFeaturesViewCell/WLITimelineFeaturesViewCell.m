@@ -2,17 +2,13 @@
 //  WLITimelineFeaturesViewCell.m
 //  MyDrive
 //
-//  Created by Roman R on 30.12.15.
+//  Created by Stas Volskyi on 11/30/15.
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
 #import "WLITimelineFeaturesViewCell.h"
 
 @implementation WLITimelineFeaturesViewCell
-
-- (void)awakeFromNib {
-    // Initialization code
-}
 
 - (void)prepareForReuse
 {
