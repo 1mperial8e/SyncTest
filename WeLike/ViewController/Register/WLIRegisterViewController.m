@@ -133,10 +133,10 @@
         cell.textField.placeholder = @"full name";
         self.textFieldFullName = cell.textField;
 	} else if (indexPath.row == 6) {
-		cell.textField.placeholder = @"title";
+		cell.textField.placeholder = @"title (optional)";
 		self.textFieldTitle = cell.textField;
 	} else if (indexPath.row == 7) {
-		cell.textField.placeholder = @"department";
+		cell.textField.placeholder = @"department (optional)";
 		self.textFieldDepartment = cell.textField;
 	} else if (indexPath.row == 8) {
         cell.registerButton.hidden = NO;
