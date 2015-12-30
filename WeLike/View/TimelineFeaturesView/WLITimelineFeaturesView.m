@@ -19,24 +19,29 @@
 
 @implementation WLITimelineFeaturesView
 
+#pragma mark - Lifecycle
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
 	self = [super initWithFrame:frame];
-	NSArray *viewArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class) owner:self options:nil];
-	UIView *subView = [viewArray firstObject];
-	subView.frame = frame;
-	[self addSubview:subView];
+    if (self) {
+        NSArray *viewArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class) owner:self options:nil];
+        UIView *subView = [viewArray firstObject];
+        subView.frame = frame;
+        [self addSubview:subView];
+    }
 	return self;
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
 	self.collectionView.backgroundColor = [UIColor clearColor];
 	self.collectionView.dataSource = self;
 	self.collectionView.delegate = self;
 	
 	[self.collectionView registerNib:[UINib nibWithNibName:@"WLITimelineFeaturesViewCell"  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLITimelineFeaturesViewCell class])];
 	
-	self.dataArray = [NSArray arrayWithObjects:@"#digitalweek", @"#marketing", @"#customer", @"#capability", @"#people", nil];
+    self.dataArray = @[@"#digitalweek", @"#marketing", @"#customer", @"#capability", @"#people"];
 }
 
 #pragma mark - UICollectionViewDataSource
