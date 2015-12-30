@@ -131,6 +131,10 @@
 		30962D551C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30962D531C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib */; };
 		309FF0BF1C0F03F0009C9344 /* WLILikersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */; };
 		309FF0C01C0F03F0009C9344 /* WLILikersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */; };
+		30ABC9881C33C80F00E1C63C /* WLITimelineFeaturesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ABC9871C33C80F00E1C63C /* WLITimelineFeaturesView.m */; };
+		30ABC98A1C33C82E00E1C63C /* WLITimelineFeaturesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30ABC9891C33C82E00E1C63C /* WLITimelineFeaturesView.xib */; };
+		30ABC98F1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ABC98D1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m */; };
+		30ABC9901C33CF6100E1C63C /* WLITimelineFeaturesViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30ABC98E1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.xib */; };
 		30DCE4EE1C1708F800244011 /* WLIMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DCE4EC1C1708F800244011 /* WLIMailViewController.m */; };
 		30DCE4EF1C1708F800244011 /* WLIMailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30DCE4ED1C1708F800244011 /* WLIMailViewController.xib */; };
 		30DCE4F51C170F8A00244011 /* WLIMailTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DCE4F31C170F8A00244011 /* WLIMailTextFieldTableViewCell.m */; };
@@ -413,6 +417,12 @@
 		309FF0BC1C0F03F0009C9344 /* WLILikersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLILikersViewController.h; sourceTree = "<group>"; };
 		309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLILikersViewController.m; sourceTree = "<group>"; };
 		309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLILikersViewController.xib; sourceTree = "<group>"; };
+		30ABC9861C33C80F00E1C63C /* WLITimelineFeaturesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLITimelineFeaturesView.h; sourceTree = "<group>"; };
+		30ABC9871C33C80F00E1C63C /* WLITimelineFeaturesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLITimelineFeaturesView.m; sourceTree = "<group>"; };
+		30ABC9891C33C82E00E1C63C /* WLITimelineFeaturesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLITimelineFeaturesView.xib; sourceTree = "<group>"; };
+		30ABC98C1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLITimelineFeaturesViewCell.h; sourceTree = "<group>"; };
+		30ABC98D1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLITimelineFeaturesViewCell.m; sourceTree = "<group>"; };
+		30ABC98E1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLITimelineFeaturesViewCell.xib; sourceTree = "<group>"; };
 		30DCE4EB1C1708F800244011 /* WLIMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIMailViewController.h; sourceTree = "<group>"; };
 		30DCE4EC1C1708F800244011 /* WLIMailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIMailViewController.m; sourceTree = "<group>"; };
 		30DCE4ED1C1708F800244011 /* WLIMailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIMailViewController.xib; sourceTree = "<group>"; };
@@ -858,6 +868,7 @@
 		2C6D26F41896BACA00C459CB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				30ABC9851C33C7EF00E1C63C /* TimelineFeaturesView */,
 				4F70AAED1C05E0A3005033D2 /* HitView */,
 				2C6D26F61896BACA00C459CB /* Cells */,
 			);
@@ -1300,6 +1311,27 @@
 				309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */,
 			);
 			path = Likers;
+			sourceTree = "<group>";
+		};
+		30ABC9851C33C7EF00E1C63C /* TimelineFeaturesView */ = {
+			isa = PBXGroup;
+			children = (
+				30ABC98B1C33CED400E1C63C /* TimelineFeaturesViewCell */,
+				30ABC9861C33C80F00E1C63C /* WLITimelineFeaturesView.h */,
+				30ABC9871C33C80F00E1C63C /* WLITimelineFeaturesView.m */,
+				30ABC9891C33C82E00E1C63C /* WLITimelineFeaturesView.xib */,
+			);
+			path = TimelineFeaturesView;
+			sourceTree = "<group>";
+		};
+		30ABC98B1C33CED400E1C63C /* TimelineFeaturesViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				30ABC98C1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.h */,
+				30ABC98D1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m */,
+				30ABC98E1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.xib */,
+			);
+			path = TimelineFeaturesViewCell;
 			sourceTree = "<group>";
 		};
 		30DCE4EA1C1708A200244011 /* MailViewController */ = {
@@ -1798,6 +1830,7 @@
 				2C6D27FB1896BACA00C459CB /* WLITimelineViewController.xib in Resources */,
 				2C6D27E01896BACA00C459CB /* WLICommentsViewController.xib in Resources */,
 				4FE75D231BFF1DB10063F3D8 /* WLIForgotPasswordTableViewCell.xib in Resources */,
+				30ABC98A1C33C82E00E1C63C /* WLITimelineFeaturesView.xib in Resources */,
 				2E28F3921BADE8BA006CF0BE /* WLIFollowingsViewController.xib in Resources */,
 				4F2C83B91BFB269700EDD64F /* WLISearchTableViewCell.xib in Resources */,
 				2EEF2C1C1BD64B0F001785C5 /* WLINewPostAttachmentCell.xib in Resources */,
@@ -1851,6 +1884,7 @@
 				4F69E8D81BF09FA300A6CD5A /* WLILoginTableViewCell.xib in Resources */,
 				4F77BEF41C32DAF7004E625E /* WLITimelineSettingsHeaderView.xib in Resources */,
 				2EEF2C221BD64B8F001785C5 /* WLINewPostCategoryCell.xib in Resources */,
+				30ABC9901C33CF6100E1C63C /* WLITimelineFeaturesViewCell.xib in Resources */,
 				074D68881BB53B40000167DD /* Graph1.png in Resources */,
 				4F77BEE21C32DA7E004E625E /* promo.mov in Resources */,
 				2C6D27E21896BACA00C459CB /* WLIFollowersViewController.xib in Resources */,
@@ -1893,6 +1927,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F8E2D3D1BF4A2AF00953EC0 /* WLIPost.m in Sources */,
+				30ABC9881C33C80F00E1C63C /* WLITimelineFeaturesView.m in Sources */,
 				2C6D27B71896BACA00C459CB /* MNMPullToRefreshManager.m in Sources */,
 				2C6D27BD1896BACA00C459CB /* SBJsonStreamParserAdapter.m in Sources */,
 				4F67ABAE1C21B13200C97E13 /* WLIWhatIsNewViewController.m in Sources */,
@@ -1922,6 +1957,7 @@
 				2C6D27F91896BACA00C459CB /* WLITabBarController.m in Sources */,
 				2C6D27BB1896BACA00C459CB /* SBJsonStreamParser.m in Sources */,
 				4F8E2D3E1BF4A2AF00953EC0 /* WLIUser.m in Sources */,
+				30ABC98F1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m in Sources */,
 				2C6D27C81896BACA00C459CB /* main.m in Sources */,
 				2C6D27C01896BACA00C459CB /* SBJsonStreamWriter.m in Sources */,
 				2C6D27D81896BACA00C459CB /* WLIPostCell.m in Sources */,

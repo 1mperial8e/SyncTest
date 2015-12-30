@@ -9,6 +9,9 @@
 #import "WLITimelineViewController.h"
 #import "WLITimelineSettingsViewController.h"
 #import "WLICountrySettings.h"
+#import "WLITimelineFeaturesView.h"
+
+static CGFloat const HeaderViewHeight = 106;
 
 @interface WLITimelineViewController ()
 
@@ -36,7 +39,10 @@
     if (!self.searchString.length)  {
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-search"] style:UIBarButtonItemStylePlain target:self action:@selector(searchButtonAction:)];
 		
-		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonAction:)];
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonAction:)];		
+
+		WLITimelineFeaturesView *headerView = [[WLITimelineFeaturesView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), HeaderViewHeight)];
+		self.tableViewRefresh.tableHeaderView = headerView;		
 	}
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChangedNotificationRecieved:) name:CountriesFilterSettingsChangeNotification object:nil];
