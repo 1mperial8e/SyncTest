@@ -59,6 +59,8 @@ typedef enum ServerResponse ServerResponse;
                       userAvatar:(UIImage *)userAvatar
                         userType:(int)userType
                     userFullName:(NSString *)userFullName
+					   userTitle:(NSString *)userTitle
+				  userDepartment:(NSString *)userDepartment
                         userInfo:(NSString *)userInfo
                     onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion;
 

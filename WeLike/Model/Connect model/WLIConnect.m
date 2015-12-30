@@ -167,6 +167,8 @@ static NSString *const AuthTokenKey = @"token";
                       userAvatar:(UIImage *)userAvatar
                         userType:(int)userType
                     userFullName:(NSString *)userFullName
+					   userTitle:(NSString *)userTitle
+				  userDepartment:(NSString *)userDepartment
                         userInfo:(NSString *)userInfo
                     onCompletion:(void (^)(WLIUser *user, ServerResponse serverResponseCode))completion
 {
@@ -175,12 +177,19 @@ static NSString *const AuthTokenKey = @"token";
             completion(nil, BAD_REQUEST);
         }
     } else {
-        NSDictionary *parameters = @{UsernameKey : username,
+        NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary: @{UsernameKey : username,
                                      UserPasswordKey : password,
                                      @"email" : email,
                                      @"userFullname" : userFullName,
                                      @"userTypeID" : @(userType),
-                                     @"userInfo" : userInfo ? userInfo : @""};
+                                     @"userInfo" : userInfo ? userInfo : @""}];
+		if (userTitle.length) {
+			[parameters setObject:userTitle forKey:@"userTitle"];
+		}
+		if (userDepartment.length) {
+			[parameters setObject:userDepartment forKey:@"userDepartment"];
+		}
+
         [self.httpClient POST:@"api/register" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             if (userAvatar) {
                 NSData *imageData = UIImageJPEGRepresentation(userAvatar, kCompressionQuality);

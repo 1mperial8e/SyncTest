@@ -22,6 +22,8 @@
 @property (weak, nonatomic) UITextField *textFieldRepassword;
 @property (weak, nonatomic) UITextField *textFieldUsername;
 @property (weak, nonatomic) UITextField *textFieldFullName;
+@property (weak, nonatomic) UITextField *textFieldTitle;
+@property (weak, nonatomic) UITextField *textFieldDepartment;
 
 @property (weak, nonatomic) UIImageView *avatarImageView;
 
@@ -56,7 +58,7 @@
     
     if (self.textFieldEmail && self.textFieldPassword && self.textFieldRepassword && self.textFieldUsername && self.textFieldFullName) {
         toolbar.mainScrollView = self.tableView;
-        toolbar.textFields = @[self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword, self.textFieldUsername, self.textFieldFullName];
+        toolbar.textFields = @[self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword, self.textFieldUsername, self.textFieldFullName, self.textFieldTitle, self.textFieldDepartment];
     }
 }
 
@@ -72,7 +74,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return 9;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,7 +132,13 @@
     } else if (indexPath.row == 5) {
         cell.textField.placeholder = @"full name";
         self.textFieldFullName = cell.textField;
-    } else if (indexPath.row == 6) {
+	} else if (indexPath.row == 6) {
+		cell.textField.placeholder = @"title";
+		self.textFieldTitle = cell.textField;
+	} else if (indexPath.row == 7) {
+		cell.textField.placeholder = @"department";
+		self.textFieldDepartment = cell.textField;
+	} else if (indexPath.row == 8) {
         cell.registerButton.hidden = NO;
         cell.textField.hidden = YES;
         [cell.registerButton addTarget:self action:@selector(registerButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -172,7 +180,7 @@
         [hud show:YES];
         
         __weak typeof(self) weakSelf = self;
-        [sharedConnect registerUserWithUsername:self.textFieldUsername.text password:self.textFieldPassword.text email:self.textFieldEmail.text userAvatar:self.avatarImageView.image userType:WLIUserTypePerson userFullName:self.textFieldFullName.text userInfo:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
+		[sharedConnect registerUserWithUsername:self.textFieldUsername.text password:self.textFieldPassword.text email:self.textFieldEmail.text userAvatar:self.avatarImageView.image userType:WLIUserTypePerson userFullName:self.textFieldFullName.text userTitle:self.textFieldTitle.text userDepartment:self.textFieldDepartment.text userInfo:@"" onCompletion:^(WLIUser *user, ServerResponse serverResponseCode) {
             [hud hide:YES];
             if (serverResponseCode == OK) {
 				[WLIAnalytics setUserID:[NSString stringWithFormat:@"%li",(long)[WLIConnect sharedConnect].currentUser.userID]];
