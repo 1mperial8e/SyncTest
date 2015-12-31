@@ -123,16 +123,16 @@
     NSInteger categoryCode = 0;
 
 	if ([self.catStates[@"market"] boolValue]) {
-        categoryCode = categoryCode + 1;
+        categoryCode += 1;
 	}
 	if ([self.catStates[@"capability"] boolValue]) {
-        categoryCode = categoryCode + 2;
+        categoryCode += 2;
 	}
 	if ([self.catStates[@"customer"] boolValue]) {
-        categoryCode = categoryCode + 4;
+        categoryCode += 4;
 	}
 	if ([self.catStates[@"people"] boolValue]) {
-        categoryCode = categoryCode + 8;
+        categoryCode += 8;
 	}
 	
 	NSArray *countriesStateKeys = @[@"all", @"denmark", @"finland", @"norway", @"sweden"];
@@ -250,7 +250,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSArray *heightsArray = @[@44,@135,@([[UIScreen mainScreen] bounds].size.width * (245 / 292.f)),@52,@99];
-	if (indexPath.row <= heightsArray.count) {
+	if (indexPath.row < heightsArray.count) {
 		return [heightsArray[indexPath.row] floatValue];
 	}
     return 44;
