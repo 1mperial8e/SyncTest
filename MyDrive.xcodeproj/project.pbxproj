@@ -120,6 +120,9 @@
 		30962D551C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30962D531C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib */; };
 		309FF0BF1C0F03F0009C9344 /* WLILikersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */; };
 		309FF0C01C0F03F0009C9344 /* WLILikersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */; };
+		30A156A21C351F1100514BAB /* WLINewPostAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A156A11C351F1100514BAB /* WLINewPostAttachmentCell.m */; };
+		30A156A51C351F6B00514BAB /* WLINewPostCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A156A41C351F6B00514BAB /* WLINewPostCategoryCell.m */; };
+		30A156A81C351FA400514BAB /* WLINewPostTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A156A71C351FA400514BAB /* WLINewPostTextCell.m */; };
 		30ABC9881C33C80F00E1C63C /* WLITimelineFeaturesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ABC9871C33C80F00E1C63C /* WLITimelineFeaturesView.m */; };
 		30ABC98A1C33C82E00E1C63C /* WLITimelineFeaturesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30ABC9891C33C82E00E1C63C /* WLITimelineFeaturesView.xib */; };
 		30ABC98F1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ABC98D1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m */; };
@@ -402,6 +405,12 @@
 		309FF0BC1C0F03F0009C9344 /* WLILikersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLILikersViewController.h; sourceTree = "<group>"; };
 		309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLILikersViewController.m; sourceTree = "<group>"; };
 		309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLILikersViewController.xib; sourceTree = "<group>"; };
+		30A156A01C351F1100514BAB /* WLINewPostAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLINewPostAttachmentCell.h; sourceTree = "<group>"; };
+		30A156A11C351F1100514BAB /* WLINewPostAttachmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLINewPostAttachmentCell.m; sourceTree = "<group>"; };
+		30A156A31C351F6B00514BAB /* WLINewPostCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLINewPostCategoryCell.h; sourceTree = "<group>"; };
+		30A156A41C351F6B00514BAB /* WLINewPostCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLINewPostCategoryCell.m; sourceTree = "<group>"; };
+		30A156A61C351FA400514BAB /* WLINewPostTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLINewPostTextCell.h; sourceTree = "<group>"; };
+		30A156A71C351FA400514BAB /* WLINewPostTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLINewPostTextCell.m; sourceTree = "<group>"; };
 		30ABC9861C33C80F00E1C63C /* WLITimelineFeaturesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLITimelineFeaturesView.h; sourceTree = "<group>"; };
 		30ABC9871C33C80F00E1C63C /* WLITimelineFeaturesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLITimelineFeaturesView.m; sourceTree = "<group>"; };
 		30ABC9891C33C82E00E1C63C /* WLITimelineFeaturesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLITimelineFeaturesView.xib; sourceTree = "<group>"; };
@@ -1340,6 +1349,8 @@
 			isa = PBXGroup;
 			children = (
 				30D36C811C342C73003EA53D /* WLINewPostAttachmentCell.xib */,
+				30A156A01C351F1100514BAB /* WLINewPostAttachmentCell.h */,
+				30A156A11C351F1100514BAB /* WLINewPostAttachmentCell.m */,
 			);
 			path = WLINewPostAttachmentCell;
 			sourceTree = "<group>";
@@ -1348,6 +1359,8 @@
 			isa = PBXGroup;
 			children = (
 				30D36C831C342C73003EA53D /* WLINewPostCategoryCell.xib */,
+				30A156A31C351F6B00514BAB /* WLINewPostCategoryCell.h */,
+				30A156A41C351F6B00514BAB /* WLINewPostCategoryCell.m */,
 			);
 			path = WLINewPostCategoryCell;
 			sourceTree = "<group>";
@@ -1366,6 +1379,8 @@
 			isa = PBXGroup;
 			children = (
 				30D36C891C342C73003EA53D /* WLINewPostTextCell.xib */,
+				30A156A61C351FA400514BAB /* WLINewPostTextCell.h */,
+				30A156A71C351FA400514BAB /* WLINewPostTextCell.m */,
 			);
 			path = WLINewPostTextCell;
 			sourceTree = "<group>";
@@ -2011,12 +2026,14 @@
 				4F70AAF01C05E0B6005033D2 /* WLIHitView.m in Sources */,
 				2C6D27B31896BACA00C459CB /* WLIActivityIndicator.m in Sources */,
 				4F8E2D481BF4A4C000953EC0 /* WLICategoryPostsViewController.m in Sources */,
+				30A156A51C351F6B00514BAB /* WLINewPostCategoryCell.m in Sources */,
 				2C6D27F91896BACA00C459CB /* WLITabBarController.m in Sources */,
 				2C6D27BB1896BACA00C459CB /* SBJsonStreamParser.m in Sources */,
 				4F8E2D3E1BF4A2AF00953EC0 /* WLIUser.m in Sources */,
 				30ABC98F1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m in Sources */,
 				2C6D27C81896BACA00C459CB /* main.m in Sources */,
 				2C6D27C01896BACA00C459CB /* SBJsonStreamWriter.m in Sources */,
+				30A156A21C351F1100514BAB /* WLINewPostAttachmentCell.m in Sources */,
 				2C6D27D81896BACA00C459CB /* WLIPostCell.m in Sources */,
 				4F77BEF71C32DAF7004E625E /* WLITimelineSettingsViewController.m in Sources */,
 				2C6D27FA1896BACA00C459CB /* WLITimelineViewController.m in Sources */,
@@ -2063,6 +2080,7 @@
 				308F084E1C18576B00023BEF /* WLIPostCommentCell.m in Sources */,
 				2C6D27BA1896BACA00C459CB /* SBJsonParser.m in Sources */,
 				4F77BEDD1C32DA26004E625E /* WLICountrySettings.m in Sources */,
+				30A156A81C351FA400514BAB /* WLINewPostTextCell.m in Sources */,
 				2EEF2C191BD4ECBA001785C5 /* WLINewPostTableViewController.m in Sources */,
 				2C5B5C7D1A1A8F9500175A58 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				4F8E2D371BF4A2AF00953EC0 /* WLIComment.m in Sources */,

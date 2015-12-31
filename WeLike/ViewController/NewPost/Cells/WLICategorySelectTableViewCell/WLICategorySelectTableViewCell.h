@@ -6,7 +6,9 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-@interface WLICategorySelectTableViewCell : UITableViewCell
+#import "WLIBaseTableViewCell.h"
+
+@interface WLICategorySelectTableViewCell : WLIBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *marketBtn;
 @property (weak, nonatomic) IBOutlet UIButton *capabilityBtn;

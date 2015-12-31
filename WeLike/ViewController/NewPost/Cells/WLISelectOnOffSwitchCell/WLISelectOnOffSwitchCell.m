@@ -15,15 +15,15 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    [self.attribName setText:[self.cellContent objectForKey:@"name"]];
-    [self.attribSwitch setOn:[[self.cellContent objectForKey:@"isOn"] boolValue]];
+	[self.attribName setText:self.cellContent[@"name"]];
+    [self.attribSwitch setOn:[self.cellContent[@"isOn"] boolValue]];
 }
 
 #pragma mark - Actions
 
 - (IBAction)switchValueChanged:(id)sender
 {
-    [self.cellContent setObject:[NSNumber numberWithBool:self.attribSwitch.on] forKey:@"isOn"];
+    [self.cellContent setObject:@(self.attribSwitch.on) forKey:@"isOn"];
 }
 
 @end

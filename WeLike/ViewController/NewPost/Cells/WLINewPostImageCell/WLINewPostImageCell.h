@@ -6,7 +6,9 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-@interface WLINewPostImageCell : UITableViewCell
+#import "WLIBaseTableViewCell.h"
+
+@interface WLINewPostImageCell : WLIBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgView;
 

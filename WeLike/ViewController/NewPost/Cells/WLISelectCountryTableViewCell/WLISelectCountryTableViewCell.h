@@ -6,7 +6,9 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-@interface WLISelectCountryTableViewCell : UITableViewCell
+#import "WLIBaseTableViewCell.h"
+
+@interface WLISelectCountryTableViewCell : WLIBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *allBtn;
 @property (weak, nonatomic) IBOutlet UIButton *denmarkBtn;
