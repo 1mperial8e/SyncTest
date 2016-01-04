@@ -21,11 +21,13 @@
 @interface WLINewPostTableViewController () <UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) WLIConnect *sharedConnect;
+
 @property (strong, nonatomic) NSString *textContent;
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) NSData *video;
 @property (strong, nonatomic) NSMutableDictionary *countryStates;
 @property (strong, nonatomic) NSMutableDictionary *catStates;
+
 @property (strong, nonatomic) ALAssetsLibrary *assetsLibrary;
 @property (strong, nonatomic) MBProgressHUD *videoHud;
 
@@ -38,18 +40,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"ADD ENERGY";
     [self setupDefaults];
     [self setupTableView];
     
+    self.navigationItem.title = @"ADD ENERGY";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStylePlain target:self action:@selector(publishButtonAction:)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonAction:)];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
-    tapGesture.cancelsTouchesInView = NO;
-    [self.view addGestureRecognizer:tapGesture];
-    
-    self.assetsLibrary = [[ALAssetsLibrary alloc] init];
     self.videoHud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.videoHud];
     self.videoHud.dimBackground = YES;
@@ -65,6 +62,8 @@
     self.textContent = @"";
     self.countryStates = [@{@"all" : @YES, @"denmark" : @NO, @"finland" : @NO, @"norway" : @NO, @"sweden" : @NO} mutableCopy];
     self.catStates = [@{@"market" : @NO, @"capability" : @NO, @"customer" : @NO, @"people" : @NO} mutableCopy];
+    
+    self.assetsLibrary = [[ALAssetsLibrary alloc] init];
 }
 
 - (void)setupTableView
@@ -75,13 +74,6 @@
     [self.tableView registerNib:WLINewPostImageCell.nib forCellReuseIdentifier:[WLINewPostImageCell ID]];
     [self.tableView registerNib:WLISelectCountryTableViewCell.nib forCellReuseIdentifier:[WLISelectCountryTableViewCell ID]];
     [self.tableView registerNib:WLICategorySelectTableViewCell.nib forCellReuseIdentifier:[WLICategorySelectTableViewCell ID]];
-}
-
-#pragma mark - Gestures
-
-- (void)dismissKeyboard:(id)sender
-{
-    [self.tableView endEditing:NO];
 }
 
 #pragma mark - Actions
@@ -224,8 +216,8 @@
 - (WLINewPostImageCell *)newPostImageCellForTableView:(UITableView *)tableView
 {
 	WLINewPostImageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WLINewPostImageCell class])];
+    self.imageView = cell.imgView;
 	if (self.image) {
-		self.imageView = cell.imgView;
 		self.imageView.image = [self croppedImageForPreview:self.image];
 	}
 	return cell;
@@ -249,7 +241,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSArray *heightsArray = @[@44,@135,@([[UIScreen mainScreen] bounds].size.width * (245 / 292.f)),@52,@99];
+	NSArray *heightsArray = @[@44, @135, @([[UIScreen mainScreen] bounds].size.width * (245 / 292.f)), @52, @99];
 	if (indexPath.row < heightsArray.count) {
 		return [heightsArray[indexPath.row] floatValue];
 	}
@@ -270,11 +262,11 @@
 	pickerController.delegate = self;
 	pickerController.sourceType = sourceType;
 	if (isVideo) {
-		pickerController.mediaTypes = @[(NSString *) kUTTypeMovie,
-										(NSString *) kUTTypeVideo,
-										(NSString *) kUTTypeQuickTimeMovie,
-										(NSString *) kUTTypeMPEG,
-										(NSString *) kUTTypeMPEG4];
+		pickerController.mediaTypes = @[(NSString *)kUTTypeMovie,
+										(NSString *)kUTTypeVideo,
+										(NSString *)kUTTypeQuickTimeMovie,
+										(NSString *)kUTTypeMPEG,
+										(NSString *)kUTTypeMPEG4];
 		if (sourceType == UIImagePickerControllerSourceTypeCamera ) {
 			pickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
 			pickerController.videoQuality = UIImagePickerControllerQualityTypeIFrame1280x720;

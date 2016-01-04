@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *capabilityBtn;
 @property (weak, nonatomic) IBOutlet UIButton *customerBtn;
 @property (weak, nonatomic) IBOutlet UIButton *peopleBtn;
+
 @property (strong, nonatomic) NSMutableDictionary *catDict;
 
 @end

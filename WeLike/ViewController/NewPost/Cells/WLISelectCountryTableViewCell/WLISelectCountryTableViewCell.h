@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *finlandBtn;
 @property (weak, nonatomic) IBOutlet UIButton *norwayBtn;
 @property (weak, nonatomic) IBOutlet UIButton *swedenBtn;
+
 @property (strong, nonatomic) NSMutableDictionary *countryDict;
 
 @end

@@ -13,9 +13,9 @@
 
 @interface WLINewPostTableViewController : UITableViewController
         
-@property (strong, nonatomic) UIButton *addPicture;
-@property (strong, nonatomic) UIButton *addVideo;
-@property (strong, nonatomic) UIImageView *imageView;
-@property (strong, nonatomic) UITextView *contentTextView;
+@property (weak, nonatomic) UIButton *addPicture;
+@property (weak, nonatomic) UIButton *addVideo;
+@property (weak, nonatomic) UIImageView *imageView;
+@property (weak, nonatomic) UITextView *contentTextView;
 
 @end

@@ -136,8 +136,6 @@
 		30D36C991C342C73003EA53D /* WLINewPostTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30D36C891C342C73003EA53D /* WLINewPostTextCell.xib */; };
 		30D36C9A1C342C73003EA53D /* WLISelectCountryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D36C8C1C342C73003EA53D /* WLISelectCountryTableViewCell.m */; };
 		30D36C9B1C342C73003EA53D /* WLISelectCountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30D36C8D1C342C73003EA53D /* WLISelectCountryTableViewCell.xib */; };
-		30D36C9C1C342C73003EA53D /* WLISelectOnOffSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D36C901C342C73003EA53D /* WLISelectOnOffSwitchCell.m */; };
-		30D36C9D1C342C73003EA53D /* WLISelectOnOffSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30D36C911C342C73003EA53D /* WLISelectOnOffSwitchCell.xib */; };
 		30DCE4EE1C1708F800244011 /* WLIMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DCE4EC1C1708F800244011 /* WLIMailViewController.m */; };
 		30DCE4EF1C1708F800244011 /* WLIMailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30DCE4ED1C1708F800244011 /* WLIMailViewController.xib */; };
 		30DCE4F51C170F8A00244011 /* WLIMailTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DCE4F31C170F8A00244011 /* WLIMailTextFieldTableViewCell.m */; };
@@ -429,9 +427,6 @@
 		30D36C8B1C342C73003EA53D /* WLISelectCountryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLISelectCountryTableViewCell.h; sourceTree = "<group>"; };
 		30D36C8C1C342C73003EA53D /* WLISelectCountryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLISelectCountryTableViewCell.m; sourceTree = "<group>"; };
 		30D36C8D1C342C73003EA53D /* WLISelectCountryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLISelectCountryTableViewCell.xib; sourceTree = "<group>"; };
-		30D36C8F1C342C73003EA53D /* WLISelectOnOffSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLISelectOnOffSwitchCell.h; sourceTree = "<group>"; };
-		30D36C901C342C73003EA53D /* WLISelectOnOffSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLISelectOnOffSwitchCell.m; sourceTree = "<group>"; };
-		30D36C911C342C73003EA53D /* WLISelectOnOffSwitchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLISelectOnOffSwitchCell.xib; sourceTree = "<group>"; };
 		30DCE4EB1C1708F800244011 /* WLIMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIMailViewController.h; sourceTree = "<group>"; };
 		30DCE4EC1C1708F800244011 /* WLIMailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIMailViewController.m; sourceTree = "<group>"; };
 		30DCE4ED1C1708F800244011 /* WLIMailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIMailViewController.xib; sourceTree = "<group>"; };
@@ -1330,7 +1325,6 @@
 				30D36C841C342C73003EA53D /* WLINewPostImageCell */,
 				30D36C881C342C73003EA53D /* WLINewPostTextCell */,
 				30D36C8A1C342C73003EA53D /* WLISelectCountryTableViewCell */,
-				30D36C8E1C342C73003EA53D /* WLISelectOnOffSwitchCell */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1348,9 +1342,9 @@
 		30D36C801C342C73003EA53D /* WLINewPostAttachmentCell */ = {
 			isa = PBXGroup;
 			children = (
-				30D36C811C342C73003EA53D /* WLINewPostAttachmentCell.xib */,
 				30A156A01C351F1100514BAB /* WLINewPostAttachmentCell.h */,
 				30A156A11C351F1100514BAB /* WLINewPostAttachmentCell.m */,
+				30D36C811C342C73003EA53D /* WLINewPostAttachmentCell.xib */,
 			);
 			path = WLINewPostAttachmentCell;
 			sourceTree = "<group>";
@@ -1358,9 +1352,9 @@
 		30D36C821C342C73003EA53D /* WLINewPostCategoryCell */ = {
 			isa = PBXGroup;
 			children = (
-				30D36C831C342C73003EA53D /* WLINewPostCategoryCell.xib */,
 				30A156A31C351F6B00514BAB /* WLINewPostCategoryCell.h */,
 				30A156A41C351F6B00514BAB /* WLINewPostCategoryCell.m */,
+				30D36C831C342C73003EA53D /* WLINewPostCategoryCell.xib */,
 			);
 			path = WLINewPostCategoryCell;
 			sourceTree = "<group>";
@@ -1378,9 +1372,9 @@
 		30D36C881C342C73003EA53D /* WLINewPostTextCell */ = {
 			isa = PBXGroup;
 			children = (
-				30D36C891C342C73003EA53D /* WLINewPostTextCell.xib */,
 				30A156A61C351FA400514BAB /* WLINewPostTextCell.h */,
 				30A156A71C351FA400514BAB /* WLINewPostTextCell.m */,
+				30D36C891C342C73003EA53D /* WLINewPostTextCell.xib */,
 			);
 			path = WLINewPostTextCell;
 			sourceTree = "<group>";
@@ -1393,16 +1387,6 @@
 				30D36C8D1C342C73003EA53D /* WLISelectCountryTableViewCell.xib */,
 			);
 			path = WLISelectCountryTableViewCell;
-			sourceTree = "<group>";
-		};
-		30D36C8E1C342C73003EA53D /* WLISelectOnOffSwitchCell */ = {
-			isa = PBXGroup;
-			children = (
-				30D36C8F1C342C73003EA53D /* WLISelectOnOffSwitchCell.h */,
-				30D36C901C342C73003EA53D /* WLISelectOnOffSwitchCell.m */,
-				30D36C911C342C73003EA53D /* WLISelectOnOffSwitchCell.xib */,
-			);
-			path = WLISelectOnOffSwitchCell;
 			sourceTree = "<group>";
 		};
 		30DCE4EA1C1708A200244011 /* MailViewController */ = {
@@ -1895,7 +1879,6 @@
 				4FC33E981C0CB58A005F29D3 /* WLIWebViewController.xib in Resources */,
 				2E4918571BCBDBD100E25255 /* WLIInfoWhyViewController.xib in Resources */,
 				4F69E8E41BF0B49500A6CD5A /* WLIRegisterTableViewCell.xib in Resources */,
-				30D36C9D1C342C73003EA53D /* WLISelectOnOffSwitchCell.xib in Resources */,
 				2C6D27D11896BACA00C459CB /* WLICommentCell.xib in Resources */,
 				30DCE4EF1C1708F800244011 /* WLIMailViewController.xib in Resources */,
 				0743482D1BBABD6D00EAA2AA /* infobutton.png in Resources */,
@@ -2020,7 +2003,6 @@
 				2C6D27C21896BACA00C459CB /* SBJsonStreamWriterState.m in Sources */,
 				4F4D46461BFE2C5B00993349 /* WLIChangePasswordViewController.m in Sources */,
 				2C5B5C7E1A1A8F9500175A58 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
-				30D36C9C1C342C73003EA53D /* WLISelectOnOffSwitchCell.m in Sources */,
 				2C5B5C7F1A1A8F9500175A58 /* UIAlertView+AFNetworking.m in Sources */,
 				4FE75D291BFF25770063F3D8 /* WLIForgotPasswordViewController.m in Sources */,
 				4F70AAF01C05E0B6005033D2 /* WLIHitView.m in Sources */,
