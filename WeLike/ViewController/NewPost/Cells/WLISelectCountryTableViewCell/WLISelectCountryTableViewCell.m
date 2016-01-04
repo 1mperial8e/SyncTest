@@ -26,32 +26,55 @@
 
 - (IBAction)switchNordicValueChanged:(UIButton *)sender
 {
-	sender.selected = !sender.selected;
-    [self.countryDict setObject:@(sender.selected) forKey:@"Nordic"];
+	if ([self enabledCountriesCount] > 1 || !sender.selected) {
+		sender.selected = !sender.selected;
+		[self.countryDict setObject:@(sender.selected) forKey:@"Nordic"];
+	}
 }
 
 - (IBAction)switchDValueChanged:(UIButton *)sender
 {
-    sender.selected = !sender.selected;
-    [self.countryDict setObject:@(sender.selected) forKey:@"Denmark"];
+	if ([self enabledCountriesCount] > 1 || !sender.selected) {
+		sender.selected = !sender.selected;
+		[self.countryDict setObject:@(sender.selected) forKey:@"Denmark"];
+	}
 }
 
 - (IBAction)switchFValueChanged:(UIButton *)sender
 {
-    sender.selected = !sender.selected;
-    [self.countryDict setObject:@(sender.selected) forKey:@"Finland"];
+	if ([self enabledCountriesCount] > 1 || !sender.selected) {
+		sender.selected = !sender.selected;
+		[self.countryDict setObject:@(sender.selected) forKey:@"Finland"];
+	}
 }
 
 - (IBAction)switchNValueChanged:(UIButton *)sender
 {
-    sender.selected = !sender.selected;
-    [self.countryDict setObject:@(sender.selected) forKey:@"Norway"];
+	if ([self enabledCountriesCount] > 1 || !sender.selected) {
+		sender.selected = !sender.selected;
+		[self.countryDict setObject:@(sender.selected) forKey:@"Norway"];
+	}
 }
 
 - (IBAction)switchSValueChanged:(UIButton *)sender
 {
-	sender.selected = !sender.selected;
-    [self.countryDict setObject:@(sender.selected) forKey:@"Sweden"];
+	if ([self enabledCountriesCount] > 1 || !sender.selected) {
+		sender.selected = !sender.selected;
+		[self.countryDict setObject:@(sender.selected) forKey:@"Sweden"];
+	}
+}
+
+#pragma mark - Utils
+
+- (NSInteger)enabledCountriesCount
+{
+	NSInteger enabledCountriesCount = 0;
+	for (NSNumber *countryState in self.countryDict.allValues) {
+		if (![countryState isEqualToNumber:@0]) {
+			enabledCountriesCount++;
+		}
+	}
+	return enabledCountriesCount;
 }
 
 @end
