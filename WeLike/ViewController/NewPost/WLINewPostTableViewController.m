@@ -327,7 +327,7 @@ static NSInteger const captureVideoDuration = 60;
 	NSString *selectedCountriesId = @"";
 	NSInteger index = 0;
 	for (NSString *currentKey in [WLICountrySettings sharedSettings].countries) {
-		NSString *currentValue = [NSString stringWithFormat:@"%li",(long)index+1];
+		NSString *currentValue = [NSString stringWithFormat:@"%li",(long)index + 1];
 		if ([self.countryStates[currentKey] boolValue]) {
 			if (selectedCountriesId.length > 0) {
 			 selectedCountriesId = [selectedCountriesId stringByAppendingString:@","];
@@ -368,7 +368,7 @@ static NSInteger const captureVideoDuration = 60;
     CGFloat coef = ScaledImageSize.width / MAX(srcImage.size.width, srcImage.size.width);
     CGSize drawSize = CGSizeMake(srcImage.size.width * coef, srcImage.size.height * coef);
     UIGraphicsBeginImageContext(drawSize);
-    [srcImage drawInRect:CGRectMake(0, 0, drawSize.width, drawSize.height)];
+    [srcImage drawInRect:CGRectMake(0, 0, (int)drawSize.width, (int)drawSize.height)];
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return scaledImage;

@@ -70,7 +70,7 @@
 {
 	NSInteger enabledCountriesCount = 0;
 	for (NSNumber *countryState in self.countryDict.allValues) {
-		if (![countryState isEqualToNumber:@0]) {
+		if (countryState.boolValue) {
 			enabledCountriesCount++;
 		}
 	}
