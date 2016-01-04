@@ -8,4 +8,7 @@
 
 @interface WLIRanksContainerViewCell : UICollectionViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rankLabel;
+
 @end
