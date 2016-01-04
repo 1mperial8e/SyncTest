@@ -110,6 +110,8 @@
 		2ED2F2851BA95E8C00641F54 /* WLIInfoPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F2831BA95E8C00641F54 /* WLIInfoPageViewController.m */; };
 		2ED2F2861BA95E8C00641F54 /* WLIInfoPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */; };
 		2EEF2C191BD4ECBA001785C5 /* WLINewPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEF2C181BD4ECBA001785C5 /* WLINewPostTableViewController.m */; };
+		307A085A1C3A97F70097EEFF /* WLIRanksContainerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 307A08581C3A97F70097EEFF /* WLIRanksContainerViewCell.m */; };
+		307A085B1C3A97F70097EEFF /* WLIRanksContainerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307A08591C3A97F70097EEFF /* WLIRanksContainerViewCell.xib */; };
 		308F084E1C18576B00023BEF /* WLIPostCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 308F084C1C18576B00023BEF /* WLIPostCommentCell.m */; };
 		308F084F1C18576B00023BEF /* WLIPostCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 308F084D1C18576B00023BEF /* WLIPostCommentCell.xib */; };
 		309236A81C0D9FDC0073A78A /* libFlurry_7.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 309236A71C0D9FDC0073A78A /* libFlurry_7.3.0.a */; };
@@ -123,6 +125,8 @@
 		30A156A21C351F1100514BAB /* WLINewPostAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A156A11C351F1100514BAB /* WLINewPostAttachmentCell.m */; };
 		30A156A51C351F6B00514BAB /* WLINewPostCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A156A41C351F6B00514BAB /* WLINewPostCategoryCell.m */; };
 		30A156A81C351FA400514BAB /* WLINewPostTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A156A71C351FA400514BAB /* WLINewPostTextCell.m */; };
+		30A38E301C3B180400368C37 /* WLIRanksContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A38E2F1C3B180400368C37 /* WLIRanksContainerView.m */; };
+		30A38E321C3B181400368C37 /* WLIRanksContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30A38E311C3B181400368C37 /* WLIRanksContainerView.xib */; };
 		30ABC9881C33C80F00E1C63C /* WLITimelineFeaturesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ABC9871C33C80F00E1C63C /* WLITimelineFeaturesView.m */; };
 		30ABC98A1C33C82E00E1C63C /* WLITimelineFeaturesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30ABC9891C33C82E00E1C63C /* WLITimelineFeaturesView.xib */; };
 		30ABC98F1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ABC98D1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m */; };
@@ -387,6 +391,9 @@
 		2ED2F2841BA95E8C00641F54 /* WLIInfoPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLIInfoPageViewController.xib; path = InfoPage/WLIInfoPageViewController.xib; sourceTree = "<group>"; };
 		2EEF2C171BD4ECBA001785C5 /* WLINewPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLINewPostTableViewController.h; sourceTree = "<group>"; };
 		2EEF2C181BD4ECBA001785C5 /* WLINewPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLINewPostTableViewController.m; sourceTree = "<group>"; };
+		307A08571C3A97F70097EEFF /* WLIRanksContainerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIRanksContainerViewCell.h; sourceTree = "<group>"; };
+		307A08581C3A97F70097EEFF /* WLIRanksContainerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIRanksContainerViewCell.m; sourceTree = "<group>"; };
+		307A08591C3A97F70097EEFF /* WLIRanksContainerViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIRanksContainerViewCell.xib; sourceTree = "<group>"; };
 		308F084B1C18576B00023BEF /* WLIPostCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIPostCommentCell.h; sourceTree = "<group>"; };
 		308F084C1C18576B00023BEF /* WLIPostCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIPostCommentCell.m; sourceTree = "<group>"; };
 		308F084D1C18576B00023BEF /* WLIPostCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIPostCommentCell.xib; sourceTree = "<group>"; };
@@ -409,6 +416,9 @@
 		30A156A41C351F6B00514BAB /* WLINewPostCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLINewPostCategoryCell.m; sourceTree = "<group>"; };
 		30A156A61C351FA400514BAB /* WLINewPostTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLINewPostTextCell.h; sourceTree = "<group>"; };
 		30A156A71C351FA400514BAB /* WLINewPostTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLINewPostTextCell.m; sourceTree = "<group>"; };
+		30A38E2E1C3B180400368C37 /* WLIRanksContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIRanksContainerView.h; sourceTree = "<group>"; };
+		30A38E2F1C3B180400368C37 /* WLIRanksContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIRanksContainerView.m; sourceTree = "<group>"; };
+		30A38E311C3B181400368C37 /* WLIRanksContainerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIRanksContainerView.xib; sourceTree = "<group>"; };
 		30ABC9861C33C80F00E1C63C /* WLITimelineFeaturesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLITimelineFeaturesView.h; sourceTree = "<group>"; };
 		30ABC9871C33C80F00E1C63C /* WLITimelineFeaturesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLITimelineFeaturesView.m; sourceTree = "<group>"; };
 		30ABC9891C33C82E00E1C63C /* WLITimelineFeaturesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLITimelineFeaturesView.xib; sourceTree = "<group>"; };
@@ -1207,6 +1217,7 @@
 		2ECF348B1BB98D070096CD11 /* MyDriveHeaderCell */ = {
 			isa = PBXGroup;
 			children = (
+				307A08551C3A97900097EEFF /* RanksContainerView */,
 				2ECF348F1BB98D950096CD11 /* WLIMyDriveHeaderCell.h */,
 				2ECF34901BB98D950096CD11 /* WLIMyDriveHeaderCell.m */,
 				2ECF34921BB98DAF0096CD11 /* WLIMyDriveHeaderCell.xib */,
@@ -1244,6 +1255,28 @@
 				4F77BEDC1C32DA26004E625E /* WLICountrySettings.m */,
 			);
 			path = CountrySettingsModel;
+			sourceTree = "<group>";
+		};
+		307A08551C3A97900097EEFF /* RanksContainerView */ = {
+			isa = PBXGroup;
+			children = (
+				307A08561C3A97900097EEFF /* RanksCell */,
+				30A38E2E1C3B180400368C37 /* WLIRanksContainerView.h */,
+				30A38E2F1C3B180400368C37 /* WLIRanksContainerView.m */,
+				30A38E311C3B181400368C37 /* WLIRanksContainerView.xib */,
+			);
+			name = RanksContainerView;
+			path = MyDriveHeaderCell/RanksContainerView;
+			sourceTree = "<group>";
+		};
+		307A08561C3A97900097EEFF /* RanksCell */ = {
+			isa = PBXGroup;
+			children = (
+				307A08571C3A97F70097EEFF /* WLIRanksContainerViewCell.h */,
+				307A08581C3A97F70097EEFF /* WLIRanksContainerViewCell.m */,
+				307A08591C3A97F70097EEFF /* WLIRanksContainerViewCell.xib */,
+			);
+			path = RanksCell;
 			sourceTree = "<group>";
 		};
 		308F084A1C18576B00023BEF /* PostCommentCell */ = {
@@ -1939,10 +1972,12 @@
 				2C6D27E41896BACA00C459CB /* WLIFollowingViewController.xib in Resources */,
 				4F69E8D81BF09FA300A6CD5A /* WLILoginTableViewCell.xib in Resources */,
 				4F77BEF41C32DAF7004E625E /* WLITimelineSettingsHeaderView.xib in Resources */,
+				307A085B1C3A97F70097EEFF /* WLIRanksContainerViewCell.xib in Resources */,
 				30ABC9901C33CF6100E1C63C /* WLITimelineFeaturesViewCell.xib in Resources */,
 				074D68881BB53B40000167DD /* Graph1.png in Resources */,
 				4F77BEE21C32DA7E004E625E /* promo.mov in Resources */,
 				2C6D27E21896BACA00C459CB /* WLIFollowersViewController.xib in Resources */,
+				30A38E321C3B181400368C37 /* WLIRanksContainerView.xib in Resources */,
 				2C6D27B41896BACA00C459CB /* MNMPullToRefresh.strings in Resources */,
 				4F70AAF41C05E52C005033D2 /* lsansuni.ttf in Resources */,
 				0743482A1BBABCB700EAA2AA /* Peolple2.png in Resources */,
@@ -2002,6 +2037,7 @@
 				4F4D464C1BFE2D7A00993349 /* WLIChangePasswordTableViewCell.m in Sources */,
 				2C6D27C21896BACA00C459CB /* SBJsonStreamWriterState.m in Sources */,
 				4F4D46461BFE2C5B00993349 /* WLIChangePasswordViewController.m in Sources */,
+				307A085A1C3A97F70097EEFF /* WLIRanksContainerViewCell.m in Sources */,
 				2C5B5C7E1A1A8F9500175A58 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2C5B5C7F1A1A8F9500175A58 /* UIAlertView+AFNetworking.m in Sources */,
 				4FE75D291BFF25770063F3D8 /* WLIForgotPasswordViewController.m in Sources */,
@@ -2060,6 +2096,7 @@
 				4FC33E9B1C0CC571005F29D3 /* WLIUtils.m in Sources */,
 				4F2C83D21BFB27CB00EDD64F /* WLICategoryCustomerCell.m in Sources */,
 				308F084E1C18576B00023BEF /* WLIPostCommentCell.m in Sources */,
+				30A38E301C3B180400368C37 /* WLIRanksContainerView.m in Sources */,
 				2C6D27BA1896BACA00C459CB /* SBJsonParser.m in Sources */,
 				4F77BEDD1C32DA26004E625E /* WLICountrySettings.m in Sources */,
 				30A156A81C351FA400514BAB /* WLINewPostTextCell.m in Sources */,
