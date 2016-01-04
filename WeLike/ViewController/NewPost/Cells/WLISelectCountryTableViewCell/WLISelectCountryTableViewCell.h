@@ -10,7 +10,7 @@
 
 @interface WLISelectCountryTableViewCell : WLIBaseTableViewCell
 
-@property (weak, nonatomic) IBOutlet UIButton *allBtn;
+@property (weak, nonatomic) IBOutlet UIButton *nordicBtn;
 @property (weak, nonatomic) IBOutlet UIButton *denmarkBtn;
 @property (weak, nonatomic) IBOutlet UIButton *finlandBtn;
 @property (weak, nonatomic) IBOutlet UIButton *norwayBtn;

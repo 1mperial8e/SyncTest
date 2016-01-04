@@ -166,7 +166,7 @@
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="switchAValueChanged:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="09r-ms-Hx5"/>
+                                            <action selector="switchNordicValueChanged:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xfa-fh-exu"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -219,9 +219,9 @@
             </tableViewCellContentView>
             <animations/>
             <connections>
-                <outlet property="allBtn" destination="jpd-Rd-WFg" id="1fV-Q0-yGa"/>
                 <outlet property="denmarkBtn" destination="g4I-LO-HtO" id="Cf8-XS-nDn"/>
                 <outlet property="finlandBtn" destination="FRs-Yb-vwT" id="INx-FN-s2A"/>
+                <outlet property="nordicBtn" destination="jpd-Rd-WFg" id="8iM-6U-cnT"/>
                 <outlet property="norwayBtn" destination="Sak-fI-EJG" id="ZuJ-h5-8mT"/>
                 <outlet property="swedenBtn" destination="B7L-Ru-zY0" id="qDP-v8-jRz"/>
             </connections>

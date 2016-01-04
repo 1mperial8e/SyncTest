@@ -14,9 +14,12 @@
 #import "WLINewPostAttachmentCell.h"
 #import "WLINewPostTextCell.h"
 #import "WLINewPostImageCell.h"
+#import "WLICountrySettings.h"
 
 #import "ALAsset+Copy.h"
 #import "VideoConversionService.h"
+
+static NSInteger const captureVideoDuration = 60;
 
 @interface WLINewPostTableViewController () <UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -42,25 +45,41 @@
     [super viewDidLoad];
     [self setupDefaults];
     [self setupTableView];
-    
-    self.navigationItem.title = @"ADD ENERGY";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStylePlain target:self action:@selector(publishButtonAction:)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonAction:)];
-    
-    self.videoHud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-    [self.navigationController.view addSubview:self.videoHud];
-    self.videoHud.dimBackground = YES;
-    self.videoHud.mode = MBProgressHUDModeIndeterminate;
-    self.videoHud.labelText = @"Converting video";
+	[self setupNavigationBar];
+	[self setupVideoHUD];
 }
 
 #pragma mark - Defaults
+
+- (void)setupNavigationBar
+{
+	self.navigationItem.title = @"ADD ENERGY";
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStylePlain target:self action:@selector(publishButtonAction:)];
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonAction:)];
+}
+
+- (void)setupVideoHUD
+{
+	self.videoHud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:self.videoHud];
+	self.videoHud.dimBackground = YES;
+	self.videoHud.mode = MBProgressHUDModeIndeterminate;
+	self.videoHud.labelText = @"Converting video";
+}
 
 - (void)setupDefaults
 {
     self.sharedConnect = [WLIConnect sharedConnect];
     self.textContent = @"";
-    self.countryStates = [@{@"all" : @YES, @"denmark" : @NO, @"finland" : @NO, @"norway" : @NO, @"sweden" : @NO} mutableCopy];
+	self.countryStates = [NSMutableDictionary new];
+	
+	NSInteger index = 0;
+	for (NSNumber *state in [WLICountrySettings sharedSettings].countriesEnabledState)
+	{
+		NSString *countryKey = [WLICountrySettings sharedSettings].countries[index];
+		self.countryStates[countryKey] = state;
+		index++;
+	}
     self.catStates = [@{@"market" : @NO, @"capability" : @NO, @"customer" : @NO, @"people" : @NO} mutableCopy];
     
     self.assetsLibrary = [[ALAssetsLibrary alloc] init];
@@ -74,90 +93,6 @@
     [self.tableView registerNib:WLINewPostImageCell.nib forCellReuseIdentifier:[WLINewPostImageCell ID]];
     [self.tableView registerNib:WLISelectCountryTableViewCell.nib forCellReuseIdentifier:[WLISelectCountryTableViewCell ID]];
     [self.tableView registerNib:WLICategorySelectTableViewCell.nib forCellReuseIdentifier:[WLICategorySelectTableViewCell ID]];
-}
-
-#pragma mark - Actions
-
-- (void)buttonAttachTouchUpInsideVideoContent:(UIButton *)sender
-{
-	NSString *shootButtonTitle = @"Shoot photo";
-	NSString *selectButtonTitle = @"Select photo";
-	if (sender.tag == 1) {
-		shootButtonTitle = @"Shoot video";
-		selectButtonTitle = @"Select video";
-	}
-	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-	__weak typeof(self) weakSelf = self;
-	
-	void (^getContentBlock)(UIImagePickerControllerSourceType) = ^(UIImagePickerControllerSourceType sourceType){
-		AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-		if (status == AVAuthorizationStatusAuthorized || status == ALAuthorizationStatusNotDetermined) {
-			[weakSelf getContentWithSourceType:sourceType videoContent:sender.tag];
-		} else {
-			[weakSelf showMediaAccessAlert:@"Please provide access to your camera in settings" ];
-		}
-	};
-	
-	[actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-	[actionSheet addAction:[UIAlertAction actionWithTitle:shootButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-		getContentBlock(UIImagePickerControllerSourceTypeCamera);
-	}]];
-	
-	[actionSheet addAction:[UIAlertAction actionWithTitle:selectButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-		getContentBlock(UIImagePickerControllerSourceTypePhotoLibrary);
-	}]];
-	[self presentViewController:actionSheet animated:YES completion:nil];	
-}
-
-- (void)publishButtonAction:(id)sender
-{
-    [self.tableView endEditing:YES];
-    NSInteger categoryCode = 0;
-
-	if ([self.catStates[@"market"] boolValue]) {
-        categoryCode += 1;
-	}
-	if ([self.catStates[@"capability"] boolValue]) {
-        categoryCode += 2;
-	}
-	if ([self.catStates[@"customer"] boolValue]) {
-        categoryCode += 4;
-	}
-	if ([self.catStates[@"people"] boolValue]) {
-        categoryCode += 8;
-	}
-	
-	NSArray *countriesStateKeys = @[@"all", @"denmark", @"finland", @"norway", @"sweden"];
-	NSString *selectedCountriesId = @"";
-	NSInteger index = 0;
-	for (NSString *currentKey in countriesStateKeys)
-	{
-		NSString *currentValue = [NSString stringWithFormat:@"%li",(long)index];
-		if ([self.countryStates[currentKey] boolValue]) {
-			if (selectedCountriesId.length > 0) {
-			 selectedCountriesId = [selectedCountriesId stringByAppendingString:@","];
-			}
-			if (index == 0) {
-				selectedCountriesId = [selectedCountriesId stringByAppendingString:@"5"];
-				break;
-			}
-			selectedCountriesId = [selectedCountriesId stringByAppendingString:currentValue];
-		}
-		index++;
-	}
-	
-	if (self.textContent.length != 0 || self.image || self.video) {
-		[self.sharedConnect sendPostWithCountries:selectedCountriesId postText:self.textContent postKeywords:nil postCategory:@(categoryCode) postImage:self.image postVideo:self.video onCompletion:nil];
-		[self dismissViewControllerAnimated:YES completion:nil];
-	} else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please add some content" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-	}
-}
-
-- (void)cancelButtonAction:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - TextViewDelegate
@@ -196,11 +131,9 @@
 {
 	WLINewPostAttachmentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WLINewPostAttachmentCell class])];
 	self.addPicture = cell.addPhotoButton;
-	self.addPicture.tag = 0;
 	self.addVideo = cell.addVideoButton;
-	self.addVideo.tag = 1;
-	[self.addPicture addTarget:self action:@selector(buttonAttachTouchUpInsideVideoContent:) forControlEvents:UIControlEventTouchUpInside];
-	[self.addVideo addTarget:self action:@selector(buttonAttachTouchUpInsideVideoContent:) forControlEvents:UIControlEventTouchUpInside];
+	[self.addPicture addTarget:self action:@selector(buttonAttachTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+	[self.addVideo addTarget:self action:@selector(buttonAttachTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
 	return cell;
 }
 
@@ -248,6 +181,62 @@
     return 44;
 }
 
+#pragma mark - Actions
+
+- (void)buttonAttachTouchUpInside:(UIButton *)sender
+{
+	NSString *shootButtonTitle = @"Shoot photo";
+	NSString *selectButtonTitle = @"Select photo";
+	if (sender == self.addVideo) {
+		shootButtonTitle = @"Shoot video";
+		selectButtonTitle = @"Select video";
+	}
+	UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+	__weak typeof(self) weakSelf = self;
+	
+	void (^getContentBlock)(UIImagePickerControllerSourceType) = ^(UIImagePickerControllerSourceType sourceType){
+		AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+		if (status == AVAuthorizationStatusAuthorized || status == ALAuthorizationStatusNotDetermined) {
+			[weakSelf getContentWithSourceType:sourceType videoContent:(sender == self.addVideo)];
+		} else {
+			if (sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
+				[weakSelf showMediaAccessAlert:@"Please provide access to your content in settings" ];
+			} else {
+				[weakSelf showMediaAccessAlert:@"Please provide access to your camera in settings" ];
+			}
+		}
+	};
+	
+	[actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+	[actionSheet addAction:[UIAlertAction actionWithTitle:shootButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+		getContentBlock(UIImagePickerControllerSourceTypeCamera);
+	}]];
+	
+	[actionSheet addAction:[UIAlertAction actionWithTitle:selectButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+		getContentBlock(UIImagePickerControllerSourceTypePhotoLibrary);
+	}]];
+	[self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+- (void)publishButtonAction:(id)sender
+{
+	[self.tableView endEditing:YES];
+	
+	if (self.textContent.length != 0 || self.image || self.video) {
+		[self.sharedConnect sendPostWithCountries:[self setSelectedCountriesId] postText:self.textContent postKeywords:nil postCategory:[self setCategoriesCode] postImage:self.image postVideo:self.video onCompletion:nil];
+		[self dismissViewControllerAnimated:YES completion:nil];
+	} else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please add some content" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+	}
+}
+
+- (void)cancelButtonAction:(id)sender
+{
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 #pragma mark - Add content
 
 - (void)getContentWithSourceType:(UIImagePickerControllerSourceType)sourceType videoContent:(BOOL)isVideo
@@ -270,7 +259,7 @@
 		if (sourceType == UIImagePickerControllerSourceTypeCamera ) {
 			pickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
 			pickerController.videoQuality = UIImagePickerControllerQualityTypeIFrame1280x720;
-			pickerController.videoMaximumDuration = 60;
+			pickerController.videoMaximumDuration = captureVideoDuration;
 		}
 	}
 	[self presentViewController:pickerController animated:YES completion:nil];	
@@ -315,6 +304,42 @@
 }
 
 #pragma mark - Utils
+
+- (NSNumber *)setCategoriesCode
+{
+	NSInteger categoryCode = 0;
+	if ([self.catStates[@"market"] boolValue]) {
+		categoryCode += 1;
+	}
+	if ([self.catStates[@"capability"] boolValue]) {
+		categoryCode += 2;
+	}
+	if ([self.catStates[@"customer"] boolValue]) {
+		categoryCode += 4;
+	}
+	if ([self.catStates[@"people"] boolValue]) {
+		categoryCode += 8;
+	}
+	return @(categoryCode);
+}
+
+- (NSString *)setSelectedCountriesId
+{
+	NSString *selectedCountriesId = @"";
+	NSInteger index = 0;
+	for (NSString *currentKey in [WLICountrySettings sharedSettings].countries)
+	{
+		NSString *currentValue = [NSString stringWithFormat:@"%li",(long)index+1];
+		if ([self.countryStates[currentKey] boolValue]) {
+			if (selectedCountriesId.length > 0) {
+			 selectedCountriesId = [selectedCountriesId stringByAppendingString:@","];
+			}
+			selectedCountriesId = [selectedCountriesId stringByAppendingString:currentValue];
+		}
+		index++;
+	}
+	return selectedCountriesId;
+}
 
 - (UIImage *)croppedImageForPreview:(UIImage *)srcImage
 {
