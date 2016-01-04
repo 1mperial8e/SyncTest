@@ -74,8 +74,7 @@ static NSInteger const captureVideoDuration = 60;
 	self.countryStates = [NSMutableDictionary new];
 	
 	NSInteger index = 0;
-	for (NSNumber *state in [WLICountrySettings sharedSettings].countriesEnabledState)
-	{
+	for (NSNumber *state in [WLICountrySettings sharedSettings].countriesEnabledState) {
 		NSString *countryKey = [WLICountrySettings sharedSettings].countries[index];
 		self.countryStates[countryKey] = state;
 		index++;
@@ -200,7 +199,7 @@ static NSInteger const captureVideoDuration = 60;
 			[weakSelf getContentWithSourceType:sourceType videoContent:(sender == self.addVideo)];
 		} else {
 			if (sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
-				[weakSelf showMediaAccessAlert:@"Please provide access to your content in settings" ];
+				[weakSelf showMediaAccessAlert:@"Please provide access to your library in settings" ];
 			} else {
 				[weakSelf showMediaAccessAlert:@"Please provide access to your camera in settings" ];
 			}
@@ -327,8 +326,7 @@ static NSInteger const captureVideoDuration = 60;
 {
 	NSString *selectedCountriesId = @"";
 	NSInteger index = 0;
-	for (NSString *currentKey in [WLICountrySettings sharedSettings].countries)
-	{
+	for (NSString *currentKey in [WLICountrySettings sharedSettings].countries) {
 		NSString *currentValue = [NSString stringWithFormat:@"%li",(long)index+1];
 		if ([self.countryStates[currentKey] boolValue]) {
 			if (selectedCountriesId.length > 0) {
