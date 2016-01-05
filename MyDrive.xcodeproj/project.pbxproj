@@ -120,6 +120,7 @@
 		309236B01C0DB5580073A78A /* WLIAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 309236AF1C0DB5580073A78A /* WLIAnalytics.m */; };
 		30962D541C159B1C00E23C3B /* WLIMyGoalsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30962D521C159B1C00E23C3B /* WLIMyGoalsTableViewCell.m */; };
 		30962D551C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30962D531C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib */; };
+		3099A9AA1C3BE803002E13DB /* WLIBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3099A9A91C3BE803002E13DB /* WLIBaseView.m */; };
 		309FF0BF1C0F03F0009C9344 /* WLILikersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */; };
 		309FF0C01C0F03F0009C9344 /* WLILikersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */; };
 		30A156A21C351F1100514BAB /* WLINewPostAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A156A11C351F1100514BAB /* WLINewPostAttachmentCell.m */; };
@@ -407,6 +408,8 @@
 		30962D511C159B1C00E23C3B /* WLIMyGoalsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIMyGoalsTableViewCell.h; sourceTree = "<group>"; };
 		30962D521C159B1C00E23C3B /* WLIMyGoalsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIMyGoalsTableViewCell.m; sourceTree = "<group>"; };
 		30962D531C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIMyGoalsTableViewCell.xib; sourceTree = "<group>"; };
+		3099A9A81C3BE803002E13DB /* WLIBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIBaseView.h; sourceTree = "<group>"; };
+		3099A9A91C3BE803002E13DB /* WLIBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIBaseView.m; sourceTree = "<group>"; };
 		309FF0BC1C0F03F0009C9344 /* WLILikersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLILikersViewController.h; sourceTree = "<group>"; };
 		309FF0BD1C0F03F0009C9344 /* WLILikersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLILikersViewController.m; sourceTree = "<group>"; };
 		309FF0BE1C0F03F0009C9344 /* WLILikersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLILikersViewController.xib; sourceTree = "<group>"; };
@@ -882,6 +885,7 @@
 		2C6D26F41896BACA00C459CB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3099A9A71C3BE7EF002E13DB /* BaseView */,
 				30ABC9851C33C7EF00E1C63C /* TimelineFeaturesView */,
 				4F70AAED1C05E0A3005033D2 /* HitView */,
 				2C6D26F61896BACA00C459CB /* Cells */,
@@ -1316,6 +1320,15 @@
 				30962D531C159B1C00E23C3B /* WLIMyGoalsTableViewCell.xib */,
 			);
 			path = MyGoalsCell;
+			sourceTree = "<group>";
+		};
+		3099A9A71C3BE7EF002E13DB /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				3099A9A81C3BE803002E13DB /* WLIBaseView.h */,
+				3099A9A91C3BE803002E13DB /* WLIBaseView.m */,
+			);
+			path = BaseView;
 			sourceTree = "<group>";
 		};
 		309FF0BB1C0F033D009C9344 /* Likers */ = {
@@ -2048,6 +2061,7 @@
 				2C6D27F91896BACA00C459CB /* WLITabBarController.m in Sources */,
 				2C6D27BB1896BACA00C459CB /* SBJsonStreamParser.m in Sources */,
 				4F8E2D3E1BF4A2AF00953EC0 /* WLIUser.m in Sources */,
+				3099A9AA1C3BE803002E13DB /* WLIBaseView.m in Sources */,
 				30ABC98F1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m in Sources */,
 				2C6D27C81896BACA00C459CB /* main.m in Sources */,
 				2C6D27C01896BACA00C459CB /* SBJsonStreamWriter.m in Sources */,

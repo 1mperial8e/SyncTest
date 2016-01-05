@@ -15,7 +15,7 @@
 
 static CGFloat const LabelHeight = 22.f;
 
-@interface WLIMyDriveHeaderCell () <MFMailComposeViewControllerDelegate>
+@interface WLIMyDriveHeaderCell () <MFMailComposeViewControllerDelegate, MyDriveHeaderCellRanksDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserEmail;
@@ -26,20 +26,7 @@ static CGFloat const LabelHeight = 22.f;
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *userTitleLabelHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *userDepartmentLabelHeight;
-@property (weak, nonatomic) IBOutlet UIView *bottomContainer;
-//@property (strong, nonatomic) WLIRanksContainerView *ranksContainer;
-
-// MARK: Bottom container outlets
-@property (weak, nonatomic) UILabel *likesCountLabel;
-//@property (weak, nonatomic) UILabel *likesLabel;
-@property (weak, nonatomic) UILabel *postsCountLabel;
-//@property (weak, nonatomic) UILabel *postsLabel;
-@property (weak, nonatomic) UILabel *followersCountLabel;
-//@property (weak, nonatomic) UILabel *followersLabel;
-@property (weak, nonatomic) UILabel *followingCountLabel;
-//@property (weak, nonatomic) UILabel *followingLabel;
-@property (weak, nonatomic) UILabel *pointsCountLabel;
-//@property (weak, nonatomic) UILabel *pointsLabel;
+@property (weak, nonatomic) IBOutlet WLIRanksContainerView *bottomContainer;
 
 @end
 
@@ -58,15 +45,7 @@ static CGFloat const LabelHeight = 22.f;
 
 - (void)configureViews
 {
-	WLIRanksContainerView *ranksContainer = [[WLIRanksContainerView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bottomContainer.frame), CGRectGetHeight(self.bottomContainer.frame))];
-	[self.bottomContainer addSubview:ranksContainer];
-	
-//	self.likesCountLabel = ranksContainer.countLabelArray[0];
-//	self.pointsCountLabel = ranksContainer.countLabelArray[1];
-//	self.followersCountLabel = ranksContainer.countLabelArray[2];
-//	self.followingCountLabel = ranksContainer.countLabelArray[3];
-//	self.pointsCountLabel = ranksContainer.countLabelArray[4];
-	
+	self.bottomContainer.delegate = self;
 	
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height / 2;
     self.imageViewUser.layer.masksToBounds = YES;
@@ -84,12 +63,8 @@ static CGFloat const LabelHeight = 22.f;
 
 - (void)addGestures
 {
-    UITapGestureRecognizer *followingTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followingTap:)];
-    UITapGestureRecognizer *followersTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followersTap:)];
 	UITapGestureRecognizer *emailTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(emailLabelTap:)];
     UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarImageViewTap:)];
-    [self.followersCountLabel.superview addGestureRecognizer:followersTap];
-    [self.followingCountLabel.superview addGestureRecognizer:followingTap];
 	[self.labelUserEmail addGestureRecognizer:emailTap];
     [self.imageViewUser addGestureRecognizer:avatarTap];
 }
@@ -103,24 +78,27 @@ static CGFloat const LabelHeight = 22.f;
 
 - (void)updatePoints:(NSInteger)points
 {
-    self.pointsCountLabel.text = [NSString stringWithFormat:@"%zd", points];
+	self.bottomContainer.user.points = points;
+	[self.bottomContainer.collectionView reloadData];	
 }
 
-#pragma mark - Gestures
+#pragma mark - MyDriveHeaderCellRanksDelegate
 
-- (void)followersTap:(UITapGestureRecognizer *)gesture
+- (void)followersTap
 {
     if ([self.delegate respondsToSelector:@selector(showFollowersList)]) {
         [self.delegate showFollowersList];
     }
 }
 
-- (void)followingTap:(UITapGestureRecognizer *)gesture
+- (void)followingsTap
 {
     if ([self.delegate respondsToSelector:@selector(showFollowingsList)]) {
         [self.delegate showFollowingsList];
     }
 }
+
+#pragma mark - Gestures
 
 - (void)emailLabelTap:(UITapGestureRecognizer *)gesture
 {
@@ -139,6 +117,7 @@ static CGFloat const LabelHeight = 22.f;
 - (void)setUser:(WLIUser *)user
 {
     _user = user;
+	self.bottomContainer.user = user;
     [self updateInfo];
 }
 
@@ -203,10 +182,7 @@ static CGFloat const LabelHeight = 22.f;
 
 - (void)updateCountsInfo
 {
-    self.likesCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.likesCount];
-    self.postsCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.myPostsCount];
-    self.followersCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
-    self.followingCountLabel.text = [NSString stringWithFormat:@"%zd", self.user.followingCount];
+	[self.bottomContainer.collectionView reloadData];
 }
 
 #pragma mark - Actions

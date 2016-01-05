@@ -9,9 +9,10 @@
 #import "WLIRanksContainerView.h"
 #import "WLIRanksContainerViewCell.h"
 
+static NSInteger const cellsCount = 5;
+
 @interface WLIRanksContainerView() <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *dataArray;
 
 @end
@@ -20,26 +21,13 @@
 
 #pragma mark - Lifecycle
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-	self = [super initWithFrame:frame];
-	if (self) {
-		NSArray *viewArray = [[NSBundle mainBundle] loadNibNamed:@"WLIRanksContainerView" owner:self options:nil];
-		UIView *subView = [viewArray firstObject];
-		subView.frame = frame;
-		[self addSubview:subView];
-	}
-	return self;
-}
-
 - (void)awakeFromNib
-{		
-	self.collectionView.dataSource = self;
-	self.collectionView.delegate = self;
+{
+	[super awakeFromNib];
 	self.collectionView.backgroundColor = [UIColor clearColor];
-	self.countLabelArray = [NSMutableArray new];
-
-	[self.collectionView registerNib:[UINib nibWithNibName:@"WLIRanksContainerViewCell"  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLIRanksContainerViewCell class])];
+	[self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([WLIRanksContainerViewCell class])
+													bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLIRanksContainerViewCell class])];
+	
 	self.dataArray = @[@"likes", @"posts", @"followers", @"following", @"points"];
 }
 
@@ -54,27 +42,58 @@
 {
 	WLIRanksContainerViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WLIRanksContainerViewCell class]) forIndexPath:indexPath];
 	cell.rankLabel.text = self.dataArray[indexPath.item];
-	[self.countLabelArray addObject:cell.countLabel];
+	if (indexPath.item == 0) {
+		cell.countLabel.text = [NSString stringWithFormat:@"%zd", self.user.likesCount];
+	}
+	if (indexPath.item == 1) {
+		cell.countLabel.text = [NSString stringWithFormat:@"%zd", self.user.myPostsCount];
+	}
+	if (indexPath.item == 2) {
+		cell.countLabel.text = [NSString stringWithFormat:@"%zd", self.user.followersCount];
+	}
+	if (indexPath.item == 3) {
+		cell.countLabel.text = [NSString stringWithFormat:@"%zd", self.user.followingCount];
+	}
+	if (indexPath.item == 4) {
+		cell.countLabel.text = [NSString stringWithFormat:@"%zd", self.user.points];
+	}	
 	return cell;
+}
+
+#pragma mark - Accessors
+
+- (void)setUser:(WLIUser *)user
+{
+	_user = user;
+	[self.collectionView reloadData];
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+	if (indexPath.item == 2) {
+		if ([self.delegate respondsToSelector:@selector(followersTap)]) {
+			[self.delegate followersTap];
+		}
+	} else if (indexPath.item == 3) {
+		if ([self.delegate respondsToSelector:@selector(followingsTap)]) {
+			[self.delegate followingsTap];
+		}
+	}
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14 weight:5]};
+	NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14 weight:UIFontWeightSemibold]};
 	CGRect textRect = [self.dataArray[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 20)
 											  options:NSStringDrawingUsesLineFragmentOrigin
 										   attributes:attributes
 											  context:nil];
-	//return CGSizeMake(CGRectGetWidth(textRect), 40);
-	return CGSizeMake(60, 40);
+	CGFloat averageWidth = CGRectGetWidth([UIScreen mainScreen].bounds) / cellsCount;
+	return (averageWidth >= CGRectGetWidth(textRect)) ? CGSizeMake(averageWidth, 40) : CGSizeMake(CGRectGetWidth(textRect), 40);
 }
 
 @end

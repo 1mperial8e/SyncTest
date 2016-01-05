@@ -96,7 +96,7 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5sO-7z-GOB" userLabel="BottomContainer">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5sO-7z-GOB" userLabel="BottomContainer" customClass="WLIRanksContainerView">
                         <rect key="frame" x="0.0" y="156" width="375" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="oBA-xf-aGl"/>

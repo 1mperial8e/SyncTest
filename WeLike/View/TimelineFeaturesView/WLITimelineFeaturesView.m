@@ -36,10 +36,8 @@
 - (void)awakeFromNib
 {
 	self.collectionView.backgroundColor = [UIColor clearColor];
-	self.collectionView.dataSource = self;
-	self.collectionView.delegate = self;
 	
-	[self.collectionView registerNib:[UINib nibWithNibName:@"WLITimelineFeaturesViewCell"  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLITimelineFeaturesViewCell class])];
+	[self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([WLITimelineFeaturesViewCell class])  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLITimelineFeaturesViewCell class])];
 	
     self.dataArray = @[@"#digitalweek", @"#marketing", @"#customer", @"#capability", @"#people"];
 }

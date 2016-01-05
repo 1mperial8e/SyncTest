@@ -6,8 +6,21 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-@interface WLIRanksContainerView : UIView
+#import "WLIBaseView.h"
 
-@property (strong, nonatomic) NSMutableArray *countLabelArray;
+@protocol MyDriveHeaderCellRanksDelegate <NSObject>
+
+@optional
+
+- (void)followingsTap;
+- (void)followersTap;
+
+@end
+
+@interface WLIRanksContainerView : WLIBaseView
+
+@property (weak, nonatomic) id<MyDriveHeaderCellRanksDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) WLIUser *user;
 
 @end

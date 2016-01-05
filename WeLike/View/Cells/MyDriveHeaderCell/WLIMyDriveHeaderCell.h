@@ -26,7 +26,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewUser;
 
-@property (weak, nonatomic) WLIUser *user;
+@property (strong, nonatomic) WLIUser *user;
 @property (weak, nonatomic) id<MyDriveHeaderCellDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITextView *myGoalsTextView;
 

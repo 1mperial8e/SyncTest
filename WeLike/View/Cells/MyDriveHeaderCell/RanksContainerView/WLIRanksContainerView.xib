@@ -5,32 +5,37 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLIRanksContainerView">
+            <connections>
+                <outlet property="collectionView" destination="gCk-vs-Baw" id="oSl-Yg-Lrd"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WLIRanksContainerView">
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="MK9-ym-AaC">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gCk-vs-Baw">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <inset key="scrollIndicatorInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="5" id="kwq-PD-oxa">
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="VLS-Rv-gMf">
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="v0T-D8-jqI"/>
+                        <outlet property="delegate" destination="-1" id="vVE-bu-kbF"/>
+                    </connections>
                 </collectionView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="MK9-ym-AaC" secondAttribute="bottom" id="7kC-1o-Y2N"/>
-                <constraint firstItem="MK9-ym-AaC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aiU-4L-PTu"/>
-                <constraint firstAttribute="trailing" secondItem="MK9-ym-AaC" secondAttribute="trailing" id="dYc-cs-OmR"/>
-                <constraint firstItem="MK9-ym-AaC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="qa6-ro-NZW"/>
+                <constraint firstAttribute="trailing" secondItem="gCk-vs-Baw" secondAttribute="trailing" id="06Z-lS-rBl"/>
+                <constraint firstItem="gCk-vs-Baw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="BoC-MM-elh"/>
+                <constraint firstItem="gCk-vs-Baw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GtY-YM-Iez"/>
+                <constraint firstAttribute="bottom" secondItem="gCk-vs-Baw" secondAttribute="bottom" id="Sw9-pz-l1B"/>
             </constraints>
-            <connections>
-                <outlet property="collectionView" destination="MK9-ym-AaC" id="eX1-FI-hHB"/>
-            </connections>
+            <point key="canvasLocation" x="321" y="225"/>
         </view>
     </objects>
 </document>
