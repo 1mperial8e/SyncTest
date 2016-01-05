@@ -13,7 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *dataArray;
-@property (strong, nonatomic) NSMutableArray *labelArray;
 
 @end
 
@@ -37,7 +36,8 @@
 {		
 	self.collectionView.dataSource = self;
 	self.collectionView.delegate = self;
-	self.labelArray = [NSMutableArray new];
+	self.collectionView.backgroundColor = [UIColor clearColor];
+	self.countLabelArray = [NSMutableArray new];
 
 	[self.collectionView registerNib:[UINib nibWithNibName:@"WLIRanksContainerViewCell"  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLIRanksContainerViewCell class])];
 	self.dataArray = @[@"likes", @"posts", @"followers", @"following", @"points"];
@@ -54,7 +54,7 @@
 {
 	WLIRanksContainerViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WLIRanksContainerViewCell class]) forIndexPath:indexPath];
 	cell.rankLabel.text = self.dataArray[indexPath.item];
-	[self.labelArray addObject:cell.rankLabel];
+	[self.countLabelArray addObject:cell.countLabel];
 	return cell;
 }
 
@@ -68,12 +68,13 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:17]};
-	CGRect rect = [self.dataArray[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 20)
+	NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14 weight:5]};
+	CGRect textRect = [self.dataArray[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 20)
 											  options:NSStringDrawingUsesLineFragmentOrigin
 										   attributes:attributes
 											  context:nil];
-	return CGSizeMake(CGRectGetWidth(rect)+4, 40);
+	//return CGSizeMake(CGRectGetWidth(textRect), 40);
+	return CGSizeMake(60, 40);
 }
 
 @end

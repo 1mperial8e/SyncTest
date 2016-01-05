@@ -6,6 +6,8 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
-@interface WLIRanksContainerView : UIView 
+@interface WLIRanksContainerView : UIView
+
+@property (strong, nonatomic) NSMutableArray *countLabelArray;
 
 @end

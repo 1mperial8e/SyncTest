@@ -13,7 +13,6 @@
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="MK9-ym-AaC">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <color key="backgroundColor" red="1" green="0.0" blue="0.15110837899999999" alpha="1" colorSpace="calibratedRGB"/>
                     <inset key="scrollIndicatorInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="5" id="kwq-PD-oxa">
                         <size key="itemSize" width="50" height="50"/>
@@ -23,7 +22,6 @@
                     </collectionViewFlowLayout>
                 </collectionView>
             </subviews>
-            <color key="backgroundColor" red="0.004503600636" green="0.78282828280000005" blue="0.11769859069999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="MK9-ym-AaC" secondAttribute="bottom" id="7kC-1o-Y2N"/>
                 <constraint firstItem="MK9-ym-AaC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aiU-4L-PTu"/>

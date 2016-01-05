@@ -31,15 +31,15 @@ static CGFloat const LabelHeight = 22.f;
 
 // MARK: Bottom container outlets
 @property (weak, nonatomic) UILabel *likesCountLabel;
-@property (weak, nonatomic) UILabel *likesLabel;
+//@property (weak, nonatomic) UILabel *likesLabel;
 @property (weak, nonatomic) UILabel *postsCountLabel;
-@property (weak, nonatomic) UILabel *postsLabel;
+//@property (weak, nonatomic) UILabel *postsLabel;
 @property (weak, nonatomic) UILabel *followersCountLabel;
-@property (weak, nonatomic) UILabel *followersLabel;
+//@property (weak, nonatomic) UILabel *followersLabel;
 @property (weak, nonatomic) UILabel *followingCountLabel;
-@property (weak, nonatomic) UILabel *followingLabel;
+//@property (weak, nonatomic) UILabel *followingLabel;
 @property (weak, nonatomic) UILabel *pointsCountLabel;
-@property (weak, nonatomic) UILabel *pointsLabel;
+//@property (weak, nonatomic) UILabel *pointsLabel;
 
 @end
 
@@ -61,6 +61,13 @@ static CGFloat const LabelHeight = 22.f;
 	WLIRanksContainerView *ranksContainer = [[WLIRanksContainerView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bottomContainer.frame), CGRectGetHeight(self.bottomContainer.frame))];
 	[self.bottomContainer addSubview:ranksContainer];
 	
+//	self.likesCountLabel = ranksContainer.countLabelArray[0];
+//	self.pointsCountLabel = ranksContainer.countLabelArray[1];
+//	self.followersCountLabel = ranksContainer.countLabelArray[2];
+//	self.followingCountLabel = ranksContainer.countLabelArray[3];
+//	self.pointsCountLabel = ranksContainer.countLabelArray[4];
+	
+	
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height / 2;
     self.imageViewUser.layer.masksToBounds = YES;
     self.imageViewUser.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:1.0].CGColor;
@@ -81,8 +88,8 @@ static CGFloat const LabelHeight = 22.f;
     UITapGestureRecognizer *followersTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followersTap:)];
 	UITapGestureRecognizer *emailTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(emailLabelTap:)];
     UITapGestureRecognizer *avatarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarImageViewTap:)];
-    [self.followersLabel.superview addGestureRecognizer:followersTap];
-    [self.followingLabel.superview addGestureRecognizer:followingTap];
+    [self.followersCountLabel.superview addGestureRecognizer:followersTap];
+    [self.followingCountLabel.superview addGestureRecognizer:followingTap];
 	[self.labelUserEmail addGestureRecognizer:emailTap];
     [self.imageViewUser addGestureRecognizer:avatarTap];
 }

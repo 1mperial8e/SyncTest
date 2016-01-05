@@ -98,7 +98,6 @@
                     </textView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5sO-7z-GOB" userLabel="BottomContainer">
                         <rect key="frame" x="0.0" y="156" width="375" height="40"/>
-                        <color key="backgroundColor" red="1" green="0.91021817579999997" blue="0.4162654046" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="oBA-xf-aGl"/>
                         </constraints>
