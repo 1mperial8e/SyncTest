@@ -32,5 +32,6 @@
 
 - (void)updateRank:(NSInteger)rank forUsers:(NSInteger)users;
 - (void)updatePoints:(NSInteger)points;
+- (void)updateCollectionView;
 
 @end

@@ -77,6 +77,9 @@
                     [weakSelf.tableViewRefresh beginUpdates];
                     [weakSelf.tableViewRefresh deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:postIndex inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
                     [weakSelf.tableViewRefresh endUpdates];
+                    
+                    weakSelf.user.myPostsCount--;
+                    [weakSelf.headerCell updateCollectionView];
                 }
             } else {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete post" message:@"An error occoured when deleting!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

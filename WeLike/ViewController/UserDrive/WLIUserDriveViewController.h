@@ -19,4 +19,6 @@
 
 @property (strong, nonatomic) WLIUser *user;
 
+@property (weak, nonatomic) WLIMyDriveHeaderCell *headerCell;
+
 @end

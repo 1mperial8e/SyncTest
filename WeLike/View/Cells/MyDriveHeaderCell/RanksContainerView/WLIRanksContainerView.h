@@ -21,6 +21,6 @@
 
 @property (weak, nonatomic) id<MyDriveHeaderCellRanksDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (strong, nonatomic) WLIUser *user;
+@property (weak, nonatomic) WLIUser *user;
 
 @end

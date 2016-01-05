@@ -13,7 +13,6 @@ static CGFloat const HeaderCellHeight = 156;
 
 @interface WLIUserDriveViewController ()
 
-@property (weak, nonatomic) WLIMyDriveHeaderCell *headerCell;
 @property (assign, nonatomic) NSInteger rank;
 @property (assign, nonatomic) NSInteger users;
 @property (assign, nonatomic) NSInteger points;

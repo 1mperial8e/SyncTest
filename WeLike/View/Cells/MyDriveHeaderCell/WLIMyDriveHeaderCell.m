@@ -82,6 +82,11 @@ static CGFloat const LabelHeight = 22.f;
 	[self.bottomContainer.collectionView reloadData];	
 }
 
+- (void)updateCollectionView
+{
+    [self.bottomContainer.collectionView reloadData];
+}
+
 #pragma mark - MyDriveHeaderCellRanksDelegate
 
 - (void)followersTap
