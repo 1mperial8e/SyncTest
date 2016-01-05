@@ -11,6 +11,7 @@
 #import "WLIConnect.h"
 #import "WLIAppDelegate.h"
 #import <MessageUI/MessageUI.h>
+#import "WLIRanksContainerView.h"
 
 static CGFloat const LabelHeight = 22.f;
 
@@ -25,18 +26,20 @@ static CGFloat const LabelHeight = 22.f;
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *userTitleLabelHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *userDepartmentLabelHeight;
+@property (weak, nonatomic) IBOutlet UIView *bottomContainer;
+//@property (strong, nonatomic) WLIRanksContainerView *ranksContainer;
 
 // MARK: Bottom container outlets
-@property (weak, nonatomic) IBOutlet UILabel *likesCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *likesLabel;
-@property (weak, nonatomic) IBOutlet UILabel *postsCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *postsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *followersCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *followersLabel;
-@property (weak, nonatomic) IBOutlet UILabel *followingCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *followingLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pointsCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pointsLabel;
+@property (weak, nonatomic) UILabel *likesCountLabel;
+@property (weak, nonatomic) UILabel *likesLabel;
+@property (weak, nonatomic) UILabel *postsCountLabel;
+@property (weak, nonatomic) UILabel *postsLabel;
+@property (weak, nonatomic) UILabel *followersCountLabel;
+@property (weak, nonatomic) UILabel *followersLabel;
+@property (weak, nonatomic) UILabel *followingCountLabel;
+@property (weak, nonatomic) UILabel *followingLabel;
+@property (weak, nonatomic) UILabel *pointsCountLabel;
+@property (weak, nonatomic) UILabel *pointsLabel;
 
 @end
 
@@ -55,6 +58,9 @@ static CGFloat const LabelHeight = 22.f;
 
 - (void)configureViews
 {
+	WLIRanksContainerView *ranksContainer = [[WLIRanksContainerView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bottomContainer.frame), CGRectGetHeight(self.bottomContainer.frame))];
+	[self.bottomContainer addSubview:ranksContainer];
+	
     self.imageViewUser.layer.cornerRadius = self.imageViewUser.frame.size.height / 2;
     self.imageViewUser.layer.masksToBounds = YES;
     self.imageViewUser.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:1.0].CGColor;

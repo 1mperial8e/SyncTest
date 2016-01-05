@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *dataArray;
+@property (strong, nonatomic) NSMutableArray *labelArray;
 
 @end
 
@@ -24,7 +25,7 @@
 {
 	self = [super initWithFrame:frame];
 	if (self) {
-		NSArray *viewArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class) owner:self options:nil];
+		NSArray *viewArray = [[NSBundle mainBundle] loadNibNamed:@"WLIRanksContainerView" owner:self options:nil];
 		UIView *subView = [viewArray firstObject];
 		subView.frame = frame;
 		[self addSubview:subView];
@@ -33,12 +34,12 @@
 }
 
 - (void)awakeFromNib
-{
-	self.collectionView.backgroundColor = [UIColor clearColor];
+{		
 	self.collectionView.dataSource = self;
 	self.collectionView.delegate = self;
+	self.labelArray = [NSMutableArray new];
 
-	[self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([WLIRanksContainerViewCell class])  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLIRanksContainerViewCell class])];
+	[self.collectionView registerNib:[UINib nibWithNibName:@"WLIRanksContainerViewCell"  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLIRanksContainerViewCell class])];
 	self.dataArray = @[@"likes", @"posts", @"followers", @"following", @"points"];
 }
 
@@ -52,17 +53,8 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	WLIRanksContainerViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WLIRanksContainerViewCell class]) forIndexPath:indexPath];
-//
-//	[cell.layer setCornerRadius:8];
-//	if (indexPath.item == 0) {
-//		NSString *imageName = [(NSString *)self.dataArray[indexPath.item] substringFromIndex:1];
-//		cell.imageView.image = [UIImage imageNamed:imageName];
-//	} else {
-//		NSString *imageName = [(NSString *)self.dataArray[indexPath.item] substringFromIndex:1];
-//		cell.iconImageView.image = [UIImage imageNamed:imageName];
-//	}
-//	cell.label.text =
 	cell.rankLabel.text = self.dataArray[indexPath.item];
+	[self.labelArray addObject:cell.rankLabel];
 	return cell;
 }
 
@@ -70,15 +62,18 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//	WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
-//	[appDelegate.timelineViewController showTimelineForSearchString:self.dataArray[indexPath.item]];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//	return CGSizeMake(20, 20);
-//}
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+	NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:17]};
+	CGRect rect = [self.dataArray[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 20)
+											  options:NSStringDrawingUsesLineFragmentOrigin
+										   attributes:attributes
+											  context:nil];
+	return CGSizeMake(CGRectGetWidth(rect)+4, 40);
+}
 
 @end

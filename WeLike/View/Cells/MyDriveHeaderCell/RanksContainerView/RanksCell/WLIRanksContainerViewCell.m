@@ -10,8 +10,4 @@
 
 @implementation WLIRanksContainerViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
 @end

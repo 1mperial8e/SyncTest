@@ -13,21 +13,28 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="75" height="40"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rank" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQI-sR-ykn">
-                        <rect key="frame" x="16" y="19" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rank" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQI-sR-ykn">
+                        <rect key="frame" x="0.0" y="19" width="75" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDN-GX-A6O">
-                        <rect key="frame" x="16" y="0.0" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDN-GX-A6O">
+                        <rect key="frame" x="0.0" y="0.0" width="75" height="20"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <color key="backgroundColor" red="1" green="0.0" blue="0.15110837899999999" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="MQI-sR-ykn" secondAttribute="bottom" id="I3f-8D-DKu"/>
+                <constraint firstAttribute="trailing" secondItem="MQI-sR-ykn" secondAttribute="trailing" id="Kty-Xy-0Fo"/>
+                <constraint firstAttribute="trailing" secondItem="KDN-GX-A6O" secondAttribute="trailing" id="LhR-9I-Mew"/>
+                <constraint firstItem="KDN-GX-A6O" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Xj1-d1-5UZ"/>
+                <constraint firstItem="MQI-sR-ykn" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ajN-hg-n7U"/>
+                <constraint firstItem="KDN-GX-A6O" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="frK-rs-7uL"/>
+            </constraints>
             <connections>
                 <outlet property="countLabel" destination="KDN-GX-A6O" id="GIv-cp-oEQ"/>
                 <outlet property="rankLabel" destination="MQI-sR-ykn" id="KUA-SJ-obq"/>
