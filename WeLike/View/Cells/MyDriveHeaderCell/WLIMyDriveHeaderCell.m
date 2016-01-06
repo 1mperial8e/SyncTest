@@ -26,6 +26,7 @@ static CGFloat const LabelHeight = 22.f;
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *userTitleLabelHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *userDepartmentLabelHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rankLabelWidth;
 @property (weak, nonatomic) IBOutlet WLIRanksContainerView *bottomContainer;
 
 @end
@@ -74,6 +75,14 @@ static CGFloat const LabelHeight = 22.f;
 - (void)updateRank:(NSInteger)rank forUsers:(NSInteger)users
 {
     self.rankLabel.text = [NSString stringWithFormat:@"Rank: %zd/%zd", rank, users];
+	
+	NSDictionary *attributes = @{NSFontAttributeName: self.rankLabel.font};
+	CGRect textRect = [self.rankLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, CGRectGetHeight(self.rankLabel.frame))
+																   options:NSStringDrawingUsesLineFragmentOrigin
+																attributes:attributes
+																   context:nil];
+	self.rankLabelWidth.constant = CGRectGetWidth(textRect);
+	[self layoutSubviews];
 }
 
 - (void)updatePoints:(NSInteger)points

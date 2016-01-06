@@ -10,6 +10,7 @@
 #import "WLIRanksContainerViewCell.h"
 
 static NSInteger const cellsCount = 5;
+static NSInteger const cellHeight = 40;
 
 @interface WLIRanksContainerView() <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -88,12 +89,12 @@ static NSInteger const cellsCount = 5;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14 weight:UIFontWeightSemibold]};
-	CGRect textRect = [self.dataArray[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 20)
+	CGRect textRect = [self.dataArray[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, cellHeight/2)
 											  options:NSStringDrawingUsesLineFragmentOrigin
 										   attributes:attributes
 											  context:nil];
 	CGFloat averageWidth = CGRectGetWidth([UIScreen mainScreen].bounds) / cellsCount;
-	return (averageWidth >= CGRectGetWidth(textRect)) ? CGSizeMake(averageWidth, 40) : CGSizeMake(CGRectGetWidth(textRect), 40);
+	return (averageWidth >= CGRectGetWidth(textRect)) ? CGSizeMake(averageWidth, cellHeight) : CGSizeMake(CGRectGetWidth(textRect), cellHeight);
 }
 
 @end

@@ -16,6 +16,7 @@
 @protocol MyDriveHeaderCellDelegate <NSObject>
 
 @optional
+
 - (void)showFollowingsList;
 - (void)showFollowersList;
 - (void)showAvatarForCell:(WLIMyDriveHeaderCell *)cell;

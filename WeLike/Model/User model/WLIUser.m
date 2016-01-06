@@ -21,7 +21,7 @@
         self.userEmail = [self stringFromDictionary:userWithInfo forKey:@"email"];
         self.userFullName = [self stringFromDictionary:userWithInfo forKey:@"userFullname"];
 		self.userTitle = [self stringFromDictionary:userWithInfo forKey:@"userTitle"];
-		self.userDepartment = [self stringFromDictionary:userWithInfo forKey:@"userDepartment"];
+		self.userDepartment = @"";//[self stringFromDictionary:userWithInfo forKey:@"userDepartment"];
         self.userUsername = [self stringFromDictionary:userWithInfo forKey:@"username"];
         self.userInfo = [self stringFromDictionary:userWithInfo forKey:@"userInfo"];
         self.userAvatarPath = [self stringFromDictionary:userWithInfo forKey:@"userAvatar"];

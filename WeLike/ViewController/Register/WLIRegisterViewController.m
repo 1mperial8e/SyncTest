@@ -58,7 +58,7 @@
     
     if (self.textFieldEmail && self.textFieldPassword && self.textFieldRepassword && self.textFieldUsername && self.textFieldFullName) {
         toolbar.mainScrollView = self.tableView;
-        toolbar.textFields = @[self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword, self.textFieldUsername, self.textFieldFullName, self.textFieldTitle, self.textFieldDepartment];
+        toolbar.textFields = @[self.textFieldEmail, self.textFieldPassword, self.textFieldRepassword, self.textFieldUsername, self.textFieldFullName, self.textFieldTitle, /*self.textFieldDepartment*/];
     }
 }
 
@@ -95,7 +95,9 @@
     CGFloat heigh = 50.f;
     if (indexPath.row == 0) {
         heigh = 130.f;
-    }
+	} else if (indexPath.row == 7) {
+		heigh = 0;
+	}
     return heigh;
 }
 
@@ -143,6 +145,7 @@
         cell.textField.hidden = YES;
         [cell.registerButton addTarget:self action:@selector(registerButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
+	[cell setClipsToBounds:YES];
     return cell;
 }
 

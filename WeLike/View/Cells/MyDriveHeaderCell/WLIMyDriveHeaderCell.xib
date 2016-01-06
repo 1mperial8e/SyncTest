@@ -30,7 +30,7 @@
                             <constraint firstAttribute="width" secondItem="7Xc-6Q-Wef" secondAttribute="height" multiplier="1:1" id="cQh-SO-07I"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="yfG-P5-aIQ">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Rank: 0/0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="yfG-P5-aIQ">
                         <rect key="frame" x="287" y="14" width="80" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="DeZ-Iy-zNY"/>
@@ -40,7 +40,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="tPn-tz-ZMs">
-                        <rect key="frame" x="82" y="13" width="197" height="18"/>
+                        <rect key="frame" x="82" y="13" width="205" height="18"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                         <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -142,7 +142,7 @@
                     <constraint firstItem="5sO-7z-GOB" firstAttribute="top" secondItem="D7A-R1-cWK" secondAttribute="bottom" constant="7" id="rtJ-5A-6hN"/>
                     <constraint firstItem="gha-t0-j92" firstAttribute="top" secondItem="D4n-o4-sZp" secondAttribute="bottom" id="u27-hE-nYO"/>
                     <constraint firstItem="5sO-7z-GOB" firstAttribute="leading" secondItem="WDa-Dm-yrf" secondAttribute="leading" id="wMn-NR-GBY"/>
-                    <constraint firstItem="yfG-P5-aIQ" firstAttribute="leading" secondItem="tPn-tz-ZMs" secondAttribute="trailing" constant="8" id="wOq-to-8mg"/>
+                    <constraint firstItem="yfG-P5-aIQ" firstAttribute="leading" secondItem="tPn-tz-ZMs" secondAttribute="trailing" id="wOq-to-8mg"/>
                     <constraint firstAttribute="bottom" secondItem="5sO-7z-GOB" secondAttribute="bottom" constant="3" id="wZT-f6-Vri"/>
                 </constraints>
             </tableViewCellContentView>
@@ -157,6 +157,7 @@
                 <outlet property="labelUserTitle" destination="D4n-o4-sZp" id="80k-0h-lq9"/>
                 <outlet property="myGoalsTextView" destination="D7A-R1-cWK" id="shf-9y-9Lh"/>
                 <outlet property="rankLabel" destination="yfG-P5-aIQ" id="QbE-g3-AKv"/>
+                <outlet property="rankLabelWidth" destination="DeZ-Iy-zNY" id="yT9-b7-KwF"/>
                 <outlet property="userDepartmentLabelHeight" destination="JGt-0d-ktM" id="iLA-Gb-i6x"/>
                 <outlet property="userTitleLabelHeight" destination="s9M-fq-YOJ" id="6ZE-vi-n0E"/>
             </connections>
