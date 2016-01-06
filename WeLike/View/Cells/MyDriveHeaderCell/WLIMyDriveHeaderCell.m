@@ -78,11 +78,11 @@ static CGFloat const LabelHeight = 22.f;
 	
 	NSDictionary *attributes = @{NSFontAttributeName: self.rankLabel.font};
 	CGRect textRect = [self.rankLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, CGRectGetHeight(self.rankLabel.frame))
-																   options:NSStringDrawingUsesLineFragmentOrigin
-																attributes:attributes
-																   context:nil];
+                                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                                     attributes:attributes
+                                                        context:nil];
 	self.rankLabelWidth.constant = CGRectGetWidth(textRect);
-	[self layoutSubviews];
+	[self layoutIfNeeded];
 }
 
 - (void)updatePoints:(NSInteger)points
