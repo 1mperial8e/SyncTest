@@ -10,8 +10,4 @@
 
 @interface WLIMostPopularTimelineViewController : WLIPostsListViewController
 
-@property (strong, nonatomic) NSString *searchString;
-
-- (void)scrollToTop;
-
 @end

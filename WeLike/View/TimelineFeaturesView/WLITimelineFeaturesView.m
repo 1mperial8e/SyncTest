@@ -12,7 +12,7 @@
 
 @interface WLITimelineFeaturesView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (strong, nonatomic)  UICollectionView *collectionView;
+@property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *dataArray;
 
 @end
@@ -30,7 +30,7 @@
 		self.collectionView.delegate = self;
 		[self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([WLITimelineFeaturesViewCell class])  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLITimelineFeaturesViewCell class])];
 		
-		self.dataArray = @[@"most popular", @"#my idea", @"put your activity here"];
+		self.dataArray = @[@"Most Popular", @"#my idea", @"Put your activity here"];
 	}
 	return self;
 }

@@ -22,7 +22,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.searchString = @"";
         self.navigationItem.title = @"Most popular";
 	}
     return self;
@@ -52,7 +51,7 @@
     __weak typeof(self) weakSelf = self;
 	
 	NSString *countriesStringId = [[WLICountrySettings sharedSettings] getEnabledCountriesStringID];
-    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:15 countryID:countriesStringId searchString:self.searchString page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
+    self.loadTimelineOperation = [sharedConnect timelineForUserID:sharedConnect.currentUser.userID withCategory:15 countryID:countriesStringId searchString:@"" page:(int)page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];
 }
@@ -65,13 +64,6 @@
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
 	navController.navigationBar.backgroundColor = [UIColor redColor];
     [[WLIUtils rootController] presentViewController:navController animated:YES completion:nil];
-}
-
-#pragma mark - Public
-
-- (void)scrollToTop
-{
-    [self.tableViewRefresh setContentOffset:CGPointZero animated:YES];
 }
 
 #pragma mark - Notification
