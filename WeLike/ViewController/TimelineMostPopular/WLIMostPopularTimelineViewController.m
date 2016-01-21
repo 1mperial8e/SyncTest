@@ -1,27 +1,22 @@
 //
-//  WLITimelineViewController.m
+//  WLIMostPopularTimelineViewController.m
 //  WeLike
 //
 //  Created by Planet 1107 on 20/11/13.
 //  Copyright (c) 2013 Planet 1107. All rights reserved.
 //
 
-#import "WLITimelineViewController.h"
-
 #import "WLIMostPopularTimelineViewController.h"
 #import "WLITimelineSettingsViewController.h"
 #import "WLICountrySettings.h"
-#import "WLITimelineFeaturesView.h"
 
 static CGFloat const HeaderViewHeight = 106;
 
-@interface WLITimelineViewController () <TimelineFeaturesViewDelegate>
-
-@property (strong, nonatomic) WLITimelineFeaturesView *featuresView;
+@interface WLIMostPopularTimelineViewController ()
 
 @end
 
-@implementation WLITimelineViewController
+@implementation WLIMostPopularTimelineViewController
 
 #pragma mark - Init
 
@@ -30,7 +25,7 @@ static CGFloat const HeaderViewHeight = 106;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.searchString = @"";
-        self.navigationItem.title = @"Timeline";
+        self.navigationItem.title = @"Most popular";
 	}
     return self;
 }
@@ -44,11 +39,8 @@ static CGFloat const HeaderViewHeight = 106;
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-search"] style:UIBarButtonItemStylePlain target:self action:@selector(searchButtonAction:)];
 		
 		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonAction:)];
+	}
 	
-		self.featuresView = [[WLITimelineFeaturesView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), HeaderViewHeight)];
-		self.featuresView.delegate = self;
-		self.tableViewRefresh.tableHeaderView = self.featuresView;		
-	}	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChangedNotificationRecieved:) name:CountriesFilterSettingsChangeNotification object:nil];
 }
 
@@ -94,14 +86,6 @@ static CGFloat const HeaderViewHeight = 106;
 - (void)settingsChangedNotificationRecieved:(NSNotification *)notification
 {
 	[self reloadData:YES];
-}
-
-#pragma mark - TimelineFeaturesViewDelegate
-
-- (void)showMostPopular
-{
-	WLIMostPopularTimelineViewController *timeline = [WLIMostPopularTimelineViewController new];
-	[self.navigationController pushViewController:timeline animated:YES];
 }
 
 @end

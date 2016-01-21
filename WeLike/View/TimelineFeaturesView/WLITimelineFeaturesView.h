@@ -6,6 +6,16 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
+@protocol TimelineFeaturesViewDelegate <NSObject>
+
+@optional
+
+- (void)showMostPopular;
+
+@end
+
 @interface WLITimelineFeaturesView : UIView
+
+@property (weak, nonatomic) id<TimelineFeaturesViewDelegate> delegate;
 
 @end

@@ -72,6 +72,10 @@
 	if (indexPath.item == 1) {
 		WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
 		[appDelegate.timelineViewController showTimelineForSearchString:self.dataArray[indexPath.item]];
+	} else if (indexPath.item == 0) {
+		if ([self.delegate respondsToSelector:@selector(showMostPopular)]) {
+			[self.delegate showMostPopular];
+		}
 	}
 }
 
