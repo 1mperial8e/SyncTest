@@ -39,7 +39,7 @@
 	
 	[self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([WLITimelineFeaturesViewCell class])  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLITimelineFeaturesViewCell class])];
 	
-    self.dataArray = @[@"#digitalweek", @"#marketing", @"#customer", @"#capability", @"#people"];
+    self.dataArray = @[@"most popular", @"#my idea", @"put your activity here"];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -54,12 +54,12 @@
 	WLITimelineFeaturesViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WLITimelineFeaturesViewCell class]) forIndexPath:indexPath];
 	
 	[cell.layer setCornerRadius:8];
-	if (indexPath.item == 0) {
+	if (indexPath.item == 1) {
 		NSString *imageName = [(NSString *)self.dataArray[indexPath.item] substringFromIndex:1];
 		cell.imageView.image = [UIImage imageNamed:imageName];
 	} else {
-		NSString *imageName = [(NSString *)self.dataArray[indexPath.item] substringFromIndex:1];
-		cell.iconImageView.image = [UIImage imageNamed:imageName];
+		NSString *imageName = (NSString *)self.dataArray[indexPath.item];
+		cell.imageView.image = [UIImage imageNamed:imageName];
 	}
 	cell.label.text = self.dataArray[indexPath.item];
 	return cell;
@@ -69,8 +69,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
-	[appDelegate.timelineViewController showTimelineForSearchString:self.dataArray[indexPath.item]];
+	if (indexPath.item == 1) {
+		WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
+		[appDelegate.timelineViewController showTimelineForSearchString:self.dataArray[indexPath.item]];
+	}
 }
 
 @end
