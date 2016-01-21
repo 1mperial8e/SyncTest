@@ -39,7 +39,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:NewFeaturesKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 	
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-close"] style:UIBarButtonItemStylePlain target:self action:@selector(closeButtonAction:)];	
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(closeButtonAction:)];
 }
 
 - (void)viewDidLayoutSubviews
