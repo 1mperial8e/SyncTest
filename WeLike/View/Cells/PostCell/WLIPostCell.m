@@ -145,7 +145,7 @@ static CGFloat const StaticCellHeight = 140;
     if (self.post) {
         [self.imageViewUser setImageWithURL:[NSURL URLWithString:self.post.user.userAvatarThumbPath] placeholderImage:DefaultAvatar];
         self.buttonVideo.hidden = !self.post.postVideoPath.length;
-        self.labelUserName.text = self.post.user.userUsername;
+        self.labelUserName.text = self.post.user.userFullName;
         self.labelTimeAgo.text = self.post.postTimeAgo;
         NSMutableAttributedString *attrString = [[WLIUtils formattedString:[self.post.user.userUsername stringByAppendingFormat:@" %@", self.post.postText] WithHashtagsAndUsers:self.post.taggedUsers] mutableCopy];
         [attrString addAttributes:@{NSFontAttributeName : self.textView.font} range:NSMakeRange(0, attrString.string.length)];

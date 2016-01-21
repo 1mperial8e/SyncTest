@@ -35,7 +35,7 @@
     self.whatIsMyDriveButton.layer.borderWidth = 1;
     self.agoraButton.layer.borderWidth = 1;
     
-    CGFloat height = [UIScreen mainScreen].bounds.size.width * 3.35f;
+    CGFloat height = [UIScreen mainScreen].bounds.size.width * /*3.35f*/ 2.35;
     self.contentHeightConstraint.constant = height;
 }
 
