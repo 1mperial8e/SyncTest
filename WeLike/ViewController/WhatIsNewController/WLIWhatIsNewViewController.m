@@ -34,11 +34,12 @@
 {
     [super viewDidLoad];
     self.separatorHeightConstraint.constant = 0.5;
+	self.title = @"What is new";
     
     [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:NewFeaturesKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [self.okButton setImage:[[self.okButton imageForState:UIControlStateNormal] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+	
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-close"] style:UIBarButtonItemStylePlain target:self action:@selector(closeButtonAction:)];	
 }
 
 - (void)viewDidLayoutSubviews
@@ -49,7 +50,7 @@
 
 #pragma mark - Actions
 
-- (IBAction)okButtonAction:(id)sender
+- (void)closeButtonAction:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
