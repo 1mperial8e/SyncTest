@@ -34,7 +34,6 @@
 	return self;
 }
 
-
 #pragma mark - Private
 
 - (void)prepareView

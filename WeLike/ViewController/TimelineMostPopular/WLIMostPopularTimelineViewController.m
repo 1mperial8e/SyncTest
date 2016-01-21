@@ -10,8 +10,6 @@
 #import "WLITimelineSettingsViewController.h"
 #import "WLICountrySettings.h"
 
-static CGFloat const HeaderViewHeight = 106;
-
 @interface WLIMostPopularTimelineViewController ()
 
 @end
@@ -35,11 +33,6 @@ static CGFloat const HeaderViewHeight = 106;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (!self.searchString.length)  {
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-search"] style:UIBarButtonItemStylePlain target:self action:@selector(searchButtonAction:)];
-		
-		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonAction:)];
-	}
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChangedNotificationRecieved:) name:CountriesFilterSettingsChangeNotification object:nil];
 }

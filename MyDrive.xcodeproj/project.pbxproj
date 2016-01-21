@@ -133,7 +133,7 @@
 		30ABC98F1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ABC98D1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.m */; };
 		30ABC9901C33CF6100E1C63C /* WLITimelineFeaturesViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30ABC98E1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.xib */; };
 		30BF6A011C512F5900E77CD2 /* WLIMostPopularTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BF69FF1C512F5900E77CD2 /* WLIMostPopularTimelineViewController.m */; };
-		30BF6A041C513D4F00E77CD2 /* WLITimelineViewController копія.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BF6A031C513D4F00E77CD2 /* WLITimelineViewController копія.xib */; };
+		30BF6A041C513D4F00E77CD2 /* WLIMostPopularTimelineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BF6A031C513D4F00E77CD2 /* WLIMostPopularTimelineViewController.xib */; };
 		30D36C931C342C73003EA53D /* WLICategorySelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D36C7E1C342C73003EA53D /* WLICategorySelectTableViewCell.m */; };
 		30D36C941C342C73003EA53D /* WLICategorySelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30D36C7F1C342C73003EA53D /* WLICategorySelectTableViewCell.xib */; };
 		30D36C951C342C73003EA53D /* WLINewPostAttachmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30D36C811C342C73003EA53D /* WLINewPostAttachmentCell.xib */; };
@@ -432,7 +432,7 @@
 		30ABC98E1C33CF6100E1C63C /* WLITimelineFeaturesViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLITimelineFeaturesViewCell.xib; sourceTree = "<group>"; };
 		30BF69FE1C512F5900E77CD2 /* WLIMostPopularTimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIMostPopularTimelineViewController.h; sourceTree = "<group>"; };
 		30BF69FF1C512F5900E77CD2 /* WLIMostPopularTimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIMostPopularTimelineViewController.m; sourceTree = "<group>"; };
-		30BF6A031C513D4F00E77CD2 /* WLITimelineViewController копія.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "WLITimelineViewController копія.xib"; sourceTree = "<group>"; };
+		30BF6A031C513D4F00E77CD2 /* WLIMostPopularTimelineViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLIMostPopularTimelineViewController.xib; sourceTree = "<group>"; };
 		30D36C7D1C342C73003EA53D /* WLICategorySelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLICategorySelectTableViewCell.h; sourceTree = "<group>"; };
 		30D36C7E1C342C73003EA53D /* WLICategorySelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLICategorySelectTableViewCell.m; sourceTree = "<group>"; };
 		30D36C7F1C342C73003EA53D /* WLICategorySelectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLICategorySelectTableViewCell.xib; sourceTree = "<group>"; };
@@ -1371,7 +1371,7 @@
 		30BF69FD1C512F5900E77CD2 /* TimelineMostPopular */ = {
 			isa = PBXGroup;
 			children = (
-				30BF6A031C513D4F00E77CD2 /* WLITimelineViewController копія.xib */,
+				30BF6A031C513D4F00E77CD2 /* WLIMostPopularTimelineViewController.xib */,
 				30BF69FE1C512F5900E77CD2 /* WLIMostPopularTimelineViewController.h */,
 				30BF69FF1C512F5900E77CD2 /* WLIMostPopularTimelineViewController.m */,
 			);
@@ -1983,7 +1983,7 @@
 				4F77BEF61C32DAF7004E625E /* WLITimelineSettingsTableViewCell.xib in Resources */,
 				2E28F3981BADEEFF006CF0BE /* WLISearchContentViewController.xib in Resources */,
 				30D36C981C342C73003EA53D /* WLINewPostImageCell.xib in Resources */,
-				30BF6A041C513D4F00E77CD2 /* WLITimelineViewController копія.xib in Resources */,
+				30BF6A041C513D4F00E77CD2 /* WLIMostPopularTimelineViewController.xib in Resources */,
 				30DCE4F61C170F8A00244011 /* WLIMailTextFieldTableViewCell.xib in Resources */,
 				4F77BEE91C32DABE004E625E /* WLIEditProfileTableViewCell.xib in Resources */,
 				30D36C961C342C73003EA53D /* WLINewPostCategoryCell.xib in Resources */,

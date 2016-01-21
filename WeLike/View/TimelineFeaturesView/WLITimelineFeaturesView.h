@@ -6,6 +6,8 @@
 //  Copyright © 2015 Goran Vuksic. All rights reserved.
 //
 
+#import "WLIBaseView.h"
+
 @protocol TimelineFeaturesViewDelegate <NSObject>
 
 @optional
@@ -14,7 +16,7 @@
 
 @end
 
-@interface WLITimelineFeaturesView : UIView
+@interface WLITimelineFeaturesView : WLIBaseView
 
 @property (weak, nonatomic) id<TimelineFeaturesViewDelegate> delegate;
 

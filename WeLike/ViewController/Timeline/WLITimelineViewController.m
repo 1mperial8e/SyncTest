@@ -45,7 +45,7 @@ static CGFloat const HeaderViewHeight = 106;
 		
 		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonAction:)];
 	
-		self.featuresView = [[WLITimelineFeaturesView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), HeaderViewHeight)];
+		self.featuresView = [[WLITimelineFeaturesView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), HeaderViewHeight)];	
 		self.featuresView.delegate = self;
 		self.tableViewRefresh.tableHeaderView = self.featuresView;		
 	}	

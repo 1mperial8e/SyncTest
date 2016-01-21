@@ -12,7 +12,7 @@
 
 @interface WLITimelineFeaturesView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic)  UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *dataArray;
 
 @end
@@ -24,22 +24,15 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
 	self = [super initWithFrame:frame];
-    if (self) {
-        NSArray *viewArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class) owner:self options:nil];
-        UIView *subView = [viewArray firstObject];
-        subView.frame = frame;
-        [self addSubview:subView];
-    }
+	if (self) {		
+		self.collectionView.backgroundColor = [UIColor clearColor];
+		self.collectionView.dataSource = self;
+		self.collectionView.delegate = self;
+		[self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([WLITimelineFeaturesViewCell class])  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLITimelineFeaturesViewCell class])];
+		
+		self.dataArray = @[@"most popular", @"#my idea", @"put your activity here"];
+	}
 	return self;
-}
-
-- (void)awakeFromNib
-{
-	self.collectionView.backgroundColor = [UIColor clearColor];
-	
-	[self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([WLITimelineFeaturesViewCell class])  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLITimelineFeaturesViewCell class])];
-	
-    self.dataArray = @[@"most popular", @"#my idea", @"put your activity here"];
 }
 
 #pragma mark - UICollectionViewDataSource
