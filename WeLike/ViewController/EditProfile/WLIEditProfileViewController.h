@@ -7,6 +7,9 @@
 //
 
 #import "WLIViewController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+@import MediaPlayer;
+@import AVFoundation;
 
 static NSString *const MyDriveGoalsPlaceholder = @"My drive for 2020 is:";
 

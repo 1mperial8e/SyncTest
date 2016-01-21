@@ -11,7 +11,6 @@
 @interface WLIWhatIsNewViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (weak, nonatomic) IBOutlet UIButton *okButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *separatorHeightConstraint;
 
 @end

@@ -304,6 +304,12 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
     [[[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 }
 
+- (void)showMediaAccessAlert:(NSString *)alertMessage
+{
+	UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:nil message:alertMessage delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings", nil];
+	[accessAlert show];
+}
+
 #pragma mark - UIImagePickerControllerDelegate methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -322,19 +328,42 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+	__weak typeof(self) weakSelf = self;
+	
+	void (^getContentBlock)(UIImagePickerControllerSourceType) = ^(UIImagePickerControllerSourceType sourceType){
+		AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+		if (status == AVAuthorizationStatusAuthorized || status == ALAuthorizationStatusNotDetermined) {
+			[weakSelf getContentWithSourceType:sourceType];
+		} else {
+			if (sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
+				[weakSelf showMediaAccessAlert:@"Please provide access to your library in settings" ];
+			} else {
+				[weakSelf showMediaAccessAlert:@"Please provide access to your camera in settings" ];
+			}
+		}
+	};
+	
     if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Gallery"]) {
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        imagePickerController.allowsEditing = YES;
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:imagePickerController animated:YES completion:nil];
+		getContentBlock(UIImagePickerControllerSourceTypePhotoLibrary);
     } else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Camera"]) {
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        imagePickerController.allowsEditing = YES;
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:imagePickerController animated:YES completion:nil];
+		getContentBlock(UIImagePickerControllerSourceTypeCamera);
     }
+}
+
+#pragma mark - Add content
+
+- (void)getContentWithSourceType:(UIImagePickerControllerSourceType)sourceType
+{
+	if ((sourceType == UIImagePickerControllerSourceTypeCamera) && ![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"No Camera Available." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+		[alert show];
+		return;
+	}
+	UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+	pickerController.delegate = self;
+	pickerController.sourceType = sourceType;
+	pickerController.allowsEditing = YES;
+	[self presentViewController:pickerController animated:YES completion:nil];
 }
 
 #pragma mark - NSNotification
@@ -378,5 +407,16 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
         [self.tableView scrollRectToVisible:textViewRect animated:YES];
 	}
 }
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex != alertView.cancelButtonIndex) {
+		NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+		[[UIApplication sharedApplication] openURL:url];
+	}
+}
+
 
 @end
