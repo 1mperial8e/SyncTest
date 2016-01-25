@@ -65,7 +65,7 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
     
     if (self.textFieldEmail && self.textFieldUsername && self.textFieldFullName) {
         toolbar.mainScrollView = self.tableView;
-        toolbar.textFields = @[self.textFieldUsername, self.textFieldFullName, self.textFieldTitle, /*self.textFieldDepartment, */self.textViewMyGoals];
+        toolbar.textFields = @[self.textFieldUsername, self.textFieldFullName, /*self.textFieldTitle, self.textFieldDepartment, */self.textViewMyGoals];
     }
 }
 
@@ -127,7 +127,7 @@ static CGFloat const TextFieldCellHeigth = 60.0f;
     CGFloat height = TextFieldCellHeigth;
     if (indexPath.row == 0) {
         height = AvatarCellHeigth;
-    } else if (indexPath.row == 5) 	{
+    } else if (indexPath.row == 4 || indexPath.row == 5) 	{
 		height = 0;
 	} else if (indexPath.row == 6) 	{
 		height = [self textViewCellHeight];

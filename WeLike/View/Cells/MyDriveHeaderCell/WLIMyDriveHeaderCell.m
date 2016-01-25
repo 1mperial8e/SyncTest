@@ -180,13 +180,15 @@ static CGFloat const LabelHeight = 22.f;
     self.labelUserName.text = self.user.userFullName;
     self.labelUserEmail.text = self.user.userEmail;
     self.myGoalsTextView.text = [NSString stringWithFormat:@"%@", self.user.userInfo];
-    if (self.user.userTitle.length > 0) {
+    
+// Hidden title and department
+    if (!YES && self.user.userTitle.length > 0) {
         self.userTitleLabelHeight.constant = LabelHeight;
         self.labelUserTitle.text = self.user.userTitle;
     } else {
         self.userTitleLabelHeight.constant = 0;
     }
-    if (self.user.userDepartment.length > 0) {
+    if (!YES && self.user.userDepartment.length > 0) {
         self.userDepartmentLabelHeight.constant = LabelHeight;
         self.labelUserDepartment.text = self.user.userDepartment;
     } else {

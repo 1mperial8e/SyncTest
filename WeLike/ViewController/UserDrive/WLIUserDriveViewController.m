@@ -174,12 +174,12 @@ static CGFloat const HeaderCellHeight = 156;
             size = [cell.myGoalsTextView sizeThatFits:CGSizeMake([UIScreen mainScreen].bounds.size.width - 32, MAXFLOAT)]; // 32 spacings
         }
 		NSInteger labelsHeight = 1;
-		if (self.user.userTitle.length > 0) {
-			labelsHeight += 22;
-		}
-		if (self.user.userDepartment.length > 0) {
-			labelsHeight += 22;
-		}
+//		if (self.user.userTitle.length > 0) {
+//			labelsHeight += 22;
+//		}
+//		if (self.user.userDepartment.length > 0) {
+//			labelsHeight += 22;
+//		}
 		return size.height + labelsHeight + HeaderCellHeight;
     } else if (indexPath.section == 1) {
         return [WLIPostCell sizeWithPost:self.posts[indexPath.row] withWidth:self.view.frame.size.width].height;
