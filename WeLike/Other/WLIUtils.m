@@ -102,7 +102,11 @@
 + (UIViewController *)rootController
 {
     WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
-    return appDelegate.tabBarController;
+    UIViewController *topController = appDelegate.tabBarController;
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+    return topController;
 }
 
 + (void)showEmailControllerWithToRecepient:(NSArray *)toRecepients delegate:(id<MFMailComposeViewControllerDelegate>)delegate
