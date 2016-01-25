@@ -8,6 +8,7 @@
 
 #import "WLIBaseView.h"
 
+@protocol WLICellDelegate;
 @protocol TimelineFeaturesViewDelegate <NSObject>
 
 @optional
@@ -18,6 +19,6 @@
 
 @interface WLITimelineFeaturesView : WLIBaseView
 
-@property (weak, nonatomic) id<TimelineFeaturesViewDelegate> delegate;
+@property (weak, nonatomic) id<TimelineFeaturesViewDelegate, WLICellDelegate> delegate;
 
 @end

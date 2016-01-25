@@ -50,7 +50,6 @@
     NSUInteger page = reloadAll ? 1 : (self.posts.count / kDefaultPageSize) + 1;
     __weak typeof(self) weakSelf = self;
 	
-	NSString *countriesStringId = [[WLICountrySettings sharedSettings] getEnabledCountriesStringID];
     self.loadTimelineOperation = [sharedConnect popularPostsOnPage:page pageSize:kDefaultPageSize onCompletion:^(NSMutableArray *posts, ServerResponse serverResponseCode) {
         [weakSelf downloadedPosts:posts serverResponse:serverResponseCode reloadAll:reloadAll];
     }];

@@ -30,7 +30,7 @@
 		self.collectionView.delegate = self;
 		[self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([WLITimelineFeaturesViewCell class])  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLITimelineFeaturesViewCell class])];
 		
-		self.dataArray = @[@"Most Popular", @"#my idea", @"Put your activity here"];
+		self.dataArray = @[@"Most Popular", @"#myidea", @"Put your activity here"];
 	}
 	return self;
 }
@@ -63,9 +63,10 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.item == 1) {
-		WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
-		[appDelegate.timelineViewController showTimelineForSearchString:self.dataArray[indexPath.item]];
-	} else if (indexPath.item == 0) {
+        if ([self.delegate respondsToSelector:@selector(showTimelineForSearchString:)]) {
+            [self.delegate showTimelineForSearchString:self.dataArray[indexPath.item]];
+        }
+    } else if (indexPath.item == 0) {
 		if ([self.delegate respondsToSelector:@selector(showMostPopular)]) {
 			[self.delegate showMostPopular];
 		}

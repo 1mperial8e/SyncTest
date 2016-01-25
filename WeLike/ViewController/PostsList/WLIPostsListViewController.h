@@ -15,6 +15,8 @@
 @property (assign, nonatomic) NSInteger postsSectionNumber;
 @property (weak, nonatomic) AFHTTPRequestOperation *loadTimelineOperation;
 
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+
 - (void)removePosts:(NSArray *)posts;
 - (void)addPosts:(NSArray *)posts;
 - (void)downloadedPosts:(NSArray *)posts serverResponse:(ServerResponse)serverResponseCode reloadAll:(BOOL)reloadAll;

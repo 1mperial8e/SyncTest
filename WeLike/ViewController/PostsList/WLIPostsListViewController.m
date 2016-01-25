@@ -114,6 +114,11 @@
     if (self.posts.count) {
         self.tableViewRefresh.backgroundColor = [UIColor whiteColor];
     } else {
+        if (serverResponseCode == OK) {
+            self.messageLabel.text = @"No posts found.";
+        } else {
+            self.messageLabel.text = @"Oops… It seems that there aren't any posts or Internet connection is not established.\nPull down to refresh.";
+        }
         self.tableViewRefresh.backgroundColor = [UIColor clearColor];
     }
     [refreshManager tableViewReloadFinishedAnimated:YES];

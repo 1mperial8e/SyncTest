@@ -29,12 +29,20 @@
 	[self setupTableView];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (self.isChanged) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CountriesFilterSettingsChangeNotification object:self userInfo:nil];
+    }
+}
+
 #pragma mark - Setup
 
 - (void)setupUI
 {
     self.navigationItem.title = @"Timeline Settings";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(settingsAcceptAction:)];
+    self.navigationController.navigationBar.topItem.title = @"";
 }
 
 - (void)setupTableView
@@ -68,16 +76,6 @@
     [cell.countryStateSwitch setOn: [[WLICountrySettings sharedSettings].countriesEnabledState[indexPath.row] integerValue]];
     cell.delegate = self;
     return cell;
-}
-
-#pragma mark - Actions
-
-- (void)settingsAcceptAction:(id)sender
-{
-	if (self.isChanged) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:CountriesFilterSettingsChangeNotification object:self userInfo:nil];
-	}
-	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - WLITimelineSettingsTableViewCellDelegate

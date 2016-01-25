@@ -77,9 +77,7 @@ static CGFloat const HeaderViewHeight = 106;
 - (void)settingsButtonAction:(id)sender
 {
 	WLITimelineSettingsViewController *settingsViewController = [WLITimelineSettingsViewController new];
-	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
-	navController.navigationBar.backgroundColor = [UIColor redColor];
-    [[WLIUtils rootController] presentViewController:navController animated:YES completion:nil];
+    [self.navigationController pushViewController:settingsViewController animated:YES];
 }
 
 #pragma mark - Public
