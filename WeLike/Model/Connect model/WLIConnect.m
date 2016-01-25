@@ -686,15 +686,15 @@ static NSString *const AuthTokenKey = @"token";
     }];
 }
 
-- (void)popularPostsOnPage:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
+- (AFHTTPRequestOperation *)popularPostsOnPage:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"userID"];
+    [parameters setObject:[NSString stringWithFormat:@"%zd", self.currentUser.userID] forKey:@"forUserID"];
     [parameters setObject:[NSString stringWithFormat:@"%zd", page] forKey:@"page"];
     [parameters setObject:[NSString stringWithFormat:@"%zd", pageSize] forKey:@"take"];
     [parameters setObject:self.authToken forKey:AuthTokenKey];
 
-    [self.httpClient POST:@"api/getPopularPosts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPRequestOperation *operation = [self.httpClient POST:@"api/getPopularPosts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *rawPosts = [responseObject objectForKey:@"items"];
         NSArray *posts = [WLIPost arrayWithDictionariesArray:rawPosts];
         if (completion) {
@@ -710,6 +710,7 @@ static NSString *const AuthTokenKey = @"token";
             }
         }
     }];
+    return operation;
 }
 
 - (void)deletePostID:(NSInteger)postID onCompletion:(void (^)(ServerResponse serverResponseCode))completion

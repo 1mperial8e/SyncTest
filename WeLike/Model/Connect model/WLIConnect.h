@@ -141,7 +141,7 @@ typedef enum ServerResponse ServerResponse;
                  onCompletion:(void (^)(WLIPost *post, ServerResponse serverResponseCode))completion;
 
 - (void)recentPostsWithPageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
-- (void)popularPostsOnPage:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
+- (AFHTTPRequestOperation *)popularPostsOnPage:(NSInteger)page pageSize:(NSInteger)pageSize onCompletion:(void (^)(NSMutableArray *posts, ServerResponse serverResponseCode))completion;
 - (void)deletePostID:(NSInteger)postID onCompletion:(void (^)(ServerResponse serverResponseCode))completion;
 
 #pragma mark - Comments
