@@ -29,7 +29,7 @@
     __weak WLIConnect *sharedConnect;
 }
 
-@property (weak, nonatomic) UITableView *tableViewRefresh;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewRefresh;
 
 - (void)sendFeedBack:(id)sender;
 

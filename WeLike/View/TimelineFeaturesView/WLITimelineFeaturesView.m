@@ -28,6 +28,7 @@
 		self.collectionView.backgroundColor = [UIColor clearColor];
 		self.collectionView.dataSource = self;
 		self.collectionView.delegate = self;
+        self.collectionView.scrollsToTop = NO;
 		[self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([WLITimelineFeaturesViewCell class])  bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([WLITimelineFeaturesViewCell class])];
 		
 		self.dataArray = @[@"Most Popular", @"#myidea", @"Put your activity here"];
