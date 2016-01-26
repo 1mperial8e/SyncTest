@@ -30,7 +30,6 @@ static CGFloat const HeaderViewHeight = 106;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.searchString = @"";
-        self.navigationItem.title = @"Timeline";
 	}
     return self;
 }
@@ -41,8 +40,6 @@ static CGFloat const HeaderViewHeight = 106;
 {
     [super viewDidLoad];
     if (!self.searchString.length)  {
-        self.navigationItem.title = @"Timeline";
-
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav-btn-search"] style:UIBarButtonItemStylePlain target:self action:@selector(searchButtonAction:)];
 		
 		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonAction:)];
@@ -52,6 +49,16 @@ static CGFloat const HeaderViewHeight = 106;
 		self.tableViewRefresh.tableHeaderView = self.featuresView;		
 	}	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChangedNotificationRecieved:) name:CountriesFilterSettingsChangeNotification object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.searchString.length) {
+        self.navigationItem.title = self.searchString;
+    } else {
+        self.navigationItem.title = @"Timeline";
+    }
 }
 
 #pragma mark - Data loading methods
