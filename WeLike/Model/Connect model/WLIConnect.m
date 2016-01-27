@@ -9,7 +9,7 @@
 #import "WLIConnect.h"
 #import "WLIAnalytics.h"
 
-#define kBaseLinkDevelopement @"http://mydrive-rails-dev.appmedia.no/"
+#define kBaseLinkDevelopement @"https://mydrive.financecorp.biz/" // @http://mydrive-rails-dev.appmedia.no/
 #define kBaseLinkProduction @"https://mydrive.financecorp.biz/"//@"https://mydrive-rails-prod.appmedia.no/"
 
 #define kAPIKey @"!#wli!sdWQDScxzczFžŽYewQsq_?wdX09612627364[3072∑34260-#"
