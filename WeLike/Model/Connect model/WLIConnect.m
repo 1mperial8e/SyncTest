@@ -10,7 +10,7 @@
 #import "WLIAnalytics.h"
 
 #define kBaseLinkDevelopement @"http://mydrive-rails-dev.appmedia.no/"
-#define kBaseLinkProduction @"https://mydrive.financecorp.biz/api/"//@"https://mydrive-rails-prod.appmedia.no/"
+#define kBaseLinkProduction @"https://mydrive.financecorp.biz/"//@"https://mydrive-rails-prod.appmedia.no/"
 
 #define kAPIKey @"!#wli!sdWQDScxzczFžŽYewQsq_?wdX09612627364[3072∑34260-#"
 #define kConnectionTimeout 30
