@@ -224,7 +224,7 @@
     [self.tableViewRefresh endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
     WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate.timelineViewController showTimelineForSearchString:hashtag.tagname];
+    [appDelegate.tabBarController.timelineViewController showTimelineForSearchString:hashtag.tagname];
     appDelegate.tabBarController.selectedIndex = 1;
 }
 
@@ -233,7 +233,7 @@
     [self.tableViewRefresh endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
     WLIAppDelegate *appDelegate = (WLIAppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate.timelineViewController showUser:user userID:user.userID sender:nil];
+    [appDelegate.tabBarController.timelineViewController showUser:user userID:user.userID sender:nil];
     appDelegate.tabBarController.selectedIndex = 1;
 }
 

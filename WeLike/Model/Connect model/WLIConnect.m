@@ -67,7 +67,7 @@ static NSString *const AuthTokenKey = @"token";
 
 - (void)setupDefaults
 {
-    self.httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseLinkDevelopement]];
+    self.httpClient = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseLinkProduction]];
     self.httpClient.requestSerializer = [AFHTTPRequestSerializer serializer];
     self.httpClient.responseSerializer = [AFJSONResponseSerializer serializer];
     self.jsonParser = [[SBJsonParser alloc] init];

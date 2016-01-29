@@ -12,9 +12,9 @@
 @interface WLIAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) WLITabBarController *tabBarController;
-@property (strong, nonatomic) WLITimelineViewController *timelineViewController;
 @property (strong, nonatomic) NSTimer *timer;
+
+@property (strong, nonatomic) WLITabBarController *tabBarController;
 
 - (void)createViewHierarchy;
 

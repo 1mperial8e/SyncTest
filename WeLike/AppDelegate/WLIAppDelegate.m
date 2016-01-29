@@ -83,7 +83,7 @@
         return NO;
     } else if ([navigationViewController.topViewController isKindOfClass:[WLITimelineViewController class]]) {
         if (navigationViewController.viewControllers.count == 1) {
-            [self.timelineViewController scrollToTop];
+            [self.tabBarController.timelineViewController scrollToTop];
         }
         return YES;
     }
@@ -96,7 +96,6 @@
 {   
     self.tabBarController = [[WLITabBarController alloc] init];
     self.tabBarController.delegate = self;
-    self.timelineViewController = (id)((UINavigationController *)[self.tabBarController.viewControllers objectAtIndex:1]).topViewController;
     
     self.window.rootViewController = self.tabBarController;
 }

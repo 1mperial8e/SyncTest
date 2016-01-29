@@ -73,6 +73,7 @@
     WLITimelineViewController *timelineViewController = [WLITimelineViewController new];
     UINavigationController *timelineNavigationController = [[UINavigationController alloc] initWithRootViewController:timelineViewController];
     timelineNavigationController.navigationBar.translucent = NO;
+    self.timelineViewController = timelineViewController;
     
     WLINewPostTableViewController *newPostViewController = [WLINewPostTableViewController new];
     UINavigationController *newPostNavigationController = [[UINavigationController alloc] initWithRootViewController:newPostViewController];
